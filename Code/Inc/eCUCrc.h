@@ -1,10 +1,10 @@
 /**
- * @file eFSS.h
+ * @file eCUCrc.h
  *
  */
 
-#ifndef EFSS_H
-#define EFSS_H
+#ifndef ECUCRC_H
+#define ECUCRC_H
 
 
 
@@ -17,7 +17,7 @@ extern "C" {
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eFSSType.h"
+#include "eCUType.h"
 
 
 
@@ -105,4 +105,4 @@ e_eFSS_Res readRawParamFromMemory();
 
 
 
-#endif /* EFSS_H */
+#endif /* ECUCRC_H */

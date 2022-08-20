@@ -2843,9 +2843,18 @@
         <name>eCU</name>
         <group>
             <name>Inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUType.h</name>
+            </file>
         </group>
         <group>
             <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUCrc.c</name>
+            </file>
         </group>
     </group>
     <group>

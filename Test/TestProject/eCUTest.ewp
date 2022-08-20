@@ -36,11 +36,11 @@
                 </option>
                 <option>
                     <name>Input description</name>
-                    <state></state>
+                    <state>Full formatting, without multibyte support.</state>
                 </option>
                 <option>
                     <name>Output description</name>
-                    <state></state>
+                    <state>Full formatting, without multibyte support.</state>
                 </option>
                 <option>
                     <name>GOutputBinary</name>
@@ -62,7 +62,7 @@
                 </option>
                 <option>
                     <name>RTDescription</name>
-                    <state></state>
+                    <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
                 </option>
                 <option>
                     <name>OGProductVersion</name>
@@ -335,7 +335,10 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state></state>
+                    <state>$PROJ_DIR$\..\..\Code\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Code\Src</state>
+                    <state>$PROJ_DIR$\..\TestFunction\Inc</state>
+                    <state>$PROJ_DIR$\..\TestFunction\Src</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -633,7 +636,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state></state>
+                    <state>eCUTest.srec</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -2099,9 +2102,18 @@
         <name>eCU</name>
         <group>
             <name>Inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUType.h</name>
+            </file>
         </group>
         <group>
             <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUCrc.c</name>
+            </file>
         </group>
     </group>
     <group>
