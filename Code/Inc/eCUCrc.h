@@ -41,7 +41,7 @@ uint32_t calc_crc32( const uint8_t * p, uint32_t len);
  * @return pointer to the active screen object (loaded by 'lv_scr_load()')
  */
 uint32_t calc_crc32_seedStart(uint32_t seed, const uint8_t * p, uint32_t len);
-
+bool_t crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32);
 
 
 #ifdef __cplusplus

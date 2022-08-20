@@ -100,7 +100,16 @@ uint32_t calc_crc32_seedStart(uint32_t seed, const uint8_t * p, uint32_t len)
     return seed;
 }
 
+bool_t crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
+{
+    while (len--)
+    {
+      uint8_t i = (seed >> 24) ^ *p++;
+      seed = crctable[i] ^ (seed << 8);
+    }
 
+    return seed;
+}
 
 
 
