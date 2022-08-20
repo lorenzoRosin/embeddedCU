@@ -22,41 +22,15 @@ extern "C" {
 
 
 /***********************************************************************************************************************
- *      DEFINES
- **********************************************************************************************************************/
-
-
-
-/***********************************************************************************************************************
- *      TYPEDEFS
- **********************************************************************************************************************/
-
-
-
-/***********************************************************************************************************************
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
-
 /**
  * Return with a pointer to the active screen
  * @param disp pointer to display which active screen should be get. (NULL to use the default
  * screen)
  * @return pointer to the active screen object (loaded by 'lv_scr_load()')
  */
-e_eFSS_Res initParamSettings(s_eFSS_Ctx* prmCntx, const s_eFSS_InitParam* prmInitVal);
-
-
-
-#if 0
-
-/**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
- */
-e_eFSS_Res initializeParamMemory();
-
+uint32_t calc_crc32( const uint8_t * p, uint32_t len);
 
 
 
@@ -66,37 +40,8 @@ e_eFSS_Res initializeParamMemory();
  * screen)
  * @return pointer to the active screen object (loaded by 'lv_scr_load()')
  */
-e_eFSS_Res saveParamInMemory();
+uint32_t calc_crc32_seedStart(uint32_t seed, const uint8_t * p, uint32_t len);
 
-
-/**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
- */
-e_eFSS_Res readParamFromMemory();
-
-/**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
- */
-e_eFSS_Res saveRawParamInMemory();
-
-
-/**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
- */
-e_eFSS_Res readRawParamFromMemory();
-
-
-
-#endif
 
 
 #ifdef __cplusplus
