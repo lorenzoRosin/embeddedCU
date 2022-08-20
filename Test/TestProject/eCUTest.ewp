@@ -2095,7 +2095,25 @@
             <data />
         </settings>
     </configuration>
-    <file>
-        <name>$PROJ_DIR$\main.c</name>
-    </file>
+    <group>
+        <name>eCU</name>
+        <group>
+            <name>Inc</name>
+        </group>
+        <group>
+            <name>Src</name>
+        </group>
+    </group>
+    <group>
+        <name>Test</name>
+        <group>
+            <name>Inc</name>
+        </group>
+        <group>
+            <name>Src</name>
+        </group>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+        </file>
+    </group>
 </project>
