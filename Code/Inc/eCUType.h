@@ -34,36 +34,23 @@ extern "C" {
   #define bool_t          bool
 #endif
 
-#define EFSS_DIVISOR_PAGE_BACKUP                (2u)
-#define EFSS_DIVISOR_PAGE_SIZE_BYTE             (16u)
-#define EFSS_MIN_PAGE_SIZE_BYTE                 (256u)
-#define EFSS_MAX_PAGE_SIZE_BYTE                 (16384u)
 
 #define CRC_BASE_SEED                               ( 0xffffffffu )
 
-#define PARAM_32_MAGIC_NUMBER                       (0xa5a5a5a5u)
 
 
 
 /***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
-typedef enum t_eFSS_Res
+typedef enum t_eCU_Res
 {
-    EFSS_RES_OK = 0,
-    EFSS_RES_OKBKPRCVRD,
-    EFSS_RES_NEWVERFOUND,
-    EFSS_RES_NOTINITMEM,
-    EFSS_RES_CORRUPTMEM,
-    EFSS_RES_NOTVALIDPAGE,
-    EFSS_RES_BADPARAM,
-    EFSS_RES_BADPOINTER,
-    EFSS_RES_BADTYPE,
-    EFSS_RES_NOINITLIB,
-    EFSS_RES_ERRORREAD,
-    EFSS_RES_ERRORWRITE,
-    EFSS_RES_ERRORERASE,
-}e_eFSS_Res;
+    ECU_RES_OK = 0,
+    ECU_RES_BADPARAM,
+    ECU_RES_BADPOINTER,
+    ECU_RES_BADTYPE,
+    ECU_RES_NOINITLIB,
+}e_eCU_Res;
 
 
 typedef bool_t (*cb_readPage)      ( const uint32_t startPageId, const uint32_t pageOffset, const uint32_t pageSize, uint8_t* const dataToRead );

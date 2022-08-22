@@ -88,6 +88,13 @@ uint32_t calc_crc32( const uint8_t * p, uint32_t len)
 
     return sum;
 }
+
+bool_t crc32(const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
+{
+	return crc32_seed(CRC_BASE_SEED, data, dataLen, crc32);
+}
+
+
 /* Calculate CRC 32 with a specific seed*/
 uint32_t calc_crc32_seedStart(uint32_t seed, const uint8_t * p, uint32_t len)
 {
@@ -102,13 +109,51 @@ uint32_t calc_crc32_seedStart(uint32_t seed, const uint8_t * p, uint32_t len)
 
 bool_t crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
 {
-    while (len--)
-    {
-      uint8_t i = (seed >> 24) ^ *p++;
-      seed = crctable[i] ^ (seed << 8);
-    }
+	/* Local variable */
+	bool_t result;
+	uint8_t* dataP;
+	uint32_t len;
+	uint32_t seedCalc;
+	uint32_t indexCalc;
+	uint32_t middleShift;
+	
+	/* Check pointer validity */
+	if( ( NULL == data) || ( NULL ==  crc32) )
+	{
+		result = false;
+	}
+	else
+	{
+		/* init variable */
+		dataP = data;
+		len = dataLen;
+		seedCalc = seed;
+		indexCalc = 0u;
+		middleShift = 0u;
+		
+		/* Execute CRC calc */
+		while ( len > 0u )
+		{
+			/* Decrement len counter */
+			len--;
+			
+			/* Calc crc table index */
+			middleShift = ( seedCalc >> 24u );
+			indexCalc = ( middleShift ) ^ ( *dataP );
+			
+			/* Calc new crc */
+			middleShift = ( seedCalc << 8u );
+			seedCalc = crctable[indexCalc] ^ ( middleShift );
+			
+			/* Increase current data pointer */
+			dataP++;
+		}
+		
+		result = true;
+		*crc32 = seedCalc;		
+	}
 
-    return seed;
+	return result;
 }
 
 
