@@ -576,7 +576,7 @@
                         </package>
                         <package name="MISRAC2004" enabled="true">
                             <group name="MISRAC2004-1" enabled="true">
-                                <check name="MISRAC2004-1.1" enabled="true" />
+                                <check name="MISRAC2004-1.1" enabled="false" />
                                 <check name="MISRAC2004-1.2_a" enabled="true" />
                                 <check name="MISRAC2004-1.2_b" enabled="true" />
                                 <check name="MISRAC2004-1.2_c" enabled="true" />
