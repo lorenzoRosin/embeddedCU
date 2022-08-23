@@ -73,8 +73,8 @@ e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* dataS, const uint32_t d
 {
 	/* Local variable */
 	e_eCU_Res result;
-	const uint8_t* dataP;
 	uint32_t len;
+    uint32_t lenStart;
 	uint32_t seedCalc;
 	uint32_t indexCalc;
 	uint32_t middleShift;
@@ -87,8 +87,8 @@ e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* dataS, const uint32_t d
 	else
 	{
 		/* init variable */
-		dataP = dataS;
 		len = dataSLen;
+        lenStart = dataSLen;
 		seedCalc = seed;
 
 		/* Execute CRC calc */
@@ -99,14 +99,11 @@ e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* dataS, const uint32_t d
 
 			/* Calc crc table index */
 			middleShift = ( seedCalc >> 24u );
-			indexCalc = ( middleShift ) ^ ( *dataP );
+			indexCalc = ( middleShift ) ^ ( dataS[lenStart - (len + 1u) ] );
 
 			/* Calc new crc */
 			middleShift = ( seedCalc << 8u );
 			seedCalc = crctable[indexCalc] ^ ( middleShift );
-
-			/* Increase current data pointer */
-			dataP++;
 		}
 
 		result = ECU_RES_OK;

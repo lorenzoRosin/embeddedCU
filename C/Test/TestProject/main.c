@@ -1,7 +1,9 @@
 
 #include "eCUCrc.h"
+int main(void);
 
-int main()
+
+int main(void)
 {
   return 0;
 }
