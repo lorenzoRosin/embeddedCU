@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\Project\eCU\Test\TestProject\settings\eCUTest.Debug.general.xcl" --backend -f "C:\Project\eCU\Test\TestProject\settings\eCUTest.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\Project\eCU\C\Test\TestProject\settings\eCUTest.Debug.general.xcl" --backend -f "C:\Project\eCU\C\Test\TestProject\settings\eCUTest.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\Project\eCU\Test\TestProject\settings\eCUTest.Debug.general.xcl" --debug_file=$debugfile --backend -f "C:\Project\eCU\Test\TestProject\settings\eCUTest.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\Project\eCU\C\Test\TestProject\settings\eCUTest.Debug.general.xcl" --debug_file=$debugfile --backend -f "C:\Project\eCU\C\Test\TestProject\settings\eCUTest.Debug.driver.xcl" 
 }

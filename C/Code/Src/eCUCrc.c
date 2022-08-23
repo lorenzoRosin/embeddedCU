@@ -64,23 +64,23 @@ static const uint32_t crctable[256] = {
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res crc32(const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
+e_eCU_Res crc32(const uint8_t* data, const uint32_t dataLen, uint32_t* const crc32Val)
 {
-	return crc32_seed(ECU_CRC_BASE_SEED, data, dataLen, crc32);
+	return crc32_seed(ECU_CRC_BASE_SEED, data, dataLen, crc32Val);
 }
 
-e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
+e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t* const crc32Val)
 {
 	/* Local variable */
 	e_eCU_Res result;
-	uint8_t* dataP;
+	const uint8_t* dataP;
 	uint32_t len;
 	uint32_t seedCalc;
 	uint32_t indexCalc;
 	uint32_t middleShift;
-	
+
 	/* Check pointer validity */
-	if( ( NULL == data) || ( NULL ==  crc32) )
+	if( ( NULL == data) || ( NULL == crc32Val) )
 	{
 		result = ECU_RES_BADPOINTER;
 	}
@@ -92,27 +92,27 @@ e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t da
 		seedCalc = seed;
 		indexCalc = 0u;
 		middleShift = 0u;
-		
+
 		/* Execute CRC calc */
 		while ( len > 0u )
 		{
 			/* Decrement len counter */
 			len--;
-			
+
 			/* Calc crc table index */
 			middleShift = ( seedCalc >> 24u );
 			indexCalc = ( middleShift ) ^ ( *dataP );
-			
+
 			/* Calc new crc */
 			middleShift = ( seedCalc << 8u );
 			seedCalc = crctable[indexCalc] ^ ( middleShift );
-			
+
 			/* Increase current data pointer */
 			dataP++;
 		}
-		
+
 		result = ECU_RES_OK;
-		*crc32 = seedCalc;		
+		*crc32Val = seedCalc;
 	}
 
 	return result;
