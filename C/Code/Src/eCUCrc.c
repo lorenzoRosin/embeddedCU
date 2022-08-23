@@ -90,8 +90,6 @@ e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t da
 		dataP = data;
 		len = dataLen;
 		seedCalc = seed;
-		indexCalc = 0u;
-		middleShift = 0u;
 
 		/* Execute CRC calc */
 		while ( len > 0u )
