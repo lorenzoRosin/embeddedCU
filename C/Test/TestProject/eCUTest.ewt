@@ -2847,6 +2847,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrc.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUStandardType.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUType.h</name>
             </file>
         </group>

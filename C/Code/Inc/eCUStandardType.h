@@ -1,10 +1,10 @@
 /**
- * @file eCUType.h
+ * @file eCUStandardType.h
  *
  */
 
-#ifndef ECU_TYPE_H
-#define ECU_TYPE_H
+#ifndef ECU_STANDARDTYPE_H
+#define ECU_STANDARDTYPE_H
 
 
 
@@ -17,28 +17,22 @@ extern "C" {
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUStandardType.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
 
 
 
 /***********************************************************************************************************************
  *      DEFINES
  **********************************************************************************************************************/
-#define ECU_CRC_BASE_SEED                               ( 0xffffffffu )
+#ifndef NULL
+  #define NULL          ( _NULL )
+#endif
 
-
-
-/***********************************************************************************************************************
- *      TYPEDEFS
- **********************************************************************************************************************/
-typedef enum
-{
-    ECU_RES_OK = 0,
-    ECU_RES_BADPARAM,
-    ECU_RES_BADPOINTER,
-    ECU_RES_OUTOFMEM,
-    ECU_RES_NOINITLIB,
-}e_eCU_Res;
+#ifndef bool_t
+  #define bool_t        ( bool  )
+#endif
 
 
 
@@ -48,4 +42,4 @@ typedef enum
 
 
 
-#endif /* ECU_TYPE_H */
+#endif /* ECU_STANDARDTYPE_H */
