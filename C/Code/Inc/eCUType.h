@@ -27,11 +27,11 @@ extern "C" {
  *      DEFINES
  **********************************************************************************************************************/
 #ifndef NULL
-  #define NULL          _NULL
+  #define NULL          ( _NULL )
 #endif
 
 #ifndef bool_t
-  #define bool_t          bool
+  #define bool_t        ( bool  )
 #endif
 
 
