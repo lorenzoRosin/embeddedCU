@@ -26,84 +26,99 @@ extern "C" {
  **********************************************************************************************************************/
 typedef struct
 {
-    bool_t isInitialized;
+    bool_t isInit;
 	uint8_t* memPool;
 	uint32_t memPoolSize;
-	uint32_t memPoolOccupiedSize;
-	uint32_t memPoolFirstFreeByteIndex;
-	uint32_t memPoolFirstOccupiedByteIndex;
-}s_eCU_CircularQueueCtx
+	uint32_t memPoolUsedSize;
+	uint32_t memPoolFrstFreeIdx;
+	uint32_t memPoolFrstOccIdx;
+}s_eCU_circQCtx
+
+
 
 /***********************************************************************************************************************
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
+ * Initialize the circular queue 
+ * @param ctx Circular queue context
+ * @param memPool Pointer to a memory pool that we will use to manage the circular queue
+ * @param memPoolSize Dimension in byte of the circular queue
+ * @return ECU_RES_BADPOINTER in case of bad pointer
+		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *         ECU_RES_OK circular queue is initialized correctly
  */
- e_eCU_Res circularQueueInit(s_eCU_CircularQueueCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize);
- 
+e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize);
  
 /**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
+ * Reset the state of the circular queue and discharge all saved data
+ * @param ctx Circular queue context
+ * @return ECU_RES_BADPOINTER in case of bad pointer
+		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *         ECU_RES_OK circular queue is reset correctly
  */
- e_eCU_Res circularQueueReset(s_eCU_CircularQueueCtx* const ctx);
- 
- 
+e_eCU_Res circQReset(s_eCU_circQCtx* const ctx);
+
 /**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
+ * Get free space present in the queue
+ * @param ctx Circular queue context
+ * @param freeSpace Pointer to variable where free space present in queue will be stored
+ * @return ECU_RES_BADPOINTER in case of bad pointer
+		   ECU_RES_NOINITLIB need to init the queue before taking some action
+		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *         ECU_RES_OK operation returned correctly
  */
- e_eCU_Res circularQueueGetFreeSapce(s_eCU_CircularQueueCtx* const ctx, uint32_t* freeSpace);
+e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace);
   
+/**
+ * Get the used space in the queue
+ * @param ctx Circular queue context
+ * @param usedSpace Pointer to variable where used space present in queue will be stored
+ * @return ECU_RES_BADPOINTER in case of bad pointer
+		   ECU_RES_NOINITLIB need to init the queue before taking some action
+		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *         ECU_RES_OK operation returned correctly
+ */
+e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedSpace);
  
 /**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
+ * Insert data in the queue if free space is avaiable
+ * @param ctx Circular queue context
+ * @param data Pointer to the data that we want to insert in the queue
+ * @param datalen Lenght of the data present in the pointer passed
+ * @return ECU_RES_BADPOINTER in case of bad pointer
+		   ECU_RES_NOINITLIB need to init the queue before taking some action
+		   ECU_RES_BADPARAM in case of an invalid parameter or state
+		   ECU_RES_OUTOFMEM no memory avaiable for this operation
+ *         ECU_RES_OK operation returned correctly
  */
- e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint32_t* occupiedSpace);
- 
-   
+e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const uint32_t datalen);
  
 /**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
+ * Retrive data from the queue if avaiable
+ * @param ctx Circular queue context
+ * @param data Pointer to the data that we want to retrive from queue
+ * @param datalen Lenght of the data that we want to retrive
+ * @return ECU_RES_BADPOINTER in case of bad pointer
+		   ECU_RES_NOINITLIB need to init the queue before taking some action
+		   ECU_RES_BADPARAM in case of an invalid parameter or state
+		   ECU_RES_OUTOFMEM no memory avaiable for this operation
+ *         ECU_RES_OK operation returned correctly
  */
- e_eCU_Res circularQueueInsertData(s_eCU_CircularQueueCtx* const ctx, uint32_t* data, uint32_t datalen);
- 
- 
+e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen);
+
 /**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
+ * Peek data from the queue if avaiable
+ * @param ctx Circular queue context
+ * @param data Pointer to the data that we want to peek from queue
+ * @param datalen Lenght of the data that we want to peek
+ * @return ECU_RES_BADPOINTER in case of bad pointer
+		   ECU_RES_NOINITLIB need to init the queue before taking some action
+		   ECU_RES_BADPARAM in case of an invalid parameter or state
+		   ECU_RES_OUTOFMEM no memory avaiable for this operation
+ *         ECU_RES_OK operation returned correctly
  */
- e_eCU_Res circularQueueRetriveData(s_eCU_CircularQueueCtx* const ctx, uint32_t* data, uint32_t datalen);
- 
- 
-/**
- * Return with a pointer to the active screen
- * @param disp pointer to display which active screen should be get. (NULL to use the default
- * screen)
- * @return pointer to the active screen object (loaded by 'lv_scr_load()')
- */
- e_eCU_Res circularQueuePeekData(s_eCU_CircularQueueCtx* const ctx, uint32_t* data, uint32_t datalen);
- 
- 
- 
- 
- 
+e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen);
  
  
  

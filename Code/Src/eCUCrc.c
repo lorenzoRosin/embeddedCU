@@ -8,20 +8,10 @@
  **********************************************************************************************************************/
 #include "eCUCrc.h"
 
-/***********************************************************************************************************************
- *      DEFINES
- **********************************************************************************************************************/
+
 
 /***********************************************************************************************************************
- *      PRIVATE TYPEDEFS
- **********************************************************************************************************************/
-
-/***********************************************************************************************************************
- *   PRIVATE STATIC FUNCTIONS PROTOTYPES
- **********************************************************************************************************************/
-
-/***********************************************************************************************************************
- *  STATIC VARIABLES
+ *  PRIVATE STATIC VARIABLES
  **********************************************************************************************************************/
 static const uint32_t crctable[256] = {
  0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9, 0x130476dc, 0x17c56b6b,
@@ -69,48 +59,20 @@ static const uint32_t crctable[256] = {
  0xbcb4666d, 0xb8757bda, 0xb5365d03, 0xb1f740b4,
 };
 
-/***********************************************************************************************************************
- *      MACROS
- **********************************************************************************************************************/
+
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-/* Calculate CRC 32 */
-uint32_t calc_crc32( const uint8_t * p, uint32_t len)
+e_eCU_Res crc32(const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
 {
-    uint32_t sum = 0xffffffff;
-    while (len--)
-    {
-      uint8_t i = (sum >> 24) ^ *p++;
-      sum = crctable[i] ^ (sum << 8);
-    }
-
-    return sum;
+	return crc32_seed(ECU_CRC_BASE_SEED, data, dataLen, crc32);
 }
 
-bool_t crc32(const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
-{
-	return crc32_seed(CRC_BASE_SEED, data, dataLen, crc32);
-}
-
-
-/* Calculate CRC 32 with a specific seed*/
-uint32_t calc_crc32_seedStart(uint32_t seed, const uint8_t * p, uint32_t len)
-{
-    while (len--)
-    {
-      uint8_t i = (seed >> 24) ^ *p++;
-      seed = crctable[i] ^ (seed << 8);
-    }
-
-    return seed;
-}
-
-bool_t crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
+e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t const* crc32)
 {
 	/* Local variable */
-	bool_t result;
+	e_eCU_Res result;
 	uint8_t* dataP;
 	uint32_t len;
 	uint32_t seedCalc;
@@ -120,7 +82,7 @@ bool_t crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataL
 	/* Check pointer validity */
 	if( ( NULL == data) || ( NULL ==  crc32) )
 	{
-		result = false;
+		result = ECU_RES_BADPOINTER;
 	}
 	else
 	{
@@ -149,7 +111,7 @@ bool_t crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataL
 			dataP++;
 		}
 		
-		result = true;
+		result = ECU_RES_OK;
 		*crc32 = seedCalc;		
 	}
 
@@ -159,11 +121,6 @@ bool_t crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataL
 
 
 
-
-
-/***********************************************************************************************************************
- *   PRIVATE STATIC FUNCTIONS
- **********************************************************************************************************************/
 
 
 

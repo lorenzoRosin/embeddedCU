@@ -24,7 +24,6 @@
  *  STATIC VARIABLES
  **********************************************************************************************************************/
 
-
 /***********************************************************************************************************************
  *      MACROS
  **********************************************************************************************************************/
@@ -32,7 +31,7 @@
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
- e_eCU_Res circularQueueInit(s_eCU_CircularQueueCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize)
+e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -52,18 +51,18 @@
 		else
 		{
 			/* Check Init */
-			if( true == ctx->isInitialized )
+			if( true == ctx->isInit )
 			{
 				result = ECU_RES_BADPARAM;
 			}
 			else
 			{
-				ctx->isInitialized = true;
+				ctx->isInit = true;
 				ctx->memPool = memPool;
 				ctx->memPoolSize = memPoolSize;
-				ctx->memPoolOccupiedSize = 0u;
-				ctx->memPoolFirstFreeByteIndex = 0u;
-				ctx->memPoolFirstOccupiedByteIndex = 0u;
+				ctx->memPoolUsedSize = 0u;
+				ctx->memPoolFrstFreeIdx = 0u;
+				ctx->memPoolFrstOccIdx = 0u;
 				
 				result = ECU_RES_OK;
 			}			
@@ -72,8 +71,7 @@
 	return result;
 }
 
-
- e_eCU_Res circularQueueReset(s_eCU_CircularQueueCtx* const ctx)
+e_eCU_Res circQReset(s_eCU_circQCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -86,28 +84,23 @@
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInitialized )
+		if( false == ctx->isInit )
 		{
 			result = ECU_RES_NOINITLIB;
 		}
 		else
-		{
-			/* Clean memory */
-			memset( ctx->memPool, 0u, ctx->memPoolSize );
-			
-			/* Update index */
-			ctx->memPoolOccupiedSize = 0u;
-			ctx->memPoolFirstFreeByteIndex = 0u;
-			ctx->memPoolFirstOccupiedByteIndex = 0u;
+		{			
+			/* Update index in order to discharge all saved data */
+			ctx->memPoolUsedSize = 0u;
+			ctx->memPoolFrstFreeIdx = 0u;
+			ctx->memPoolFrstOccIdx = 0u;
 			result = ECU_RES_OK;		
 		}
 
 	return result;
 }
 
-
-
-e_eCU_Res circularQueueGetFreeSapce(s_eCU_CircularQueueCtx* const ctx, uint32_t* freeSpace)
+e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -120,55 +113,70 @@ e_eCU_Res circularQueueGetFreeSapce(s_eCU_CircularQueueCtx* const ctx, uint32_t*
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInitialized )
+		if( false == ctx->isInit )
 		{
 			result = ECU_RES_NOINITLIB;
 		}
 		else
 		{
-			*freeSpace = ctx->memPoolSize - ctx->memPoolOccupiedSize;
-			result = ECU_RES_OK;			
+			/* Check data validity an queue integrity */
+			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || 
+			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
+			{
+				result = ECU_RES_BADPARAM;
+			}
+			else
+			{
+				*freeSpace = ctx->memPoolSize - ctx->memPoolUsedSize;
+				result = ECU_RES_OK;				
+			}
 		}
 
 	return result;
 }
 
-
-
-e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint32_t* occupiedSpace)
+e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedSpace)
 {
 	/* Local variable */
 	e_eCU_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == occupiedSpace ) )
+	if( ( NULL == ctx ) || ( NULL == usedSpace ) )
 	{
 		result = ECU_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInitialized )
+		if( false == ctx->isInit )
 		{
 			result = ECU_RES_NOINITLIB;
 		}
 		else
 		{
-			*occupiedSpace = ctx->memPoolOccupiedSize;
-			result = ECU_RES_OK;			
+			/* Check data validity an queue integrity */
+			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || 
+			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
+			{
+				result = ECU_RES_BADPARAM;
+			}
+			else
+			{
+				*usedSpace = ctx->memPoolUsedSize;
+				result = ECU_RES_OK;					
+			}
 		}
 
 	return result;
 }
 
-
- e_eCU_Res circularQueueInsertData(s_eCU_CircularQueueCtx* const ctx, uint32_t* data, uint32_t datalen)
- {
+e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const uint32_t datalen)
+{
 	/* Local variable */
 	e_eCU_Res result;
 	uint32_t freeSpace;
-	uint32_t firstTransh;
-	uint32_t secondTransh
+	uint32_t firstTranshLen;
+	uint32_t secondTranshLen
 	
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
@@ -178,36 +186,43 @@ e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint3
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInitialized )
+		if( false == ctx->isInit )
 		{
 			result = ECU_RES_NOINITLIB;
 		}
 		else
 		{
-			/* Check data validity */
-			if( datalen <= 0u )
+			/* Check data validity an queue integrity */
+			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || 
+			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
 			{
 				result = ECU_RES_BADPARAM;
 			}
 			else
 			{
-				result = circularQueueGetFreeSapce(ctx, &freeSpace);
+				/* Check for free memory */
+				result = circQGetFreeSapce(ctx, &freeSpace);
+				
 				if( ECU_RES_OK == result )
 				{
-					if( datalen > freeSpace)
+					if( datalen > freeSpace )
 					{
-						result = ECU_RES_BADPARAM;
+						/* No memory avaiable */
+						result = ECU_RES_OUTOFMEM;
 					}
 					else
 					{
-						if( ( datalen +  ctx->memPoolFirstFreeByteIndex ) <= ctx->memPoolSize )
+						/* Can insert data */
+						if( ( datalen +  ctx->memPoolFrstFreeIdx ) <= ctx->memPoolSize )
 						{
 							/* Direct copy */
-							memcpy(&ctx->memPool[ctx->memPoolFirstFreeByteIndex], data, datalen);
-							ctx->memPoolFirstFreeByteIndex += datalen;
-							if(ctx->memPoolFirstFreeByteIndex >= ctx->memPoolSize)
+							memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, datalen);
+							
+							/* Update free index */
+							ctx->memPoolFrstFreeIdx += datalen;
+							if(ctx->memPoolFrstFreeIdx >= ctx->memPoolSize)
 							{
-								ctx->memPoolFirstFreeByteIndex = 0;
+								ctx->memPoolFrstFreeIdx = 0u;
 							}
 						}
 						else
@@ -215,17 +230,17 @@ e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint3
 							/* Multicopy */
 				
 							/* First round */
-							firstTransh = ctx->memPoolSize - ctx->memPoolFirstFreeByteIndex;
-							memcpy(&ctx->memPool[ctx->memPoolFirstFreeByteIndex], data, firstTransh);
-							ctx->memPoolFirstFreeByteIndex = 0;
+							firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstFreeIdx;
+							memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, firstTranshLen);
+							ctx->memPoolFrstFreeIdx = 0u;
 				
 							/* Second round */
-							secondTransh = datalen - firstTransh;
-							memcpy(&ctx->memPool[ctx->memPoolFirstFreeByteIndex], &data[firstTransh], secondTransh);
-							ctx->memPoolFirstFreeByteIndex += secondTransh;
+							secondTranshLen = datalen - firstTranshLen;
+							memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], &data[firstTranshLen], secondTranshLen);
+							ctx->memPoolFrstFreeIdx += secondTranshLen;
 						}
 				
-						ctx->memPoolOccupiedSize += datalen;
+						ctx->memPoolUsedSize += datalen;
 						result = ECU_RES_OK;						
 					}					
 				}
@@ -233,17 +248,15 @@ e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint3
 		}
 
 	return result;
- }
- 
+}
 
-
- e_eCU_Res circularQueueInsertData(s_eCU_CircularQueueCtx* const ctx, uint32_t* data, uint32_t datalen)
- {
+e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen)
+{
 	/* Local variable */
 	e_eCU_Res result;
-	uint32_t freeSpace;
-	uint32_t firstTransh;
-	uint32_t secondTransh
+	uint32_t usedSpace;
+	uint32_t firstTranshLen;
+	uint32_t secondTranshLen
 	
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
@@ -253,36 +266,41 @@ e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint3
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInitialized )
+		if( false == ctx->isInit )
 		{
 			result = ECU_RES_NOINITLIB;
 		}
 		else
 		{
-			/* Check data validity */
-			if( datalen <= 0u )
+			/* Check data validity an queue integrity */
+			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || 
+			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
 			{
 				result = ECU_RES_BADPARAM;
 			}
 			else
 			{
-				result = circularQueueGetFreeSapce(ctx, &freeSpace);
+				result = circQGetOccupiedSapce(ctx, &usedSpace);
 				if( ECU_RES_OK == result )
 				{
-					if( datalen > freeSpace)
+					if( datalen > usedSpace)
 					{
-						result = ECU_RES_BADPARAM;
+						/* No enoght data in the queue */
+						result = ECU_RES_OUTOFMEM;
 					}
 					else
 					{
-						if( ( datalen +  ctx->memPoolFirstFreeByteIndex ) <= ctx->memPoolSize )
+						/* Can retrive data */
+						if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
 						{
 							/* Direct copy */
-							memcpy(&ctx->memPool[ctx->memPoolFirstFreeByteIndex], data, datalen);
-							ctx->memPoolFirstFreeByteIndex += datalen;
-							if(ctx->memPoolFirstFreeByteIndex >= ctx->memPoolSize)
+							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
+							
+							/* Update used index */
+							ctx->memPoolFrstOccIdx += datalen;
+							if(ctx->memPoolFrstOccIdx >= ctx->memPoolSize)
 							{
-								ctx->memPoolFirstFreeByteIndex = 0;
+								ctx->memPoolFrstOccIdx = 0u;
 							}
 						}
 						else
@@ -290,17 +308,17 @@ e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint3
 							/* Multicopy */
 				
 							/* First round */
-							firstTransh = ctx->memPoolSize - ctx->memPoolFirstFreeByteIndex;
-							memcpy(&ctx->memPool[ctx->memPoolFirstFreeByteIndex], data, firstTransh);
-							ctx->memPoolFirstFreeByteIndex = 0;
+							firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
+							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
+							ctx->memPoolFrstOccIdx = 0u;
 				
 							/* Second round */
-							secondTransh = datalen - firstTransh;
-							memcpy(&ctx->memPool[ctx->memPoolFirstFreeByteIndex], &data[firstTransh], secondTransh);
-							ctx->memPoolFirstFreeByteIndex += secondTransh;
+							secondTranshLen = datalen - firstTranshLen;
+							memcpy(&data[firstTranshLen], &ctx->memPool[ctx->memPoolFrstOccIdx], secondTranshLen);
+							ctx->memPoolFrstOccIdx += secondTranshLen;
 						}
 				
-						ctx->memPoolOccupiedSize += datalen;
+						ctx->memPoolUsedSize -= datalen;
 						result = ECU_RES_OK;						
 					}					
 				}
@@ -308,16 +326,15 @@ e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint3
 		}
 
 	return result;
- }
+}
  
-
- e_eCU_Res circularQueueRetriveData(s_eCU_CircularQueueCtx* const ctx, uint32_t* data, uint32_t datalen)
- {
+e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen)
+{
 	/* Local variable */
 	e_eCU_Res result;
-	uint32_t occupiedSpace;
-	uint32_t firstTransh;
-	uint32_t secondTransh
+	uint32_t usedSpace;
+	uint32_t firstTranshLen;
+	uint32_t secondTranshLen
 	
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
@@ -327,119 +344,47 @@ e_eCU_Res circularQueueGetOccupiedSapce(s_eCU_CircularQueueCtx* const ctx, uint3
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInitialized )
+		if( false == ctx->isInit )
 		{
 			result = ECU_RES_NOINITLIB;
 		}
 		else
 		{
-			/* Check data validity */
-			if( datalen <= 0u )
+			/* Check data validity an queue integrity */
+			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || 
+			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
 			{
 				result = ECU_RES_BADPARAM;
 			}
 			else
 			{
-				result = circularQueueGetOccupiedSapce(ctx, &occupiedSpace);
+				result = circQGetOccupiedSapce(ctx, &usedSpace);
 				if( ECU_RES_OK == result )
 				{
-					if( datalen > occupiedSpace)
+					if( datalen > usedSpace)
 					{
-						result = ECU_RES_BADPARAM;
+						/* No enoght data in the queue */
+						result = ECU_RES_OUTOFMEM;
 					}
 					else
 					{
-						if( ( datalen +  ctx->memPoolFirstOccupiedByteIndex ) <= ctx->memPoolSize )
+						/* Can retrive data */
+						if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
 						{
 							/* Direct copy */
-							memcpy(data, &ctx->memPool[ctx->memPoolFirstOccupiedByteIndex], datalen);
-							ctx->memPoolFirstOccupiedByteIndex += datalen;
-							if(ctx->memPoolFirstOccupiedByteIndex >= ctx->memPoolSize)
-							{
-								ctx->memPoolFirstOccupiedByteIndex = 0;
-							}
+							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
 						}
 						else
 						{
 							/* Multicopy */
 				
 							/* First round */
-							firstTransh = ctx->memPoolSize - ctx->memPoolFirstOccupiedByteIndex;
-							memcpy(data, &ctx->memPool[ctx->memPoolFirstOccupiedByteIndex], firstTransh);
-							ctx->memPoolFirstOccupiedByteIndex = 0;
+							firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
+							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
 				
 							/* Second round */
-							secondTransh = datalen - firstTransh;
-							memcpy(&data[firstTransh], &ctx->memPool[ctx->memPoolFirstOccupiedByteIndex], secondTransh);
-							ctx->memPoolFirstOccupiedByteIndex += secondTransh;
-						}
-				
-						ctx->memPoolOccupiedSize -= datalen;
-						result = ECU_RES_OK;						
-					}					
-				}
-			}
-		}
-
-	return result;
- }
- 
- 
- 
-e_eCU_Res circularQueuePeekData(s_eCU_CircularQueueCtx* const ctx, uint32_t* data, uint32_t datalen)
- {
-	/* Local variable */
-	e_eCU_Res result;
-	uint32_t occupiedSpace;
-	uint32_t firstTransh;
-	uint32_t secondTransh
-	
-	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == data ) )
-	{
-		result = ECU_RES_BADPOINTER;
-	}
-	else
-	{
-		/* Check Init */
-		if( false == ctx->isInitialized )
-		{
-			result = ECU_RES_NOINITLIB;
-		}
-		else
-		{
-			/* Check data validity */
-			if( datalen <= 0u )
-			{
-				result = ECU_RES_BADPARAM;
-			}
-			else
-			{
-				result = circularQueueGetOccupiedSapce(ctx, &occupiedSpace);
-				if( ECU_RES_OK == result )
-				{
-					if( datalen > occupiedSpace)
-					{
-						result = ECU_RES_BADPARAM;
-					}
-					else
-					{
-						if( ( datalen +  ctx->memPoolFirstOccupiedByteIndex ) <= ctx->memPoolSize )
-						{
-							/* Direct copy */
-							memcpy(data, &ctx->memPool[ctx->memPoolFirstOccupiedByteIndex], datalen);
-						}
-						else
-						{
-							/* Multicopy */
-				
-							/* First round */
-							firstTransh = ctx->memPoolSize - ctx->memPoolFirstOccupiedByteIndex;
-							memcpy(data, &ctx->memPool[ctx->memPoolFirstOccupiedByteIndex], firstTransh);
-				
-							/* Second round */
-							secondTransh = datalen - firstTransh;
-							memcpy(&data[firstTransh], &ctx->memPool[0u], secondTransh);
+							secondTranshLen = datalen - firstTranshLen;
+							memcpy(&data[firstTranshLen], &ctx->memPool[0u], secondTranshLen);
 						}
 				
 						result = ECU_RES_OK;						
@@ -449,4 +394,4 @@ e_eCU_Res circularQueuePeekData(s_eCU_CircularQueueCtx* const ctx, uint32_t* dat
 		}
 
 	return result;
- } 
+} 
