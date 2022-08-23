@@ -69,7 +69,7 @@ e_eCU_Res crc32(const uint8_t* data, const uint32_t dataLen, uint32_t* const crc
 	return crc32_seed(ECU_CRC_BASE_SEED, data, dataLen, crc32Val);
 }
 
-e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t* const crc32Val)
+e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* dataS, const uint32_t dataSLen, uint32_t* const crc32SVal)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -80,15 +80,15 @@ e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t da
 	uint32_t middleShift;
 
 	/* Check pointer validity */
-	if( ( NULL == data) || ( NULL == crc32Val) )
+	if( ( NULL == dataS) || ( NULL == crc32SVal) )
 	{
 		result = ECU_RES_BADPOINTER;
 	}
 	else
 	{
 		/* init variable */
-		dataP = data;
-		len = dataLen;
+		dataP = dataS;
+		len = dataSLen;
 		seedCalc = seed;
 
 		/* Execute CRC calc */
@@ -110,7 +110,7 @@ e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t da
 		}
 
 		result = ECU_RES_OK;
-		*crc32Val = seedCalc;
+		*crc32SVal = seedCalc;
 	}
 
 	return result;

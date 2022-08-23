@@ -39,11 +39,11 @@ e_eCU_Res crc32(const uint8_t* data, const uint32_t dataLen, uint32_t* const crc
  * @param seed Seed that will be used to calculate the CRC 32
  * @param data Pointer to the data buffer where we will calculate the CRC 32
  * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32Val Pointer to an uint32_t were we will store the calculated CRC 32
+ * @param crc32ValSeed Pointer to an uint32_t were we will store the calculated CRC 32
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *         ECU_RES_OK crc 32 calculated successfully
  */
-e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* data, const uint32_t dataLen, uint32_t* const crc32Val);
+e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t* dataS, const uint32_t dataSLen, uint32_t* const crc32SVal);
 
 #ifdef __cplusplus
 } /* extern "C" */
