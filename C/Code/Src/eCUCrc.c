@@ -13,8 +13,10 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC VARIABLES
  **********************************************************************************************************************/
-#pragma cstat_disable = "MISRAC2012-Rule-8.9_a", "MISRAC2012-Rule-8.9_b", "MISRAC2004-8.7"
-/* Suppressed for code clarity */
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2012-Rule-8.9_a", "MISRAC2012-Rule-8.9_b", "MISRAC2004-8.7"
+    /* Suppressed for code clarity */
+#endif
 
 static const uint32_t crctable[256] = {
  0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9, 0x130476dc, 0x17c56b6b,
@@ -61,8 +63,10 @@ static const uint32_t crctable[256] = {
  0x933eb0bb, 0x97ffad0c, 0xafb010b1, 0xab710d06, 0xa6322bdf, 0xa2f33668,
  0xbcb4666d, 0xb8757bda, 0xb5365d03, 0xb1f740b4,
 };
-#pragma cstat_restore = "MISRAC2012-Rule-8.9_a"
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2012-Rule-8.9_a"
+#endif
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
