@@ -107,34 +107,6 @@ e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retr
 	return result;
 }
 
-e_eCU_Res dataPackGetDataArray(s_eCU_DataPackCtx* const ctx, uint8_t** datapointer, uint32_t* const retrivedLen)
-{
-	/* Local variable */
-	e_eCU_Res result;
-
-	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == datapointer ) || ( NULL == retrivedLen ) )
-	{
-		result = ECU_RES_BADPOINTER;
-	}
-	else
-	{
-		/* Check Init */
-		if( false == ctx->isInit )
-		{
-			result = ECU_RES_NOINITLIB;
-		}
-		else
-		{
-			*datapointer = ctx->memPool;
-			*retrivedLen = ctx->memPoolCntr;
-			
-			result = ECU_RES_OK;			
-		}
-
-	return result;
-}
-
 e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const dataDest, uint32_t* const retrivedLen, 
 								 const uint32_t dataDestMaxSize)
 {

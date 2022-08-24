@@ -71,17 +71,6 @@ e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx);
 e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
- * Retrive the pointer pointing to the data we have serialized
- * @param ctx Data packer context
- * @param datapointer Pointer to a memory area were we will store the data pointer
- * @param retrivedLen Pointer to a memory area were we will store size of serialized data
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
- *         ECU_RES_OK operation ended correctly
- */
-e_eCU_Res dataPackGetDataArray(s_eCU_DataPackCtx* const ctx, uint8_t** datapointer, uint32_t* const retrivedLen);
-
-/**
  * Retrive all data serialized and reset the datapacker
  * @param ctx Data packer context
  * @param dataDest Pointer to a memory area
