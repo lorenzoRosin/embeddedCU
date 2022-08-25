@@ -169,6 +169,11 @@ e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedS
 	return result;
 }
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-17.4_b"
+    /* Suppressed for code clarity */
+#endif
+
 e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const uint32_t datalen)
 {
 	/* Local variable */
@@ -419,7 +424,9 @@ e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const ui
 	return result;
 }
 
-
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2004-17.4_b"
+#endif
 
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
