@@ -13,7 +13,7 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isQueueStatusStillCoherent(s_eCU_circQCtx* const ctx);
+static bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx);
 
 
 
@@ -424,36 +424,28 @@ e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const u
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isQueueStatusStillCoherent(s_eCU_circQCtx* const ctx)
+bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx)
 {
     bool_t result;
 
-	/* Check pointer validity */
-	if( NULL == ctx )
+	/* Check context validity */
+	if( ( ctx->memPoolSize <= 0u ) || ( NULL == ctx->memPoolSize ) )
 	{
 		result = false;
 	}
 	else
 	{
-		/* Check context validity */
-		if( ( ctx->memPoolSize <= 0u ) || ( NULL == ctx->memPoolSize ) )
+		/* Check queue data coherence */
+		if( ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) ||
+		    ( ctx->memPoolSize < ctx->memPoolUsedSize ) )
 		{
 			result = false;
 		}
 		else
 		{
-			/* Check queue data coherence */
-			if( ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) ||
-			    ( ctx->memPoolSize < ctx->memPoolUsedSize ) )
-			{
-				result = false;
-			}
-			else
-			{
-                result = true;
-			}
+            result = true;
 		}
-    }
+	}
 
     return result;
 }
