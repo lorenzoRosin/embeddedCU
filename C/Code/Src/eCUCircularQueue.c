@@ -169,7 +169,7 @@ e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedS
 	return result;
 }
 
-e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const uint32_t datalen)
+e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -257,7 +257,7 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const
 	return result;
 }
 
-e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen)
+e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -343,7 +343,7 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, cons
 	return result;
 }
 
-e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen)
+e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_Res result;

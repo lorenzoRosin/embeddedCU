@@ -93,7 +93,7 @@ e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedS
  *		   ECU_RES_OUTOFMEM no memory avaiable for this operation
  *         ECU_RES_OK operation returned correctly
  */
-e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const uint32_t datalen);
+e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const uint32_t datalen);
 
 /**
  * Retrive data from the queue if avaiable
@@ -106,7 +106,7 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const
  *		   ECU_RES_OUTOFMEM no memory avaiable for this operation
  *         ECU_RES_OK operation returned correctly
  */
-e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen);
+e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen);
 
 /**
  * Peek data from the queue if avaiable
@@ -119,7 +119,7 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, cons
  *		   ECU_RES_OUTOFMEM no memory avaiable for this operation
  *         ECU_RES_OK operation returned correctly
  */
-e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen);
+e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen);
 
 
 
