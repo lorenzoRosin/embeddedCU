@@ -26,13 +26,13 @@ extern "C" {
  **********************************************************************************************************************/
 typedef struct
 {
-    bool_t isInit;
-	uint8_t* memPool;
-	uint32_t memPoolSize;
-	uint32_t memPoolUsedSize;
-	uint32_t memPoolFrstFreeIdx;
-	uint32_t memPoolFrstOccIdx;
-}s_eCU_circQCtx
+    bool_t   isInit;
+    uint8_t* memPool;
+    uint32_t memPoolSize;
+    uint32_t memPoolUsedSize;
+    uint32_t memPoolFrstFreeIdx;
+    uint32_t memPoolFrstOccIdx;
+}s_eCU_circQCtx;
 
 
 
@@ -40,7 +40,7 @@ typedef struct
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Initialize the circular queue 
+ * Initialize the circular queue
  * @param ctx Circular queue context
  * @param memPool Pointer to a memory pool that we will use to manage the circular queue
  * @param memPoolSize Dimension in byte of the circular queue
@@ -49,7 +49,7 @@ typedef struct
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize);
- 
+
 /**
  * Reset the state of the circular queue and discharge all saved data
  * @param ctx Circular queue context
@@ -69,7 +69,7 @@ e_eCU_Res circQReset(s_eCU_circQCtx* const ctx);
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace);
-  
+
 /**
  * Get the used space in the queue
  * @param ctx Circular queue context
@@ -80,7 +80,7 @@ e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedSpace);
- 
+
 /**
  * Insert data in the queue if free space is avaiable
  * @param ctx Circular queue context
@@ -93,7 +93,7 @@ e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedS
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const uint32_t datalen);
- 
+
 /**
  * Retrive data from the queue if avaiable
  * @param ctx Circular queue context
@@ -119,9 +119,9 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, cons
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen);
- 
- 
- 
+
+
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

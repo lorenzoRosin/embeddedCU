@@ -27,7 +27,7 @@ static void circularqueueTestBadPointer(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void crc32Test(void)
+void circularQueueTest(void)
 {
 	(void)printf("\n\nCIRCULAR QUEUE TEST START \n\n");
 
