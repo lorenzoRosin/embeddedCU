@@ -51,7 +51,7 @@
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
-        <Category>_ 0</Category>
+        <Category2>_ 0</Category2>
     </LogFile>
     <InterruptLog>
         <GraphEnabled>0</GraphEnabled>
