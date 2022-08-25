@@ -221,7 +221,7 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const
                             if( ( datalen +  ctx->memPoolFrstFreeIdx ) <= ctx->memPoolSize )
                             {
                                 /* Direct copy */
-                                memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, datalen);
+                                (void)memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, datalen);
 
                                 /* Update free index */
                                 ctx->memPoolFrstFreeIdx += datalen;
@@ -236,12 +236,12 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const
 
                                 /* First round */
                                 firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstFreeIdx;
-                                memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, firstTranshLen);
+                                (void)memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, firstTranshLen);
                                 ctx->memPoolFrstFreeIdx = 0u;
 
                                 /* Second round */
                                 secondTranshLen = datalen - firstTranshLen;
-                                memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], &data[firstTranshLen], secondTranshLen);
+                                (void)memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], &data[firstTranshLen], secondTranshLen);
                                 ctx->memPoolFrstFreeIdx += secondTranshLen;
                             }
 
@@ -307,7 +307,7 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, cons
                             if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
                             {
                                 /* Direct copy */
-                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
+                                (void)memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
 
                                 /* Update used index */
                                 ctx->memPoolFrstOccIdx += datalen;
@@ -322,12 +322,12 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, cons
 
                                 /* First round */
                                 firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
-                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
+                                (void)memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
                                 ctx->memPoolFrstOccIdx = 0u;
 
                                 /* Second round */
                                 secondTranshLen = datalen - firstTranshLen;
-                                memcpy(&data[firstTranshLen], &ctx->memPool[ctx->memPoolFrstOccIdx], secondTranshLen);
+                                (void)memcpy(&data[firstTranshLen], &ctx->memPool[ctx->memPoolFrstOccIdx], secondTranshLen);
                                 ctx->memPoolFrstOccIdx += secondTranshLen;
                             }
 
@@ -393,7 +393,7 @@ e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const u
                             if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
                             {
                                 /* Direct copy */
-                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
+                                (void)memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
                             }
                             else
                             {
@@ -401,11 +401,11 @@ e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const u
 
                                 /* First round */
                                 firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
-                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
+                                (void)memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
 
                                 /* Second round */
                                 secondTranshLen = datalen - firstTranshLen;
-                                memcpy(&data[firstTranshLen], &ctx->memPool[0u], secondTranshLen);
+                                (void)memcpy(&data[firstTranshLen], &ctx->memPool[0u], secondTranshLen);
                             }
 
                             result = ECU_RES_OK;
