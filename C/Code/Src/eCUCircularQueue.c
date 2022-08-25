@@ -11,9 +11,16 @@
 
 
 /***********************************************************************************************************************
+ *  PRIVATE STATIC FUNCTION DECLARATION
+ **********************************************************************************************************************/
+static bool_t isQueueStatusStillCoherent(s_eCU_circQCtx* const ctx);
+
+
+
+/***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize)
+e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -73,11 +80,19 @@ e_eCU_Res circQReset(s_eCU_circQCtx* const ctx)
 		}
 		else
 		{
-			/* Update index in order to discharge all saved data */
-			ctx->memPoolUsedSize = 0u;
-			ctx->memPoolFrstFreeIdx = 0u;
-			ctx->memPoolFrstOccIdx = 0u;
-			result = ECU_RES_OK;
+            /* Check data coherence */
+            if( false == isQueueStatusStillCoherent(ctx) )
+            {
+                result = ECU_RES_BADPARAM;
+            }
+            else
+            {
+                /* Update index in order to discharge all saved data */
+                ctx->memPoolUsedSize = 0u;
+                ctx->memPoolFrstFreeIdx = 0u;
+                ctx->memPoolFrstOccIdx = 0u;
+                result = ECU_RES_OK;
+            }
 		}
     }
 
@@ -103,12 +118,11 @@ e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace
 		}
 		else
 		{
-			/* Check data validity an queue integrity */
-			if( ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) ||
-			    ( ctx->memPoolSize < ctx->memPoolUsedSize ) )
-			{
-				result = ECU_RES_BADPARAM;
-			}
+            /* Check data coherence */
+            if( false == isQueueStatusStillCoherent(ctx) )
+            {
+                result = ECU_RES_BADPARAM;
+            }
 			else
 			{
 				*freeSpace = ctx->memPoolSize - ctx->memPoolUsedSize;
@@ -139,12 +153,11 @@ e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedS
 		}
 		else
 		{
-			/* Check data validity an queue integrity */
-			if( ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) ||
-			    ( ctx->memPoolSize < ctx->memPoolUsedSize ) )
-			{
-				result = ECU_RES_BADPARAM;
-			}
+            /* Check data coherence */
+            if( false == isQueueStatusStillCoherent(ctx) )
+            {
+                result = ECU_RES_BADPARAM;
+            }
 			else
 			{
 				*usedSpace = ctx->memPoolUsedSize;
@@ -178,58 +191,65 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const
 		}
 		else
 		{
-			/* Check data validity an queue integrity */
-			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) ||
-			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
+			/* Check data validity */
+			if( datalen <= 0u )
 			{
 				result = ECU_RES_BADPARAM;
 			}
 			else
 			{
-				/* Check for free memory */
-				result = circQGetFreeSapce(ctx, &freeSpace);
+                /* Check data coherence */
+                if( false == isQueueStatusStillCoherent(ctx) )
+                {
+                    result = ECU_RES_BADPARAM;
+                }
+                else
+                {
+                    /* Check for free memory */
+                    result = circQGetFreeSapce(ctx, &freeSpace);
 
-				if( ECU_RES_OK == result )
-				{
-					if( datalen > freeSpace )
-					{
-						/* No memory avaiable */
-						result = ECU_RES_OUTOFMEM;
-					}
-					else
-					{
-						/* Can insert data */
-						if( ( datalen +  ctx->memPoolFrstFreeIdx ) <= ctx->memPoolSize )
-						{
-							/* Direct copy */
-							memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, datalen);
+                    if( ECU_RES_OK == result )
+                    {
+                        if( datalen > freeSpace )
+                        {
+                            /* No memory avaiable */
+                            result = ECU_RES_OUTOFMEM;
+                        }
+                        else
+                        {
+                            /* Can insert data */
+                            if( ( datalen +  ctx->memPoolFrstFreeIdx ) <= ctx->memPoolSize )
+                            {
+                                /* Direct copy */
+                                memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, datalen);
 
-							/* Update free index */
-							ctx->memPoolFrstFreeIdx += datalen;
-							if(ctx->memPoolFrstFreeIdx >= ctx->memPoolSize)
-							{
-								ctx->memPoolFrstFreeIdx = 0u;
-							}
-						}
-						else
-						{
-							/* Multicopy */
+                                /* Update free index */
+                                ctx->memPoolFrstFreeIdx += datalen;
+                                if(ctx->memPoolFrstFreeIdx >= ctx->memPoolSize)
+                                {
+                                    ctx->memPoolFrstFreeIdx = 0u;
+                                }
+                            }
+                            else
+                            {
+                                /* Multicopy */
 
-							/* First round */
-							firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstFreeIdx;
-							memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, firstTranshLen);
-							ctx->memPoolFrstFreeIdx = 0u;
+                                /* First round */
+                                firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstFreeIdx;
+                                memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], data, firstTranshLen);
+                                ctx->memPoolFrstFreeIdx = 0u;
 
-							/* Second round */
-							secondTranshLen = datalen - firstTranshLen;
-							memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], &data[firstTranshLen], secondTranshLen);
-							ctx->memPoolFrstFreeIdx += secondTranshLen;
-						}
+                                /* Second round */
+                                secondTranshLen = datalen - firstTranshLen;
+                                memcpy(&ctx->memPool[ctx->memPoolFrstFreeIdx], &data[firstTranshLen], secondTranshLen);
+                                ctx->memPoolFrstFreeIdx += secondTranshLen;
+                            }
 
-						ctx->memPoolUsedSize += datalen;
-						result = ECU_RES_OK;
-					}
-				}
+                            ctx->memPoolUsedSize += datalen;
+                            result = ECU_RES_OK;
+                        }
+                    }
+                }
 			}
 		}
     }
@@ -260,55 +280,62 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, cons
 		else
 		{
 			/* Check data validity an queue integrity */
-			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) ||
-			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
+			if( datalen <= 0u )
 			{
 				result = ECU_RES_BADPARAM;
 			}
 			else
 			{
-				result = circQGetOccupiedSapce(ctx, &usedSpace);
-				if( ECU_RES_OK == result )
-				{
-					if( datalen > usedSpace)
-					{
-						/* No enoght data in the queue */
-						result = ECU_RES_OUTOFMEM;
-					}
-					else
-					{
-						/* Can retrive data */
-						if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
-						{
-							/* Direct copy */
-							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
+                /* Check data coherence */
+                if( false == isQueueStatusStillCoherent(ctx) )
+                {
+                    result = ECU_RES_BADPARAM;
+                }
+                else
+                {
+                    result = circQGetOccupiedSapce(ctx, &usedSpace);
+                    if( ECU_RES_OK == result )
+                    {
+                        if( datalen > usedSpace)
+                        {
+                            /* No enoght data in the queue */
+                            result = ECU_RES_OUTOFMEM;
+                        }
+                        else
+                        {
+                            /* Can retrive data */
+                            if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
+                            {
+                                /* Direct copy */
+                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
 
-							/* Update used index */
-							ctx->memPoolFrstOccIdx += datalen;
-							if(ctx->memPoolFrstOccIdx >= ctx->memPoolSize)
-							{
-								ctx->memPoolFrstOccIdx = 0u;
-							}
-						}
-						else
-						{
-							/* Multicopy */
+                                /* Update used index */
+                                ctx->memPoolFrstOccIdx += datalen;
+                                if(ctx->memPoolFrstOccIdx >= ctx->memPoolSize)
+                                {
+                                    ctx->memPoolFrstOccIdx = 0u;
+                                }
+                            }
+                            else
+                            {
+                                /* Multicopy */
 
-							/* First round */
-							firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
-							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
-							ctx->memPoolFrstOccIdx = 0u;
+                                /* First round */
+                                firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
+                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
+                                ctx->memPoolFrstOccIdx = 0u;
 
-							/* Second round */
-							secondTranshLen = datalen - firstTranshLen;
-							memcpy(&data[firstTranshLen], &ctx->memPool[ctx->memPoolFrstOccIdx], secondTranshLen);
-							ctx->memPoolFrstOccIdx += secondTranshLen;
-						}
+                                /* Second round */
+                                secondTranshLen = datalen - firstTranshLen;
+                                memcpy(&data[firstTranshLen], &ctx->memPool[ctx->memPoolFrstOccIdx], secondTranshLen);
+                                ctx->memPoolFrstOccIdx += secondTranshLen;
+                            }
 
-						ctx->memPoolUsedSize -= datalen;
-						result = ECU_RES_OK;
-					}
-				}
+                            ctx->memPoolUsedSize -= datalen;
+                            result = ECU_RES_OK;
+                        }
+                    }
+                }
 			}
 		}
     }
@@ -339,48 +366,94 @@ e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const u
 		else
 		{
 			/* Check data validity an queue integrity */
-			if( (datalen <= 0u) || ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) ||
-			    ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) || ( ctx->memPoolSize < ctx->memPoolUsedSize ))
+			if( datalen <= 0u )
 			{
 				result = ECU_RES_BADPARAM;
 			}
 			else
 			{
-				result = circQGetOccupiedSapce(ctx, &usedSpace);
-				if( ECU_RES_OK == result )
-				{
-					if( datalen > usedSpace)
-					{
-						/* No enoght data in the queue */
-						result = ECU_RES_OUTOFMEM;
-					}
-					else
-					{
-						/* Can retrive data */
-						if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
-						{
-							/* Direct copy */
-							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
-						}
-						else
-						{
-							/* Multicopy */
+                /* Check data coherence */
+                if( false == isQueueStatusStillCoherent(ctx) )
+                {
+                    result = ECU_RES_BADPARAM;
+                }
+                else
+                {
+                    result = circQGetOccupiedSapce(ctx, &usedSpace);
+                    if( ECU_RES_OK == result )
+                    {
+                        if( datalen > usedSpace)
+                        {
+                            /* No enoght data in the queue */
+                            result = ECU_RES_OUTOFMEM;
+                        }
+                        else
+                        {
+                            /* Can retrive data */
+                            if( ( datalen +  ctx->memPoolFrstOccIdx ) <= ctx->memPoolSize )
+                            {
+                                /* Direct copy */
+                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], datalen);
+                            }
+                            else
+                            {
+                                /* Multicopy */
 
-							/* First round */
-							firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
-							memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
+                                /* First round */
+                                firstTranshLen = ctx->memPoolSize - ctx->memPoolFrstOccIdx;
+                                memcpy(data, &ctx->memPool[ctx->memPoolFrstOccIdx], firstTranshLen);
 
-							/* Second round */
-							secondTranshLen = datalen - firstTranshLen;
-							memcpy(&data[firstTranshLen], &ctx->memPool[0u], secondTranshLen);
-						}
+                                /* Second round */
+                                secondTranshLen = datalen - firstTranshLen;
+                                memcpy(&data[firstTranshLen], &ctx->memPool[0u], secondTranshLen);
+                            }
 
-						result = ECU_RES_OK;
-					}
-				}
+                            result = ECU_RES_OK;
+                        }
+                    }
+                }
 			}
 		}
     }
 
 	return result;
+}
+
+
+
+/***********************************************************************************************************************
+ *  PRIVATE FUNCTION
+ **********************************************************************************************************************/
+bool_t isQueueStatusStillCoherent(s_eCU_circQCtx* const ctx)
+{
+    bool_t result;
+
+	/* Check pointer validity */
+	if( NULL == ctx )
+	{
+		result = false;
+	}
+	else
+	{
+		/* Check context validity */
+		if( ( ctx->memPoolSize <= 0u ) || ( NULL == ctx->memPoolSize ) )
+		{
+			result = false;
+		}
+		else
+		{
+			/* Check queue data coherence */
+			if( ( ctx->memPoolFrstFreeIdx >= ctx->memPoolSize ) || ( ctx->memPoolFrstOccIdx >= ctx->memPoolSize ) ||
+			    ( ctx->memPoolSize < ctx->memPoolUsedSize ) )
+			{
+				result = false;
+			}
+			else
+			{
+                result = true;
+			}
+		}
+    }
+
+    return result;
 }

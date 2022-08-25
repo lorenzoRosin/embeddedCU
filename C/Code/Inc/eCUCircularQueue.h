@@ -45,16 +45,17 @@ typedef struct
  * @param memPool Pointer to a memory pool that we will use to manage the circular queue
  * @param memPoolSize Dimension in byte of the circular queue
  * @return ECU_RES_BADPOINTER in case of bad pointer
-		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize);
+e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize);
 
 /**
  * Reset the state of the circular queue and discharge all saved data
  * @param ctx Circular queue context
  * @return ECU_RES_BADPOINTER in case of bad pointer
-		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK circular queue is reset correctly
  */
 e_eCU_Res circQReset(s_eCU_circQCtx* const ctx);
@@ -64,8 +65,8 @@ e_eCU_Res circQReset(s_eCU_circQCtx* const ctx);
  * @param ctx Circular queue context
  * @param freeSpace Pointer to variable where free space present in queue will be stored
  * @return ECU_RES_BADPOINTER in case of bad pointer
-		   ECU_RES_NOINITLIB need to init the queue before taking some action
-		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ * 		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace);
@@ -75,8 +76,8 @@ e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace
  * @param ctx Circular queue context
  * @param usedSpace Pointer to variable where used space present in queue will be stored
  * @return ECU_RES_BADPOINTER in case of bad pointer
-		   ECU_RES_NOINITLIB need to init the queue before taking some action
-		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedSpace);
@@ -87,9 +88,9 @@ e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedS
  * @param data Pointer to the data that we want to insert in the queue
  * @param datalen Lenght of the data present in the pointer passed
  * @return ECU_RES_BADPOINTER in case of bad pointer
-		   ECU_RES_NOINITLIB need to init the queue before taking some action
-		   ECU_RES_BADPARAM in case of an invalid parameter or state
-		   ECU_RES_OUTOFMEM no memory avaiable for this operation
+ *		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *		   ECU_RES_OUTOFMEM no memory avaiable for this operation
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const uint32_t datalen);
@@ -100,9 +101,9 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint32_t* data, const
  * @param data Pointer to the data that we want to retrive from queue
  * @param datalen Lenght of the data that we want to retrive
  * @return ECU_RES_BADPOINTER in case of bad pointer
-		   ECU_RES_NOINITLIB need to init the queue before taking some action
-		   ECU_RES_BADPARAM in case of an invalid parameter or state
-		   ECU_RES_OUTOFMEM no memory avaiable for this operation
+ *		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *		   ECU_RES_OUTOFMEM no memory avaiable for this operation
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen);
@@ -113,9 +114,9 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint32_t* const data, cons
  * @param data Pointer to the data that we want to peek from queue
  * @param datalen Lenght of the data that we want to peek
  * @return ECU_RES_BADPOINTER in case of bad pointer
-		   ECU_RES_NOINITLIB need to init the queue before taking some action
-		   ECU_RES_BADPARAM in case of an invalid parameter or state
-		   ECU_RES_OUTOFMEM no memory avaiable for this operation
+ *		   ECU_RES_NOINITLIB need to init the queue before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *		   ECU_RES_OUTOFMEM no memory avaiable for this operation
  *         ECU_RES_OK operation returned correctly
  */
 e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint32_t* const data, const uint32_t datalen);
