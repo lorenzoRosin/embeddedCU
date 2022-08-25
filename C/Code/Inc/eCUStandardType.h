@@ -31,7 +31,7 @@ extern "C" {
 #endif
 
 #ifndef bool_t
-  #define bool_t        ( bool  )
+  #define bool_t           bool
 #endif
 
 
