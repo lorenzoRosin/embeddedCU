@@ -2123,9 +2123,15 @@
         <name>Test</name>
         <group>
             <name>Inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCrcTest.h</name>
+            </file>
         </group>
         <group>
             <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUCrcTest.c</name>
+            </file>
         </group>
         <file>
             <name>$PROJ_DIR$\main.c</name>

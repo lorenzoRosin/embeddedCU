@@ -1,9 +1,10 @@
 
-#include "eCUCrc.h"
+#include "eCUCrcTest.h"
 int main(void);
 
 
 int main(void)
 {
-  return 0;
+    crc32Test();
+    return 0;
 }

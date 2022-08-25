@@ -3,5 +3,13 @@
     <project>
         <path>$WS_DIR$\eCUTest.ewp</path>
     </project>
-    <batchBuild />
+    <batchBuild>
+        <batchDefinition>
+            <name>DEBUG</name>
+            <member>
+                <project>eCUTest</project>
+                <configuration>Debug</configuration>
+            </member>
+        </batchDefinition>
+    </batchBuild>
 </workspace>

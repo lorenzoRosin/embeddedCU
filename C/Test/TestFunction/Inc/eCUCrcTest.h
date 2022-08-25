@@ -1,10 +1,10 @@
 /**
- * @file Prv_eFSSUtilsTest.h
+ * @file eCUCrcTest.h
  *
  */
 
-#ifndef PRVEFSSUTILSTEST_H
-#define PRVEFSSUTILSTEST_H
+#ifndef ECUCRCTEST_H
+#define ECUCRCTEST_H
 
 
 
@@ -17,19 +17,18 @@ extern "C" {
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "Prv_eFSSUtils.h"
+#include "eCUType.h"
+#include "eCUCrc.h"
 
 
 
 /***********************************************************************************************************************
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
-
 /**
- * Test all Prv_eFSSUtils function
- * @return e_eFSS_Res result
+ * Test the eCUCrc module
  */
-bool_t Prv_eFSSUtilsTestFunc(void);
+void crc32Test(void);
 
 
 
@@ -39,4 +38,4 @@ bool_t Prv_eFSSUtilsTestFunc(void);
 
 
 
-#endif /* PRVEFSSUTILSTEST_H */
+#endif /* ECUCRCTEST_H */
