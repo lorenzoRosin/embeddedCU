@@ -50,7 +50,7 @@ void crc32TestBadPointer(void)
 {
     /* Local variable */
     uint32_t crc32SValTest;
-    uint8_t  crc8SValTest;
+    uint8_t  crc8SValTest[1u];
 
     /* Function */
     if( ECU_RES_BADPOINTER == crc32_seed(0u, NULL, 1u, &crc32SValTest) )
@@ -62,7 +62,7 @@ void crc32TestBadPointer(void)
         (void)printf("crc32TestBadPointer 1  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == crc32_seed(0u, &crc8SValTest, 1u, NULL) )
+    if( ECU_RES_BADPOINTER == crc32_seed(0u, crc8SValTest, 1u, NULL) )
     {
         (void)printf("crc32TestBadPointer 2  -- OK \n");
     }
@@ -80,7 +80,7 @@ void crc32TestBadPointer(void)
         (void)printf("crc32TestBadPointer 3  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == crc32(&crc8SValTest, 1u, NULL) )
+    if( ECU_RES_BADPOINTER == crc32(crc8SValTest, 1u, NULL) )
     {
         (void)printf("crc32TestBadPointer 4  -- OK \n");
     }
@@ -154,6 +154,7 @@ void crc32TestCombined(void)
     /* Local variable */
     uint32_t crcTestValSeedC;
     uint8_t crcTestDataC[] = {0x00u, 0x01u, 0x02u, 0x03u, 0x04u, 0x05u};
+    uint8_t crcTestDataC2[] = {0x03u, 0x04u, 0x05u};
     uint32_t crcTestValRetC;
 
     /* Function */
@@ -192,7 +193,7 @@ void crc32TestCombined(void)
     }
 
     crcTestValSeedC = crcTestValRetC;
-    if( ECU_RES_OK == crc32_seed(crcTestValSeedC, &crcTestDataC[0x03u], 0x03u, &crcTestValRetC) )
+    if( ECU_RES_OK == crc32_seed(crcTestValSeedC, crcTestDataC2, 0x03u, &crcTestValRetC) )
     {
         if( 0x9FE54C6Du == crcTestValRetC)
         {
