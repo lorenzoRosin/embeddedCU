@@ -168,7 +168,7 @@ e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const da
                         /* Copy the data */
                         if( ctx->memPoolCntr > 0u )
                         {
-                            memcpy(dataDest, ctx->memPool, ctx->memPoolCntr);
+                            (void)memcpy(dataDest, ctx->memPool, ctx->memPoolCntr);
                         }
 
                         *retrivedLen = ctx->memPoolCntr;
@@ -184,6 +184,11 @@ e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const da
 
 	return result;
 }
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-17.4_b"
+    /* Suppressed for code clarity */
+#endif
 
 e_eCU_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
 {
@@ -226,7 +231,7 @@ e_eCU_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, c
                     else
                     {
                         /* Copy data */
-                        memcpy(&ctx->memPool[ctx->memPoolCntr], data, dataLen);
+                        (void)memcpy(&ctx->memPool[ctx->memPoolCntr], data, dataLen);
 
                         /* Update index */
                         ctx->memPoolCntr += dataLen;
@@ -327,17 +332,17 @@ e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPus
                     if( true == ctx->isLE)
                     {
                         /* Copy data Little endian */
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush        ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush        ) & 0x00FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 8u  ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00FFu );
                         ctx->memPoolCntr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 8u  ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush        ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush        ) & 0x00FFu );
                         ctx->memPoolCntr++;
                     }
 
@@ -387,25 +392,25 @@ e_eCU_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPus
                     if( true == ctx->isLE)
                     {
                         /* Copy data Little endian */
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush        ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush        ) & 0x000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 8u  ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 16u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 24u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x000000FFu );
                         ctx->memPoolCntr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 24u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 16u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 8u  ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush        ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush        ) & 0x000000FFu );
                         ctx->memPoolCntr++;
                     }
 
@@ -455,41 +460,41 @@ e_eCU_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPus
                     if( true == ctx->isLE)
                     {
                         /* Copy data Little endian */
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush        ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush        ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 8u  ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 16u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 24u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 32u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 32u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 40u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 40u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 48u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 48u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 56u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 56u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 56u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 56u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 48u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 48u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 40u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 40u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 32u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 32u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 24u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 16u ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush >> 8u  ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
-                        ctx->memPool[ctx->memPoolCntr] = ( ( dataToPush        ) & 0xFF );
+                        ctx->memPool[ctx->memPoolCntr] = (uint8_t) ( ( dataToPush        ) & 0x00000000000000FFu );
                         ctx->memPoolCntr++;
                     }
 
@@ -502,6 +507,9 @@ e_eCU_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPus
 	return result;
 }
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2004-17.4_b"
+#endif
 
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
