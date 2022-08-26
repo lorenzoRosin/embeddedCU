@@ -436,7 +436,7 @@ bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx)
     bool_t result;
 
 	/* Check context validity */
-	if( ( ctx->memPoolSize <= 0u ) || ( NULL == ctx->memPoolSize ) )
+	if( ( ctx->memPoolSize <= 0u ) || ( NULL == ctx->memPool ) )
 	{
 		result = false;
 	}
