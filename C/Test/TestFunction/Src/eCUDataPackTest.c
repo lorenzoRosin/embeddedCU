@@ -29,7 +29,7 @@ static void dataPackTestBadPointer(void);
  **********************************************************************************************************************/
 void dataPackTest(void)
 {
-	(void)printf("\n\DATA PACK TEST START \n\n");
+	(void)printf("\n\nDATA PACK TEST START \n\n");
 
     dataPackTestBadPointer();
 

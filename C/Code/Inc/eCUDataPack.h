@@ -66,6 +66,7 @@ e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx);
  * @param retrivedLen Pointer to a memory area were we will store size of serialized data
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *         ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK operation ended correctly
  */
 e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen);
@@ -104,6 +105,7 @@ e_eCU_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, c
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
@@ -115,6 +117,7 @@ e_eCU_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush)
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
@@ -126,6 +129,7 @@ e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPus
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
@@ -137,6 +141,7 @@ e_eCU_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPus
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
