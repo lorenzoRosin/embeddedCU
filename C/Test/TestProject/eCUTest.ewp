@@ -2165,6 +2165,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrc.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUDataPack.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUStandardType.h</name>
             </file>
             <file>
@@ -2179,6 +2182,9 @@
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCrc.c</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUDataPack.c</name>
+            </file>
         </group>
     </group>
     <group>
@@ -2191,6 +2197,9 @@
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCrcTest.h</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataPackTest.h</name>
+            </file>
         </group>
         <group>
             <name>Src</name>
@@ -2199,6 +2208,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCrcTest.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataPackTest.c</name>
             </file>
         </group>
         <file>

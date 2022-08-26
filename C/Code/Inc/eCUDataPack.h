@@ -31,7 +31,7 @@ typedef struct
 	uint8_t* memPool;
 	uint32_t memPoolSize;
 	uint32_t memPoolCntr;
-}s_eCU_DataPackCtx
+}s_eCU_DataPackCtx;
 
 
 
@@ -48,9 +48,9 @@ typedef struct
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK data packer is initialized correctly
  */
-e_eCU_Res dataPackinit(s_eCU_DataPackCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize, 
+e_eCU_Res dataPackinit(s_eCU_DataPackCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize,
 					   const bool_t isLEnd);
- 
+
 /**
  * Reset data packer and discharge stored data
  * @param ctx Data packer context
@@ -61,7 +61,7 @@ e_eCU_Res dataPackinit(s_eCU_DataPackCtx* const ctx, uint8_t* const memPool, con
 e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx);
 
 /**
- * Retrive how many byte we have stored 
+ * Retrive how many byte we have stored
  * @param ctx Data packer context
  * @param retrivedLen Pointer to a memory area were we will store size of serialized data
  * @return ECU_RES_BADPOINTER in case of bad pointer
@@ -79,12 +79,12 @@ e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retr
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data 
+ *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const dataDest, uint32_t* const retrivedLen, 
+e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const dataDest, uint32_t* const retrivedLen,
 								 const uint32_t dataDestMaxSize);
- 
+
 /**
  * Push an array in data packer
  * @param ctx Data packer context
@@ -93,57 +93,57 @@ e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const da
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data 
+ *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
- 
+
 /**
  * Push one byte in data packer
  * @param ctx Data packer context
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data 
+ *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush);
- 
+
 /**
  * Push 2 byte in data packer
  * @param ctx Data packer context
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data 
+ *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush); 
- 
+e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush);
+
 /**
  * Push 4 byte in data packer
  * @param ctx Data packer context
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data 
+ *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPush);
-  
+
 /**
  * Push 8 byte in data packer
  * @param ctx Data packer context
  * @param dataToPush Byte to push in data packer
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data 
+ *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
  e_eCU_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPush);
- 
- 
- 
+
+
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
