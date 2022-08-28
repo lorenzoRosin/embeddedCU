@@ -111,8 +111,8 @@ e_eCU_Res dataUnPackGetDataSize(s_eCU_DataUnPackCtx* const ctx, uint32_t* const 
 		}
 		else
 		{
-			/* Check data validity */
-			if( ctx->memPoolCntr > ctx->memPoolFillSize )
+			/* Check internal status validity */
+			if( false == isUnPackStatusStillCoherent(ctx) )
 			{
 				/* We have removed more data that we had */
 				result = ECU_RES_BADPARAM;
@@ -156,21 +156,31 @@ e_eCU_Res dataUnPackSetData(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data,
 			}
 			else
 			{
-				/* Check if data can be stored */
-				if( dataLen > ctx->memPoolSize )
-				{
-					result = ECU_RES_OUTOFMEM;
-				}
-				else
-				{
-					/* Copy data */
-					memcpy( ctx->memPool, data, dataLen );
+                /* Check internal status validity */
+                if( false == isUnPackStatusStillCoherent(ctx) )
+                {
+                    /* We have removed more data that we had */
+                    result = ECU_RES_BADPARAM;
+                }
+                else
+                {
+                    /* Check if data can be stored */
+                    if( dataLen > ctx->memPoolSize )
+                    {
+                        result = ECU_RES_OUTOFMEM;
+                    }
+                    else
+                    {
+                        /* Copy data */
+                        memcpy( ctx->memPool, data, dataLen );
 
-					/* Update index */
-					ctx->memPoolCntr = 0u;
-					ctx->memPoolFillSize = dataLen;
-					result = ECU_RES_OK;
-				}
+                        /* Update index */
+                        ctx->memPoolFillSize = dataLen;
+                        ctx->memPoolCntr = 0u;
+
+                        result = ECU_RES_OK;
+                    }
+                }
 			}
 		}
     }
@@ -197,28 +207,37 @@ e_eCU_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data
 		}
 		else
 		{
-			/* Check data validity */
-			if( ( retrivedLen <= 0u ) || ( ctx->memPoolCntr > ctx->memPoolFillSize ) )
-			{
-				result = ECU_RES_BADPARAM;
-			}
-			else
-			{
-				/* Check if we can pop that amount */
-				if( ( ctx->memPoolCntr + retrivedLen ) > ctx->memPoolFillSize )
-				{
-					result = ECU_RES_OUTOFMEM;
-				}
-				else
-				{
-					/* Copy data */
-					memcpy(dataDest, &ctx->memPool[ctx->memPoolCntr], retrivedLen);
+            /* Check data validity */
+            if( retrivedLen <= 0u )
+            {
+                /* We have removed more data that we had */
+                result = ECU_RES_BADPARAM;
+            }
+            else
+            {
+                /* Check internal status validity */
+                if( false == isUnPackStatusStillCoherent(ctx) )
+                {
+                    result = ECU_RES_BADPARAM;
+                }
+                else
+                {
+                    /* Check if we can pop that amount */
+                    if( ( ctx->memPoolCntr + retrivedLen ) > ctx->memPoolFillSize )
+                    {
+                        result = ECU_RES_OUTOFMEM;
+                    }
+                    else
+                    {
+                        /* Copy data */
+                        memcpy(dataDest, &ctx->memPool[ctx->memPoolCntr], retrivedLen);
 
-					/* Update index */
-					ctx->memPoolCntr+= retrivedLen;
-					result = ECU_RES_OK;
-				}
-			}
+                        /* Update index */
+                        ctx->memPoolCntr += retrivedLen;
+                        result = ECU_RES_OK;
+                    }
+                }
+            }
 		}
     }
 
@@ -244,11 +263,11 @@ e_eCU_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t *dataToPop)
 		}
 		else
 		{
-			/* Check data validity */
-			if( ctx->memPoolCntr > ctx->memPoolFillSize )
-			{
-				result = ECU_RES_BADPARAM;
-			}
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
+            {
+                result = ECU_RES_BADPARAM;
+            }
 			else
 			{
 				/* Check if we can pop that amount */
@@ -292,11 +311,11 @@ e_eCU_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataToPop)
 		}
 		else
 		{
-			/* Check data validity */
-			if( ctx->memPoolCntr > ctx->memPoolFillSize )
-			{
-				result = ECU_RES_BADPARAM;
-			}
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
+            {
+                result = ECU_RES_BADPARAM;
+            }
 			else
 			{
 				/* Check if we can pop that amount */
@@ -310,20 +329,20 @@ e_eCU_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataToPop)
 					if( true == ctx->isLE)
 					{
 						/* Copy data Little endian */
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0x00FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0x00FFu );
 						ctx->memPoolCntr++;
 						indx++;
 					}
 					else
 					{
 						/* Copy data big endian */
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0x00FFu );
 						ctx->memPoolCntr++;
 						indx;
-						( (uint8_t*) dataToPop )[indx]= ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx]= ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0x00FFu );
 						ctx->memPoolCntr++;
 						indx++;
 					}
@@ -375,32 +394,32 @@ e_eCU_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataToPop)
 					if( true == ctx->isLE)
 					{
 						/* Copy data Little endian */
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
 					}
 					else
 					{
 						/* Copy data big endian */
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0x000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
 					}
@@ -452,56 +471,56 @@ e_eCU_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataToPop)
 					if( true == ctx->isLE)
 					{
 						/* Copy data Little endian */
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 32u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 32u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 40u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 40u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 48u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 48u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 56u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 56u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
 					}
 					else
 					{
 						/* Copy data big endian */
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 56u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 56u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 48u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 48u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 40u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 40u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 32u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 32u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 24u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 16u ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr] >> 8u  ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
-						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0xFF );
+						( (uint8_t*) dataToPop )[indx] = ( ( ctx->memPool[ctx->memPoolCntr]        ) & 0x00000000000000FFu );
 						ctx->memPoolCntr++;
 						indx++;
 					}
@@ -531,7 +550,8 @@ bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx)
 	else
 	{
 		/* Check queue data coherence */
-		if( ctx->memPoolCntr > ctx->memPoolSize )
+		if( ( ctx->memPoolFillSize > ctx->memPoolSize ) || ( ctx->memPoolCntr > ctx->memPoolSize ) ||
+            ( ctx->memPoolCntr > ctx->memPoolFillSize ) )
 		{
 			result = false;
 		}
@@ -543,3 +563,6 @@ bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx)
 
     return result;
 }
+
+
+

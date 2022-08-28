@@ -104,10 +104,35 @@ e_eCU_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data
  * @param dataToPop pointer to a variable that will contain the popped data
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataToPop);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Pop 2 byte in data packer
@@ -115,10 +140,32 @@ e_eCU_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataToPop);
  * @param dataToPop pointer to a variable that will contain the popped data
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataToPop);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Pop 4 byte in data packer
@@ -126,10 +173,32 @@ e_eCU_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataToPop);
  * @param dataToPop pointer to a variable that will contain the popped data
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataToPop);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Pop 8 byte in data packer
@@ -137,10 +206,28 @@ e_eCU_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataToPop);
  * @param dataToPop pointer to a variable that will contain the popped data
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
  *         ECU_RES_OK circular queue is initialized correctly
  */
 e_eCU_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataToPop);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
