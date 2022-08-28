@@ -2898,6 +2898,9 @@
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataPackTest.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataPackUnPackTest.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataUnPackTest.h</name>
             </file>
         </group>
@@ -2911,6 +2914,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataPackTest.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataPackUnPackTest.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataUnPackTest.c</name>

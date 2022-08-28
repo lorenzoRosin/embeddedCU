@@ -2,6 +2,7 @@
 #include "eCUCircularQueueTest.h"
 #include "eCUDataPackTest.h"
 #include "eCUDataUnPackTest.h"
+#include "eCUDataPackUnPackTest.h"
 
 int main(void);
 
@@ -12,5 +13,7 @@ int main(void)
     circularQueueTest();
     dataPackTest();
     dataUnPackTest();
+	dataPackUnPackTest();
+	
     return 0;
 }
