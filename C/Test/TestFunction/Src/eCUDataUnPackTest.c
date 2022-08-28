@@ -140,11 +140,11 @@ void dataUnPackTestBadPointer(void)
 
     if( ECU_RES_BADPOINTER == dataUnPackPopArray( &ctx, NULL, sizeof(badPointerMempool) ) )
     {
-        (void)printf("dataUnPackTestBadPointer 9 -- OK \n");
+        (void)printf("dataUnPackTestBadPointer 9  -- OK \n");
     }
     else
     {
-        (void)printf("dataUnPackTestBadPointer 9 -- FAIL \n");
+        (void)printf("dataUnPackTestBadPointer 9  -- FAIL \n");
     }
 
     if( ECU_RES_BADPOINTER == dataUnPackPopU8( NULL, &varTemp8 ) )
@@ -629,7 +629,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 4  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU8( NULL, &varTemp8 ) )
+    if( ECU_RES_OK == dataUnPackPopU8( &ctx, &varTemp8 ) )
     {
         if( 0x12u == varTemp8 )
         {
@@ -656,7 +656,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU16( NULL, &varTemp16 ) )
+    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {
@@ -685,7 +685,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 8  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU32( NULL, &varTemp32 ) )
+    if( ECU_RES_OK == dataUnPackPopU32( &ctx, &varTemp32 ) )
     {
         if( 0x12345678u == varTemp32 )
         {
@@ -718,7 +718,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU64( NULL, &varTemp64 ) )
+    if( ECU_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
     {
         if( 0x123456789ABCDEF0UL == varTemp64 )
         {
@@ -796,7 +796,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 4  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU8( NULL, &varTemp8 ) )
+    if( ECU_RES_OK == dataUnPackPopU8( &ctx, &varTemp8 ) )
     {
         if( 0x12u == varTemp8 )
         {
@@ -823,7 +823,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU16( NULL, &varTemp16 ) )
+    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {
@@ -852,7 +852,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 8  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU32( NULL, &varTemp32 ) )
+    if( ECU_RES_OK == dataUnPackPopU32( &ctx, &varTemp32 ) )
     {
         if( 0x12345678u == varTemp32 )
         {
@@ -886,7 +886,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackPopU64( NULL, &varTemp64 ) )
+    if( ECU_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
     {
         if( 0x123456789ABCDEF0UL == varTemp64 )
         {
@@ -936,7 +936,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
+    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x5678u == varTemp16 )
         {
@@ -952,7 +952,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 3  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
+    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {
@@ -991,7 +991,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
+    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x5678u == varTemp16 )
         {
@@ -1007,7 +1007,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 7  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
+    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {

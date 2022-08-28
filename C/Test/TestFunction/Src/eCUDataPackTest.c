@@ -554,27 +554,27 @@ void dataPackTestEndianLe(void)
 
     if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
     {
-        (void)printf("dataPackTestEndianLe 3 -- OK \n");
+        (void)printf("dataPackTestEndianLe 3  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 3 -- FAIL \n");
+        (void)printf("dataPackTestEndianLe 3  -- FAIL \n");
     }
 
     if( 0x02u == varTemp)
     {
         if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) )
         {
-            (void)printf("dataPackTestEndianLe 4 -- OK \n");
+            (void)printf("dataPackTestEndianLe 4  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianLe 4 -- FAIL \n");
+            (void)printf("dataPackTestEndianLe 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 4 -- FAIL \n");
+        (void)printf("dataPackTestEndianLe 4  -- FAIL \n");
     }
 
     /* Function */
@@ -598,11 +598,11 @@ void dataPackTestEndianLe(void)
 
     if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
     {
-        (void)printf("dataPackTestEndianLe 7 -- OK \n");
+        (void)printf("dataPackTestEndianLe 7  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 7 -- FAIL \n");
+        (void)printf("dataPackTestEndianLe 7  -- FAIL \n");
     }
 
     if( 0x04u == varTemp)
@@ -610,16 +610,16 @@ void dataPackTestEndianLe(void)
         if( ( 0x78u == retrivePool[0u] ) && ( 0x56u == retrivePool[1u] ) &&
             ( 0x34u == retrivePool[2u] ) && ( 0x12u == retrivePool[3u] ) )
         {
-            (void)printf("dataPackTestEndianLe 8 -- OK \n");
+            (void)printf("dataPackTestEndianLe 8  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianLe 8 -- FAIL \n");
+            (void)printf("dataPackTestEndianLe 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 8 -- FAIL \n");
+        (void)printf("dataPackTestEndianLe 8  -- FAIL \n");
     }
 
     /* Function */
@@ -702,27 +702,27 @@ void dataPackTestEndianBe(void)
 
     if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
     {
-        (void)printf("dataPackTestEndianBe 3 -- OK \n");
+        (void)printf("dataPackTestEndianBe 3  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 3 -- FAIL \n");
+        (void)printf("dataPackTestEndianBe 3  -- FAIL \n");
     }
 
     if( 0x02u == varTemp)
     {
         if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) )
         {
-            (void)printf("dataPackTestEndianBe 4 -- OK \n");
+            (void)printf("dataPackTestEndianBe 4  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianBe 4 -- FAIL \n");
+            (void)printf("dataPackTestEndianBe 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 4 -- FAIL \n");
+        (void)printf("dataPackTestEndianBe 4  -- FAIL \n");
     }
 
     /* Function */
@@ -746,11 +746,11 @@ void dataPackTestEndianBe(void)
 
     if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
     {
-        (void)printf("dataPackTestEndianBe 7 -- OK \n");
+        (void)printf("dataPackTestEndianBe 7  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 7 -- FAIL \n");
+        (void)printf("dataPackTestEndianBe 7  -- FAIL \n");
     }
 
     if( 0x04u == varTemp)
@@ -758,16 +758,16 @@ void dataPackTestEndianBe(void)
         if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) &&
             ( 0x56u == retrivePool[2u] ) && ( 0x78u == retrivePool[3u] ) )
         {
-            (void)printf("dataPackTestEndianBe 8 -- OK \n");
+            (void)printf("dataPackTestEndianBe 8  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianBe 8 -- FAIL \n");
+            (void)printf("dataPackTestEndianBe 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 8 -- FAIL \n");
+        (void)printf("dataPackTestEndianBe 8  -- FAIL \n");
     }
 
     /* Function */
@@ -859,11 +859,11 @@ void dataPackTestCycle(void)
 
     if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
     {
-        (void)printf("dataPackTestCycle 4 -- OK \n");
+        (void)printf("dataPackTestCycle 4  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestCycle 4 -- FAIL \n");
+        (void)printf("dataPackTestCycle 4  -- FAIL \n");
     }
 
     if( 0x04u == varTemp)
@@ -871,16 +871,16 @@ void dataPackTestCycle(void)
         if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) &&
             ( 0x78u == retrivePool[2u] ) && ( 0x56u == retrivePool[3u] )  )
         {
-            (void)printf("dataPackTestCycle 5 -- OK \n");
+            (void)printf("dataPackTestCycle 5  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestCycle 5 -- FAIL \n");
+            (void)printf("dataPackTestCycle 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestCycle 5 -- FAIL \n");
+        (void)printf("dataPackTestCycle 5  -- FAIL \n");
     }
 
     /* Function */
@@ -913,11 +913,11 @@ void dataPackTestCycle(void)
 
     if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
     {
-        (void)printf("dataPackTestCycle 9 -- OK \n");
+        (void)printf("dataPackTestCycle 9  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestCycle 9 -- FAIL \n");
+        (void)printf("dataPackTestCycle 9  -- FAIL \n");
     }
 
     if( 0x04u == varTemp)
