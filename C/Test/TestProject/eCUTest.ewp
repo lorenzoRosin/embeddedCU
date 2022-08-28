@@ -759,7 +759,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$TOOLKIT_DIR$\CONFIG\generic_cortex.icf</state>
+                    <state>$TOOLKIT_DIR$\config\generic_cortex.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -2168,6 +2168,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUDataPack.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUDataUnPack.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUStandardType.h</name>
             </file>
             <file>
@@ -2185,6 +2188,9 @@
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUDataPack.c</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUDataUnPack.c</name>
+            </file>
         </group>
     </group>
     <group>
@@ -2200,6 +2206,9 @@
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataPackTest.h</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataUnPackTest.h</name>
+            </file>
         </group>
         <group>
             <name>Src</name>
@@ -2211,6 +2220,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataPackTest.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataUnPackTest.c</name>
             </file>
         </group>
         <file>
