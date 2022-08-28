@@ -30,6 +30,7 @@ static void dataPackTestEndianBe(void);
 static void dataPackTestCycle(void);
 
 
+
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
@@ -48,8 +49,6 @@ void dataPackTest(void)
 
     (void)printf("\n\nDATA PACK END \n\n");
 }
-
-
 
 
 
@@ -938,6 +937,7 @@ void dataPackTestCycle(void)
         (void)printf("dataPackTestCycle 10 -- FAIL \n");
     }
 }
+
 
 
 #ifdef __IAR_SYSTEMS_ICC__
