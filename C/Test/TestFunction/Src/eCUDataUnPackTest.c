@@ -288,7 +288,6 @@ void dataUnPackTestBadParamEntr(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[5u];
-    uint32_t varTemp;
 
     /* Init variable */
     ctx.isInit = false;
@@ -325,82 +324,6 @@ void dataUnPackTestBadParamEntr(void)
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void dataUnPackTestBadParamStatus(void)
 {
     /* Local variable */
@@ -408,34 +331,30 @@ void dataUnPackTestBadParamStatus(void)
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
 
-
-
     /* Init variable */
     ctx.isInit = false;
 
     /* Function */
     if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
-        (void)printf("dataPackTestBadParamStatus 1  -- OK \n");
+        (void)printf("dataUnPackTestBadParamStatus 1  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestBadParamStatus 1  -- FAIL \n");
+        (void)printf("dataUnPackTestBadParamStatus 1  -- FAIL \n");
     }
 
     /* Init variable */
     ctx.memPoolSize = 0u;
 
-    if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
     {
-        (void)printf("dataPackTestBadParamStatus 2  -- OK \n");
+        (void)printf("dataUnPackTestBadParamStatus 2  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestBadParamStatus 2  -- FAIL \n");
+        (void)printf("dataUnPackTestBadParamStatus 2  -- FAIL \n");
     }
-
-
 
     /* Init variable */
     ctx.isInit = false;
@@ -443,26 +362,24 @@ void dataUnPackTestBadParamStatus(void)
     /* Function */
     if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
-        (void)printf("dataPackTestBadParamStatus 3  -- OK \n");
+        (void)printf("dataUnPackTestBadParamStatus 3  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestBadParamStatus 3  -- FAIL \n");
+        (void)printf("dataUnPackTestBadParamStatus 3  -- FAIL \n");
     }
 
     /* Init variable */
     ctx.memPool = NULL;
 
-    if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
     {
-        (void)printf("dataPackTestBadParamStatus 4  -- OK \n");
+        (void)printf("dataUnPackTestBadParamStatus 4  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestBadParamStatus 4  -- FAIL \n");
+        (void)printf("dataUnPackTestBadParamStatus 4  -- FAIL \n");
     }
-
-
 
     /* Init variable */
     ctx.isInit = false;
@@ -470,23 +387,75 @@ void dataUnPackTestBadParamStatus(void)
     /* Function */
     if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
-        (void)printf("dataPackTestBadParamStatus 5  -- OK \n");
+        (void)printf("dataUnPackTestBadParamStatus 5  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestBadParamStatus 5  -- FAIL \n");
+        (void)printf("dataUnPackTestBadParamStatus 5  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPoolFillSize = ctx.memPoolSize + 1u;
+
+    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 6  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 7  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 7  -- FAIL \n");
     }
 
     /* Init variable */
     ctx.memPoolCntr = ctx.memPoolSize + 1u;
 
-    if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
     {
-        (void)printf("dataPackTestBadParamStatus 6  -- OK \n");
+        (void)printf("dataUnPackTestBadParamStatus 8  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestBadParamStatus 6  -- FAIL \n");
+        (void)printf("dataUnPackTestBadParamStatus 8  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 9  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 9  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPoolFillSize = ctx.memPoolSize - 3u;
+    ctx.memPoolCntr = ctx.memPoolFillSize + 1u;
+
+
+    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 10 -- FAIL \n");
     }
 }
 
@@ -495,8 +464,11 @@ void dataUnPackTestOutOfMem(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[2u];
-    uint8_t  retrivePool[2u];
-    uint32_t varTemp;
+    uint8_t  pushPool[2u];
+    uint64_t varTemp64;
+    uint32_t varTemp32;
+    uint16_t varTemp16;
+    uint8_t  varTemp8;
 
 
 
@@ -506,93 +478,94 @@ void dataUnPackTestOutOfMem(void)
     /* Function */
     if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
-        (void)printf("dataPackTestOutOfMem 1  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 1  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 1  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 1  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataPackPushU64( &ctx, 10u ) )
+    if( ECU_RES_OUTOFMEM == dataUnPackSetData( &ctx, pushPool, sizeof(badPointerMempool) + 1u ) )
     {
-        (void)printf("dataPackTestOutOfMem 2  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 2  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 2  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataPackPushU32( &ctx, 10u ) )
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestOutOfMem 3  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 3  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 3  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 3  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 10u ) )
+    if( ECU_RES_OUTOFMEM == dataUnPackPopArray( &ctx, pushPool, sizeof(pushPool) ) )
     {
-        (void)printf("dataPackTestOutOfMem 4  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 4  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 4  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 4  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataPackPushU16( &ctx, 10u ) )
+    if( ECU_RES_OK == dataUnPackPopU8( &ctx, &varTemp8 ) )
     {
-        (void)printf("dataPackTestOutOfMem 5  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 5  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 5  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 5  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataPackPushU8( &ctx, 10u ) )
+    if( ECU_RES_OUTOFMEM == dataUnPackPopU8( &ctx, &varTemp8 ) )
     {
-        (void)printf("dataPackTestOutOfMem 6  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 6  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 6  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackReset( &ctx ) )
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestOutOfMem 7  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 7  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 7  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 7  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataPackPushArray( &ctx, badPointerMempool, 4u ) )
+    if( ECU_RES_OUTOFMEM == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
-        (void)printf("dataPackTestOutOfMem 8  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 8  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 8  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 8  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 10u ) )
+    if( ECU_RES_OUTOFMEM == dataUnPackPopU32( &ctx, &varTemp32 ) )
     {
-        (void)printf("dataPackTestOutOfMem 9  -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 9  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 9  -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 9  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, 1u ) )
+    if( ECU_RES_OUTOFMEM == dataUnPackPopU64( &ctx, &varTemp64 ) )
     {
-        (void)printf("dataPackTestOutOfMem 10 -- OK \n");
+        (void)printf("dataUnPackTestOutOfMem 10 -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestOutOfMem 10 -- FAIL \n");
+        (void)printf("dataUnPackTestOutOfMem 10 -- FAIL \n");
     }
+
 }
 
 void dataUnPackTestEndianLe(void)
@@ -600,8 +573,11 @@ void dataUnPackTestEndianLe(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[20u];
-    uint8_t  retrivePool[20u];
-    uint32_t varTemp;
+    uint8_t  pushPool[20u];
+    uint64_t varTemp64;
+    uint32_t varTemp32;
+    uint16_t varTemp16;
+    uint8_t  varTemp8;
 
     /* Init variable */
     ctx.isInit = false;
@@ -609,137 +585,153 @@ void dataUnPackTestEndianLe(void)
     /* Function */
     if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
-        (void)printf("dataPackTestEndianLe 1  -- OK \n");
+        (void)printf("dataUnPackTestEndianLe 1  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 1  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianLe 1  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 0x1234u ) )
+    pushPool[0u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestEndianLe 2  -- OK \n");
+        (void)printf("dataUnPackTestEndianLe 2  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 2  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianLe 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    pushPool[0u] = 0x00u;
+    if( ECU_RES_OK == dataUnPackPopArray( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestEndianLe 3 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianLe 3 -- FAIL \n");
-    }
-
-    if( 0x02u == varTemp)
-    {
-        if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) )
+        if( 0x12u == pushPool[0u] )
         {
-            (void)printf("dataPackTestEndianLe 4 -- OK \n");
+            (void)printf("dataUnPackTestEndianLe 3  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianLe 4 -- FAIL \n");
+            (void)printf("dataUnPackTestEndianLe 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 4 -- FAIL \n");
+        (void)printf("dataUnPackTestEndianLe 3  -- FAIL \n");
     }
 
-    /* Function */
-    if( ECU_RES_OK == dataPackReset( &ctx ) )
+    pushPool[0u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestEndianLe 5  -- OK \n");
+        (void)printf("dataUnPackTestEndianLe 4  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 5  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianLe 4  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU32( &ctx, 0x12345678u ) )
+    if( ECU_RES_BADPOINTER == dataUnPackPopU8( NULL, &varTemp8 ) )
     {
-        (void)printf("dataPackTestEndianLe 6  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianLe 6  -- FAIL \n");
-    }
-
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
-    {
-        (void)printf("dataPackTestEndianLe 7 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianLe 7 -- FAIL \n");
-    }
-
-    if( 0x04u == varTemp)
-    {
-        if( ( 0x78u == retrivePool[0u] ) && ( 0x56u == retrivePool[1u] ) &&
-            ( 0x34u == retrivePool[2u] ) && ( 0x12u == retrivePool[3u] ) )
+        if( 0x12u == varTemp8 )
         {
-            (void)printf("dataPackTestEndianLe 8 -- OK \n");
+            (void)printf("dataUnPackTestEndianLe 5  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianLe 8 -- FAIL \n");
+            (void)printf("dataUnPackTestEndianLe 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 8 -- FAIL \n");
+        (void)printf("dataUnPackTestEndianLe 5  -- FAIL \n");
     }
 
-    /* Function */
-    if( ECU_RES_OK == dataPackReset( &ctx ) )
+    pushPool[0u] = 0x34u;
+    pushPool[1u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 2u ) )
     {
-        (void)printf("dataPackTestEndianLe 9  -- OK \n");
+        (void)printf("dataUnPackTestEndianLe 6  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 9  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianLe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU64( &ctx, 0x123456789ABCDEF0u ) )
+    if( ECU_RES_BADPOINTER == dataUnPackPopU16( NULL, &varTemp16 ) )
     {
-        (void)printf("dataPackTestEndianLe 10 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianLe 10 -- FAIL \n");
-    }
-
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
-    {
-        (void)printf("dataPackTestEndianLe 11 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianLe 11 -- FAIL \n");
-    }
-
-    if( 0x08u == varTemp)
-    {
-        if( ( 0xF0u == retrivePool[0u] ) && ( 0xDEu == retrivePool[1u] ) &&
-            ( 0xBCu == retrivePool[2u] ) && ( 0x9Au == retrivePool[3u] ) &&
-            ( 0x78u == retrivePool[4u] ) && ( 0x56u == retrivePool[5u] ) &&
-            ( 0x34u == retrivePool[6u] ) && ( 0x12u == retrivePool[7u] ))
+        if( 0x1234u == varTemp16 )
         {
-            (void)printf("dataPackTestEndianLe 12 -- OK \n");
+            (void)printf("dataUnPackTestEndianLe 7  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianLe 12 -- FAIL \n");
+            (void)printf("dataUnPackTestEndianLe 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianLe 12 -- FAIL \n");
+        (void)printf("dataUnPackTestEndianLe 7  -- FAIL \n");
+    }
+
+    pushPool[0u] = 0x78u;
+    pushPool[1u] = 0x56u;
+    pushPool[2u] = 0x34u;
+    pushPool[3u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 4u ) )
+    {
+        (void)printf("dataUnPackTestEndianLe 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianLe 8  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == dataUnPackPopU32( NULL, &varTemp32 ) )
+    {
+        if( 0x12345678u == varTemp32 )
+        {
+            (void)printf("dataUnPackTestEndianLe 9  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestEndianLe 9  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianLe 9  -- FAIL \n");
+    }
+
+    pushPool[0u] = 0xF0u;
+    pushPool[1u] = 0xDEu;
+    pushPool[2u] = 0xBCu;
+    pushPool[3u] = 0x9Au;
+    pushPool[4u] = 0x78u;
+    pushPool[5u] = 0x56u;
+    pushPool[6u] = 0x34u;
+    pushPool[7u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 8u ) )
+    {
+        (void)printf("dataUnPackTestEndianLe 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianLe 10 -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == dataUnPackPopU64( NULL, &varTemp64 ) )
+    {
+        if( 0x123456789ABCDEF0UL == varTemp64 )
+        {
+            (void)printf("dataUnPackTestEndianLe 11 -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestEndianLe 11 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianLe 11 -- FAIL \n");
     }
 }
 
@@ -748,8 +740,11 @@ void dataUnPackTestEndianBe(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[20u];
-    uint8_t  retrivePool[20u];
-    uint32_t varTemp;
+    uint8_t  pushPool[20u];
+    uint64_t varTemp64;
+    uint32_t varTemp32;
+    uint16_t varTemp16;
+    uint8_t  varTemp8;
 
     /* Init variable */
     ctx.isInit = false;
@@ -757,137 +752,154 @@ void dataUnPackTestEndianBe(void)
     /* Function */
     if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), false) )
     {
-        (void)printf("dataPackTestEndianBe 1  -- OK \n");
+        (void)printf("dataUnPackTestEndianBe 1  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 1  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianBe 1  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 0x1234u ) )
+    pushPool[0u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestEndianBe 2  -- OK \n");
+        (void)printf("dataUnPackTestEndianBe 2  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 2  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianBe 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    pushPool[0u] = 0x00u;
+    if( ECU_RES_OK == dataUnPackPopArray( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestEndianBe 3 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianBe 3 -- FAIL \n");
-    }
-
-    if( 0x02u == varTemp)
-    {
-        if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) )
+        if( 0x12u == pushPool[0u] )
         {
-            (void)printf("dataPackTestEndianBe 4 -- OK \n");
+            (void)printf("dataUnPackTestEndianBe 3  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianBe 4 -- FAIL \n");
+            (void)printf("dataUnPackTestEndianBe 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 4 -- FAIL \n");
+        (void)printf("dataUnPackTestEndianBe 3  -- FAIL \n");
     }
 
-    /* Function */
-    if( ECU_RES_OK == dataPackReset( &ctx ) )
+    pushPool[0u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 1u ) )
     {
-        (void)printf("dataPackTestEndianBe 5  -- OK \n");
+        (void)printf("dataUnPackTestEndianBe 4  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 5  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianBe 4  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU32( &ctx, 0x12345678u ) )
+    if( ECU_RES_BADPOINTER == dataUnPackPopU8( NULL, &varTemp8 ) )
     {
-        (void)printf("dataPackTestEndianBe 6  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianBe 6  -- FAIL \n");
-    }
-
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
-    {
-        (void)printf("dataPackTestEndianBe 7 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianBe 7 -- FAIL \n");
-    }
-
-    if( 0x04u == varTemp)
-    {
-        if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) &&
-            ( 0x56u == retrivePool[2u] ) && ( 0x78u == retrivePool[3u] ) )
+        if( 0x12u == varTemp8 )
         {
-            (void)printf("dataPackTestEndianBe 8 -- OK \n");
+            (void)printf("dataUnPackTestEndianBe 5  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianBe 8 -- FAIL \n");
+            (void)printf("dataUnPackTestEndianBe 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 8 -- FAIL \n");
+        (void)printf("dataUnPackTestEndianBe 5  -- FAIL \n");
     }
 
-    /* Function */
-    if( ECU_RES_OK == dataPackReset( &ctx ) )
+    pushPool[0u] = 0x12u;
+    pushPool[1u] = 0x34u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 2u ) )
     {
-        (void)printf("dataPackTestEndianBe 9  -- OK \n");
+        (void)printf("dataUnPackTestEndianBe 6  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 9  -- FAIL \n");
+        (void)printf("dataUnPackTestEndianBe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU64( &ctx, 0x123456789ABCDEF0u ) )
+    if( ECU_RES_BADPOINTER == dataUnPackPopU16( NULL, &varTemp16 ) )
     {
-        (void)printf("dataPackTestEndianBe 10 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianBe 10 -- FAIL \n");
-    }
-
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
-    {
-        (void)printf("dataPackTestEndianBe 11 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestEndianBe 11 -- FAIL \n");
-    }
-
-    if( 0x08u == varTemp)
-    {
-        if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) &&
-            ( 0x56u == retrivePool[2u] ) && ( 0x78u == retrivePool[3u] ) &&
-            ( 0x9Au == retrivePool[4u] ) && ( 0xBCu == retrivePool[5u] ) &&
-            ( 0xDEu == retrivePool[6u] ) && ( 0xF0u == retrivePool[7u] ))
+        if( 0x1234u == varTemp16 )
         {
-            (void)printf("dataPackTestEndianBe 12 -- OK \n");
+            (void)printf("dataUnPackTestEndianBe 7  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestEndianBe 12 -- FAIL \n");
+            (void)printf("dataUnPackTestEndianBe 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestEndianBe 12 -- FAIL \n");
+        (void)printf("dataUnPackTestEndianBe 7  -- FAIL \n");
+    }
+
+    pushPool[0u] = 0x12u;
+    pushPool[1u] = 0x34u;
+    pushPool[2u] = 0x56u;
+    pushPool[3u] = 0x78u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 4u ) )
+    {
+        (void)printf("dataUnPackTestEndianBe 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianBe 8  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == dataUnPackPopU32( NULL, &varTemp32 ) )
+    {
+        if( 0x12345678u == varTemp32 )
+        {
+            (void)printf("dataUnPackTestEndianBe 9  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestEndianBe 9  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianBe 9  -- FAIL \n");
+    }
+
+    pushPool[0u] = 0x12u;
+    pushPool[1u] = 0x34u;
+    pushPool[2u] = 0x56u;
+    pushPool[3u] = 0x78u;
+    pushPool[4u] = 0x9Au;
+    pushPool[5u] = 0xBCu;
+    pushPool[6u] = 0xDEu;
+    pushPool[7u] = 0xF0u;
+
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 8u ) )
+    {
+        (void)printf("dataUnPackTestEndianBe 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianBe 10 -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == dataUnPackPopU64( NULL, &varTemp64 ) )
+    {
+        if( 0x123456789ABCDEF0UL == varTemp64 )
+        {
+            (void)printf("dataUnPackTestEndianBe 11 -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestEndianBe 11 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianBe 11 -- FAIL \n");
     }
 }
 
@@ -896,118 +908,119 @@ void dataUnPackTestCycle(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[20u];
-    uint8_t  retrivePool[20u];
-    uint32_t varTemp;
-
+    uint8_t  pushPool[20u];
+    uint16_t varTemp16;
     /* Init variable */
     ctx.isInit = false;
 
     /* Function */
     if( ECU_RES_OK == dataUnPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
-        (void)printf("dataPackTestCycle 1  -- OK \n");
+        (void)printf("dataUnPackTestCycle 1  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestCycle 1  -- FAIL \n");
+        (void)printf("dataUnPackTestCycle 1  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 0x1234u ) )
+    pushPool[0u] = 0x78u;
+    pushPool[1u] = 0x56u;
+    pushPool[2u] = 0x34u;
+    pushPool[3u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 4u ) )
     {
-        (void)printf("dataPackTestCycle 2  -- OK \n");
+        (void)printf("dataUnPackTestCycle 2  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestCycle 2  -- FAIL \n");
+        (void)printf("dataUnPackTestCycle 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 0x5678u ) )
+    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
     {
-        (void)printf("dataPackTestCycle 3  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestCycle 3  -- FAIL \n");
-    }
-
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
-    {
-        (void)printf("dataPackTestCycle 4 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestCycle 4 -- FAIL \n");
-    }
-
-    if( 0x04u == varTemp)
-    {
-        if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) &&
-            ( 0x78u == retrivePool[2u] ) && ( 0x56u == retrivePool[3u] )  )
+        if( 0x5678u == varTemp16 )
         {
-            (void)printf("dataPackTestCycle 5 -- OK \n");
+            (void)printf("dataUnPackTestCycle 3  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestCycle 5 -- FAIL \n");
+            (void)printf("dataUnPackTestCycle 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestCycle 5 -- FAIL \n");
+        (void)printf("dataUnPackTestCycle 3  -- FAIL \n");
+    }
+
+    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
+    {
+        if( 0x1234u == varTemp16 )
+        {
+            (void)printf("dataUnPackTestCycle 4  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestCycle 4  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestCycle 4  -- FAIL \n");
     }
 
     /* Function */
-    if( ECU_RES_OK == dataPackReset( &ctx ) )
+    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
     {
-        (void)printf("dataPackTestCycle 6  -- OK \n");
+        (void)printf("dataUnPackTestCycle 5  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestCycle 6  -- FAIL \n");
+        (void)printf("dataUnPackTestCycle 5  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 0x1234u ) )
+    pushPool[0u] = 0x78u;
+    pushPool[1u] = 0x56u;
+    pushPool[2u] = 0x34u;
+    pushPool[3u] = 0x12u;
+    if( ECU_RES_OK == dataUnPackSetData( &ctx, pushPool, 4u ) )
     {
-        (void)printf("dataPackTestCycle 7  -- OK \n");
+        (void)printf("dataUnPackTestCycle 6  -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestCycle 7  -- FAIL \n");
+        (void)printf("dataUnPackTestCycle 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16( &ctx, 0x5678u ) )
+    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
     {
-        (void)printf("dataPackTestCycle 8  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestCycle 8  -- FAIL \n");
-    }
-
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
-    {
-        (void)printf("dataPackTestCycle 9 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestCycle 9 -- FAIL \n");
-    }
-
-    if( 0x04u == varTemp)
-    {
-        if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) &&
-            ( 0x78u == retrivePool[2u] ) && ( 0x56u == retrivePool[3u] )  )
+        if( 0x5678u == varTemp16 )
         {
-            (void)printf("dataPackTestCycle 10 -- OK \n");
+            (void)printf("dataUnPackTestCycle 7  -- OK \n");
         }
         else
         {
-            (void)printf("dataPackTestCycle 10 -- FAIL \n");
+            (void)printf("dataUnPackTestCycle 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("dataPackTestCycle 10 -- FAIL \n");
+        (void)printf("dataUnPackTestCycle 7  -- FAIL \n");
+    }
+
+    if( ECU_RES_OK == dataUnPackPopU16( NULL, &varTemp16 ) )
+    {
+        if( 0x1234u == varTemp16 )
+        {
+            (void)printf("dataUnPackTestCycle 8  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestCycle 8  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestCycle 8  -- FAIL \n");
     }
 }
 
