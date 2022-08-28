@@ -171,7 +171,7 @@ e_eCU_Res dataUnPackSetData(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data,
                     else
                     {
                         /* Copy data */
-                        memcpy( ctx->memPool, data, dataLen );
+                        (void)memcpy( ctx->memPool, data, dataLen );
 
                         /* Update index */
                         ctx->memPoolFillSize = dataLen;
@@ -186,6 +186,11 @@ e_eCU_Res dataUnPackSetData(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data,
 
 	return result;
 }
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-17.4_b"
+    /* Suppressed for code clarity */
+#endif
 
 e_eCU_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const dataDest, uint32_t const retrivedLen)
 {
@@ -229,7 +234,7 @@ e_eCU_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data
                     else
                     {
                         /* Copy data */
-                        memcpy(dataDest, &ctx->memPool[ctx->memPoolCntr], retrivedLen);
+                        (void)memcpy(dataDest, &ctx->memPool[ctx->memPoolCntr], retrivedLen);
 
                         /* Update index */
                         ctx->memPoolCntr += retrivedLen;
@@ -478,32 +483,32 @@ e_eCU_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP)
 						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 24u ) ) & 0x00000000FF000000ul );
 						ctx->memPoolCntr++;
 
-                        *dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 32u ) ) & 0x000000FF00000000ul );
+                        *dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 32u ) ) & 0x000000FF00000000ul );
                         ctx->memPoolCntr++;
 
-						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 40u ) ) & 0x0000FF0000000000ul );
+						*dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 40u ) ) & 0x0000FF0000000000ul );
 						ctx->memPoolCntr++;
 
-						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 48u ) ) & 0x00FF000000000000ul );
+						*dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 48u ) ) & 0x00FF000000000000ul );
 						ctx->memPoolCntr++;
 
-						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 56u ) ) & 0xFF00000000000000ul );
+						*dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 56u ) ) & 0xFF00000000000000ul );
 						ctx->memPoolCntr++;
 
 					}
 					else
 					{
 						/* Copy data big endian */
- 						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 56u ) ) & 0xFF00000000000000ul );
+ 						*dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 56u ) ) & 0xFF00000000000000ul );
 						ctx->memPoolCntr++;
 
-                        *dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 48u ) ) & 0x00FF000000000000ul );
+                        *dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 48u ) ) & 0x00FF000000000000ul );
                         ctx->memPoolCntr++;
 
-						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 40u ) ) & 0x0000FF0000000000ul );
+						*dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 40u ) ) & 0x0000FF0000000000ul );
 						ctx->memPoolCntr++;
 
- 						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 32u ) ) & 0x000000FF00000000ul );
+ 						*dataP |= ( ( (uint64_t) ( ((uint64_t)ctx->memPool[ctx->memPoolCntr]) << 32u ) ) & 0x000000FF00000000ul );
 						ctx->memPoolCntr++;
 
 						*dataP |= ( ( (uint64_t) ( ctx->memPool[ctx->memPoolCntr] << 24u ) ) & 0x00000000FF000000ul );
@@ -528,6 +533,9 @@ e_eCU_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP)
 	return result;
 }
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2004-17.4_b"
+#endif
 
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
