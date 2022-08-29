@@ -2160,9 +2160,6 @@
             <name>Inc</name>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteStuffer.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCircularQueue.h</name>
@@ -2190,9 +2187,6 @@
             <name>Src</name>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUByteStuffer.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCircularQueue.c</name>
@@ -2217,9 +2211,6 @@
             <name>Inc</name>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUByteStufferTest.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCircularQueueTest.h</name>
@@ -2244,9 +2235,6 @@
             <name>Src</name>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUByteStufferTest.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCircularQueueTest.c</name>
