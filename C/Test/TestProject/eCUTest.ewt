@@ -2859,6 +2859,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrc.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrcDigest.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUDataPack.h</name>
             </file>
             <file>
@@ -2883,6 +2886,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCrc.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUCrcDigest.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUDataPack.c</name>
             </file>
             <file>
@@ -2899,6 +2905,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCircularQueueTest.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCrcDigestTest.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCrcTest.h</name>
@@ -2920,6 +2929,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCircularQueueTest.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUCrcDigestTest.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCrcTest.c</name>

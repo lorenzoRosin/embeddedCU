@@ -2160,18 +2160,33 @@
             <name>Inc</name>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteStuffer.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCircularQueue.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrc.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrcDigest.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUDataPack.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUDataUnPack.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUStandardType.h</name>
@@ -2184,18 +2199,33 @@
             <name>Src</name>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUByteStuffer.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCircularQueue.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCrc.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUCrcDigest.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUDataPack.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUDataUnPack.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
         </group>
     </group>
@@ -2205,18 +2235,33 @@
             <name>Inc</name>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUByteStufferTest.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCircularQueueTest.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCrcDigestTest.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCrcTest.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataPackTest.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataPackUnPackTest.h</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataUnPackTest.h</name>
@@ -2226,21 +2271,39 @@
             <name>Src</name>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUByteStufferTest.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCircularQueueTest.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUCrcDigestTest.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCrcTest.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataPackTest.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataPackUnPackTest.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataUnPackTest.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
         </group>
         <file>
