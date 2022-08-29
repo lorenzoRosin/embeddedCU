@@ -61,7 +61,7 @@ void circularqueueTestBadPointer(void)
     uint32_t varTemp;
 
     /* Function */
-    if( ECU_RES_BADPOINTER == circQInit(NULL, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_BADPOINTER == circQInitCtx(NULL, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadPointer 1  -- OK \n");
     }
@@ -70,7 +70,7 @@ void circularqueueTestBadPointer(void)
         (void)printf("circularqueueTestBadPointer 1  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == circQInit(&ctx, NULL, sizeof(badPointerMempool)) )
+    if( ECU_RES_BADPOINTER == circQInitCtx(&ctx, NULL, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadPointer 2  -- OK \n");
     }
@@ -190,7 +190,7 @@ void circularqueueTestBadInit(void)
     ctx.isInit = true;
 
     /* Function */
-    if( ECU_RES_BADPARAM == circQInit(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadInit 1  -- OK \n");
     }
@@ -267,7 +267,7 @@ void circularqueueTestBadParamEntr(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_BADPARAM == circQInit(&ctx, badPointerMempool, 0u) )
+    if( ECU_RES_BADPARAM == circQInitCtx(&ctx, badPointerMempool, 0u) )
     {
         (void)printf("circularqueueTestBadParamEntr 1  -- OK \n");
     }
@@ -317,7 +317,7 @@ static void circularqueueTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == circQInit(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadParamStatus 1  -- OK \n");
     }
@@ -345,7 +345,7 @@ static void circularqueueTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == circQInit(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadParamStatus 3  -- OK \n");
     }
@@ -372,7 +372,7 @@ static void circularqueueTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == circQInit(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadParamStatus 5  -- OK \n");
     }
@@ -399,7 +399,7 @@ static void circularqueueTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == circQInit(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadParamStatus 5  -- OK \n");
     }
@@ -426,7 +426,7 @@ static void circularqueueTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == circQInit(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadParamStatus 5  -- OK \n");
     }
@@ -458,7 +458,7 @@ void circularqueueTestOutOfMem(void)
     ctx.isInit = false;
 
     /* Easy one  */
-    if( ECU_RES_OK == circQInit(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestOutOfMem 1  -- OK \n");
     }
@@ -589,7 +589,7 @@ static void circularqueueTestGeneric(void)
     ctx.isInit = false;
 
     /* Easy one  */
-    if( ECU_RES_OK == circQInit(&ctx, pointerMempool, sizeof(pointerMempool) ) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, pointerMempool, sizeof(pointerMempool) ) )
     {
         (void)printf("circularqueueTestGeneric 1  -- OK \n");
     }
@@ -686,7 +686,7 @@ static void circularqueueTestCycle(void)
     ctx.isInit = false;
 
     /* Easy one  */
-    if( ECU_RES_OK == circQInit(&ctx, pointerMempool, sizeof(pointerMempool) ) )
+    if( ECU_RES_OK == circQInitCtx(&ctx, pointerMempool, sizeof(pointerMempool) ) )
     {
         (void)printf("circularqueueTestCycle 1  -- OK \n");
     }

@@ -40,7 +40,7 @@ typedef struct
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Initialize the circular queue
+ * Initialize the circular queue context
  * @param ctx Circular queue context
  * @param memPool Pointer to a memory pool that we will use to manage the circular queue
  * @param memPoolSize Dimension in byte of the circular queue
@@ -48,7 +48,7 @@ typedef struct
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize);
+e_eCU_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize);
 
 /**
  * Reset the state of the circular queue and discharge all saved data

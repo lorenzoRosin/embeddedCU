@@ -16,7 +16,7 @@
         <ShowSource>1</ShowSource>
     </Trace1>
     <DebugChecksum>
-        <Checksum>2814812395</Checksum>
+        <Checksum>4217868798</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -35,11 +35,6 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
-    <LogFile>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-        <Category2>_ 0</Category2>
-    </LogFile>
     <struct_types>
         <Fmt0>s_eCU_CrcDigestCtx-lastDigest	4	0</Fmt0>
         <Fmt1>s_eCU_CrcDigestCtx-usedBaseSeed	4	0</Fmt1>
@@ -48,6 +43,11 @@
         <Fmt0>{W}1:crcTestValRet	4	0</Fmt0>
         <Fmt1>{W}1:crcTestValRetC	4	0</Fmt1>
     </watch_formats>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category2>_ 0</Category2>
+    </LogFile>
     <InterruptLog>
         <GraphEnabled>0</GraphEnabled>
         <LogEnabled>0</LogEnabled>

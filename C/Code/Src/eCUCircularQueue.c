@@ -20,7 +20,7 @@ static bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize)
+e_eCU_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -40,21 +40,14 @@ e_eCU_Res circQInit(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t 
 		else
 		{
 			/* Check Init */
-			if( true == ctx->isInit )
-			{
-				result = ECU_RES_BADPARAM;
-			}
-			else
-			{
-				ctx->isInit = true;
-				ctx->memPool = memPool;
-				ctx->memPoolSize = memPoolSize;
-				ctx->memPoolUsedSize = 0u;
-				ctx->memPoolFrstFreeIdx = 0u;
-				ctx->memPoolFrstOccIdx = 0u;
+			ctx->isInit = true;
+			ctx->memPool = memPool;
+			ctx->memPoolSize = memPoolSize;
+			ctx->memPoolUsedSize = 0u;
+			ctx->memPoolFrstFreeIdx = 0u;
+			ctx->memPoolFrstOccIdx = 0u;
 
-				result = ECU_RES_OK;
-			}
+			result = ECU_RES_OK;
 		}
     }
 

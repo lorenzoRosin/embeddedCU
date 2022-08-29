@@ -26,7 +26,7 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCrc module
+ * Test the eCUCircularQueue module
  */
 void circularQueueTest(void);
 

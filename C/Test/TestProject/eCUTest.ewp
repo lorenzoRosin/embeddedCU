@@ -2166,9 +2166,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCircularQueue.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCrc.h</name>
@@ -2205,9 +2202,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCircularQueue.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCrc.c</name>
@@ -2241,9 +2235,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCircularQueueTest.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCrcDigestTest.h</name>
@@ -2277,9 +2268,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCircularQueueTest.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCrcDigestTest.c</name>

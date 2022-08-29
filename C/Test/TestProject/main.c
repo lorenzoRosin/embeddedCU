@@ -1,6 +1,6 @@
 #include "eCUCrcTest.h"
 #include "eCUCrcDigestTest.h"
-//#include "eCUCircularQueueTest.h"
+#include "eCUCircularQueueTest.h"
 //#include "eCUDataPackTest.h"
 //#include "eCUDataUnPackTest.h"
 //#include "eCUDataPackUnPackTest.h"
@@ -13,7 +13,7 @@ int main(void)
 {
     crc32Test();
     cUCrcDigestTest();
-    //circularQueueTest();
+    circularQueueTest();
     //dataPackTest();
     //dataUnPackTest();
 	//dataPackUnPackTest();
