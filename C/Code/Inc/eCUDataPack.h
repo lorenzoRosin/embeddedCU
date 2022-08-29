@@ -28,9 +28,9 @@ typedef struct
 {
     bool_t isInit;
 	bool_t isLE;
-	uint8_t* memPool;
-	uint32_t memPoolSize;
-	uint32_t memPoolCntr;
+	uint8_t* memPKA;
+	uint32_t memPKASize;
+	uint32_t memPKACntr;
 }s_eCU_DataPackCtx;
 
 
@@ -41,14 +41,14 @@ typedef struct
 /**
  * Initialize the data packer context
  * @param ctx Data packer context
- * @param memPool Pointer to a memory pool that we will use to manage the data packer
- * @param memPoolSize Dimension in byte of the data packer pool
+ * @param memPKA Pointer to a memory pool that we will use to manage the data packer
+ * @param memPKASize Dimension in byte of the data packer pool
  * @param isLEnd Select if data packer must work in Little Endian or Big Endian
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK data packer is initialized correctly
  */
-e_eCU_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize,
+e_eCU_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, const uint32_t memPKASize,
 					   const bool_t isLEnd);
 
 /**

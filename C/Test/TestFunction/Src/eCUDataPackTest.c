@@ -351,7 +351,7 @@ void dataPackTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolSize = 0u;
+    ctx.memPKASize = 0u;
 
     if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
     {
@@ -378,7 +378,7 @@ void dataPackTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPool = NULL;
+    ctx.memPKA = NULL;
 
     if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
     {
@@ -405,7 +405,7 @@ void dataPackTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolCntr = ctx.memPoolSize + 1u;
+    ctx.memPKACntr = ctx.memPKASize + 1u;
 
     if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
     {
