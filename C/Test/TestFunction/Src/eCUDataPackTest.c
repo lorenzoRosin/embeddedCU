@@ -63,7 +63,7 @@ void dataPackTestBadPointer(void)
     uint32_t varTemp;
 
     /* Function */
-    if( ECU_RES_BADPOINTER == dataPackinit(NULL, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_BADPOINTER == dataPackinitCtx(NULL, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestBadPointer 1  -- OK \n");
     }
@@ -72,7 +72,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 1  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackinit(&ctx, NULL, sizeof(badPointerMempool), true) )
+    if( ECU_RES_BADPOINTER == dataPackinitCtx(&ctx, NULL, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestBadPointer 2  -- OK \n");
     }
@@ -201,7 +201,7 @@ void dataPackTestBadInit(void)
     ctx.isInit = true;
 
     /* Function */
-    if( ECU_RES_BADPARAM == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_BADPARAM == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestBadInit 1  -- OK \n");
     }
@@ -297,7 +297,7 @@ void dataPackTestBadParamEntr(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_BADPARAM == dataPackinit(&ctx, badPointerMempool, 0u, true) )
+    if( ECU_RES_BADPARAM == dataPackinitCtx(&ctx, badPointerMempool, 0u, true) )
     {
         (void)printf("dataPackTestBadParamEntr 1  -- OK \n");
     }
@@ -341,7 +341,7 @@ void dataPackTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestBadParamStatus 1  -- OK \n");
     }
@@ -368,7 +368,7 @@ void dataPackTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestBadParamStatus 3  -- OK \n");
     }
@@ -395,7 +395,7 @@ void dataPackTestBadParamStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestBadParamStatus 5  -- OK \n");
     }
@@ -431,7 +431,7 @@ void dataPackTestOutOfMem(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestOutOfMem 1  -- OK \n");
     }
@@ -534,7 +534,7 @@ void dataPackTestEndianLe(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestEndianLe 1  -- OK \n");
     }
@@ -682,7 +682,7 @@ void dataPackTestEndianBe(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), false) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), false) )
     {
         (void)printf("dataPackTestEndianBe 1  -- OK \n");
     }
@@ -830,7 +830,7 @@ void dataPackTestCycle(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestCycle 1  -- OK \n");
     }

@@ -56,7 +56,7 @@ void dataPackUnPackCommon(void)
     uint64_t var64;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinit(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
     {
         (void)printf("dataPackUnPackCommon 1  -- OK \n");
     }

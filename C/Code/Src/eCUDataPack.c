@@ -20,7 +20,7 @@ static bool_t isPackStatusStillCoherent(const s_eCU_DataPackCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res dataPackinit(s_eCU_DataPackCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize,
+e_eCU_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize,
 					   const bool_t isLEnd)
 {
 	/* Local variable */
