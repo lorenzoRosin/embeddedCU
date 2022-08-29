@@ -30,7 +30,6 @@ typedef struct
 	bool_t isLE;
 	uint8_t* memUPKA;
 	uint32_t memUPKASize;
-	uint32_t memUPKAFillSize;
 	uint32_t memUPKACntr;
 }s_eCU_DataUnPackCtx;
 
@@ -42,8 +41,8 @@ typedef struct
 /**
  * Initialize the data unpacker context
  * @param ctx data unpacker context
- * @param memUPKA Pointer to a memory pool that we will use to manage the data unpacker
- * @param memUPKASize Dimension in byte of the data unpacker pool
+ * @param memUPKA Pointer to a memory area that we will use get data to pop
+ * @param memUPKASize Dimension in byte of the data unpacker area
  * @param isLEnd Select if data unpacker must work in Little Endian or Big Endian
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
@@ -53,7 +52,7 @@ e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUP
                          const bool_t isLEnd);
 
 /**
- * Reset data unpacker and discharge setted data
+ * Reset data unpacker and restart from memory start
  * @param ctx data unpacker context
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data unpacker before taking some action
@@ -62,7 +61,7 @@ e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUP
  e_eCU_Res dataUnPackReset(s_eCU_DataUnPackCtx* const ctx);
 
 /**
- * Retrive how many byte we have stored
+ * Retrive how many byte we can still pop
  * @param ctx data unpacker context
  * @param retrivedLen Pointer to a memory area were we will store size of serialized data
  * @return ECU_RES_BADPOINTER in case of bad pointer
@@ -71,19 +70,6 @@ e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUP
  *         ECU_RES_OK operation ended correctly
  */
 e_eCU_Res dataUnPackGetDataSize(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen);
-
-/**
- * Save an array of data that will be unpacked
- * @param ctx data unpacker context
- * @param data Pointer to a memory area containing data that will be saved and unpacked
- * @param dataLen Length of data
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data unpacker before taking some action
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
- *         ECU_RES_OK data unpacker is initialized correctly
- */
-e_eCU_Res dataUnPackSetData(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data, uint32_t const dataLen);
 
 /**
  * Pop some raw data

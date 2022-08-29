@@ -44,7 +44,6 @@ e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUP
             ctx->isLE = isLEnd;
             ctx->memUPKA = memUPKA;
             ctx->memUPKASize = memUPKASize;
-            ctx->memUPKAFillSize = 0u;
             ctx->memUPKACntr = 0u;
 
             result = ECU_RES_OK;
@@ -74,7 +73,6 @@ e_eCU_Res dataUnPackReset(s_eCU_DataUnPackCtx* const ctx)
 		else
 		{
 			/* Update index */
-			ctx->memUPKAFillSize = 0u;
 			ctx->memUPKACntr = 0u;
 
 			result = ECU_RES_OK;
@@ -111,68 +109,10 @@ e_eCU_Res dataUnPackGetDataSize(s_eCU_DataUnPackCtx* const ctx, uint32_t* const 
 			}
 			else
 			{
-				*retrivedLen = ctx->memUPKAFillSize - ctx->memUPKACntr;
+				*retrivedLen = ctx->memUPKASize - ctx->memUPKACntr;
 				result = ECU_RES_OK;
 			}
 
-		}
-    }
-
-	return result;
-}
-
-e_eCU_Res dataUnPackSetData(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data, uint32_t const dataLen)
-{
-	/* Local variable */
-	e_eCU_Res result;
-
-	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == data ) )
-	{
-		result = ECU_RES_BADPOINTER;
-	}
-	else
-	{
-		/* Check Init */
-		if( false == ctx->isInit )
-		{
-			result = ECU_RES_NOINITLIB;
-		}
-		else
-		{
-			/* Check data validity */
-			if( dataLen <= 0u )
-			{
-				result = ECU_RES_BADPARAM;
-			}
-			else
-			{
-                /* Check internal status validity */
-                if( false == isUnPackStatusStillCoherent(ctx) )
-                {
-                    /* We have removed more data that we had */
-                    result = ECU_RES_BADPARAM;
-                }
-                else
-                {
-                    /* Check if data can be stored */
-                    if( dataLen > ctx->memUPKASize )
-                    {
-                        result = ECU_RES_OUTOFMEM;
-                    }
-                    else
-                    {
-                        /* Copy data */
-                        (void)memcpy( ctx->memUPKA, data, dataLen );
-
-                        /* Update index */
-                        ctx->memUPKAFillSize = dataLen;
-                        ctx->memUPKACntr = 0u;
-
-                        result = ECU_RES_OK;
-                    }
-                }
-			}
 		}
     }
 
@@ -219,7 +159,7 @@ e_eCU_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data
                 else
                 {
                     /* Check if we can pop that amount */
-                    if( ( ctx->memUPKACntr + retrivedLen ) > ctx->memUPKAFillSize )
+                    if( ( ctx->memUPKACntr + retrivedLen ) > ctx->memUPKASize )
                     {
                         result = ECU_RES_OUTOFMEM;
                     }
@@ -267,7 +207,7 @@ e_eCU_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t *dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memUPKACntr + sizeof(uint8_t) ) > ctx->memUPKAFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint8_t) ) > ctx->memUPKASize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
@@ -315,7 +255,7 @@ e_eCU_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memUPKACntr + sizeof(uint16_t) ) > ctx->memUPKAFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint16_t) ) > ctx->memUPKASize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
@@ -383,7 +323,7 @@ e_eCU_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memUPKACntr + sizeof(uint32_t) ) > ctx->memUPKAFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint32_t) ) > ctx->memUPKASize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
@@ -467,7 +407,7 @@ e_eCU_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memUPKACntr + sizeof(uint64_t) ) > ctx->memUPKAFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint64_t) ) > ctx->memUPKASize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
@@ -574,8 +514,7 @@ bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx)
 	else
 	{
 		/* Check queue data coherence */
-		if( ( ctx->memUPKAFillSize > ctx->memUPKASize ) || ( ctx->memUPKACntr > ctx->memUPKASize ) ||
-            ( ctx->memUPKACntr > ctx->memUPKAFillSize ) )
+		if( ctx->memUPKACntr > ctx->memUPKASize )
 		{
 			result = false;
 		}
