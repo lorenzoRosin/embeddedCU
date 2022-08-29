@@ -201,7 +201,7 @@ void dataPackTestBadInit(void)
     ctx.isInit = true;
 
     /* Function */
-    if( ECU_RES_BADPARAM == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( ECU_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataPackTestBadInit 1  -- OK \n");
     }
