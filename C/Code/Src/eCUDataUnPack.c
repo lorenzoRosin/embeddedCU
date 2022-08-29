@@ -20,42 +20,34 @@ static bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res dataUnPackinit(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize,
+e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUPKA, const uint32_t memUPKASize,
                          const bool_t isLEnd)
 {
 	/* Local variable */
 	e_eCU_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx) || ( NULL ==  memPool) )
+	if( ( NULL == ctx) || ( NULL ==  memUPKA) )
 	{
 		result = ECU_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check data validity */
-		if( memPoolSize <= 0u )
+		if( memUPKASize <= 0u )
 		{
 			result = ECU_RES_BADPARAM;
 		}
 		else
 		{
-			/* Check Init */
-			if( true == ctx->isInit )
-			{
-				result = ECU_RES_BADPARAM;
-			}
-			else
-			{
-				ctx->isInit = true;
-				ctx->isLE = isLEnd;
-				ctx->memPool = memPool;
-				ctx->memPoolSize = memPoolSize;
-				ctx->memPoolFillSize = 0u;
-				ctx->memPoolCntr = 0u;
+            ctx->isInit = true;
+            ctx->isLE = isLEnd;
+            ctx->memUPKA = memUPKA;
+            ctx->memUPKASize = memUPKASize;
+            ctx->memUPKAFillSize = 0u;
+            ctx->memUPKACntr = 0u;
 
-				result = ECU_RES_OK;
-			}
+            result = ECU_RES_OK;
 		}
     }
 
@@ -82,8 +74,8 @@ e_eCU_Res dataUnPackReset(s_eCU_DataUnPackCtx* const ctx)
 		else
 		{
 			/* Update index */
-			ctx->memPoolFillSize = 0u;
-			ctx->memPoolCntr = 0u;
+			ctx->memUPKAFillSize = 0u;
+			ctx->memUPKACntr = 0u;
 
 			result = ECU_RES_OK;
 		}
@@ -119,7 +111,7 @@ e_eCU_Res dataUnPackGetDataSize(s_eCU_DataUnPackCtx* const ctx, uint32_t* const 
 			}
 			else
 			{
-				*retrivedLen = ctx->memPoolFillSize - ctx->memPoolCntr;
+				*retrivedLen = ctx->memUPKAFillSize - ctx->memUPKACntr;
 				result = ECU_RES_OK;
 			}
 
@@ -164,18 +156,18 @@ e_eCU_Res dataUnPackSetData(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data,
                 else
                 {
                     /* Check if data can be stored */
-                    if( dataLen > ctx->memPoolSize )
+                    if( dataLen > ctx->memUPKASize )
                     {
                         result = ECU_RES_OUTOFMEM;
                     }
                     else
                     {
                         /* Copy data */
-                        (void)memcpy( ctx->memPool, data, dataLen );
+                        (void)memcpy( ctx->memUPKA, data, dataLen );
 
                         /* Update index */
-                        ctx->memPoolFillSize = dataLen;
-                        ctx->memPoolCntr = 0u;
+                        ctx->memUPKAFillSize = dataLen;
+                        ctx->memUPKACntr = 0u;
 
                         result = ECU_RES_OK;
                     }
@@ -227,17 +219,17 @@ e_eCU_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const data
                 else
                 {
                     /* Check if we can pop that amount */
-                    if( ( ctx->memPoolCntr + retrivedLen ) > ctx->memPoolFillSize )
+                    if( ( ctx->memUPKACntr + retrivedLen ) > ctx->memUPKAFillSize )
                     {
                         result = ECU_RES_OUTOFMEM;
                     }
                     else
                     {
                         /* Copy data */
-                        (void)memcpy(dataDest, &ctx->memPool[ctx->memPoolCntr], retrivedLen);
+                        (void)memcpy(dataDest, &ctx->memUPKA[ctx->memUPKACntr], retrivedLen);
 
                         /* Update index */
-                        ctx->memPoolCntr += retrivedLen;
+                        ctx->memUPKACntr += retrivedLen;
                         result = ECU_RES_OK;
                     }
                 }
@@ -275,17 +267,17 @@ e_eCU_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t *dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memPoolCntr + sizeof(uint8_t) ) > ctx->memPoolFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint8_t) ) > ctx->memUPKAFillSize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
 				else
 				{
 					/* Copy data */
-					*dataP = ctx->memPool[ctx->memPoolCntr];
+					*dataP = ctx->memUPKA[ctx->memUPKACntr];
 
 					/* Update index */
-					ctx->memPoolCntr++;
+					ctx->memUPKACntr++;
 					result = ECU_RES_OK;
 				}
 			}
@@ -323,7 +315,7 @@ e_eCU_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memPoolCntr + sizeof(uint16_t) ) > ctx->memPoolFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint16_t) ) > ctx->memUPKAFillSize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
@@ -334,24 +326,24 @@ e_eCU_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP)
 					if( true == ctx->isLE)
 					{
                         /* Copy data Little endian */
-                        tempS = (uint16_t) ctx->memPool[ctx->memPoolCntr];
+                        tempS = (uint16_t) ctx->memUPKA[ctx->memUPKACntr];
                         *dataP |= ( tempS & 0x00FFu );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 
-                        tempS =  (uint16_t) ( ( (uint16_t) ctx->memPool[ctx->memPoolCntr] ) << 8u  );
+                        tempS =  (uint16_t) ( ( (uint16_t) ctx->memUPKA[ctx->memUPKACntr] ) << 8u  );
 						*dataP |= ( tempS & 0xFF00u );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 					}
 					else
 					{
 						/* Copy data big endian */
-                        tempS =  (uint16_t) ( ( (uint16_t) ctx->memPool[ctx->memPoolCntr] ) << 8u  );
+                        tempS =  (uint16_t) ( ( (uint16_t) ctx->memUPKA[ctx->memUPKACntr] ) << 8u  );
 						*dataP |= ( tempS & 0xFF00u );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS = (uint16_t) ctx->memPool[ctx->memPoolCntr];
+                        tempS = (uint16_t) ctx->memUPKA[ctx->memUPKACntr];
                         *dataP |= ( tempS & 0x00FFu );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 					}
 
 					result = ECU_RES_OK;
@@ -391,7 +383,7 @@ e_eCU_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memPoolCntr + sizeof(uint32_t) ) > ctx->memPoolFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint32_t) ) > ctx->memUPKAFillSize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
@@ -402,40 +394,40 @@ e_eCU_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP)
 					if( true == ctx->isLE)
 					{
                         /* Copy data Little endian */
-                        tempS = (uint32_t) ctx->memPool[ctx->memPoolCntr];
+                        tempS = (uint32_t) ctx->memUPKA[ctx->memUPKACntr];
                         *dataP |= ( tempS & 0x000000FFu );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 
-                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memPool[ctx->memPoolCntr] ) << 8u  );
+                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memUPKA[ctx->memUPKACntr] ) << 8u  );
 						*dataP |= ( tempS & 0x0000FF00u );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memPool[ctx->memPoolCntr] ) << 16u  );
+                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memUPKA[ctx->memUPKACntr] ) << 16u  );
 						*dataP |= ( tempS & 0x00FF0000u );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memPool[ctx->memPoolCntr] ) << 24u  );
+                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memUPKA[ctx->memUPKACntr] ) << 24u  );
 						*dataP |= ( tempS & 0xFF000000u );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 					}
 					else
 					{
 						/* Copy data big endian */
-                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memPool[ctx->memPoolCntr] ) << 24u  );
+                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memUPKA[ctx->memUPKACntr] ) << 24u  );
 						*dataP |= ( tempS & 0xFF000000u );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memPool[ctx->memPoolCntr] ) << 16u  );
+                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memUPKA[ctx->memUPKACntr] ) << 16u  );
                         *dataP |= ( tempS & 0x00FF0000u );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 
-                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memPool[ctx->memPoolCntr] ) << 8u  );
+                        tempS =  (uint32_t) ( ( (uint32_t) ctx->memUPKA[ctx->memUPKACntr] ) << 8u  );
 						*dataP |= ( tempS & 0x0000FF00u );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS = (uint32_t) ctx->memPool[ctx->memPoolCntr];
+                        tempS = (uint32_t) ctx->memUPKA[ctx->memUPKACntr];
                         *dataP |= ( tempS & 0x000000FFu );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 					}
 
 					result = ECU_RES_OK;
@@ -475,7 +467,7 @@ e_eCU_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP)
 			else
 			{
 				/* Check if we can pop that amount */
-				if( ( ctx->memPoolCntr + sizeof(uint64_t) ) > ctx->memPoolFillSize )
+				if( ( ctx->memUPKACntr + sizeof(uint64_t) ) > ctx->memUPKAFillSize )
 				{
 					result = ECU_RES_OUTOFMEM;
 				}
@@ -486,72 +478,72 @@ e_eCU_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP)
 					if( true == ctx->isLE)
 					{
                         /* Copy data Little endian */
-                        tempS = (uint64_t) ctx->memPool[ctx->memPoolCntr];
+                        tempS = (uint64_t) ctx->memUPKA[ctx->memUPKACntr];
                         *dataP |= ( tempS & 0x00000000000000FFUL );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 8u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 8u  );
 						*dataP |= ( tempS & 0x000000000000FF00UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 16u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 16u  );
 						*dataP |= ( tempS & 0x0000000000FF0000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 24u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 24u  );
 						*dataP |= ( tempS & 0x00000000FF000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 32u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 32u  );
 						*dataP |= ( tempS & 0x000000FF00000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 40u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 40u  );
 						*dataP |= ( tempS & 0x0000FF0000000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 48u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 48u  );
 						*dataP |= ( tempS & 0x00FF000000000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 56u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 56u  );
 						*dataP |= ( tempS & 0xFF00000000000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 					}
 					else
 					{
 						/* Copy data big endian */
- 						tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 56u  );
+ 						tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 56u  );
                         *dataP |= ( tempS & 0xFF00000000000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 48u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 48u  );
                         *dataP |= ( tempS & 0x00FF000000000000UL );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 
-						tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 40u  );
+						tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 40u  );
                         *dataP |= ( tempS & 0x0000FF0000000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
- 						tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 32u  );
+ 						tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 32u  );
                         *dataP |= ( tempS & 0x000000FF00000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 24u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 24u  );
 						*dataP |= ( tempS & 0x00000000FF000000UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 16u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 16u  );
                         *dataP |= ( tempS & 0x0000000000FF0000UL );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 
-                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memPool[ctx->memPoolCntr] ) << 8u  );
+                        tempS =  (uint64_t) ( ( (uint64_t) ctx->memUPKA[ctx->memUPKACntr] ) << 8u  );
 						*dataP |= ( tempS & 0x000000000000FF00UL );
-						ctx->memPoolCntr++;
+						ctx->memUPKACntr++;
 
-                        tempS = (uint64_t) ctx->memPool[ctx->memPoolCntr];
+                        tempS = (uint64_t) ctx->memUPKA[ctx->memUPKACntr];
                         *dataP |= ( tempS & 0x00000000000000FFUL );
-                        ctx->memPoolCntr++;
+                        ctx->memUPKACntr++;
 					}
 
 					result = ECU_RES_OK;
@@ -575,15 +567,15 @@ bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx)
     bool_t result;
 
 	/* Check context validity */
-	if( ( ctx->memPoolSize <= 0u ) || ( NULL == ctx->memPool ) )
+	if( ( ctx->memUPKASize <= 0u ) || ( NULL == ctx->memUPKA ) )
 	{
 		result = false;
 	}
 	else
 	{
 		/* Check queue data coherence */
-		if( ( ctx->memPoolFillSize > ctx->memPoolSize ) || ( ctx->memPoolCntr > ctx->memPoolSize ) ||
-            ( ctx->memPoolCntr > ctx->memPoolFillSize ) )
+		if( ( ctx->memUPKAFillSize > ctx->memUPKASize ) || ( ctx->memUPKACntr > ctx->memUPKASize ) ||
+            ( ctx->memUPKACntr > ctx->memUPKAFillSize ) )
 		{
 			result = false;
 		}

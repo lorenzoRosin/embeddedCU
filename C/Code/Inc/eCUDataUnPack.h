@@ -28,10 +28,10 @@ typedef struct
 {
     bool_t isInit;
 	bool_t isLE;
-	uint8_t* memPool;
-	uint32_t memPoolSize;
-	uint32_t memPoolFillSize;
-	uint32_t memPoolCntr;
+	uint8_t* memUPKA;
+	uint32_t memUPKASize;
+	uint32_t memUPKAFillSize;
+	uint32_t memUPKACntr;
 }s_eCU_DataUnPackCtx;
 
 
@@ -42,14 +42,14 @@ typedef struct
 /**
  * Initialize the data unpacker context
  * @param ctx data unpacker context
- * @param memPool Pointer to a memory pool that we will use to manage the data unpacker
- * @param memPoolSize Dimension in byte of the data unpacker pool
+ * @param memUPKA Pointer to a memory pool that we will use to manage the data unpacker
+ * @param memUPKASize Dimension in byte of the data unpacker pool
  * @param isLEnd Select if data unpacker must work in Little Endian or Big Endian
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK data unpacker is initialized correctly
  */
-e_eCU_Res dataUnPackinit(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize,
+e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUPKA, const uint32_t memUPKASize,
                          const bool_t isLEnd);
 
 /**

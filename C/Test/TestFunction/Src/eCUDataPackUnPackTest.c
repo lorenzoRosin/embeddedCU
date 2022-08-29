@@ -120,7 +120,7 @@ void dataPackUnPackCommon(void)
     }
 
     /* Function */
-    if( ECU_RES_OK == dataUnPackinit(&ctxUnPack, dataUnPackPool, sizeof(dataUnPackPool), true) )
+    if( ECU_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataUnPackPool, sizeof(dataUnPackPool), true) )
     {
         (void)printf("dataPackUnPackCommon 8  -- OK \n");
     }
