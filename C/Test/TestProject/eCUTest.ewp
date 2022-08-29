@@ -2159,6 +2159,9 @@
         <group>
             <name>Inc</name>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteStuffer.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCircularQueue.h</name>
             </file>
             <file>
@@ -2180,6 +2183,9 @@
         <group>
             <name>Src</name>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUByteStuffer.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCircularQueue.c</name>
             </file>
             <file>
@@ -2198,6 +2204,9 @@
         <group>
             <name>Inc</name>
             <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUByteStufferTest.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCircularQueueTest.h</name>
             </file>
             <file>
@@ -2215,6 +2224,9 @@
         </group>
         <group>
             <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUByteStufferTest.c</name>
+            </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCircularQueueTest.c</name>
             </file>
