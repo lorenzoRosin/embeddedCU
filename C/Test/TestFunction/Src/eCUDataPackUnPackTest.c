@@ -47,8 +47,6 @@ void dataPackUnPackCommon(void)
     s_eCU_DataPackCtx ctxPack;
     s_eCU_DataUnPackCtx ctxUnPack;
     uint8_t  dataPackPool[50u];
-    uint8_t  dataUnPackPool[50u];
-    uint8_t  supportBuff[50u];
     uint32_t supportbuffget;
     uint8_t  var8;
     uint16_t var16;
@@ -101,7 +99,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 5  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize(&ctxPack, &var32) )
+    if( ECU_RES_OK == dataPackGetDataSize(&ctxPack, &supportbuffget) )
     {
         (void)printf("dataPackUnPackCommon 6  -- OK \n");
     }
@@ -110,7 +108,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData(&ctxPack, supportBuff, &supportbuffget, sizeof(supportBuff)) )
+    if( ECU_RES_OK == dataPackReset( &ctxPack ) )
     {
         (void)printf("dataPackUnPackCommon 7  -- OK \n");
     }
@@ -120,22 +118,13 @@ void dataPackUnPackCommon(void)
     }
 
     /* Function */
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataUnPackPool, sizeof(dataUnPackPool), true) )
+    if( ECU_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, supportbuffget, true) )
     {
         (void)printf("dataPackUnPackCommon 8  -- OK \n");
     }
     else
     {
         (void)printf("dataPackUnPackCommon 8  -- FAIL \n");
-    }
-
-    if( ECU_RES_OK == dataUnPackSetData(&ctxUnPack, supportBuff, var32) )
-    {
-        (void)printf("dataPackUnPackCommon 9  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackUnPackCommon 9  -- FAIL \n");
     }
 
     if( ECU_RES_OK == dataUnPackPopU8(&ctxUnPack, &var8) )

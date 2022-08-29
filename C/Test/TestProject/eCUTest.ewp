@@ -2235,9 +2235,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataPackUnPackTest.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUDataUnPackTest.h</name>
@@ -2265,9 +2262,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataPackUnPackTest.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataUnPackTest.c</name>
