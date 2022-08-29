@@ -2,7 +2,7 @@
 #include "eCUCrcDigestTest.h"
 #include "eCUCircularQueueTest.h"
 #include "eCUDataPackTest.h"
-//#include "eCUDataUnPackTest.h"
+#include "eCUDataUnPackTest.h"
 //#include "eCUDataPackUnPackTest.h"
 //#include "eCUByteStufferTest.h"
 
@@ -15,7 +15,7 @@ int main(void)
     cUCrcDigestTest();
     circularQueueTest();
     dataPackTest();
-    //dataUnPackTest();
+    dataUnPackTest();
 	//dataPackUnPackTest();
     //eCUByteStufferTest();
 

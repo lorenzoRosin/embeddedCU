@@ -41,8 +41,8 @@ typedef struct
 /**
  * Initialize the data packer context
  * @param ctx Data packer context
- * @param memPKA Pointer to a memory pool that we will use to manage the data packer
- * @param memPKASize Dimension in byte of the data packer pool
+ * @param memPKA Pointer to a memory area that we will fill with packet data
+ * @param memPKASize Dimension in byte of the data packer area
  * @param isLEnd Select if data packer must work in Little Endian or Big Endian
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
@@ -52,7 +52,7 @@ e_eCU_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, c
 					   const bool_t isLEnd);
 
 /**
- * Reset data packer and discharge stored data
+ * Reset data packer and restart packing data from memory start
  * @param ctx Data packer context
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
@@ -61,7 +61,7 @@ e_eCU_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, c
 e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx);
 
 /**
- * Retrive how many byte we have stored
+ * Retrive how many byte we have pushed
  * @param ctx Data packer context
  * @param retrivedLen Pointer to a memory area were we will store size of serialized data
  * @return ECU_RES_BADPOINTER in case of bad pointer
@@ -70,21 +70,6 @@ e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx);
  *         ECU_RES_OK operation ended correctly
  */
 e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen);
-
-/**
- * Retrive all data serialized and reset the datapacker
- * @param ctx Data packer context
- * @param dataDest Pointer to a memory area
- * @param retrivedLen Pointer to a memory area were we will store size of serialized data
- * @param dataDestMaxSize Max destination buffer capability
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data packer before taking some action
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OUTOFMEM Not enought memory to copy all the data
- *         ECU_RES_OK circular queue is initialized correctly
- */
-e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const dataDest, uint32_t* const retrivedLen,
-								 const uint32_t dataDestMaxSize);
 
 /**
  * Push an array in data packer

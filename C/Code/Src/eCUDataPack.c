@@ -116,67 +116,6 @@ e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retr
 	return result;
 }
 
-e_eCU_Res dataPackConsumeAllData(s_eCU_DataPackCtx* const ctx, uint8_t* const dataDest, uint32_t* const retrivedLen,
-								 const uint32_t dataDestMaxSize)
-{
-	/* Local variable */
-	e_eCU_Res result;
-
-	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == dataDest ) || ( NULL == retrivedLen ) )
-	{
-		result = ECU_RES_BADPOINTER;
-	}
-	else
-	{
-		/* Check Init */
-		if( false == ctx->isInit )
-		{
-			result = ECU_RES_NOINITLIB;
-		}
-		else
-		{
-			/* Check data validity */
-			if( dataDestMaxSize <= 0u )
-			{
-				result = ECU_RES_BADPARAM;
-			}
-			else
-			{
-                /* Check internal status validity */
-                if( false == isPackStatusStillCoherent(ctx) )
-                {
-                    result = ECU_RES_BADPARAM;
-                }
-                else
-                {
-                    /* Check if we have memory for this */
-                    if( ctx->memPKACntr > dataDestMaxSize )
-                    {
-                        result = ECU_RES_OUTOFMEM;
-                    }
-                    else
-                    {
-                        /* Copy the data */
-                        if( ctx->memPKACntr > 0u )
-                        {
-                            (void)memcpy(dataDest, ctx->memPKA, ctx->memPKACntr);
-                        }
-
-                        *retrivedLen = ctx->memPKACntr;
-
-                        /* Reset data index */
-                        ctx->memPKACntr = 0u;
-                        result = ECU_RES_OK;
-                    }
-                }
-			}
-		}
-    }
-
-	return result;
-}
-
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_disable = "MISRAC2004-17.4_b"
     /* Suppressed for code clarity */

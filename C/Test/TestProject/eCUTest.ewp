@@ -2178,9 +2178,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUDataUnPack.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUStandardType.h</name>
@@ -2211,9 +2208,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUDataUnPack.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
         </group>
     </group>
@@ -2277,9 +2271,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUDataUnPackTest.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
             </file>
         </group>
         <file>

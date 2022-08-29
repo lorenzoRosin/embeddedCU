@@ -108,7 +108,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 5  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackConsumeAllData( NULL, badPointerMempool, &varTemp, 10u ) )
+    if( ECU_RES_BADPOINTER == dataPackPushArray( NULL, badPointerMempool, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataPackTestBadPointer 6  -- OK \n");
     }
@@ -117,7 +117,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 6  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackConsumeAllData( &ctx, NULL, &varTemp, 10u ) )
+    if( ECU_RES_BADPOINTER == dataPackPushArray( &ctx, NULL, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataPackTestBadPointer 7  -- OK \n");
     }
@@ -126,7 +126,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 7  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackConsumeAllData( &ctx, badPointerMempool, NULL, 10u ) )
+    if( ECU_RES_BADPOINTER == dataPackPushU8( NULL, 10u ) )
     {
         (void)printf("dataPackTestBadPointer 8  -- OK \n");
     }
@@ -135,7 +135,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 8  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackPushArray( NULL, badPointerMempool, sizeof(badPointerMempool) ) )
+    if( ECU_RES_BADPOINTER == dataPackPushU16( NULL, 10u ) )
     {
         (void)printf("dataPackTestBadPointer 9  -- OK \n");
     }
@@ -144,7 +144,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 9  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackPushArray( &ctx, NULL, sizeof(badPointerMempool) ) )
+    if( ECU_RES_BADPOINTER == dataPackPushU32( NULL, 10u ) )
     {
         (void)printf("dataPackTestBadPointer 10 -- OK \n");
     }
@@ -153,40 +153,13 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 10 -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackPushU8( NULL, 10u ) )
+    if( ECU_RES_BADPOINTER == dataPackPushU64( NULL, 10u ) )
     {
         (void)printf("dataPackTestBadPointer 11 -- OK \n");
     }
     else
     {
         (void)printf("dataPackTestBadPointer 11 -- FAIL \n");
-    }
-
-    if( ECU_RES_BADPOINTER == dataPackPushU16( NULL, 10u ) )
-    {
-        (void)printf("dataPackTestBadPointer 12 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestBadPointer 12 -- FAIL \n");
-    }
-
-    if( ECU_RES_BADPOINTER == dataPackPushU32( NULL, 10u ) )
-    {
-        (void)printf("dataPackTestBadPointer 13 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestBadPointer 13 -- FAIL \n");
-    }
-
-    if( ECU_RES_BADPOINTER == dataPackPushU64( NULL, 10u ) )
-    {
-        (void)printf("dataPackTestBadPointer 14 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestBadPointer 14 -- FAIL \n");
     }
 }
 
@@ -231,7 +204,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 3  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == dataPackConsumeAllData( &ctx, badPointerMempool, &varTemp, 10u ) )
+    if( ECU_RES_NOINITLIB == dataPackPushArray( &ctx, badPointerMempool, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataPackTestBadInit 4  -- OK \n");
     }
@@ -240,7 +213,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 4  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == dataPackPushArray( &ctx, badPointerMempool, sizeof(badPointerMempool) ) )
+    if( ECU_RES_NOINITLIB == dataPackPushU8( &ctx, 10u ) )
     {
         (void)printf("dataPackTestBadInit 5  -- OK \n");
     }
@@ -249,7 +222,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 5  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == dataPackPushU8( &ctx, 10u ) )
+    if( ECU_RES_NOINITLIB == dataPackPushU16( &ctx, 10u ) )
     {
         (void)printf("dataPackTestBadInit 6  -- OK \n");
     }
@@ -258,7 +231,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 6  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == dataPackPushU16( &ctx, 10u ) )
+    if( ECU_RES_NOINITLIB == dataPackPushU32( &ctx, 10u ) )
     {
         (void)printf("dataPackTestBadInit 7  -- OK \n");
     }
@@ -267,22 +240,13 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 7  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == dataPackPushU32( &ctx, 10u ) )
+    if( ECU_RES_NOINITLIB == dataPackPushU64( &ctx, 10u ) )
     {
         (void)printf("dataPackTestBadInit 8  -- OK \n");
     }
     else
     {
         (void)printf("dataPackTestBadInit 8  -- FAIL \n");
-    }
-
-    if( ECU_RES_NOINITLIB == dataPackPushU64( &ctx, 10u ) )
-    {
-        (void)printf("dataPackTestBadInit 9  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestBadInit 9  -- FAIL \n");
     }
 }
 
@@ -291,7 +255,6 @@ void dataPackTestBadParamEntr(void)
     /* Local variable */
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[5u];
-    uint32_t varTemp;
 
     /* Init variable */
     ctx.isInit = false;
@@ -309,22 +272,13 @@ void dataPackTestBadParamEntr(void)
     /* Init variable */
     ctx.isInit = true;
 
-    if( ECU_RES_BADPARAM == dataPackConsumeAllData( &ctx, badPointerMempool, &varTemp, 0u ) )
+    if( ECU_RES_BADPARAM == dataPackPushArray( &ctx, badPointerMempool, 0u ) )
     {
         (void)printf("dataPackTestBadParamEntr 2  -- OK \n");
     }
     else
     {
         (void)printf("dataPackTestBadParamEntr 2  -- FAIL \n");
-    }
-
-    if( ECU_RES_BADPARAM == dataPackPushArray( &ctx, badPointerMempool, 0u ) )
-    {
-        (void)printf("dataPackTestBadParamEntr 3  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestBadParamEntr 3  -- FAIL \n");
     }
 }
 
@@ -422,10 +376,6 @@ void dataPackTestOutOfMem(void)
     /* Local variable */
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[2u];
-    uint8_t  retrivePool[2u];
-    uint32_t varTemp;
-
-
 
     /* Init variable */
     ctx.isInit = false;
@@ -511,15 +461,6 @@ void dataPackTestOutOfMem(void)
     {
         (void)printf("dataPackTestOutOfMem 9  -- FAIL \n");
     }
-
-    if( ECU_RES_OUTOFMEM == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, 1u ) )
-    {
-        (void)printf("dataPackTestOutOfMem 10 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackTestOutOfMem 10 -- FAIL \n");
-    }
 }
 
 void dataPackTestEndianLe(void)
@@ -527,7 +468,6 @@ void dataPackTestEndianLe(void)
     /* Local variable */
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[20u];
-    uint8_t  retrivePool[20u];
     uint32_t varTemp;
 
     /* Init variable */
@@ -552,7 +492,7 @@ void dataPackTestEndianLe(void)
         (void)printf("dataPackTestEndianLe 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianLe 3  -- OK \n");
     }
@@ -563,7 +503,7 @@ void dataPackTestEndianLe(void)
 
     if( 0x02u == varTemp)
     {
-        if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) )
+        if( ( 0x34u == badPointerMempool[0u] ) && ( 0x12u == badPointerMempool[1u] ) )
         {
             (void)printf("dataPackTestEndianLe 4  -- OK \n");
         }
@@ -596,7 +536,7 @@ void dataPackTestEndianLe(void)
         (void)printf("dataPackTestEndianLe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianLe 7  -- OK \n");
     }
@@ -607,8 +547,8 @@ void dataPackTestEndianLe(void)
 
     if( 0x04u == varTemp)
     {
-        if( ( 0x78u == retrivePool[0u] ) && ( 0x56u == retrivePool[1u] ) &&
-            ( 0x34u == retrivePool[2u] ) && ( 0x12u == retrivePool[3u] ) )
+        if( ( 0x78u == badPointerMempool[0u] ) && ( 0x56u == badPointerMempool[1u] ) &&
+            ( 0x34u == badPointerMempool[2u] ) && ( 0x12u == badPointerMempool[3u] ) )
         {
             (void)printf("dataPackTestEndianLe 8  -- OK \n");
         }
@@ -641,7 +581,7 @@ void dataPackTestEndianLe(void)
         (void)printf("dataPackTestEndianLe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianLe 11 -- OK \n");
     }
@@ -652,10 +592,10 @@ void dataPackTestEndianLe(void)
 
     if( 0x08u == varTemp)
     {
-        if( ( 0xF0u == retrivePool[0u] ) && ( 0xDEu == retrivePool[1u] ) &&
-            ( 0xBCu == retrivePool[2u] ) && ( 0x9Au == retrivePool[3u] ) &&
-            ( 0x78u == retrivePool[4u] ) && ( 0x56u == retrivePool[5u] ) &&
-            ( 0x34u == retrivePool[6u] ) && ( 0x12u == retrivePool[7u] ))
+        if( ( 0xF0u == badPointerMempool[0u] ) && ( 0xDEu == badPointerMempool[1u] ) &&
+            ( 0xBCu == badPointerMempool[2u] ) && ( 0x9Au == badPointerMempool[3u] ) &&
+            ( 0x78u == badPointerMempool[4u] ) && ( 0x56u == badPointerMempool[5u] ) &&
+            ( 0x34u == badPointerMempool[6u] ) && ( 0x12u == badPointerMempool[7u] ))
         {
             (void)printf("dataPackTestEndianLe 12 -- OK \n");
         }
@@ -675,7 +615,6 @@ void dataPackTestEndianBe(void)
     /* Local variable */
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[20u];
-    uint8_t  retrivePool[20u];
     uint32_t varTemp;
 
     /* Init variable */
@@ -700,7 +639,7 @@ void dataPackTestEndianBe(void)
         (void)printf("dataPackTestEndianBe 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianBe 3  -- OK \n");
     }
@@ -711,7 +650,7 @@ void dataPackTestEndianBe(void)
 
     if( 0x02u == varTemp)
     {
-        if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) )
+        if( ( 0x12u == badPointerMempool[0u] ) && ( 0x34u == badPointerMempool[1u] ) )
         {
             (void)printf("dataPackTestEndianBe 4  -- OK \n");
         }
@@ -744,7 +683,7 @@ void dataPackTestEndianBe(void)
         (void)printf("dataPackTestEndianBe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianBe 7  -- OK \n");
     }
@@ -755,8 +694,8 @@ void dataPackTestEndianBe(void)
 
     if( 0x04u == varTemp)
     {
-        if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) &&
-            ( 0x56u == retrivePool[2u] ) && ( 0x78u == retrivePool[3u] ) )
+        if( ( 0x12u == badPointerMempool[0u] ) && ( 0x34u == badPointerMempool[1u] ) &&
+            ( 0x56u == badPointerMempool[2u] ) && ( 0x78u == badPointerMempool[3u] ) )
         {
             (void)printf("dataPackTestEndianBe 8  -- OK \n");
         }
@@ -789,7 +728,7 @@ void dataPackTestEndianBe(void)
         (void)printf("dataPackTestEndianBe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianBe 11 -- OK \n");
     }
@@ -800,10 +739,10 @@ void dataPackTestEndianBe(void)
 
     if( 0x08u == varTemp)
     {
-        if( ( 0x12u == retrivePool[0u] ) && ( 0x34u == retrivePool[1u] ) &&
-            ( 0x56u == retrivePool[2u] ) && ( 0x78u == retrivePool[3u] ) &&
-            ( 0x9Au == retrivePool[4u] ) && ( 0xBCu == retrivePool[5u] ) &&
-            ( 0xDEu == retrivePool[6u] ) && ( 0xF0u == retrivePool[7u] ))
+        if( ( 0x12u == badPointerMempool[0u] ) && ( 0x34u == badPointerMempool[1u] ) &&
+            ( 0x56u == badPointerMempool[2u] ) && ( 0x78u == badPointerMempool[3u] ) &&
+            ( 0x9Au == badPointerMempool[4u] ) && ( 0xBCu == badPointerMempool[5u] ) &&
+            ( 0xDEu == badPointerMempool[6u] ) && ( 0xF0u == badPointerMempool[7u] ))
         {
             (void)printf("dataPackTestEndianBe 12 -- OK \n");
         }
@@ -823,7 +762,6 @@ void dataPackTestCycle(void)
     /* Local variable */
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[20u];
-    uint8_t  retrivePool[20u];
     uint32_t varTemp;
 
     /* Init variable */
@@ -857,7 +795,7 @@ void dataPackTestCycle(void)
         (void)printf("dataPackTestCycle 3  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestCycle 4  -- OK \n");
     }
@@ -868,8 +806,8 @@ void dataPackTestCycle(void)
 
     if( 0x04u == varTemp)
     {
-        if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) &&
-            ( 0x78u == retrivePool[2u] ) && ( 0x56u == retrivePool[3u] )  )
+        if( ( 0x34u == badPointerMempool[0u] ) && ( 0x12u == badPointerMempool[1u] ) &&
+            ( 0x78u == badPointerMempool[2u] ) && ( 0x56u == badPointerMempool[3u] )  )
         {
             (void)printf("dataPackTestCycle 5  -- OK \n");
         }
@@ -911,7 +849,7 @@ void dataPackTestCycle(void)
         (void)printf("dataPackTestCycle 8  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackConsumeAllData( &ctx, retrivePool, &varTemp, sizeof(retrivePool) ) )
+    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp) )
     {
         (void)printf("dataPackTestCycle 9  -- OK \n");
     }
@@ -922,8 +860,8 @@ void dataPackTestCycle(void)
 
     if( 0x04u == varTemp)
     {
-        if( ( 0x34u == retrivePool[0u] ) && ( 0x12u == retrivePool[1u] ) &&
-            ( 0x78u == retrivePool[2u] ) && ( 0x56u == retrivePool[3u] )  )
+        if( ( 0x34u == badPointerMempool[0u] ) && ( 0x12u == badPointerMempool[1u] ) &&
+            ( 0x78u == badPointerMempool[2u] ) && ( 0x56u == badPointerMempool[3u] )  )
         {
             (void)printf("dataPackTestCycle 10 -- OK \n");
         }
