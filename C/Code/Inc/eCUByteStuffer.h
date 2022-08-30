@@ -44,6 +44,8 @@ typedef struct
 	uint32_t memAreaSize;
 	uint32_t memAreaCntr;
     bool_t   precedentToCheck;
+    bool_t   needSof;
+    bool_t   needEof;
 }e_eCU_BStuffCtx;
 
 
@@ -95,7 +97,7 @@ e_eCU_Res bStuffer_getDataSize(e_eCU_BStuffCtx* const ctx, uint32_t* const retri
  *         ECU_RES_OK operation ended correctly
  */
 e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
-                                  uint8_t* const filledLen);
+                                  uint32_t* const filledLen);
 
 #ifdef __cplusplus
 } /* extern "C" */
