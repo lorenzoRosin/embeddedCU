@@ -27,32 +27,23 @@ extern "C" {
 #define ECU_SOF                               ( 0xA1u )
 #define ECU_EOF                               ( 0xA2u )
 #define ECU_ESC                               ( 0xA3u )
-#define ECU_BSTF_MINPOOLSIZE                  ( 0x01u )
+
+#define ECU_NSOF                              ( 0x5Eu )
+#define ECU_NEOF                              ( 0x5Du )
+#define ECU_NESC                              ( 0x5Cu )
+
+
 
 /***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
-typedef enum
-{
-    BSTUFF_NOACTION = 0,
-    BSTUFF_RETRIVE,
-    BSTUFF_INSERT,
-	BSTUFF_INSERTRETRIVE
-}e_eCU_BStuffState;
-
-
-
 typedef struct
 {
     bool_t isInit;
-	uint8_t* memPool;
-	uint32_t memPoolSize;
-	uint32_t memPoolCntr;
-	bool_t frameStarted;
-	bool_t frameEnded;
-	bool_t previousWasEsc;
-	uint8_t prevDataToElab;
-	e_eCU_BStuffState currentState;
+	uint8_t* memArea;
+	uint32_t memAreaSize;
+	uint32_t memAreaCntr;
+    bool_t   precedentToCheck;
 }e_eCU_BStuffCtx;
 
 
@@ -61,81 +52,50 @@ typedef struct
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Calculate the CRC 32 of a passed buffer using as seed the default value of 0xffffffffu
- * @param data Pointer to the data buffer where we will calculate the CRC 32
- * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32 Pointer to an uint32_t were we will store the calculated CRC 32
+ * Initialize the byte stuffer context
+ * @param ctx Byte stuffer context
+ * @param memPool Pointer to a memory area that we will use to retrive data to stuff
+ * @param memPoolSize Dimension in byte of the memory area
  * @return ECU_RES_BADPOINTER in case of bad pointer
- *         ECU_RES_OK crc 32 calculated successfully
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res bStuffer_init(e_eCU_BStuffCtx* const ctx, uint8_t* const memPool, const uint32_t memPoolSize);
+e_eCU_Res bStuffer_initCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
- * Calculate the CRC 32 of a passed buffer using a custom seed
- * @param seed Seed that will be used to calculate the CRC 32
- * @param data Pointer to the data buffer where we will calculate the CRC 32
- * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32 Pointer to an uint32_t were we will store the calculated CRC 32
+ * Reset data stuffer and restart from memory start
+ * @param  ctx Byte stuffer context
  * @return ECU_RES_BADPOINTER in case of bad pointer
- *         ECU_RES_OK crc 32 calculated successfully
+ *		   ECU_RES_NOINITLIB need to init the data stuffer context before taking some action
+ *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bStuffer_resetFrame(e_eCU_BStuffCtx* const ctx);
+e_eCU_Res bStuffer_reset(e_eCU_BStuffCtx* const ctx);
 
 /**
- * Calculate the CRC 32 of a passed buffer using a custom seed
- * @param seed Seed that will be used to calculate the CRC 32
- * @param data Pointer to the data buffer where we will calculate the CRC 32
- * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32 Pointer to an uint32_t were we will store the calculated CRC 32
+ * Retrive how many raw byte we can still stuff
+ * @param  ctx Byte stuffer context
+ * @param  retrivedLen Pointer to a memory area were we will store size of the stuffable data
  * @return ECU_RES_BADPOINTER in case of bad pointer
- *         ECU_RES_OK crc 32 calculated successfully
+ *		   ECU_RES_NOINITLIB need to init the data stuffer context before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bStuffer_startFrame(e_eCU_BStuffCtx* const ctx);
+e_eCU_Res bStuffer_getDataSize(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
- * Calculate the CRC 32 of a passed buffer using a custom seed
- * @param seed Seed that will be used to calculate the CRC 32
- * @param data Pointer to the data buffer where we will calculate the CRC 32
- * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32 Pointer to an uint32_t were we will store the calculated CRC 32
+ * Retrive stuffed data chunk
+ * @param  ctx Byte stuffer context
+ * @param  stuffedDest Pointer to the destination area of stuffed data
+ * @param  maxDestLen max fillable size of the destination area
+ * @param  filledLen Pointer to an uint32_t were we will store the filled stuffed data
  * @return ECU_RES_BADPOINTER in case of bad pointer
- *         ECU_RES_OK crc 32 calculated successfully
+ *		   ECU_RES_NOINITLIB need to init the data stuffer context before taking some action
+ *		   ECU_RES_BADPARAM in case of an invalid parameter or state
+ *         ECU_RES_OUTOFMEM No more data that we can elaborate
+ *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bStuffer_endFrame(e_eCU_BStuffCtx* const ctx);
-
-/**
- * Calculate the CRC 32 of a passed buffer using a custom seed
- * @param seed Seed that will be used to calculate the CRC 32
- * @param data Pointer to the data buffer where we will calculate the CRC 32
- * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32 Pointer to an uint32_t were we will store the calculated CRC 32
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *         ECU_RES_OK crc 32 calculated successfully
- */
-e_eCU_Res bStuffer_getState(e_eCU_BStuffCtx* const ctx, e_eCU_BStuffState* const state);
-
-/**
- * Calculate the CRC 32 of a passed buffer using a custom seed
- * @param seed Seed that will be used to calculate the CRC 32
- * @param data Pointer to the data buffer where we will calculate the CRC 32
- * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32 Pointer to an uint32_t were we will store the calculated CRC 32
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *         ECU_RES_OK crc 32 calculated successfully
- */
-e_eCU_Res bStuffer_digest(e_eCU_BStuffCtx* const ctx, uint8_t dataToStuff);
-
-/**
- * Calculate the CRC 32 of a passed buffer using a custom seed
- * @param seed Seed that will be used to calculate the CRC 32
- * @param data Pointer to the data buffer where we will calculate the CRC 32
- * @param dataLen how many byte will be used to calculate the CRC 32
- * @param crc32 Pointer to an uint32_t were we will store the calculated CRC 32
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *         ECU_RES_OK crc 32 calculated successfully
- */
-e_eCU_Res bStuffer_retriveData(e_eCU_BStuffCtx* const ctx, uint8_t* const dataStuffed);
-
+e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
+                                  uint8_t* const filledLen);
 
 #ifdef __cplusplus
 } /* extern "C" */
