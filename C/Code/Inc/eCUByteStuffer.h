@@ -39,7 +39,7 @@ extern "C" {
  **********************************************************************************************************************/
 typedef struct
 {
-    bool_t isInit;
+    bool_t   isInit;
 	uint8_t* memArea;
 	uint32_t memAreaSize;
 	uint32_t memAreaCntr;
