@@ -128,6 +128,11 @@ e_eCU_Res bStuffer_getDataSize(e_eCU_BStuffCtx* const ctx, uint32_t* const retri
 	return result;
 }
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-17.4_b"
+    /* Suppressed for code clarity */
+#endif
+
 e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
                                   uint32_t* const filledLen)
 {
@@ -303,3 +308,8 @@ bool_t isBSStatusStillCoherent(const e_eCU_BStuffCtx* ctx)
 
     return result;
 }
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2004-17.4_b"
+#endif
+

@@ -28,7 +28,7 @@ extern "C" {
 /**
  * Test the eCUCrc module
  */
-void eCUByteStufferTest(void);
+void byteStufferTest(void);
 
 
 

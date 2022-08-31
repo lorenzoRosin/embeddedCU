@@ -11,13 +11,14 @@ int main(void);
 
 int main(void)
 {
+    /* Start testing */
     crc32Test();
     cUCrcDigestTest();
     circularQueueTest();
     dataPackTest();
     dataUnPackTest();
 	dataPackUnPackTest();
-    eCUByteStufferTest();
+    byteStufferTest();
 
     return 0;
 }
