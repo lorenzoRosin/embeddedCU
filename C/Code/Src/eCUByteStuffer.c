@@ -165,63 +165,67 @@ e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stu
                     /* Init counter */
                     nExamByte = 0u;
 
-                    /* Check for and old elabData leftover */
-                    if( true == ctx->precedentToCheck )
+                    /* Detect start of frame here to maximize efficency */
+                    if( true == ctx->needSof )
                     {
-                        /* Before continuing we need to parse the old data */
-                        stuffedDest[nExamByte] = ~( ctx->memArea[ctx->memAreaCntr - 1u] );
-                        ctx->precedentToCheck = false;
+                        /* Start of frame */
+                        stuffedDest[nExamByte] = ECU_SOF;
                         nExamByte++;
+                        ctx->needSof = false;
                     }
 
                     /* Execute parsing cycle */
-                    while( ( nExamByte < maxDestLen ) && ( ctx->memAreaCntr < ctx->memAreaSize ) )
+                    while( ( nExamByte < maxDestLen ) && ( true == ctx->needEof ) )
                     {
-                        /* Check for and old elabData leftover */
                         if( true == ctx->precedentToCheck )
                         {
-                            /* Before continuing we need to parse the old data */
+                            /* Something from an old iteration  */
                             stuffedDest[nExamByte] = ~( ctx->memArea[ctx->memAreaCntr - 1u] );
                             ctx->precedentToCheck = false;
+                            nExamByte++;
+                        }
+                        else if( ctx->memAreaCntr == ctx->memAreaSize )
+                        {
+                            /* End of frame */
+                            stuffedDest[nExamByte] = ECU_EOF;
+                            ctx->needEof = false;
+                            nExamByte++;
                         }
                         else
                         {
-                            if( 0 == ctx->memAreaCntr )
+                            /* Current iteration */
+                            if( ECU_SOF == ctx->memArea[ctx->memAreaCntr] )
                             {
-                                /* First frame */
-                                stuffedDest[nExamByte] = ECU_SOF;
+                                /* Stuff with escape */
+                                stuffedDest[nExamByte] = ECU_ESC;
+                                ctx->precedentToCheck = true;
+                                nExamByte++;
+                                ctx->memAreaCntr++;
                             }
-                            else if( ctx->memAreaCntr == ctx->memAreaCntr )
+                            else if( ECU_EOF == ctx->memArea[ctx->memAreaCntr] )
                             {
-                                /* End of frame */
-                                stuffedDest[nExamByte] = ECU_EOF;
+                                /* Stuff with escape */
+                                stuffedDest[nExamByte] = ECU_ESC;
+                                ctx->precedentToCheck = true;
+                                nExamByte++;
+                                ctx->memAreaCntr++;
+                            }
+                            else if( ECU_ESC == ctx->memArea[ctx->memAreaCntr] )
+                            {
+                                /* Stuff with escape */
+                                stuffedDest[nExamByte] = ECU_ESC;
+                                ctx->precedentToCheck = true;
+                                nExamByte++;
+                                ctx->memAreaCntr++;
                             }
                             else
                             {
-                                if( ECU_SOF == ctx->memArea[ctx->memAreaCntr] )
-                                {
-                                    stuffedDest[nExamByte] = ECU_NSOF;
-                                    ctx->precedentToCheck = true;
-                                }
-                                else if( ECU_EOF == ctx->memArea[ctx->memAreaCntr] )
-                                {
-                                    stuffedDest[nExamByte] = ECU_NEOF;
-                                    ctx->precedentToCheck = true;
-                                }
-                                else if( ECU_ESC == ctx->memArea[ctx->memAreaCntr] )
-                                {
-                                    stuffedDest[nExamByte] = ECU_NESC;
-                                    ctx->precedentToCheck = true;
-                                }
-                                else
-                                {
-                                    stuffedDest[nExamByte] = ctx->memArea[ctx->memAreaCntr];
-                                }
+                                /* Can insert data */
+                                stuffedDest[nExamByte] = ctx->memArea[ctx->memAreaCntr];
+                                nExamByte++;
+                                ctx->memAreaCntr++;
                             }
                         }
-
-                        /* Increment counter */
-                        nExamByte++;
                     }
 
                     /* Save counter */
@@ -264,7 +268,8 @@ bool_t isBSStatusStillCoherent(const e_eCU_BStuffCtx* ctx)
 		if( ( ( true == ctx->needSof ) && ( false == ctx->needEof ) ) ||
             ( ( false == ctx->needSof ) && ( false == ctx->needEof ) && ( ctx->memAreaCntr != ctx->memAreaSize ) ) ||
             ( ( true == ctx->needSof ) && ( true == ctx->precedentToCheck ) ) ||
-            ( ( false == ctx->needEof ) && ( true == ctx->precedentToCheck ) ) )
+            ( ( false == ctx->needEof ) && ( true == ctx->precedentToCheck ) ) ||
+            ( ( true == ctx->needSof ) && ( 0u != ctx->memAreaCntr ) ) )
 		{
             result = false;
 		}
