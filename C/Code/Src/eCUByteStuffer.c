@@ -254,14 +254,17 @@ bool_t isBSStatusStillCoherent(const e_eCU_BStuffCtx* ctx)
     uint8_t precedentByte;
 
 	/* Check context validity */
-	if( ( ctx->memAreaSize <= 0u ) || ( NULL == ctx->memArea ) )
+	if( ( ctx->memAreaSize <= 0u ) || ( NULL == ctx->memArea ) || ( ctx->memAreaCntr > ctx->memAreaSize ) )
 	{
 		result = false;
 	}
 	else
 	{
-		/* Check queue data coherence */
-		if( ctx->memAreaCntr > ctx->memAreaSize )
+		/* Check data coherence */
+		if( ( ( true == ctx->needSof ) && ( false == ctx->needEof ) ) ||
+            ( ( false == ctx->needSof ) && ( false == ctx->needEof ) && ( ctx->memAreaCntr != ctx->memAreaSize ) ) ||
+            ( ( true == ctx->needSof ) && ( true == ctx->precedentToCheck ) ) ||
+            ( ( false == ctx->needEof ) && ( true == ctx->precedentToCheck ) ) )
 		{
             result = false;
 		}
