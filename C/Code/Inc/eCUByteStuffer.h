@@ -1,10 +1,10 @@
 /**
- * @file eCUCrc.h
+ * @file eCUByteStuffer.h
  *
  */
 
-#ifndef ECUCRC_H
-#define ECUCRC_H
+#ifndef ECUBYTESTUFFER_H
+#define ECUBYTESTUFFER_H
 
 
 
@@ -27,10 +27,6 @@ extern "C" {
 #define ECU_SOF                               ( 0xA1u )
 #define ECU_EOF                               ( 0xA2u )
 #define ECU_ESC                               ( 0xA3u )
-
-#define ECU_NSOF                              ( 0x5Eu )
-#define ECU_NEOF                              ( 0x5Du )
-#define ECU_NESC                              ( 0x5Cu )
 
 
 
@@ -105,4 +101,4 @@ e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stu
 
 
 
-#endif /* ECUCRC_H */
+#endif /* ECUBYTESTUFFER_H */
