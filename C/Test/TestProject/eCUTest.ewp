@@ -2162,6 +2162,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteStuffer.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteUnStuffer.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUCircularQueue.h</name>
             </file>
             <file>
@@ -2189,6 +2192,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUByteStuffer.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Src\eCUByteUnStuffer.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Src\eCUCircularQueue.c</name>
             </file>
             <file>
@@ -2213,6 +2219,9 @@
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUByteStufferTest.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\TestFunction\Inc\eCUByteUnStufferTest.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\TestFunction\Inc\eCUCircularQueueTest.h</name>
             </file>
             <file>
@@ -2235,6 +2244,9 @@
             <name>Src</name>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUByteStufferTest.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\TestFunction\Src\eCUByteUnStufferTest.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\TestFunction\Src\eCUCircularQueueTest.c</name>
