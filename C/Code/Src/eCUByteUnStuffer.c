@@ -7,20 +7,20 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUByteUnStuffer.h"
-
+#include "eCUByteStuffer.h"
 
 
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isBSStatusStillCoherent(const e_eCU_BStuffCtx* ctx);
+static bool_t isBSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res bStuffer_initCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
+e_eCU_Res bUStuffer_initCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -54,7 +54,7 @@ e_eCU_Res bStuffer_initCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, c
 	return result;
 }
 
-e_eCU_Res bStuffer_reset(e_eCU_BStuffCtx* const ctx)
+e_eCU_Res bUStuffer_reset(e_eCU_BUStuffCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -85,7 +85,7 @@ e_eCU_Res bStuffer_reset(e_eCU_BStuffCtx* const ctx)
 	return result;
 }
 
-e_eCU_Res bStuffer_getDataSize(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -133,7 +133,7 @@ e_eCU_Res bStuffer_getDataSize(e_eCU_BStuffCtx* const ctx, uint32_t* const retri
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
+e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
                                   uint32_t* const filledLen)
 {
 	/* Local variable */
@@ -257,7 +257,7 @@ e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stu
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isBSStatusStillCoherent(const e_eCU_BStuffCtx* ctx)
+bool_t isBSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
 {
     bool_t result;
     uint8_t precedentByte;

@@ -22,15 +22,6 @@ extern "C" {
 
 
 /***********************************************************************************************************************
- *      DEFINES
- **********************************************************************************************************************/
-#define ECU_SOF                               ( 0xA1u )
-#define ECU_EOF                               ( 0xA2u )
-#define ECU_ESC                               ( 0xA3u )
-
-
-
-/***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
 typedef struct
@@ -42,7 +33,7 @@ typedef struct
     bool_t   precedentToCheck;
     bool_t   needSof;
     bool_t   needEof;
-}e_eCU_BStuffCtx;
+}e_eCU_BUStuffCtx;
 
 
 
@@ -58,7 +49,7 @@ typedef struct
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res bStuffer_initCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
+e_eCU_Res bUStuffer_initCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
  * Reset data stuffer and restart from memory start
@@ -67,7 +58,7 @@ e_eCU_Res bStuffer_initCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, c
  *		   ECU_RES_NOINITLIB need to init the data stuffer context before taking some action
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bStuffer_reset(e_eCU_BStuffCtx* const ctx);
+e_eCU_Res bUStuffer_reset(e_eCU_BUStuffCtx* const ctx);
 
 /**
  * Retrive how many raw byte we can still stuff
@@ -78,7 +69,7 @@ e_eCU_Res bStuffer_reset(e_eCU_BStuffCtx* const ctx);
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bStuffer_getDataSize(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Retrive stuffed data chunk
@@ -92,7 +83,7 @@ e_eCU_Res bStuffer_getDataSize(e_eCU_BStuffCtx* const ctx, uint32_t* const retri
  *         ECU_RES_OUTOFMEM No more data that we can elaborate
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bStuffer_retiveElabData(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
+e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
                                   uint32_t* const filledLen);
 
 #ifdef __cplusplus
