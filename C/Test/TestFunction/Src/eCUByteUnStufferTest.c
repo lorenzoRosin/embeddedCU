@@ -12,6 +12,7 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUByteUnStufferTest.h"
+#include "eCUByteStuffer.h"
 #include <stdio.h>
 
 
@@ -385,6 +386,168 @@ void byteUnStuffTestBadParamStatus(void)
 
 void byteUnStuffTestOutOfMem(void)
 {
+    /* Local variable */
+    e_eCU_BUStuffCtx ctx;
+    uint8_t  memArea[5u];
+    uint8_t  stuffed[10u];
+    uint32_t varTemp32;
+    bool_t errSofRec;
+    bool_t eofRec;
+
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestOutOfMem 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestOutOfMem 1  -- FAIL \n");
+    }
+
+    stuffed[0] = ECU_SOF;
+    stuffed[1] = 0x01;
+    stuffed[2] = 0x02;
+    stuffed[3] = 0x03;
+    stuffed[4] = 0x04;
+    stuffed[5] = 0x01;
+    stuffed[6] = 0x02;
+    stuffed[7] = 0x03;
+    stuffed[8] = ECU_EOF;
+
+    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, stuffed, 9u, &varTemp32, &errSofRec, &eofRec ) )
+    {
+        if( (true == errSofRec) || (true == eofRec) )
+        {
+            (void)printf("byteUnStuffTestOutOfMem 2  -- FAIL \n");
+        }
+        else
+        {
+            if( 6u != varTemp32 )
+            {
+                (void)printf("byteUnStuffTestOutOfMem 2  -- FAIL \n");
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestOutOfMem 2  -- OK \n");
+            }
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestOutOfMem 2  -- FAIL \n");
+    }
+
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestOutOfMem 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestOutOfMem 3  -- FAIL \n");
+    }
+
+    stuffed[0] = ECU_SOF;
+    stuffed[1] = 0x01;
+    stuffed[2] = 0x02;
+    stuffed[3] = 0x03;
+    stuffed[4] = 0x04;
+    stuffed[5] = 0x05;
+    stuffed[6] = ECU_EOF;
+
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 7u, &varTemp32, &errSofRec, &eofRec ) )
+    {
+        if( (true == errSofRec) || (false == eofRec) )
+        {
+            (void)printf("byteUnStuffTestOutOfMem 4  -- FAIL \n");
+        }
+        else
+        {
+            if( 7u != varTemp32 )
+            {
+                (void)printf("byteUnStuffTestOutOfMem 4  -- FAIL \n");
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestOutOfMem 4  -- OK \n");
+            }
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestOutOfMem 4  -- FAIL \n");
+    }
+
+
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestOutOfMem 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestOutOfMem 5  -- FAIL \n");
+    }
+
+    stuffed[0] = ECU_SOF;
+    stuffed[1] = 0x01;
+    stuffed[2] = 0x02;
+    stuffed[3] = 0x03;
+    stuffed[4] = 0x04;
+    stuffed[5] = 0x01;
+    stuffed[6] = 0x02;
+    stuffed[7] = 0x03;
+    stuffed[8] = ECU_EOF;
+
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec, &eofRec ) )
+    {
+        if( (true == errSofRec) || (true == eofRec) )
+        {
+            (void)printf("byteUnStuffTestOutOfMem 6  -- FAIL \n");
+        }
+        else
+        {
+            if( 5u != varTemp32 )
+            {
+                (void)printf("byteUnStuffTestOutOfMem 6  -- FAIL \n");
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestOutOfMem 6  -- OK \n");
+            }
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestOutOfMem 6  -- FAIL \n");
+    }
+
+
+    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, &stuffed[5], 4u, &varTemp32, &errSofRec, &eofRec ) )
+    {
+        if( (true == errSofRec) || (true == eofRec) )
+        {
+            (void)printf("byteUnStuffTestOutOfMem 7  -- FAIL \n");
+        }
+        else
+        {
+            if( 1u != varTemp32 )
+            {
+                (void)printf("byteUnStuffTestOutOfMem 7  -- FAIL \n");
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestOutOfMem 7  -- OK \n");
+            }
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestOutOfMem 7  -- FAIL \n");
+    }
 
 }
 
