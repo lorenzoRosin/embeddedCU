@@ -14,7 +14,7 @@
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
 static bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx);
-
+static bool_t errFoundRestart(const e_eCU_BUStuffCtx* ctx);
 
 
 /***********************************************************************************************************************
@@ -126,14 +126,15 @@ e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retri
 #endif
 
 e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedArea, const uint32_t stuffLen,
-                                  uint32_t* const consumedStuffData, bool_t* anotherSofRec, bool_t* eofRec)
+                                  uint32_t* const consumedStuffData, bool_t* errSofRec, bool_t* eofRec)
 {
 	/* Local variable */
 	e_eCU_Res result;
     uint32_t nExamByte;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == stuffedDest ) || ( NULL == filledLen ) )
+	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == anotherSofRec ) ||
+        ( NULL == eofRec ) )
 	{
 		result = ECU_RES_BADPOINTER;
 	}
@@ -146,7 +147,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuf
 		}
 		else
 		{
-            if(maxDestLen <= 0u)
+            if(stuffLen <= 0u)
             {
                 result = ECU_RES_BADPARAM;
             }
@@ -161,6 +162,116 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuf
                 {
                     /* Init counter */
                     nExamByte = 0u;
+
+                    /* Init result */
+                    result = ECU_RES_OK;
+
+                    /* Elab all data */
+                    while( ( nExamByte < stuffLen ) && ( true == ctx->needEof ) &&
+                           ( ctx->memAreaCntr <= ctx->needEof ) && ( ECU_RES_OK == result ) )
+                    {
+                        if( ECU_SOF == stuffedArea[nExamByte] )
+                        {
+                            if( true == ctx->needSof )
+                            {
+                                /* Found start */
+                                errFoundRestart(ctx);
+                                ctx->needSof = false;
+                            }
+                            else
+                            {
+                                /* Found start, but wasn't expected */
+                                errFoundRestart(ctx);
+                                *errSofRec = true;
+                            }
+
+                            nExamByte++;
+                        }
+                        else if( ECU_EOF == stuffedArea[nExamByte] )
+                        {
+                            if( true == ctx->needSof )
+                            {
+                                /* Received end but still waiting for start  */
+                                errFoundRestart(ctx);
+                                *errSofRec = true;
+                            }
+                            else if( 0u == ctx->memAreaCntr )
+                            {
+                                /* Found end, but no data received..  */
+                                errFoundRestart(ctx);
+                                *errSofRec = true;
+                            }
+                            else if( true == ctx->precedentWasEsc )
+                            {
+                                /* Received eof but was expecting data..*/
+                                errFoundRestart(ctx);
+                                *errSofRec = true;
+                            }
+                            else
+                            {
+                                /* Can close the frame, yey */
+                                ctx->needEof = false;
+                            }
+
+                            nExamByte++;
+                        }
+                        else if( ECU_ESC == stuffedArea[nExamByte] )
+                        {
+                            if( true == ctx->needSof )
+                            {
+                                /* Received end but still waiting for start  */
+                                ctx->memAreaCntr = 0u;
+                                ctx->precedentWasEsc = false;
+                                ctx->needSof = true;
+                                ctx->needEof = true;
+                                *errSofRec = true;
+                            }
+                            else if( 0u == ctx->memAreaCntr )
+                            {
+                                /* Found end, but no data received..  */
+                                ctx->memAreaCntr = 0u;
+                                ctx->precedentWasEsc = false;
+                                ctx->needSof = false;
+                                ctx->needEof = true;
+                                *errSofRec = true;
+                            }
+                            else if( true == ctx->precedentWasEsc )
+                            {
+                                /* Received eof but was expecting data..*/
+                                ctx->memAreaCntr = 0u;
+                                ctx->precedentWasEsc = false;
+                                ctx->needSof = false;
+                                ctx->needEof = true;
+                                *errSofRec = true;
+                            }
+                            else
+                            {
+                                /* Can close the frame, yey */
+                                ctx->needEof = false;
+                            }
+
+                            nExamByte++;
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     /* Detect start of frame here to maximize efficency */
                     if( true == ctx->needSof )
@@ -238,6 +349,25 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuf
                     {
                         result = ECU_RES_OK;
                     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 }
             }
 		}
@@ -281,6 +411,15 @@ bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
 	}
 
     return result;
+}
+
+static bool_t errFoundRestart(const e_eCU_BUStuffCtx* ctx)
+{
+    /* Found start, but wasn't expected */
+    ctx->memAreaCntr = 0u;
+    ctx->precedentWasEsc = false;
+    ctx->needSof = true;
+    ctx->needEof = true;
 }
 
 #ifdef __IAR_SYSTEMS_ICC__
