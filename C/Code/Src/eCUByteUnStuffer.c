@@ -255,11 +255,25 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                 }
                                 else if( true == ctx->precedentWasEsc )
                                 {
-                                    /* current data is neg */
-                                    ctx->memArea[ctx->memAreaCntr] = ~stuffedArea[nExamByte];
-                                    ctx->precedentWasEsc = false;
-                                    ctx->memAreaCntr++;
-                                    nExamByte++;
+                                    /* Is it true? */
+                                    if( ( ECU_SOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
+                                        ( ECU_EOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
+                                        ( ECU_ESC == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) )
+                                    {
+                                        /* current data is neg */
+                                        ctx->memArea[ctx->memAreaCntr] = ~stuffedArea[nExamByte];
+                                        ctx->precedentWasEsc = false;
+                                        ctx->memAreaCntr++;
+                                        nExamByte++;
+                                    }
+                                    else
+                                    {
+                                        /* Impossible receive a data after esc that is not SOF EOF or ESC neg */
+                                        errFoundRestart(ctx);
+                                        *errSofRec = true;
+                                        nExamByte++;
+                                    }
+
                                 }
                                 else
                                 {

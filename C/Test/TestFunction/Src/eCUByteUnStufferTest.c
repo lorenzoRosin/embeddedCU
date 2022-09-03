@@ -405,15 +405,15 @@ void byteUnStuffTestOutOfMem(void)
         (void)printf("byteUnStuffTestOutOfMem 1  -- FAIL \n");
     }
 
-    stuffed[0] = ECU_SOF;
-    stuffed[1] = 0x01;
-    stuffed[2] = 0x02;
-    stuffed[3] = 0x03;
-    stuffed[4] = 0x04;
-    stuffed[5] = 0x01;
-    stuffed[6] = 0x02;
-    stuffed[7] = 0x03;
-    stuffed[8] = ECU_EOF;
+    stuffed[0u] = ECU_SOF;
+    stuffed[1u] = 0x01u;
+    stuffed[2u] = 0x02u;
+    stuffed[3u] = 0x03u;
+    stuffed[4u] = 0x04u;
+    stuffed[5u] = 0x01u;
+    stuffed[6u] = 0x02u;
+    stuffed[7u] = 0x03u;
+    stuffed[8u] = ECU_EOF;
 
     if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, stuffed, 9u, &varTemp32, &errSofRec, &eofRec ) )
     {
@@ -449,13 +449,13 @@ void byteUnStuffTestOutOfMem(void)
         (void)printf("byteUnStuffTestOutOfMem 3  -- FAIL \n");
     }
 
-    stuffed[0] = ECU_SOF;
-    stuffed[1] = 0x01;
-    stuffed[2] = 0x02;
-    stuffed[3] = 0x03;
-    stuffed[4] = 0x04;
-    stuffed[5] = 0x05;
-    stuffed[6] = ECU_EOF;
+    stuffed[0u] = ECU_SOF;
+    stuffed[1u] = 0x01u;
+    stuffed[2u] = 0x02u;
+    stuffed[3u] = 0x03u;
+    stuffed[4u] = 0x04u;
+    stuffed[5u] = 0x05u;
+    stuffed[6u] = ECU_EOF;
 
     if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 7u, &varTemp32, &errSofRec, &eofRec ) )
     {
@@ -493,13 +493,13 @@ void byteUnStuffTestOutOfMem(void)
     }
 
     stuffed[0] = ECU_SOF;
-    stuffed[1] = 0x01;
-    stuffed[2] = 0x02;
-    stuffed[3] = 0x03;
-    stuffed[4] = 0x04;
-    stuffed[5] = 0x01;
-    stuffed[6] = 0x02;
-    stuffed[7] = 0x03;
+    stuffed[1] = 0x01u;
+    stuffed[2] = 0x02u;
+    stuffed[3] = 0x03u;
+    stuffed[4] = 0x04u;
+    stuffed[5] = 0x01u;
+    stuffed[6] = 0x02u;
+    stuffed[7] = 0x03u;
     stuffed[8] = ECU_EOF;
 
     if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec, &eofRec ) )
@@ -572,8 +572,8 @@ void byteUnStuffTestGeneral(void)
         (void)printf("byteUnStuffTestGeneral 1  -- FAIL \n");
     }
 
-    stuffed[0] = ECU_SOF;
-    stuffed[1] = ECU_EOF;
+    stuffed[0u] = ECU_SOF;
+    stuffed[1u] = ECU_EOF;
 
     if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 2u, &varTemp32, &errSofRec, &eofRec ) )
     {
@@ -601,11 +601,11 @@ void byteUnStuffTestGeneral(void)
         (void)printf("byteUnStuffTestGeneral 3  -- FAIL \n");
     }
 
-    stuffed[0] = ECU_SOF;
-    stuffed[1] = ECU_SOF;
-    stuffed[2] = ECU_ESC;
-    stuffed[3] = (uint8_t)(~ECU_SOF);
-    stuffed[4] = ECU_EOF;
+    stuffed[0u] = ECU_SOF;
+    stuffed[1u] = ECU_SOF;
+    stuffed[2u] = ECU_ESC;
+    stuffed[3u] = (uint8_t)(~ECU_SOF);
+    stuffed[4u] = ECU_EOF;
 
     if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec, &eofRec ) )
     {
@@ -642,6 +642,54 @@ void byteUnStuffTestGeneral(void)
     else
     {
         (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
+    }
+
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestGeneral 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
+    }
+
+    stuffed[0u] = ECU_SOF;
+    stuffed[1u] = ECU_ESC;
+    stuffed[2u] = 0x02u;
+    stuffed[3u] = 0x02u;
+    stuffed[4u] = ECU_EOF;
+
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec, &eofRec ) )
+    {
+        if( (false == errSofRec) || (true == eofRec) )
+        {
+            (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
+        }
+        else
+        {
+            if( ECU_RES_OK == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+            {
+                if( 0u == varTemp32 )
+                {
+                    (void)printf("byteUnStuffTestGeneral 6  -- OK \n");
+                }
+                else
+                {
+                    (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
+            }
+
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
     }
 }
 
