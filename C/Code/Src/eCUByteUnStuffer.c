@@ -13,7 +13,7 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isBSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx);
+static bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx);
 
 
 
@@ -44,7 +44,7 @@ e_eCU_Res bUStuffer_initCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea,
             ctx->memArea = memArea;
             ctx->memAreaSize = memAreaSize;
             ctx->memAreaCntr = 0u;
-            ctx->precedentToCheck = false;
+            ctx->precedentWasEsc = false;
             ctx->needSof = true;
             ctx->needEof = true;
             result = ECU_RES_OK;
@@ -75,7 +75,7 @@ e_eCU_Res bUStuffer_reset(e_eCU_BUStuffCtx* const ctx)
 		{
 			/* Update index */
 			ctx->memAreaCntr = 0u;
-            ctx->precedentToCheck = false;
+            ctx->precedentWasEsc = false;
             ctx->needSof = true;
             ctx->needEof = true;
 			result = ECU_RES_OK;
@@ -105,21 +105,13 @@ e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const ret
 		else
 		{
             /* Check internal status validity */
-            if( false == isBSStatusStillCoherent(ctx) )
+            if( false == isBUSStatusStillCoherent(ctx) )
             {
                 result = ECU_RES_BADPARAM;
             }
             else
             {
-                if( false == ctx->precedentToCheck )
-                {
-                    *retrivedLen = ctx->memAreaSize - ctx->memAreaCntr;
-                }
-                else
-                {
-                    *retrivedLen = ctx->memAreaSize - ctx->memAreaCntr + 1u;
-                }
-
+                *retrivedLen =  ctx->memAreaCntr;
                 result = ECU_RES_OK;
             }
 		}
@@ -161,7 +153,7 @@ e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const s
             else
             {
                 /* Check internal status validity */
-                if( false == isBSStatusStillCoherent(ctx) )
+                if( false == isBUSStatusStillCoherent(ctx) )
                 {
                     result = ECU_RES_BADPARAM;
                 }
@@ -182,11 +174,11 @@ e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const s
                     /* Execute parsing cycle */
                     while( ( nExamByte < maxDestLen ) && ( true == ctx->needEof ) )
                     {
-                        if( true == ctx->precedentToCheck )
+                        if( true == ctx->precedentWasEsc )
                         {
                             /* Something from an old iteration  */
                             stuffedDest[nExamByte] = ~( ctx->memArea[ctx->memAreaCntr - 1u] );
-                            ctx->precedentToCheck = false;
+                            ctx->precedentWasEsc = false;
                             nExamByte++;
                         }
                         else if( ctx->memAreaCntr == ctx->memAreaSize )
@@ -203,7 +195,7 @@ e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const s
                             {
                                 /* Stuff with escape */
                                 stuffedDest[nExamByte] = ECU_ESC;
-                                ctx->precedentToCheck = true;
+                                ctx->precedentWasEsc = true;
                                 nExamByte++;
                                 ctx->memAreaCntr++;
                             }
@@ -211,7 +203,7 @@ e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const s
                             {
                                 /* Stuff with escape */
                                 stuffedDest[nExamByte] = ECU_ESC;
-                                ctx->precedentToCheck = true;
+                                ctx->precedentWasEsc = true;
                                 nExamByte++;
                                 ctx->memAreaCntr++;
                             }
@@ -219,7 +211,7 @@ e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const s
                             {
                                 /* Stuff with escape */
                                 stuffedDest[nExamByte] = ECU_ESC;
-                                ctx->precedentToCheck = true;
+                                ctx->precedentWasEsc = true;
                                 nExamByte++;
                                 ctx->memAreaCntr++;
                             }
@@ -257,10 +249,9 @@ e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const s
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isBSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
+bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
 {
     bool_t result;
-    uint8_t precedentByte;
 
 	/* Check context validity */
 	if( ( ctx->memAreaSize <= 0u ) || ( NULL == ctx->memArea ) || ( ctx->memAreaCntr > ctx->memAreaSize ) )
@@ -271,37 +262,20 @@ bool_t isBSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
 	{
 		/* Check data coherence */
 		if( ( ( true == ctx->needSof ) && ( false == ctx->needEof ) ) ||
-            ( ( false == ctx->needSof ) && ( false == ctx->needEof ) && ( ctx->memAreaCntr != ctx->memAreaSize ) ) ||
-            ( ( true == ctx->needSof ) && ( true == ctx->precedentToCheck ) ) ||
-            ( ( false == ctx->needEof ) && ( true == ctx->precedentToCheck ) ) ||
-            ( ( true == ctx->needSof ) && ( 0u != ctx->memAreaCntr ) ) )
+            ( ( true == ctx->needSof ) && ( true == ctx->precedentWasEsc ) ) ||
+            ( ( false == ctx->needEof ) && ( true == ctx->precedentWasEsc ) ) )
 		{
             result = false;
 		}
 		else
 		{
-            if( ( 0u == ctx->memAreaCntr ) && ( true == ctx->precedentToCheck ) )
+            if( ( true == ctx->needSof ) && ( 0u != ctx->memAreaCntr ) )
             {
                 result = false;
             }
             else
             {
-                if( true == ctx->precedentToCheck )
-                {
-                    precedentByte = ctx->memArea[ctx->memAreaCntr - 1u];
-                    if( (ECU_ESC != precedentByte) && (ECU_EOF != precedentByte) && (ECU_SOF != precedentByte) )
-                    {
-                        result = false;
-                    }
-                    else
-                    {
-                        result = true;
-                    }
-                }
-                else
-                {
-                    result = true;
-                }
+                result = true;
             }
 		}
 	}
