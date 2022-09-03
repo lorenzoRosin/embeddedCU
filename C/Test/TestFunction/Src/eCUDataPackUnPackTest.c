@@ -99,7 +99,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 5  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize(&ctxPack, &supportbuffget) )
+    if( ECU_RES_OK == dataPackGetNPushed(&ctxPack, &supportbuffget) )
     {
         (void)printf("dataPackUnPackCommon 6  -- OK \n");
     }

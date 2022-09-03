@@ -49,7 +49,7 @@ typedef struct
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res bUStuffer_initCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
+e_eCU_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
  * Reset data Unstuffer and restart from memory start
@@ -58,7 +58,7 @@ e_eCU_Res bUStuffer_initCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea,
  *		   ECU_RES_NOINITLIB need to init the data unstuffer context before taking some action
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bUStuffer_reset(e_eCU_BUStuffCtx* const ctx);
+e_eCU_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx);
 
 /**
  * Retrive how many raw byte we have unstuffed
@@ -69,7 +69,7 @@ e_eCU_Res bUStuffer_reset(e_eCU_BUStuffCtx* const ctx);
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Insert stuffed data chunk
@@ -83,7 +83,7 @@ e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const ret
  *         ECU_RES_OUTOFMEM No more data that we can elaborate
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bUStuffer_insertStuffData(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
+e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
                                   uint32_t* const filledLen);
 
 #ifdef __cplusplus

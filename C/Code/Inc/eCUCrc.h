@@ -50,7 +50,7 @@ e_eCU_Res crc32(const uint8_t data[], const uint32_t dataLen, uint32_t* const cr
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *         ECU_RES_OK crc 32 calculated successfully
  */
-e_eCU_Res crc32_seed(const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen, uint32_t* const crc32SVal);
+e_eCU_Res crc32Seed(const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen, uint32_t* const crc32SVal);
 
 #ifdef __cplusplus
 } /* extern "C" */

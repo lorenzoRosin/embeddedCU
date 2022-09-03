@@ -69,7 +69,7 @@ e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx);
  *         ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Push an array in data packer

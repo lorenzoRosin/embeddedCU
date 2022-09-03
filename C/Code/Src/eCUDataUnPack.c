@@ -82,7 +82,7 @@ e_eCU_Res dataUnPackReset(s_eCU_DataUnPackCtx* const ctx)
 	return result;
 }
 
-e_eCU_Res dataUnPackGetDataSize(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_Res result;

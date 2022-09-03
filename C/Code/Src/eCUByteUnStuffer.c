@@ -20,7 +20,7 @@ static bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res bUStuffer_initCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
+e_eCU_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -54,7 +54,7 @@ e_eCU_Res bUStuffer_initCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea,
 	return result;
 }
 
-e_eCU_Res bUStuffer_reset(e_eCU_BUStuffCtx* const ctx)
+e_eCU_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -85,7 +85,7 @@ e_eCU_Res bUStuffer_reset(e_eCU_BUStuffCtx* const ctx)
 	return result;
 }
 
-e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_Res result;
@@ -125,7 +125,7 @@ e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const ret
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res bUStuffer_insertStuffData(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
+e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
                                   uint32_t* const filledLen)
 {
 	/* Local variable */

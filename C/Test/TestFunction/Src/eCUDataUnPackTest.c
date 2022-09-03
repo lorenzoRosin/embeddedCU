@@ -93,7 +93,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 3  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackGetDataSize( NULL, &varTemp32 ) )
+    if( ECU_RES_BADPOINTER == dataUnPackGetRemToPop( NULL, &varTemp32 ) )
     {
         (void)printf("dataUnPackTestBadPointer 4  -- OK \n");
     }
@@ -102,7 +102,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 4  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataUnPackGetDataSize( &ctx, NULL ) )
+    if( ECU_RES_BADPOINTER == dataUnPackGetRemToPop( &ctx, NULL ) )
     {
         (void)printf("dataUnPackTestBadPointer 5  -- OK \n");
     }
@@ -201,7 +201,7 @@ void dataUnPackTestBadInit(void)
         (void)printf("dataUnPackTestBadInit 2  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == dataUnPackGetDataSize( &ctx, &varTemp32 ) )
+    if( ECU_RES_NOINITLIB == dataUnPackGetRemToPop( &ctx, &varTemp32 ) )
     {
         (void)printf("dataUnPackTestBadInit 3  -- OK \n");
     }
@@ -311,7 +311,7 @@ void dataUnPackTestBadParamStatus(void)
     /* Init variable */
     ctx.memUPKASize = 0u;
 
-    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataUnPackGetRemToPop(&ctx, &varTemp) )
     {
         (void)printf("dataUnPackTestBadParamStatus 2  -- OK \n");
     }
@@ -336,7 +336,7 @@ void dataUnPackTestBadParamStatus(void)
     /* Init variable */
     ctx.memUPKA = NULL;
 
-    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataUnPackGetRemToPop(&ctx, &varTemp) )
     {
         (void)printf("dataUnPackTestBadParamStatus 4  -- OK \n");
     }
@@ -374,7 +374,7 @@ void dataUnPackTestBadParamStatus(void)
     /* Init variable */
     ctx.memUPKACntr = ctx.memUPKASize + 1u;
 
-    if( ECU_RES_BADPARAM == dataUnPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataUnPackGetRemToPop(&ctx, &varTemp) )
     {
         (void)printf("dataUnPackTestBadParamStatus 7  -- OK \n");
     }

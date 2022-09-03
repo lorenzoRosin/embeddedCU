@@ -90,7 +90,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 3  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackGetDataSize( NULL, &varTemp ) )
+    if( ECU_RES_BADPOINTER == dataPackGetNPushed( NULL, &varTemp ) )
     {
         (void)printf("dataPackTestBadPointer 4  -- OK \n");
     }
@@ -99,7 +99,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 4  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == dataPackGetDataSize( &ctx, NULL ) )
+    if( ECU_RES_BADPOINTER == dataPackGetNPushed( &ctx, NULL ) )
     {
         (void)printf("dataPackTestBadPointer 5  -- OK \n");
     }
@@ -195,7 +195,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 2  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_NOINITLIB == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestBadInit 3  -- OK \n");
     }
@@ -307,7 +307,7 @@ void dataPackTestBadParamStatus(void)
     /* Init variable */
     ctx.memPKASize = 0u;
 
-    if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataPackGetNPushed(&ctx, &varTemp) )
     {
         (void)printf("dataPackTestBadParamStatus 2  -- OK \n");
     }
@@ -334,7 +334,7 @@ void dataPackTestBadParamStatus(void)
     /* Init variable */
     ctx.memPKA = NULL;
 
-    if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataPackGetNPushed(&ctx, &varTemp) )
     {
         (void)printf("dataPackTestBadParamStatus 4  -- OK \n");
     }
@@ -361,7 +361,7 @@ void dataPackTestBadParamStatus(void)
     /* Init variable */
     ctx.memPKACntr = ctx.memPKASize + 1u;
 
-    if( ECU_RES_BADPARAM == dataPackGetDataSize(&ctx, &varTemp) )
+    if( ECU_RES_BADPARAM == dataPackGetNPushed(&ctx, &varTemp) )
     {
         (void)printf("dataPackTestBadParamStatus 6  -- OK \n");
     }
@@ -492,7 +492,7 @@ void dataPackTestEndianLe(void)
         (void)printf("dataPackTestEndianLe 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianLe 3  -- OK \n");
     }
@@ -536,7 +536,7 @@ void dataPackTestEndianLe(void)
         (void)printf("dataPackTestEndianLe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianLe 7  -- OK \n");
     }
@@ -581,7 +581,7 @@ void dataPackTestEndianLe(void)
         (void)printf("dataPackTestEndianLe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianLe 11 -- OK \n");
     }
@@ -639,7 +639,7 @@ void dataPackTestEndianBe(void)
         (void)printf("dataPackTestEndianBe 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianBe 3  -- OK \n");
     }
@@ -683,7 +683,7 @@ void dataPackTestEndianBe(void)
         (void)printf("dataPackTestEndianBe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianBe 7  -- OK \n");
     }
@@ -728,7 +728,7 @@ void dataPackTestEndianBe(void)
         (void)printf("dataPackTestEndianBe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestEndianBe 11 -- OK \n");
     }
@@ -795,7 +795,7 @@ void dataPackTestCycle(void)
         (void)printf("dataPackTestCycle 3  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp ) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestCycle 4  -- OK \n");
     }
@@ -849,7 +849,7 @@ void dataPackTestCycle(void)
         (void)printf("dataPackTestCycle 8  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetDataSize( &ctx, &varTemp) )
+    if( ECU_RES_OK == dataPackGetNPushed( &ctx, &varTemp) )
     {
         (void)printf("dataPackTestCycle 9  -- OK \n");
     }

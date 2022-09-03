@@ -81,7 +81,7 @@ e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx)
 	return result;
 }
 
-e_eCU_Res dataPackGetDataSize(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_Res result;

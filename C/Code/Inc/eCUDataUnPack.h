@@ -69,7 +69,7 @@ e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUP
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res dataUnPackGetDataSize(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Pop some raw data

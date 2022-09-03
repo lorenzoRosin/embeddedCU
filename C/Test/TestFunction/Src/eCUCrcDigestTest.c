@@ -59,7 +59,7 @@ void cUCrcDigestTestBadPointer(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
-    cb_crc32_seed cbCrcPTest = &crc32_seed;
+    cb_crc32_seed cbCrcPTest = &crc32Seed;
 
     uint8_t  varBuff[5u];
     uint32_t varTemp;
@@ -172,7 +172,7 @@ void cUCrcDigestTestBadParamEntr(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
-    cb_crc32_seed cbCrcPTest = &crc32_seed;
+    cb_crc32_seed cbCrcPTest = &crc32Seed;
     uint8_t  varBuff[5u];
     varBuff[0] = 0u;
 
@@ -203,7 +203,7 @@ void cUCrcDigestTestBadParamStatus(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
-    cb_crc32_seed cbCrcPTest = &crc32_seed;
+    cb_crc32_seed cbCrcPTest = &crc32Seed;
     uint8_t  varBuff[5u];
     uint32_t varTemp;
 
@@ -257,7 +257,7 @@ void cUCrcDigestTestOutOfMem(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
-    cb_crc32_seed cbCrcPTest = &crc32_seed;
+    cb_crc32_seed cbCrcPTest = &crc32Seed;
     uint8_t  varBuff[5u];
 
     /* Init variable */
@@ -289,7 +289,7 @@ void cUCrcDigestTestMono(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
-    cb_crc32_seed cbCrcPTest = &crc32_seed;
+    cb_crc32_seed cbCrcPTest = &crc32Seed;
 
     /* Test value */
     uint8_t crcTestData[] = {0x00u, 0x01u, 0x02u};
@@ -374,7 +374,7 @@ void cUCrcDigestTestCombined(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
-    cb_crc32_seed cbCrcPTest = &crc32_seed;
+    cb_crc32_seed cbCrcPTest = &crc32Seed;
 
     /* Test value */
     uint8_t crcTestDataC[] = {0x00u, 0x01u, 0x02u, 0x03u, 0x04u, 0x05u};
