@@ -515,6 +515,7 @@ void byteStuffTestGeneral(void)
     uint8_t  memAreaExpected[9u];
     uint32_t varTemp32;
     uint32_t counter;
+    uint32_t remaining;
 
     /* Init variable */
     memAreaExpected[0u] = ECU_SOF;
@@ -1063,17 +1064,10 @@ void byteStuffTestGeneral(void)
     result = ECU_RES_OK;
     varTemp32 = 0u;
     counter = 0u;
+    remaining = 0u;
 
-    while( ECU_RES_OK == result )
-    {
-        result = bStuffer_retiveElabData(&ctx, &memAreaFinalChunk[counter], 10u, &varTemp32);
-        if( ( ECU_RES_OUTOFMEM == result) || ( ECU_RES_OK == result) )
-        {
-            counter += varTemp32;
-        }
-    }
-
-    if( ECU_RES_OUTOFMEM == result )
+    result = bStuffer_getDataSize(&ctx, &remaining);
+    if( ECU_RES_OK == result )
     {
         (void)printf("byteStuffTestGeneral 29 -- OK \n");
     }
@@ -1082,20 +1076,42 @@ void byteStuffTestGeneral(void)
         (void)printf("byteStuffTestGeneral 29 -- FAIL \n");
     }
 
-    if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
+
+
+    while( ( ECU_RES_OK == result ) && ( 0u != remaining ) )
     {
-        if( sizeof(memAreaExpected) == counter )
+        result = bStuffer_retiveElabData(&ctx, &memAreaFinalChunk[counter], 10u, &varTemp32);
+        if( ( ECU_RES_OUTOFMEM == result) || ( ECU_RES_OK == result) )
         {
-            (void)printf("byteStuffTestGeneral 30 -- OK \n");
+            counter += varTemp32;
         }
-        else
-        {
-            (void)printf("byteStuffTestGeneral 30 -- FAIL \n");
-        }
+
+        result = bStuffer_getDataSize(&ctx, &remaining);
+    }
+
+    if( ECU_RES_OK == result )
+    {
+        (void)printf("byteStuffTestGeneral 30 -- OK \n");
     }
     else
     {
         (void)printf("byteStuffTestGeneral 30 -- FAIL \n");
+    }
+
+    if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
+    {
+        if( sizeof(memAreaExpected) == counter )
+        {
+            (void)printf("byteStuffTestGeneral 31 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGeneral 31 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGeneral 31 -- FAIL \n");
     }
 }
 

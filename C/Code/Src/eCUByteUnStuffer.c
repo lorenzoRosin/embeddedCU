@@ -125,7 +125,7 @@ e_eCU_Res bUStuffer_getDataSize(e_eCU_BUStuffCtx* const ctx, uint32_t* const ret
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res bUStuffer_retiveElabData(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
+e_eCU_Res bUStuffer_insertStuffData(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
                                   uint32_t* const filledLen)
 {
 	/* Local variable */
