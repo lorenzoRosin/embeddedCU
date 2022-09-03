@@ -1061,7 +1061,6 @@ void byteStuffTestGeneral(void)
         (void)printf("byteStuffTestGeneral 28 -- FAIL \n");
     }
 
-    result = ECU_RES_OK;
     varTemp32 = 0u;
     counter = 0u;
     remaining = 0u;

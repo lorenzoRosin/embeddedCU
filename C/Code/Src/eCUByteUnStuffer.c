@@ -14,7 +14,7 @@
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
 static bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx);
-static bool_t errFoundRestart(const e_eCU_BUStuffCtx* ctx);
+static void errFoundRestart(e_eCU_BUStuffCtx* const ctx);
 
 
 /***********************************************************************************************************************
@@ -133,7 +133,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuf
     uint32_t nExamByte;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == anotherSofRec ) ||
+	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) ||
         ( NULL == eofRec ) )
 	{
 		result = ECU_RES_BADPOINTER;
@@ -163,16 +163,20 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuf
                     /* Init counter */
                     nExamByte = 0u;
 
+                    /* Init var */
+                    *errSofRec = false;
+
                     /* Init result */
                     result = ECU_RES_OK;
 
                     /* Elab all data */
                     while( ( nExamByte < stuffLen ) && ( true == ctx->needEof ) &&
-                           ( ctx->memAreaCntr <= ctx->needEof ) && ( ECU_RES_OK == result ) )
+                           ( ctx->memAreaCntr <= ctx->memAreaSize ) && ( ECU_RES_OK == result ) )
                     {
-                        if( ECU_SOF == stuffedArea[nExamByte] )
+                        if( true == ctx->needSof )
                         {
-                            if( true == ctx->needSof )
+                            /* Wait SOF, discharge others */
+                            if( ECU_SOF == stuffedArea[nExamByte] )
                             {
                                 /* Found start */
                                 errFoundRestart(ctx);
@@ -180,200 +184,104 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuf
                             }
                             else
                             {
-                                /* Found start, but wasn't expected */
+                                /* Waiting for start, no other bytes */
                                 errFoundRestart(ctx);
                                 *errSofRec = true;
                             }
-
-                            nExamByte++;
-                        }
-                        else if( ECU_EOF == stuffedArea[nExamByte] )
-                        {
-                            if( true == ctx->needSof )
-                            {
-                                /* Received end but still waiting for start  */
-                                errFoundRestart(ctx);
-                                *errSofRec = true;
-                            }
-                            else if( 0u == ctx->memAreaCntr )
-                            {
-                                /* Found end, but no data received..  */
-                                errFoundRestart(ctx);
-                                *errSofRec = true;
-                            }
-                            else if( true == ctx->precedentWasEsc )
-                            {
-                                /* Received eof but was expecting data..*/
-                                errFoundRestart(ctx);
-                                *errSofRec = true;
-                            }
-                            else
-                            {
-                                /* Can close the frame, yey */
-                                ctx->needEof = false;
-                            }
-
-                            nExamByte++;
-                        }
-                        else if( ECU_ESC == stuffedArea[nExamByte] )
-                        {
-                            if( true == ctx->needSof )
-                            {
-                                /* Received end but still waiting for start  */
-                                ctx->memAreaCntr = 0u;
-                                ctx->precedentWasEsc = false;
-                                ctx->needSof = true;
-                                ctx->needEof = true;
-                                *errSofRec = true;
-                            }
-                            else if( 0u == ctx->memAreaCntr )
-                            {
-                                /* Found end, but no data received..  */
-                                ctx->memAreaCntr = 0u;
-                                ctx->precedentWasEsc = false;
-                                ctx->needSof = false;
-                                ctx->needEof = true;
-                                *errSofRec = true;
-                            }
-                            else if( true == ctx->precedentWasEsc )
-                            {
-                                /* Received eof but was expecting data..*/
-                                ctx->memAreaCntr = 0u;
-                                ctx->precedentWasEsc = false;
-                                ctx->needSof = false;
-                                ctx->needEof = true;
-                                *errSofRec = true;
-                            }
-                            else
-                            {
-                                /* Can close the frame, yey */
-                                ctx->needEof = false;
-                            }
-
-                            nExamByte++;
-                        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    /* Detect start of frame here to maximize efficency */
-                    if( true == ctx->needSof )
-                    {
-                        /* Start of frame */
-                        stuffedDest[nExamByte] = ECU_SOF;
-                        nExamByte++;
-                        ctx->needSof = false;
-                    }
-
-                    /* Execute parsing cycle */
-                    while( ( nExamByte < maxDestLen ) && ( true == ctx->needEof ) )
-                    {
-                        if( true == ctx->precedentWasEsc )
-                        {
-                            /* Something from an old iteration  */
-                            stuffedDest[nExamByte] = ~( ctx->memArea[ctx->memAreaCntr - 1u] );
-                            ctx->precedentWasEsc = false;
-                            nExamByte++;
-                        }
-                        else if( ctx->memAreaCntr == ctx->memAreaSize )
-                        {
-                            /* End of frame */
-                            stuffedDest[nExamByte] = ECU_EOF;
-                            ctx->needEof = false;
                             nExamByte++;
                         }
                         else
                         {
-                            /* Current iteration */
-                            if( ECU_SOF == ctx->memArea[ctx->memAreaCntr] )
+                            if( ECU_SOF == stuffedArea[nExamByte] )
                             {
-                                /* Stuff with escape */
-                                stuffedDest[nExamByte] = ECU_ESC;
-                                ctx->precedentWasEsc = true;
+                                /* Found start, but wasn't expected */
+                                errFoundRestart(ctx);
+                                *errSofRec = true;
+
                                 nExamByte++;
-                                ctx->memAreaCntr++;
                             }
-                            else if( ECU_EOF == ctx->memArea[ctx->memAreaCntr] )
+                            else if( ECU_EOF == stuffedArea[nExamByte] )
                             {
-                                /* Stuff with escape */
-                                stuffedDest[nExamByte] = ECU_ESC;
-                                ctx->precedentWasEsc = true;
+                                if( 0u == ctx->memAreaCntr )
+                                {
+                                    /* Found end, but no data received..  */
+                                    errFoundRestart(ctx);
+                                    *errSofRec = true;
+                                }
+                                else if( true == ctx->precedentWasEsc )
+                                {
+                                    /* Received eof but was expecting data..*/
+                                    errFoundRestart(ctx);
+                                    *errSofRec = true;
+                                }
+                                else
+                                {
+                                    /* Can close the frame, yey */
+                                    ctx->needEof = false;
+                                }
+
                                 nExamByte++;
-                                ctx->memAreaCntr++;
                             }
-                            else if( ECU_ESC == ctx->memArea[ctx->memAreaCntr] )
+                            else if( ECU_ESC == stuffedArea[nExamByte] )
                             {
-                                /* Stuff with escape */
-                                stuffedDest[nExamByte] = ECU_ESC;
-                                ctx->precedentWasEsc = true;
-                                nExamByte++;
-                                ctx->memAreaCntr++;
+                                if( true == ctx->precedentWasEsc )
+                                {
+                                    /* Impossible receive two esc */
+                                    errFoundRestart(ctx);
+                                    *errSofRec = true;
+                                    nExamByte++;
+                                }
+                                else if( ctx->memAreaCntr == ctx->memAreaSize )
+                                {
+                                    /* No more data avaiable to save that thing */
+                                    result = ECU_RES_OUTOFMEM;
+                                }
+                                else
+                                {
+                                    /* Next data will be data */
+                                    ctx->precedentWasEsc = true;
+                                    nExamByte++;
+                                }
                             }
                             else
                             {
-                                /* Can insert data */
-                                stuffedDest[nExamByte] = ctx->memArea[ctx->memAreaCntr];
-                                nExamByte++;
-                                ctx->memAreaCntr++;
+                                /* Received good data */
+                                if( ctx->memAreaCntr == ctx->memAreaSize )
+                                {
+                                    /* No more data avaiable to save that thing */
+                                    result = ECU_RES_OUTOFMEM;
+                                }
+                                else if( true == ctx->precedentWasEsc )
+                                {
+                                    /* current data is neg */
+                                    ctx->memArea[ctx->memAreaCntr] = ~stuffedArea[nExamByte];
+                                    ctx->memAreaCntr++;
+                                    nExamByte++;
+                                }
+                                else
+                                {
+                                    /* Only raw data */
+                                    ctx->memArea[ctx->memAreaCntr] = stuffedArea[nExamByte];
+                                    ctx->memAreaCntr++;
+                                    nExamByte++;
+                                }
                             }
                         }
                     }
 
-                    /* Save counter */
-                    *filledLen = nExamByte;
+                    /* Save the result */
+                    *consumedStuffData = nExamByte;
 
-                    /* result? */
-                    if( 0u == nExamByte )
+                    if( false == ctx->needEof )
                     {
-                        /* Nothing more */
-                        result = ECU_RES_OUTOFMEM;
+                        *eofRec = true;
                     }
-                    else
-                    {
-                        result = ECU_RES_OK;
-                    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
             }
-		}
-	}
+        }
+    }
 
-	return result;
+    return result;
 }
 
 /***********************************************************************************************************************
@@ -413,7 +321,7 @@ bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
     return result;
 }
 
-static bool_t errFoundRestart(const e_eCU_BUStuffCtx* ctx)
+void errFoundRestart(e_eCU_BUStuffCtx* const ctx)
 {
     /* Found start, but wasn't expected */
     ctx->memAreaCntr = 0u;
