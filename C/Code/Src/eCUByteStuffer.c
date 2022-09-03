@@ -185,7 +185,7 @@ e_eCU_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuf
                         if( true == ctx->precedentToCheck )
                         {
                             /* Something from an old iteration  */
-                            stuffedDest[nExamByte] = ~( ctx->memArea[ctx->memAreaCntr - 1u] );
+                            stuffedDest[nExamByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
                             ctx->precedentToCheck = false;
                             nExamByte++;
                         }

@@ -46,11 +46,16 @@ void dataStuffUnStuffCommon(void)
     /* Local variable */
     e_eCU_BUStuffCtx ctxUnStuff;
     e_eCU_BStuffCtx ctxStuff;
-    uint8_t  dataStuffPool[50u];
+    uint8_t  dataStuffPool[5u];
     uint8_t  dataUnStuffPool[50u];
+    uint8_t  tempPool[50u];
+    uint32_t  temp32;
+    uint32_t  temp32sec;
+    bool_t errSofRec;
+    bool_t eofRec;
 
-    /* Function */
-    if( ECU_RES_BADPOINTER == bStufferInitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
+    /* Function Init */
+    if( ECU_RES_OK == bStufferInitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
     {
         (void)printf("dataStuffUnStuffCommon 1  -- OK \n");
     }
@@ -59,13 +64,59 @@ void dataStuffUnStuffCommon(void)
         (void)printf("dataStuffUnStuffCommon 1  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
+    if( ECU_RES_OK == bUStufferInitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
     {
-        (void)printf("byteUnStuffTestBadPointer 1  -- OK \n");
+        (void)printf("dataStuffUnStuffCommon 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadPointer 1  -- FAIL \n");
+        (void)printf("dataStuffUnStuffCommon 2  -- FAIL \n");
+    }
+
+    /* Stuff */
+    dataStuffPool[0x01] = 0x01u;
+    dataStuffPool[0x02] = ECU_SOF;
+    dataStuffPool[0x03] = ECU_ESC;
+    dataStuffPool[0x04] = ECU_SOF;
+    dataStuffPool[0x05] = 0x21u;
+    if( ECU_RES_OK == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+    {
+        (void)printf("dataStuffUnStuffCommon 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataStuffUnStuffCommon 3  -- FAIL \n");
+    }
+
+    /* unstuff */
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec, &eofRec ) )
+    {
+        if( (false == errSofRec) || (false == eofRec) )
+        {
+            (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
+        }
+        else
+        {
+            if( ECU_RES_OK == bUStufferGetNUnstuf(&ctxUnStuff, &temp32sec) )
+            {
+                if( temp32 == temp32sec )
+                {
+                    (void)printf("dataStuffUnStuffCommon 4  -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
+            }
+        }
+    }
+    else
+    {
+        (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
     }
 }
 

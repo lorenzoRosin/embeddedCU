@@ -261,7 +261,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                         ( ECU_ESC == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) )
                                     {
                                         /* current data is neg */
-                                        ctx->memArea[ctx->memAreaCntr] = ~stuffedArea[nExamByte];
+                                        ctx->memArea[ctx->memAreaCntr] = ( uint8_t ) ( ~stuffedArea[nExamByte] );
                                         ctx->precedentWasEsc = false;
                                         ctx->memAreaCntr++;
                                         nExamByte++;
