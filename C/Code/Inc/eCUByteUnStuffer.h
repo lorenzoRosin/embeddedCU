@@ -74,17 +74,21 @@ e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retri
 /**
  * Insert stuffed data chunk
  * @param  ctx Byte Unstuffer context
- * @param  stuffedDest Pointer to the destination area of stuffed data
- * @param  maxDestLen max fillable size of the destination area
+ * @param  stuffedArea Pointer to the stuffed Data that we will unstuff
+ * @param  stuffLen data to unstuff size
  * @param  filledLen Pointer to an uint32_t were we will store the filled stuffed data
+ * @param  consumedStuffData Pointer to an uint32_t were we will store how many stuffed data byte were analyzed
+ * @param  anotherSofRec Pointer to an bool_t were we will store if another start of frame is received during decoding
+ * @param  eofRec Pointer to an bool_t were we will store if we have reached eof. When EOF is reached no more data will
+ *         be parsed no matter what
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data unstuffer context before taking some action
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OUTOFMEM No more data that we can elaborate
+ *         ECU_RES_OUTOFMEM Can not unstuff data, initial mem pointer was too small
  *         ECU_RES_OK operation ended correctly
  */
-e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
-                                  uint32_t* const filledLen);
+e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedArea, const uint32_t stuffLen,
+                                  uint32_t* const consumedStuffData, bool_t* anotherSofRec, bool_t* eofRec);
 
 #ifdef __cplusplus
 } /* extern "C" */
