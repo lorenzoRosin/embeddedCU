@@ -43,11 +43,11 @@ typedef struct
 /**
  * Initialize the byte unstuffer context
  * @param  ctx Byte Unstuffer context
- * @param  memPool Pointer to a memory area that we will use to save unstuffed data
- * @param  memPoolSize Dimension in byte of the memory area
+ * @param  memArea Pointer to a memory area that we will use to save unstuffed data
+ * @param  memAreaSize Dimension in byte of the memory area
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OK circular queue is initialized correctly
+ *         ECU_RES_OK operation ended correctly
  */
 e_eCU_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
@@ -76,11 +76,12 @@ e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retri
  * @param  ctx Byte Unstuffer context
  * @param  stuffedArea Pointer to the stuffed Data that we will unstuff
  * @param  stuffLen data to unstuff size
- * @param  filledLen Pointer to an uint32_t were we will store the filled stuffed data
  * @param  consumedStuffData Pointer to an uint32_t were we will store how many stuffed data byte were analyzed
- * @param  errSofRec Pointer to an bool_t were we will store if another start of frame is needed during decoding
- * @param  eofRec Pointer to an bool_t were we will store if an incorrect byte received restarted the frame
- *         be parsed no matter what
+ *         and that dosent need to be inserted in this function anymore
+ * @param  errSofRec Pointer to an bool_t were we will store if some protocol error was detected. Even with this flag
+ *         sette to true, the protocol will continue parsing data discharging error
+ * @param  eofRec Pointer to an bool_t were we will store if the end of frame is reached. After the end of frame is
+ *         found no other data will be parse (consumedStuffData = 0) till a reset or a init is called
  * @return ECU_RES_BADPOINTER in case of bad pointer
  *		   ECU_RES_NOINITLIB need to init the data unstuffer context before taking some action
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
