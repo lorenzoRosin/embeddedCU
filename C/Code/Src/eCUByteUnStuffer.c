@@ -197,6 +197,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                             {
                                 /* Found start, but wasn't expected */
                                 errFoundRestart(ctx);
+                                ctx->needSof = false;
                                 *errSofRec = true;
 
                                 nExamByte++;
@@ -256,6 +257,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                 {
                                     /* current data is neg */
                                     ctx->memArea[ctx->memAreaCntr] = ~stuffedArea[nExamByte];
+                                    ctx->precedentWasEsc = false;
                                     ctx->memAreaCntr++;
                                     nExamByte++;
                                 }
