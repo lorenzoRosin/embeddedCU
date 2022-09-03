@@ -6,6 +6,7 @@
 #include "eCUDataPackUnPackTest.h"
 #include "eCUByteStufferTest.h"
 #include "eCUByteUnStufferTest.h"
+#include "eCUDataStuffUnStuffTest.h"
 int main(void);
 
 
@@ -20,6 +21,7 @@ int main(void)
 	dataPackUnPackTest();
     byteStufferTest();
     byteUnStufferTest();
+    dataStuffUnStuffTest();
 
     return 0;
 }
