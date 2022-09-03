@@ -53,22 +53,334 @@ void byteUnStufferTest(void)
  **********************************************************************************************************************/
 void byteUnStuffTestBadPointer(void)
 {
+    /* Local variable */
+    e_eCU_BUStuffCtx ctx;
+    uint8_t  memArea[5u];
+    uint32_t varTemp32;
+    bool_t a;
+    bool_t b;
 
+    /* Function */
+    if( ECU_RES_BADPOINTER == bUStufferInitCtx(NULL, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 1  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferInitCtx(&ctx, NULL, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 2  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferReset( NULL ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 3  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferGetNUnstuf( NULL, &varTemp32 ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 4  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferGetNUnstuf( &ctx, NULL ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 5  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a, &b ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 6  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a, &b ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 7  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 7  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a, &b ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 8  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL, &b ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 9  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 9  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a, NULL ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 10 -- FAIL \n");
+    }
 }
 
 void byteUnStuffTestBadInit(void)
 {
+    /* Local variable */
+    e_eCU_BUStuffCtx ctx;
+    uint8_t  memArea[5u];
+    uint32_t varTemp32;
+    bool_t a;
+    bool_t b;
 
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( ECU_RES_NOINITLIB == bUStufferReset(&ctx) )
+    {
+        (void)printf("byteUnStuffTestBadInit 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadInit 1  -- FAIL \n");
+    }
+
+    if( ECU_RES_NOINITLIB == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadInit 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadInit 2  -- FAIL \n");
+    }
+
+    if( ECU_RES_NOINITLIB == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a, &b ) )
+    {
+        (void)printf("byteUnStuffTestBadInit 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadInit 3  -- FAIL \n");
+    }
 }
 
 void byteUnStuffTestBadParamEntr(void)
 {
+    /* Local variable */
+    e_eCU_BUStuffCtx ctx;
+    uint8_t  memArea[5u];
+    uint32_t varTemp32;
+    bool_t a;
+    bool_t b;
 
+    /* Function */
+    if( ECU_RES_BADPARAM == bUStufferInitCtx(&ctx, memArea, 0u) )
+    {
+        (void)printf("byteUnStuffTestBadParamEntr 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamEntr 1  -- FAIL \n");
+    }
+
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamEntr 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamEntr 2  -- FAIL \n");
+    }
+
+    if( ECU_RES_BADPARAM == bUStufferInsStufChunk( &ctx, memArea, 0u, &varTemp32, &a, &b ) )
+    {
+        (void)printf("byteUnStuffTestBadParamEntr 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamEntr 3  -- FAIL \n");
+    }
 }
 
 void byteUnStuffTestBadParamStatus(void)
 {
+    /* Local variable */
+    e_eCU_BUStuffCtx ctx;
+    uint8_t  memArea[5u];
+    uint32_t varTemp32;
 
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 1  -- FAIL \n");
+    }
+
+    ctx.memAreaSize = 0u;
+    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 2  -- FAIL \n");
+    }
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 3  -- FAIL \n");
+    }
+
+    ctx.memArea = NULL;
+    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 4  -- FAIL \n");
+    }
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 5  -- FAIL \n");
+    }
+
+    ctx.memAreaCntr = ctx.memAreaSize + 1u;
+    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 6  -- FAIL \n");
+    }
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 7  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 7  -- FAIL \n");
+    }
+
+    ctx.needSof = true;
+    ctx.needEof = false;
+    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 8  -- FAIL \n");
+    }
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 9  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 9  -- FAIL \n");
+    }
+
+    ctx.needSof = true;
+    ctx.precedentWasEsc = true;
+    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 10 -- FAIL \n");
+    }
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 11 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 11 -- FAIL \n");
+    }
+
+    ctx.needEof = false;
+    ctx.precedentWasEsc = true;
+    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 12 -- FAIL \n");
+    }
+
+    /* Function  */
+    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 13 -- FAIL \n");
+    }
+
+    ctx.needSof = true;
+    ctx.memAreaCntr = 1u;
+    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 14 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 14 -- FAIL \n");
+    }
 }
 
 void byteUnStuffTestOutOfMem(void)
