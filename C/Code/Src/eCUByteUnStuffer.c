@@ -125,7 +125,7 @@ e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retri
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuffedArea, const uint32_t stuffLen,
+e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
                                   uint32_t* const consumedStuffData, bool_t* errSofRec, bool_t* eofRec)
 {
 	/* Local variable */
@@ -165,6 +165,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, uint8_t* const stuf
 
                     /* Init var */
                     *errSofRec = false;
+                    *eofRec = false;
 
                     /* Init result */
                     result = ECU_RES_OK;
