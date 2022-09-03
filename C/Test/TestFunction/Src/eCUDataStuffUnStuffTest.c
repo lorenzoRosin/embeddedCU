@@ -74,11 +74,11 @@ void dataStuffUnStuffCommon(void)
     }
 
     /* Stuff */
-    dataStuffPool[0x01] = 0x01u;
-    dataStuffPool[0x02] = ECU_SOF;
+    dataStuffPool[0x00] = 0x01u;
+    dataStuffPool[0x01] = ECU_SOF;
+    dataStuffPool[0x02] = ECU_EOF;
     dataStuffPool[0x03] = ECU_ESC;
-    dataStuffPool[0x04] = ECU_SOF;
-    dataStuffPool[0x05] = 0x21u;
+    dataStuffPool[0x04] = 0x21u;
     if( ECU_RES_OK == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
     {
         (void)printf("dataStuffUnStuffCommon 3  -- OK \n");
@@ -91,7 +91,7 @@ void dataStuffUnStuffCommon(void)
     /* unstuff */
     if( ECU_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec, &eofRec ) )
     {
-        if( (false == errSofRec) || (false == eofRec) )
+        if( (true == errSofRec) || (false == eofRec) )
         {
             (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
         }
@@ -99,7 +99,7 @@ void dataStuffUnStuffCommon(void)
         {
             if( ECU_RES_OK == bUStufferGetNUnstuf(&ctxUnStuff, &temp32sec) )
             {
-                if( temp32 == temp32sec )
+                if( sizeof(dataStuffPool) == temp32sec )
                 {
                     (void)printf("dataStuffUnStuffCommon 4  -- OK \n");
                 }
