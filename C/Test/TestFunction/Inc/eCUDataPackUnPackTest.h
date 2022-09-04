@@ -18,8 +18,8 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUType.h"
-#include "eCUdataPack.h"
-#include "eCUdataUnPack.h"
+#include "eCUDataPack.h"
+#include "eCUDataUnPack.h"
 
 
 
