@@ -20,7 +20,7 @@ static bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUPKA, const uint32_t memUPKASize,
+e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, const uint8_t* memUPKA, const uint32_t memUPKASize,
                          const bool_t isLEnd)
 {
 	/* Local variable */

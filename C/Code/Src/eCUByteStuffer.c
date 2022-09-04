@@ -20,7 +20,7 @@ static bool_t isBSStatusStillCoherent(const e_eCU_BStuffCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
+e_eCU_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_Res result;

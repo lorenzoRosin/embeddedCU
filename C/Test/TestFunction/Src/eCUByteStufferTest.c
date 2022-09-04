@@ -181,6 +181,7 @@ void byteStuffTestBadParamEntr(void)
 
     /* Init variable */
     ctx.isInit = false;
+    (void)memset(memArea, 0, sizeof(memArea));
 
     /* Function */
     if( ECU_RES_BADPARAM == bStufferInitCtx(&ctx, memArea, 0u) )
@@ -424,7 +425,7 @@ void byteStuffTestBadParamStatus(void)
 
     ctx.precedentToCheck = true;
     ctx.memAreaCntr = 1u;
-    ctx.memArea[ctx.memAreaCntr - 1u] = 0xFFu;
+    memArea[ctx.memAreaCntr - 1u] = 0xFFu;
     if( ECU_RES_BADPARAM == bStufferGetRemToStuf(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 20 -- OK \n");

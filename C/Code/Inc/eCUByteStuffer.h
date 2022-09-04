@@ -36,7 +36,7 @@ extern "C" {
 typedef struct
 {
     bool_t   isInit;
-	uint8_t* memArea;
+	const uint8_t* memArea;
 	uint32_t memAreaSize;
 	uint32_t memAreaCntr;
     bool_t   precedentToCheck;
@@ -58,7 +58,7 @@ typedef struct
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK circular queue is initialized correctly
  */
-e_eCU_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
+e_eCU_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memArea, const uint32_t memAreaSize);
 
 /**
  * Reset data stuffer and restart from memory start

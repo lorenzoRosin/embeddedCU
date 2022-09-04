@@ -264,6 +264,7 @@ void dataUnPackTestBadParamEntr(void)
 
     /* Init variable */
     ctx.isInit = false;
+    (void)memset(badPointerMempool, 0, sizeof(badPointerMempool));
 
     /* Function */
     if( ECU_RES_BADPARAM == dataUnPackinitCtx(&ctx, badPointerMempool, 0u, true) )
@@ -397,6 +398,7 @@ void dataUnPackTestOutOfMem(void)
 
     /* Init variable */
     ctx.isInit = false;
+    (void)memset(badPointerMempool, 0, sizeof(badPointerMempool));
 
     /* Function */
     if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 1u, true) )
@@ -486,6 +488,7 @@ void dataUnPackTestEndianLe(void)
 
     /* Init variable */
     ctx.isInit = false;
+    (void)memset(badPointerMempool, 0, sizeof(badPointerMempool));
 
     /* Function */
     if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 1u, true) )

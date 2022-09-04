@@ -3,7 +3,7 @@
  *
  */
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6", "CERT-STR32-C"
     /* Suppressed for code clarity in test execution*/
 #endif
 
@@ -41,85 +41,114 @@ void dataStuffUnStuffTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
+typedef struct
+{
+    uint32_t dataTestSize;
+    uint8_t  *dataTest;
+}s_priv_test_stuffUnstuffMatrix;
+
 void dataStuffUnStuffCommon(void)
 {
     /* Local variable */
     e_eCU_BUStuffCtx ctxUnStuff;
     e_eCU_BStuffCtx ctxStuff;
-    uint8_t  dataStuffPool[5u];
-    uint8_t  dataUnStuffPool[50u];
-    uint8_t  tempPool[50u];
+    uint8_t  dataUnStuffPool[300];
+    uint8_t  tempPool[300u];
     uint32_t  temp32;
     uint32_t  temp32sec;
     bool_t errSofRec;
     bool_t eofRec;
+    uint32_t index;
 
-    /* Function Init */
-    if( ECU_RES_OK == bStufferInitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
-    {
-        (void)printf("dataStuffUnStuffCommon 1  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataStuffUnStuffCommon 1  -- FAIL \n");
-    }
+    /* Test data */
+    static uint8_t test1[5u]   = {0x01u, ECU_SOF, ECU_EOF, ECU_ESC, 0x21u};
+    static uint8_t test2[5u]   = {0x01u, ECU_ESC, ECU_ESC, ECU_ESC, 0x21u};
+    static uint8_t test3[7u]   = {0x01u, ECU_ESC, ECU_ESC, ECU_ESC, 0x21u, (uint8_t)(~ECU_ESC), (uint8_t)(~ECU_ESC)};
+    static uint8_t test4[1u]   = {0x01u};
+    static uint8_t test5[200u] = {0xFFu};
 
-    if( ECU_RES_OK == bUStufferInitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
-    {
-        (void)printf("dataStuffUnStuffCommon 2  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataStuffUnStuffCommon 2  -- FAIL \n");
-    }
 
-    /* Stuff */
-    dataStuffPool[0x00] = 0x01u;
-    dataStuffPool[0x01] = ECU_SOF;
-    dataStuffPool[0x02] = ECU_EOF;
-    dataStuffPool[0x03] = ECU_ESC;
-    dataStuffPool[0x04] = 0x21u;
-    if( ECU_RES_OK == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
-    {
-        (void)printf("dataStuffUnStuffCommon 3  -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataStuffUnStuffCommon 3  -- FAIL \n");
-    }
+    /* Test Matrix */
+    s_priv_test_stuffUnstuffMatrix testMatrix[5] = {
+        { .dataTestSize = sizeof(test1), .dataTest = test1 },
+        { .dataTestSize = sizeof(test2), .dataTest = test2 },
+        { .dataTestSize = sizeof(test3), .dataTest = test3 },
+        { .dataTestSize = sizeof(test4), .dataTest = test4 },
+        { .dataTestSize = sizeof(test5), .dataTest = test5 }
+    };
 
-    /* unstuff */
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec, &eofRec ) )
+
+    for(index = 0u; index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); index++)
     {
-        if( (true == errSofRec) || (false == eofRec) )
+        /* Function Init */
+        if( ECU_RES_OK == bStufferInitCtx(&ctxStuff, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
         {
-            (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
+            (void)printf("dataStuffUnStuffCommon 1[%u]  -- OK \n", index);
         }
         else
         {
-            if( ECU_RES_OK == bUStufferGetNUnstuf(&ctxUnStuff, &temp32sec) )
+            (void)printf("dataStuffUnStuffCommon 1[%u]  -- FAIL \n", index);
+        }
+
+        if( ECU_RES_OK == bUStufferInitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
+        {
+            (void)printf("dataStuffUnStuffCommon 2[%u]  -- OK \n", index);
+        }
+        else
+        {
+            (void)printf("dataStuffUnStuffCommon 2[%u]  -- FAIL \n", index);
+        }
+
+        /* Stuff */
+        if( ECU_RES_OK == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        {
+            (void)printf("dataStuffUnStuffCommon 3[%u]  -- OK \n", index);
+        }
+        else
+        {
+            (void)printf("dataStuffUnStuffCommon 3[%u]  -- FAIL \n", index);
+        }
+
+        /* unstuff */
+        if( ECU_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec, &eofRec ) )
+        {
+            if( (true == errSofRec) || (false == eofRec) )
             {
-                if( sizeof(dataStuffPool) == temp32sec )
-                {
-                    (void)printf("dataStuffUnStuffCommon 4  -- OK \n");
-                }
-                else
-                {
-                    (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
-                }
+                (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
             }
             else
             {
-                (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
+                if( ECU_RES_OK == bUStufferGetNUnstuf(&ctxUnStuff, &temp32sec) )
+                {
+                    if( testMatrix[index].dataTestSize == temp32sec )
+                    {
+                        if( 0 == memcmp(dataUnStuffPool, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
+                        {
+                            (void)printf("dataStuffUnStuffCommon 4[%u]  -- OK \n", index);
+                        }
+                        else
+                        {
+                            (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+                        }
+                    }
+                    else
+                    {
+                        (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+                    }
+                }
+                else
+                {
+                    (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+                }
             }
         }
-    }
-    else
-    {
-        (void)printf("dataStuffUnStuffCommon 4  -- FAIL \n");
+        else
+        {
+            (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+        }
     }
 }
 
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6", "CERT-STR32-C"
 #endif

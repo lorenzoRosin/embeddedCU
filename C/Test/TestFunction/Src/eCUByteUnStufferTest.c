@@ -26,6 +26,7 @@ static void byteUnStuffTestBadParamEntr(void);
 static void byteUnStuffTestBadParamStatus(void);
 static void byteUnStuffTestOutOfMem(void);
 static void byteUnStuffTestGeneral(void);
+static void byteUnStuffTestCycle(void);
 
 
 /***********************************************************************************************************************
@@ -41,6 +42,7 @@ void byteUnStufferTest(void)
     byteUnStuffTestBadParamStatus();
     byteUnStuffTestOutOfMem();
     byteUnStuffTestGeneral();
+    byteUnStuffTestCycle();
 
     (void)printf("\n\nBYTE UNSTUFFER TEST END \n\n");
 }
@@ -693,6 +695,11 @@ void byteUnStuffTestGeneral(void)
     }
 }
 
+
+void byteUnStuffTestCycle(void)
+{
+
+}
 
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6", "MISRAC2004-17.4_b", "CERT-STR32-C"

@@ -28,7 +28,7 @@ typedef struct
 {
     bool_t isInit;
 	bool_t isLE;
-	uint8_t* memUPKA;
+	const uint8_t* memUPKA;
 	uint32_t memUPKASize;
 	uint32_t memUPKACntr;
 }s_eCU_DataUnPackCtx;
@@ -48,7 +48,7 @@ typedef struct
  *		   ECU_RES_BADPARAM in case of an invalid parameter or state
  *         ECU_RES_OK data unpacker is initialized correctly
  */
-e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUPKA, const uint32_t memUPKASize,
+e_eCU_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, const uint8_t* memUPKA, const uint32_t memUPKASize,
                          const bool_t isLEnd);
 
 /**
