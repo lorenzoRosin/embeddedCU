@@ -18,7 +18,7 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUType.h"
-#include "eCudataPack.h"
+#include "eCUdataPack.h"
 
 
 
