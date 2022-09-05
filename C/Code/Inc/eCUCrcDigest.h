@@ -82,6 +82,7 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
  *		   CRCD_RES_CORRUPTCTX in case of an corrupted context
  *         CRCD_RES_TOOMANYDIGEST Too many digest operation
  *         CRCD_RES_OK operation ended correctly
+*/
 e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
 
 /**
