@@ -20,22 +20,22 @@ static bool_t isBSStatusStillCoherent(const e_eCU_BStuffCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memArea, const uint32_t memAreaSize)
+e_eCU_dBStf_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBStf_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == memArea ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBSTF_RES_BADPOINTER;
 	}
 	else
 	{
         /* Check data validity */
         if( memAreaSize <= 0u )
         {
-            result = ECU_RES_BADPARAM;
+            result = DBSTF_RES_BADPARAM;
         }
         else
         {
@@ -47,29 +47,29 @@ e_eCU_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memArea, co
             ctx->precedentToCheck = false;
             ctx->needSof = true;
             ctx->needEof = true;
-            result = ECU_RES_OK;
+            result = DBSTF_RES_OK;
         }
 	}
 
 	return result;
 }
 
-e_eCU_Res bStufferReset(e_eCU_BStuffCtx* const ctx)
+e_eCU_dBStf_Res bStufferReset(e_eCU_BStuffCtx* const ctx)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBStf_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DBSTF_RES_NOINITLIB;
 		}
 		else
 		{
@@ -78,36 +78,36 @@ e_eCU_Res bStufferReset(e_eCU_BStuffCtx* const ctx)
             ctx->precedentToCheck = false;
             ctx->needSof = true;
             ctx->needEof = true;
-			result = ECU_RES_OK;
+			result = DBSTF_RES_OK;
 		}
 	}
 
 	return result;
 }
 
-e_eCU_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_dBStf_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBStf_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DBSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBSStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = DBSTF_RES_CORRUPTCTX;
             }
             else
             {
@@ -120,7 +120,7 @@ e_eCU_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retri
                     *retrivedLen = ctx->memAreaSize - ctx->memAreaCntr + 1u;
                 }
 
-                result = ECU_RES_OK;
+                result = DBSTF_RES_OK;
             }
 		}
 	}
@@ -133,37 +133,37 @@ e_eCU_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retri
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
-                                  uint32_t* const filledLen)
+e_eCU_dBStf_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, 
+									   const uint32_t maxDestLen, uint32_t* const filledLen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBStf_Res result;
     uint32_t nExamByte;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == stuffedDest ) || ( NULL == filledLen ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DBSTF_RES_NOINITLIB;
 		}
 		else
 		{
             if(maxDestLen <= 0u)
             {
-                result = ECU_RES_BADPARAM;
+                result = DBSTF_RES_BADPARAM;
             }
             else
             {
                 /* Check internal status validity */
                 if( false == isBSStatusStillCoherent(ctx) )
                 {
-                    result = ECU_RES_BADPARAM;
+                    result = DBSTF_RES_CORRUPTCTX;
                 }
                 else
                 {
@@ -237,14 +237,14 @@ e_eCU_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuf
                     *filledLen = nExamByte;
 
                     /* result? */
-                    if( 0u == nExamByte )
+                    if( ( 0u == nExamByte ) || ( false == ctx->needEof ) )
                     {
                         /* Nothing more */
-                        result = ECU_RES_OUTOFMEM;
+                        result = DBSTF_RES_FRAMEENDED;
                     }
                     else
                     {
-                        result = ECU_RES_OK;
+                        result = DBSTF_RES_OK;
                     }
                 }
             }

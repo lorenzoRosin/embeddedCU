@@ -22,17 +22,18 @@ extern "C" {
 
 
 /***********************************************************************************************************************
- *      DEFINES
- **********************************************************************************************************************/
-#define ECU_SOF                               ( ( uint8_t ) 0xA1u )
-#define ECU_EOF                               ( ( uint8_t ) 0xA2u )
-#define ECU_ESC                               ( ( uint8_t ) 0xA3u )
-
-
-
-/***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
+typedef enum
+{
+    DBSTF_RES_OK = 0,
+    DBSTF_RES_BADPARAM,
+    DBSTF_RES_BADPOINTER,
+	DBSTF_RES_CORRUPTCTX,
+    DBSTF_RES_FRAMEENDED,
+    DBSTF_RES_NOINITLIB,
+}e_eCU_dBStf_Res;
+
 typedef struct
 {
     bool_t   isInit;
@@ -54,31 +55,31 @@ typedef struct
  * @param ctx Byte stuffer context
  * @param memPool Pointer to a memory area that we will use to retrive data to stuff
  * @param memPoolSize Dimension in byte of the memory area
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OK circular queue is initialized correctly
+ * @return DBSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBSTF_RES_BADPARAM in case of an invalid parameter
+ *         DBSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memArea, const uint32_t memAreaSize);
+e_eCU_dBStf_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memArea, const uint32_t memAreaSize);
 
 /**
  * Reset data stuffer and restart from memory start
  * @param  ctx Byte stuffer context
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data stuffer context before taking some action
- *         ECU_RES_OK operation ended correctly
+ * @return DBSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBSTF_RES_NOINITLIB need to init the data stuffer context before taking some action
+ *         DBSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bStufferReset(e_eCU_BStuffCtx* const ctx);
+e_eCU_dBStf_Res bStufferReset(e_eCU_BStuffCtx* const ctx);
 
 /**
  * Retrive how many raw byte we can still stuff
  * @param  ctx Byte stuffer context
  * @param  retrivedLen Pointer to a memory area were we will store size of the stuffable data
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data stuffer context before taking some action
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OK operation ended correctly
+ * @return DBSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBSTF_RES_NOINITLIB need to init the data stuffer context before taking some action
+ *		   DBSTF_RES_CORRUPTCTX in case of an corrupted context
+ *         DBSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_dBStf_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Retrive stuffed data chunk
@@ -86,14 +87,15 @@ e_eCU_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retri
  * @param  stuffedDest Pointer to the destination area of stuffed data
  * @param  maxDestLen max fillable size of the destination area
  * @param  filledLen Pointer to an uint32_t were we will store the filled stuffed data
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data stuffer context before taking some action
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OUTOFMEM No more data that we can elaborate
- *         ECU_RES_OK operation ended correctly
+ * @return DBSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBSTF_RES_NOINITLIB need to init the data stuffer context before taking some action
+ *		   DBSTF_RES_BADPARAM in case of an invalid parameter
+ *		   DBSTF_RES_CORRUPTCTX in case of an corrupted context
+ *         DBSTF_RES_FRAMEENDED No more data that we can elaborate
+ *         DBSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, const uint32_t maxDestLen,
-                                  uint32_t* const filledLen);
+e_eCU_dBStf_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
+									   const uint32_t maxDestLen, uint32_t* const filledLen);
 
 #ifdef __cplusplus
 } /* extern "C" */
