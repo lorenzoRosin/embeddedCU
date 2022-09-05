@@ -60,8 +60,7 @@ void byteUnStuffTestBadPointer(void)
     e_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
-    bool_t a;
-    bool_t b;
+    uint32_t a;
 
     /* Function */
     if( ECU_RES_BADPOINTER == bUStufferInitCtx(NULL, memArea, sizeof(memArea)) )
@@ -109,7 +108,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 5  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a, &b ) )
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 6  -- OK \n");
     }
@@ -118,7 +117,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 6  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a, &b ) )
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 7  -- OK \n");
     }
@@ -127,7 +126,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 7  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a, &b ) )
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 8  -- OK \n");
     }
@@ -136,7 +135,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 8  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL, &b ) )
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL) )
     {
         (void)printf("byteUnStuffTestBadPointer 9  -- OK \n");
     }
@@ -145,7 +144,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 9  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a, NULL ) )
+    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 10 -- OK \n");
     }
@@ -161,8 +160,7 @@ void byteUnStuffTestBadInit(void)
     e_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
-    bool_t a;
-    bool_t b;
+    uint32_t a;
 
     /* Init variable */
     ctx.isInit = false;
@@ -186,7 +184,7 @@ void byteUnStuffTestBadInit(void)
         (void)printf("byteUnStuffTestBadInit 2  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a, &b ) )
+    if( ECU_RES_NOINITLIB == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadInit 3  -- OK \n");
     }
@@ -202,8 +200,7 @@ void byteUnStuffTestBadParamEntr(void)
     e_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
-    bool_t a;
-    bool_t b;
+    uint32_t a;
 
     /* Function */
     if( ECU_RES_BADPARAM == bUStufferInitCtx(&ctx, memArea, 0u) )
@@ -224,7 +221,7 @@ void byteUnStuffTestBadParamEntr(void)
         (void)printf("byteUnStuffTestBadParamEntr 2  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPARAM == bUStufferInsStufChunk( &ctx, memArea, 0u, &varTemp32, &a, &b ) )
+    if( ECU_RES_BADPARAM == bUStufferInsStufChunk( &ctx, memArea, 0u, &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadParamEntr 3  -- OK \n");
     }
@@ -393,8 +390,7 @@ void byteUnStuffTestOutOfMem(void)
     uint8_t  memArea[5u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
-    bool_t errSofRec;
-    bool_t eofRec;
+    uint32_t errSofRec;
 
 
     /* Function  */
@@ -417,9 +413,9 @@ void byteUnStuffTestOutOfMem(void)
     stuffed[7u] = 0x03u;
     stuffed[8u] = ECU_EOF;
 
-    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, stuffed, 9u, &varTemp32, &errSofRec, &eofRec ) )
+    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, stuffed, 9u, &varTemp32, &errSofRec ) )
     {
-        if( (true == errSofRec) || (true == eofRec) )
+        if( 0u !=  errSofRec )
         {
             (void)printf("byteUnStuffTestOutOfMem 2  -- FAIL \n");
         }
@@ -459,9 +455,9 @@ void byteUnStuffTestOutOfMem(void)
     stuffed[5u] = 0x05u;
     stuffed[6u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 7u, &varTemp32, &errSofRec, &eofRec ) )
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 7u, &varTemp32, &errSofRec ) )
     {
-        if( (true == errSofRec) || (false == eofRec) )
+        if( 0u !=  errSofRec )
         {
             (void)printf("byteUnStuffTestOutOfMem 4  -- FAIL \n");
         }
@@ -504,9 +500,9 @@ void byteUnStuffTestOutOfMem(void)
     stuffed[7] = 0x03u;
     stuffed[8] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec, &eofRec ) )
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
     {
-        if( (true == errSofRec) || (true == eofRec) )
+        if( 0u != errSofRec )
         {
             (void)printf("byteUnStuffTestOutOfMem 6  -- FAIL \n");
         }
@@ -528,9 +524,9 @@ void byteUnStuffTestOutOfMem(void)
     }
 
 
-    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, &stuffed[5], 4u, &varTemp32, &errSofRec, &eofRec ) )
+    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, &stuffed[5], 4u, &varTemp32, &errSofRec ) )
     {
-        if( (true == errSofRec) || (true == eofRec) )
+        if( 0u !=  errSofRec )
         {
             (void)printf("byteUnStuffTestOutOfMem 7  -- FAIL \n");
         }
@@ -560,7 +556,7 @@ void byteUnStuffTestGeneral(void)
     uint8_t  memArea[50u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
-    bool_t errSofRec;
+    uint32_t errSofRec;
     bool_t eofRec;
 
 
@@ -577,9 +573,9 @@ void byteUnStuffTestGeneral(void)
     stuffed[0u] = ECU_SOF;
     stuffed[1u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 2u, &varTemp32, &errSofRec, &eofRec ) )
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 2u, &varTemp32, &errSofRec ) )
     {
-        if( (false == errSofRec) || (true == eofRec) )
+        if( 0u != errSofRec  )
         {
             (void)printf("byteUnStuffTestGeneral 2  -- FAIL \n");
         }
@@ -609,9 +605,9 @@ void byteUnStuffTestGeneral(void)
     stuffed[3u] = (uint8_t)(~ECU_SOF);
     stuffed[4u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec, &eofRec ) )
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
     {
-        if( (false == errSofRec) || (false == eofRec) )
+        if( 0u !=  errSofRec )
         {
             (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
         }
@@ -663,9 +659,9 @@ void byteUnStuffTestGeneral(void)
     stuffed[3u] = 0x02u;
     stuffed[4u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec, &eofRec ) )
+    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
     {
-        if( (false == errSofRec) || (true == eofRec) )
+        if( false == errSofRec )
         {
             (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
         }

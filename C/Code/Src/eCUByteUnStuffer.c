@@ -133,8 +133,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_
     uint32_t nExamByte;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) ||
-        ( NULL == eofRec ) )
+	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) )
 	{
 		result = DBUSTF_RES_BADPOINTER;
 	}
@@ -165,7 +164,6 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_
 
                     /* Init var */
                     *errSofRec = 0u;
-                    *eofRec = false;
 
                     /* Init result */
                     result = DBUSTF_RES_OK;

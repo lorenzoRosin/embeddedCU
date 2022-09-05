@@ -56,8 +56,7 @@ void dataStuffUnStuffCommon(void)
     uint8_t  tempPool[300u];
     uint32_t  temp32;
     uint32_t  temp32sec;
-    bool_t errSofRec;
-    bool_t eofRec;
+    uint32_t  errSofRec;
     uint32_t index;
 
     /* Test data */
@@ -110,9 +109,9 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* unstuff */
-        if( ECU_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec, &eofRec ) )
+        if( ECU_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
         {
-            if( (true == errSofRec) || (false == eofRec) )
+            if( 0u != errSofRec )
             {
                 (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
             }
