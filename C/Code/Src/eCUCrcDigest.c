@@ -20,13 +20,13 @@ static bool_t isCrctatusStillCoherent(const s_eCU_CrcDigestCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP)
+e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* clbCtx)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx) || ( NULL ==  cbCrcP) )
+	if( ( NULL == ctx) || ( NULL ==  cbCrcP) || ( NULL ==  clbCtx) )
 	{
 		result = CRCD_RES_BADPOINTER;
 	}
@@ -38,6 +38,7 @@ e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbC
 		ctx->digestedTimes = 0u;
 		ctx->lastDigest = 0u;
 		ctx->cbCrcPointer = cbCrcP;
+        ctx->cbCrcCtx = clbCtx;
 
 		result = CRCD_RES_OK;
     }
@@ -45,13 +46,14 @@ e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbC
 	return result;
 }
 
-e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP)
+e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
+                                    void* clbCtx)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx) || ( NULL ==  cbCrcP) )
+	if( ( NULL == ctx) || ( NULL ==  cbCrcP) || ( NULL ==  clbCtx))
 	{
 		result = CRCD_RES_BADPOINTER;
 	}
@@ -63,6 +65,7 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
 		ctx->digestedTimes = 0u;
 		ctx->lastDigest = 0u;
 		ctx->cbCrcPointer = cbCrcP;
+        ctx->cbCrcCtx = clbCtx;
 
 		result = CRCD_RES_OK;
     }
@@ -74,8 +77,8 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
-	e_eCU_Crc_Res crcRes;
     uint32_t cR32;
+    bool_t crcRes;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
@@ -116,9 +119,9 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
                         if( 0u == ctx->digestedTimes )
                         {
                             /* Use base seed */
-                            crcRes = (*(ctx->cbCrcPointer))( ctx->usedBaseSeed, data, dataLen, &cR32 );
+                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->usedBaseSeed, data, dataLen, &cR32 );
 
-                            if( CRC_RES_OK == result )
+                            if( true == crcRes )
                             {
                                 ctx->digestedTimes++;
                                 ctx->lastDigest = cR32;
@@ -126,15 +129,15 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
                             }
 							else
 							{
-								result = CRCD_RES_BADPOINTER;
+								result = CRCD_RES_CLBCKREPORTERROR;
 							}
                         }
                         else
                         {
                             /* Continue calc */
-                            crcRes = (*(ctx->cbCrcPointer))( ctx->lastDigest, data, dataLen, &cR32 );
+                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->lastDigest, data, dataLen, &cR32 );
 
-                            if( CRC_RES_OK == result )
+                            if( true == crcRes )
                             {
                                 ctx->digestedTimes++;
                                 ctx->lastDigest = cR32;
@@ -142,7 +145,7 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
                             }
 							else
 							{
-								result = CRCD_RES_BADPOINTER;
+								result = CRCD_RES_CLBCKREPORTERROR;
 							}
                         }
                     }
@@ -187,7 +190,7 @@ e_eCU_CrcD_Res crcDigesGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* con
                 }
                 else
                 {
-                    /* Return vgigested value */
+                    /* Return digested value */
                     *crcCalc = ctx->lastDigest;
 
                     /* Restart */
@@ -211,7 +214,7 @@ bool_t isCrctatusStillCoherent(const s_eCU_CrcDigestCtx* ctx)
     bool_t result;
 
 	/* Check context validity */
-	if( NULL == ctx->cbCrcPointer )
+	if( ( NULL == ctx->cbCrcPointer ) || ( NULL == ctx->cbCrcCtx ) )
 	{
 		result = false;
 	}

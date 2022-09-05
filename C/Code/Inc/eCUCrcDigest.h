@@ -24,7 +24,7 @@ extern "C" {
 /***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
-typedef e_eCU_Crc_Res (*cb_crc32_seed) ( const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen,
+typedef bool_t (*cb_crc32_seed) ( void* cntx, const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen,
                                          uint32_t* const crc32SVal );
 
 typedef enum
@@ -36,6 +36,7 @@ typedef enum
     CRCD_RES_TOOMANYDIGEST,
     CRCD_RES_NODIGESTDONE,
     CRCD_RES_NOINITLIB,
+    CRCD_RES_CLBCKREPORTERROR,
 }e_eCU_CrcD_Res;
 
 typedef struct
@@ -45,6 +46,7 @@ typedef struct
 	uint32_t digestedTimes;
     uint32_t lastDigest;
     cb_crc32_seed cbCrcPointer;
+    void* cbCrcCtx;
 }s_eCU_CrcDigestCtx;
 
 
@@ -56,20 +58,23 @@ typedef struct
  * Initialize the CRC32 digester context ( use as base seed 0xffffffffu )
  * @param ctx Crc digester context
  * @param cbCrcP Pointer to a CRC 32 seed callback function
+ * @param clbCtx Custom context passed to the callback function
  * @return CRCD_RES_BADPOINTER in case of bad pointer
  *         CRCD_RES_OK crc digester is initialized correctly
  */
-e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP);
+e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* clbCtx);
 
 /**
  * Initialize the CRC32 digester context using a selected seed
  * @param ctx Crc digester context
  * @param seed Base Seed
  * @param cbCrcP Pointer to a CRC 32 seed callback function
+ * @param clbCtx Custom context passed to the callback function
  * @return CRCD_RES_BADPOINTER in case of bad pointer
  *         CRCD_RES_OK crc digester is initialized correctly
  */
-e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP);
+e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
+                                    void* clbCtx);
 
 /**
  * Digest a chunk of data in to the CRC32 calc
@@ -81,6 +86,7 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
  *		   CRCD_RES_BADPARAM in case of an invalid parameter
  *		   CRCD_RES_CORRUPTCTX in case of an corrupted context
  *         CRCD_RES_TOOMANYDIGEST Too many digest operation
+ *         CRCD_RES_CLBCKREPORTERROR The callback function reported an error
  *         CRCD_RES_OK operation ended correctly
 */
 e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
