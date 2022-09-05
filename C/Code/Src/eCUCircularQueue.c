@@ -20,22 +20,22 @@ static bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize)
+e_eCU_cQueue_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_cQueue_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx) || ( NULL ==  memPool) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = CQUEUE_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check data validity */
 		if( memPoolSize <= 0u )
 		{
-			result = ECU_RES_BADPARAM;
+			result = CQUEUE_RES_BADPARAM;
 		}
 		else
 		{
@@ -47,36 +47,36 @@ e_eCU_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32
 			ctx->memPoolFrstFreeIdx = 0u;
 			ctx->memPoolFrstOccIdx = 0u;
 
-			result = ECU_RES_OK;
+			result = CQUEUE_RES_OK;
 		}
     }
 
 	return result;
 }
 
-e_eCU_Res circQReset(s_eCU_circQCtx* const ctx)
+e_eCU_cQueue_Res circQReset(s_eCU_circQCtx* const ctx)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_cQueue_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = CQUEUE_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = CQUEUE_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
             if( false == isQueueStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = CQUEUE_RES_CORRUPTCTX;
             }
             else
             {
@@ -84,7 +84,7 @@ e_eCU_Res circQReset(s_eCU_circQCtx* const ctx)
                 ctx->memPoolUsedSize = 0u;
                 ctx->memPoolFrstFreeIdx = 0u;
                 ctx->memPoolFrstOccIdx = 0u;
-                result = ECU_RES_OK;
+                result = CQUEUE_RES_OK;
             }
 		}
     }
@@ -92,34 +92,34 @@ e_eCU_Res circQReset(s_eCU_circQCtx* const ctx)
 	return result;
 }
 
-e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace)
+e_eCU_cQueue_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_cQueue_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == freeSpace ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = CQUEUE_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = CQUEUE_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
             if( false == isQueueStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = CQUEUE_RES_CORRUPTCTX;
             }
 			else
 			{
 				*freeSpace = ctx->memPoolSize - ctx->memPoolUsedSize;
-				result = ECU_RES_OK;
+				result = CQUEUE_RES_OK;
 			}
 		}
     }
@@ -127,34 +127,34 @@ e_eCU_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace
 	return result;
 }
 
-e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedSpace)
+e_eCU_cQueue_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedSpace)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_cQueue_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == usedSpace ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = CQUEUE_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = CQUEUE_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
             if( false == isQueueStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = CQUEUE_RES_CORRUPTCTX;
             }
 			else
 			{
 				*usedSpace = ctx->memPoolUsedSize;
-				result = ECU_RES_OK;
+				result = CQUEUE_RES_OK;
 			}
 		}
     }
@@ -167,10 +167,10 @@ e_eCU_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* const usedS
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const uint32_t datalen)
+e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const uint32_t datalen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_cQueue_Res result;
 	uint32_t freeSpace;
 	uint32_t firstTranshLen;
 	uint32_t secondTranshLen;
@@ -178,40 +178,40 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = CQUEUE_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = CQUEUE_RES_NOINITLIB;
 		}
 		else
 		{
 			/* Check data validity */
 			if( datalen <= 0u )
 			{
-				result = ECU_RES_BADPARAM;
+				result = CQUEUE_RES_BADPARAM;
 			}
 			else
 			{
                 /* Check data coherence */
                 if( false == isQueueStatusStillCoherent(ctx) )
                 {
-                    result = ECU_RES_BADPARAM;
+                    result = CQUEUE_RES_CORRUPTCTX;
                 }
                 else
                 {
                     /* Check for free memory */
                     result = circQGetFreeSapce(ctx, &freeSpace);
 
-                    if( ECU_RES_OK == result )
+                    if( CQUEUE_RES_OK == result )
                     {
                         if( datalen > freeSpace )
                         {
                             /* No memory avaiable */
-                            result = ECU_RES_OUTOFMEM;
+                            result = CQUEUE_RES_FULL;
                         }
                         else
                         {
@@ -244,7 +244,7 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const 
                             }
 
                             ctx->memPoolUsedSize += datalen;
-                            result = ECU_RES_OK;
+                            result = CQUEUE_RES_OK;
                         }
                     }
                 }
@@ -255,10 +255,10 @@ e_eCU_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const 
 	return result;
 }
 
-e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
+e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_cQueue_Res result;
 	uint32_t usedSpace;
 	uint32_t firstTranshLen;
 	uint32_t secondTranshLen;
@@ -266,38 +266,38 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = CQUEUE_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = CQUEUE_RES_NOINITLIB;
 		}
 		else
 		{
 			/* Check data validity an queue integrity */
 			if( datalen <= 0u )
 			{
-				result = ECU_RES_BADPARAM;
+				result = CQUEUE_RES_BADPARAM;
 			}
 			else
 			{
                 /* Check data coherence */
                 if( false == isQueueStatusStillCoherent(ctx) )
                 {
-                    result = ECU_RES_BADPARAM;
+                    result = CQUEUE_RES_CORRUPTCTX;
                 }
                 else
                 {
                     result = circQGetOccupiedSapce(ctx, &usedSpace);
-                    if( ECU_RES_OK == result )
+                    if( CQUEUE_RES_OK == result )
                     {
                         if( datalen > usedSpace)
                         {
                             /* No enoght data in the queue */
-                            result = ECU_RES_OUTOFMEM;
+                            result = CQUEUE_RES_EMPTY;
                         }
                         else
                         {
@@ -330,7 +330,7 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const
                             }
 
                             ctx->memPoolUsedSize -= datalen;
-                            result = ECU_RES_OK;
+                            result = CQUEUE_RES_OK;
                         }
                     }
                 }
@@ -341,10 +341,10 @@ e_eCU_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const
 	return result;
 }
 
-e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
+e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_cQueue_Res result;
 	uint32_t usedSpace;
 	uint32_t firstTranshLen;
 	uint32_t secondTranshLen;
@@ -352,38 +352,38 @@ e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const ui
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = CQUEUE_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = CQUEUE_RES_NOINITLIB;
 		}
 		else
 		{
 			/* Check data validity an queue integrity */
 			if( datalen <= 0u )
 			{
-				result = ECU_RES_BADPARAM;
+				result = CQUEUE_RES_BADPARAM;
 			}
 			else
 			{
                 /* Check data coherence */
                 if( false == isQueueStatusStillCoherent(ctx) )
                 {
-                    result = ECU_RES_BADPARAM;
+                    result = CQUEUE_RES_CORRUPTCTX;
                 }
                 else
                 {
                     result = circQGetOccupiedSapce(ctx, &usedSpace);
-                    if( ECU_RES_OK == result )
+                    if( CQUEUE_RES_OK == result )
                     {
                         if( datalen > usedSpace)
                         {
                             /* No enoght data in the queue */
-                            result = ECU_RES_OUTOFMEM;
+                            result = CQUEUE_RES_EMPTY;
                         }
                         else
                         {
@@ -406,7 +406,7 @@ e_eCU_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const ui
                                 (void)memcpy(&data[firstTranshLen], &ctx->memPool[0u], secondTranshLen);
                             }
 
-                            result = ECU_RES_OK;
+                            result = CQUEUE_RES_OK;
                         }
                     }
                 }
