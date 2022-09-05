@@ -24,6 +24,17 @@ extern "C" {
 /***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
+typedef enum
+{
+    DBUSTF_RES_OK = 0,
+    DBUSTF_RES_BADPARAM,
+    DBUSTF_RES_BADPOINTER,
+	DBUSTF_RES_CORRUPTCTX,
+    DBUSTF_RES_OUTOFMEM,
+	DBUSTF_RES_FRAMEENDED,
+    DBUSTF_RES_NOINITLIB,
+}e_eCU_dBUStf_Res;
+
 typedef struct
 {
     bool_t   isInit;
@@ -45,31 +56,31 @@ typedef struct
  * @param  ctx Byte Unstuffer context
  * @param  memArea Pointer to a memory area that we will use to save unstuffed data
  * @param  memAreaSize Dimension in byte of the memory area
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OK operation ended correctly
+ * @return DBUSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBUSTF_RES_BADPARAM in case of an invalid parameter
+ *         DBUSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
+e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
  * Reset data Unstuffer and restart from memory start
  * @param  ctx Byte Unstuffer context
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data unstuffer context before taking some action
- *         ECU_RES_OK operation ended correctly
+ * @return DBUSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
+ *         DBUSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx);
+e_eCU_dBUStf_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx);
 
 /**
  * Retrive how many raw byte we have unstuffed
  * @param  ctx Byte Unstuffer context
  * @param  retrivedLen Pointer to a memory area were we will store size of the unstuffed raw data
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data unstuffer context before taking some action
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OK operation ended correctly
+ * @return DBUSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
+ *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
+ *         DBUSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_dBUStf_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Insert stuffed data chunk
@@ -78,18 +89,18 @@ e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retri
  * @param  stuffLen data to unstuff size
  * @param  consumedStuffData Pointer to an uint32_t were we will store how many stuffed data byte were analyzed
  *         and that dosent need to be inserted in this function anymore
- * @param  errSofRec Pointer to an bool_t were we will store if some protocol error was detected. Even with this flag
- *         sette to true, the protocol will continue parsing data discharging error
- * @param  eofRec Pointer to an bool_t were we will store if the end of frame is reached. After the end of frame is
- *         found no other data will be parse (consumedStuffData = 0) till a reset or a init is called
- * @return ECU_RES_BADPOINTER in case of bad pointer
- *		   ECU_RES_NOINITLIB need to init the data unstuffer context before taking some action
- *		   ECU_RES_BADPARAM in case of an invalid parameter or state
- *         ECU_RES_OUTOFMEM Can not unstuff data, initial mem pointer was too small
- *         ECU_RES_OK operation ended correctly
+ * @param  errSofRec Pointer to an uint32_t were we will store how many protocol error were detected. Even with
+ *         some error detected, the protocol will continue parsing data discharging error
+ * @return DBUSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
+ *		   DBUSTF_RES_BADPARAM in case of an invalid parameter or state
+ *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
+ *         DBUSTF_RES_OUTOFMEM Can not unstuff data, initial mem pointer was too small
+ *		   DBUSTF_RES_FRAMEENDED Frame ended, restart context in order to parse a new frame
+ *         DBUSTF_RES_OK operation ended correctly
  */
-e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
-                                  uint32_t* const consumedStuffData, bool_t* errSofRec, bool_t* eofRec);
+e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
+                                  uint32_t* const consumedStuffData, uint32_t* errSofRec);
 
 #ifdef __cplusplus
 } /* extern "C" */

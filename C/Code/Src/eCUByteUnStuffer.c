@@ -20,22 +20,22 @@ static void errFoundRestart(e_eCU_BUStuffCtx* const ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
+e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBUStf_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == memArea ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBUSTF_RES_BADPOINTER;
 	}
 	else
 	{
         /* Check data validity */
         if( memAreaSize <= 0u )
         {
-            result = ECU_RES_BADPARAM;
+            result = DBUSTF_RES_BADPARAM;
         }
         else
         {
@@ -47,29 +47,29 @@ e_eCU_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, 
             ctx->precedentWasEsc = false;
             ctx->needSof = true;
             ctx->needEof = true;
-            result = ECU_RES_OK;
+            result = DBUSTF_RES_OK;
         }
 	}
 
 	return result;
 }
 
-e_eCU_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx)
+e_eCU_dBUStf_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBUStf_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBUSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DBUSTF_RES_NOINITLIB;
 		}
 		else
 		{
@@ -78,41 +78,41 @@ e_eCU_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx)
             ctx->precedentWasEsc = false;
             ctx->needSof = true;
             ctx->needEof = true;
-			result = ECU_RES_OK;
+			result = DBUSTF_RES_OK;
 		}
 	}
 
 	return result;
 }
 
-e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_dBUStf_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBUStf_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBUSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DBUSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBUSStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = DBUSTF_RES_CORRUPTCTX;
             }
             else
             {
                 *retrivedLen =  ctx->memAreaCntr;
-                result = ECU_RES_OK;
+                result = DBUSTF_RES_OK;
             }
 		}
 	}
@@ -125,38 +125,38 @@ e_eCU_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retri
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
-                                  uint32_t* const consumedStuffData, bool_t* errSofRec, bool_t* eofRec)
+e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
+                                  uint32_t* const consumedStuffData, uint32_t* errSofRec)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dBUStf_Res result;
     uint32_t nExamByte;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) ||
         ( NULL == eofRec ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DBUSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DBUSTF_RES_NOINITLIB;
 		}
 		else
 		{
             if(stuffLen <= 0u)
             {
-                result = ECU_RES_BADPARAM;
+                result = DBUSTF_RES_BADPARAM;
             }
             else
             {
                 /* Check internal status validity */
                 if( false == isBUSStatusStillCoherent(ctx) )
                 {
-                    result = ECU_RES_BADPARAM;
+                    result = DBUSTF_RES_CORRUPTCTX;
                 }
                 else
                 {
@@ -164,15 +164,15 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                     nExamByte = 0u;
 
                     /* Init var */
-                    *errSofRec = false;
+                    *errSofRec = 0u;
                     *eofRec = false;
 
                     /* Init result */
-                    result = ECU_RES_OK;
+                    result = DBUSTF_RES_OK;
 
                     /* Elab all data */
                     while( ( nExamByte < stuffLen ) && ( true == ctx->needEof ) &&
-                           ( ctx->memAreaCntr <= ctx->memAreaSize ) && ( ECU_RES_OK == result ) )
+                           ( ctx->memAreaCntr <= ctx->memAreaSize ) && ( DBUSTF_RES_OK == result ) )
                     {
                         if( true == ctx->needSof )
                         {
@@ -187,7 +187,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                             {
                                 /* Waiting for start, no other bytes */
                                 errFoundRestart(ctx);
-                                *errSofRec = true;
+                                *errSofRec = ( *errSofRec + 1u );
                             }
                             nExamByte++;
                         }
@@ -198,7 +198,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                 /* Found start, but wasn't expected */
                                 errFoundRestart(ctx);
                                 ctx->needSof = false;
-                                *errSofRec = true;
+                                *errSofRec = ( *errSofRec + 1u );
 
                                 nExamByte++;
                             }
@@ -208,13 +208,13 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                 {
                                     /* Found end, but no data received..  */
                                     errFoundRestart(ctx);
-                                    *errSofRec = true;
+                                    *errSofRec = ( *errSofRec + 1u );
                                 }
                                 else if( true == ctx->precedentWasEsc )
                                 {
                                     /* Received eof but was expecting data..*/
                                     errFoundRestart(ctx);
-                                    *errSofRec = true;
+                                    *errSofRec = ( *errSofRec + 1u );
                                 }
                                 else
                                 {
@@ -230,13 +230,13 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                 {
                                     /* Impossible receive two esc */
                                     errFoundRestart(ctx);
-                                    *errSofRec = true;
+                                    *errSofRec = ( *errSofRec + 1u );
                                     nExamByte++;
                                 }
                                 else if( ctx->memAreaCntr == ctx->memAreaSize )
                                 {
                                     /* No more data avaiable to save that thing */
-                                    result = ECU_RES_OUTOFMEM;
+                                    result = DBUSTF_RES_OUTOFMEM;
                                 }
                                 else
                                 {
@@ -251,7 +251,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                 if( ctx->memAreaCntr == ctx->memAreaSize )
                                 {
                                     /* No more data avaiable to save that thing */
-                                    result = ECU_RES_OUTOFMEM;
+                                    result = DBUSTF_RES_OUTOFMEM;
                                 }
                                 else if( true == ctx->precedentWasEsc )
                                 {
@@ -270,7 +270,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
                                     {
                                         /* Impossible receive a data after esc that is not SOF EOF or ESC neg */
                                         errFoundRestart(ctx);
-                                        *errSofRec = true;
+                                        *errSofRec = ( *errSofRec + 1u );
                                         nExamByte++;
                                     }
 
@@ -291,7 +291,7 @@ e_eCU_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuf
 
                     if( false == ctx->needEof )
                     {
-                        *eofRec = true;
+                        result = DBUSTF_RES_FRAMEENDED;
                     }
                 }
             }
