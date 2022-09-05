@@ -20,23 +20,23 @@ static bool_t isPackStatusStillCoherent(const s_eCU_DataPackCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, const uint32_t memPKASize,
-					   const bool_t isLEnd)
+e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, const uint32_t memPKASize,
+					          const bool_t isLEnd)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx) || ( NULL ==  memPKA) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check data validity */
 		if( memPKASize <= 0u )
 		{
-			result = ECU_RES_BADPARAM;
+			result = DPK_RES_BADPARAM;
 		}
 		else
 		{
@@ -46,69 +46,69 @@ e_eCU_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, c
             ctx->memPKASize = memPKASize;
             ctx->memPKACntr = 0u;
 
-            result = ECU_RES_OK;
+            result = DPK_RES_OK;
 		}
     }
 
 	return result;
 }
 
-e_eCU_Res dataPackReset(s_eCU_DataPackCtx* const ctx)
+e_eCU_dPk_Res dataPackReset(s_eCU_DataPackCtx* const ctx)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
 			/* Update index */
 			ctx->memPKACntr = 0u;
-			result = ECU_RES_OK;
+			result = DPK_RES_OK;
 		}
     }
 
 	return result;
 }
 
-e_eCU_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isPackStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = DPK_RES_CORRUPTCTX;
             }
             else
             {
                 *retrivedLen = ctx->memPKACntr;
-                result = ECU_RES_OK;
+                result = DPK_RES_OK;
             }
 		}
     }
@@ -121,43 +121,43 @@ e_eCU_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retri
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
+e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
 			/* Check data validity */
 			if( dataLen <= 0u )
 			{
-				result = ECU_RES_BADPARAM;
+				result = DPK_RES_BADPARAM;
 			}
 			else
 			{
                 /* Check internal status validity */
                 if( false == isPackStatusStillCoherent(ctx) )
                 {
-                    result = ECU_RES_BADPARAM;
+                    result = DPK_RES_CORRUPTCTX;
                 }
                 else
                 {
                     /* Check if we have memory for this */
                     if( ( ctx->memPKACntr + dataLen ) > ctx->memPKASize )
                     {
-                        result = ECU_RES_OUTOFMEM;
+                        result = DPK_RES_OUTOFMEM;
                     }
                     else
                     {
@@ -167,7 +167,7 @@ e_eCU_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, c
                         /* Update index */
                         ctx->memPKACntr += dataLen;
 
-                        result = ECU_RES_OK;
+                        result = DPK_RES_OK;
                     }
                 }
 			}
@@ -177,29 +177,29 @@ e_eCU_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, c
 	return result;
 }
 
-e_eCU_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush)
+e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isPackStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = DPK_RES_CORRUPTCTX;
             }
             else
             {
@@ -207,7 +207,7 @@ e_eCU_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush)
                 if( ( ctx->memPKACntr + sizeof(uint8_t) ) > ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = ECU_RES_OUTOFMEM;
+                    result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
@@ -217,7 +217,7 @@ e_eCU_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush)
                     /* Update index */
                     ctx->memPKACntr++;
 
-                    result = ECU_RES_OK;
+                    result = DPK_RES_OK;
                 }
             }
 		}
@@ -226,29 +226,29 @@ e_eCU_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush)
 	return result;
 }
 
-e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush)
+e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isPackStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = DPK_RES_CORRUPTCTX;
             }
             else
             {
@@ -256,7 +256,7 @@ e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPus
                 if( ( ctx->memPKACntr + sizeof(uint16_t) ) > ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = ECU_RES_OUTOFMEM;
+                    result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
@@ -277,7 +277,7 @@ e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPus
                         ctx->memPKACntr++;
                     }
 
-                    result = ECU_RES_OK;
+                    result = DPK_RES_OK;
                 }
             }
 		}
@@ -286,29 +286,29 @@ e_eCU_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPus
 	return result;
 }
 
-e_eCU_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPush)
+e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isPackStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = DPK_RES_CORRUPTCTX;
             }
             else
             {
@@ -316,7 +316,7 @@ e_eCU_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPus
                 if( ( ctx->memPKACntr + sizeof(uint32_t) ) > ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = ECU_RES_OUTOFMEM;
+                    result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
@@ -345,7 +345,7 @@ e_eCU_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPus
                         ctx->memPKACntr++;
                     }
 
-                    result = ECU_RES_OK;
+                    result = DPK_RES_OK;
                 }
             }
 		}
@@ -354,29 +354,29 @@ e_eCU_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPus
 	return result;
 }
 
-e_eCU_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPush)
+e_eCU_dPk_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_Res result;
+	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = ECU_RES_BADPOINTER;
+		result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = ECU_RES_NOINITLIB;
+			result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isPackStatusStillCoherent(ctx) )
             {
-                result = ECU_RES_BADPARAM;
+                result = DPK_RES_CORRUPTCTX;
             }
             else
             {
@@ -384,7 +384,7 @@ e_eCU_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPus
                 if( ( ctx->memPKACntr + sizeof(uint64_t) ) > ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = ECU_RES_OUTOFMEM;
+                    result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
@@ -429,7 +429,7 @@ e_eCU_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPus
                         ctx->memPKACntr++;
                     }
 
-                    result = ECU_RES_OK;
+                    result = DPK_RES_OK;
                 }
             }
 		}
