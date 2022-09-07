@@ -237,7 +237,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* cons
                     *filledLen = nExamByte;
 
                     /* result? */
-                    if( ( 0u == nExamByte ) || ( false == ctx->needEof ) )
+                    if( false == ctx->needEof )
                     {
                         /* Nothing more */
                         result = DBSTF_RES_FRAMEENDED;
