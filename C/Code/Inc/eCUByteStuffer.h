@@ -53,7 +53,7 @@ typedef struct
 /**
  * Initialize the byte stuffer context
  * @param ctx Byte stuffer context
- * @param memPool Pointer to a memory area that we will use to retrive data to stuff
+ * @param memArea Pointer to a memory area that we will use to retrive data to stuff
  * @param memPoolSize Dimension in byte of the memory area
  * @return DBSTF_RES_BADPOINTER in case of bad pointer
  *		   DBSTF_RES_BADPARAM in case of an invalid parameter
