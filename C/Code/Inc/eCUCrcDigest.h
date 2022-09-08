@@ -24,6 +24,10 @@ extern "C" {
 /***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
+
+/* Call back to a function that will calculate the CRC for this modules
+ * the cntx parameter is a custom pointer that can be used by the creator of this CRC callback, and will not be used
+ * by the CRCdigest module */
 typedef bool_t (*cb_crc32_seed) ( void* cntx, const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen,
                                          uint32_t* const crc32SVal );
 
