@@ -558,7 +558,7 @@ void dataPackTestOutOfMem(void)
         (void)printf("dataPackTestOutOfMem 19 -- FAIL \n");
     }
 
-    memset(arrayTest, 0u, sizeof(arrayTest));
+    (void)memset(arrayTest, 0, sizeof(arrayTest));
     if( DPK_RES_OK == dataPackPushArray( &ctx, arrayTest, sizeof(arrayTest) ) )
     {
         (void)printf("dataPackTestOutOfMem 20 -- OK \n");
@@ -568,7 +568,7 @@ void dataPackTestOutOfMem(void)
         (void)printf("dataPackTestOutOfMem 20 -- FAIL \n");
     }
 
-    memset(arrayTest, 0u, sizeof(arrayTest));
+    (void)memset(arrayTest, 0, sizeof(arrayTest));
     if( DPK_RES_OUTOFMEM == dataPackPushArray( &ctx, arrayTest, sizeof(arrayTest) ) )
     {
         (void)printf("dataPackTestOutOfMem 21 -- OK \n");
@@ -588,7 +588,7 @@ void dataPackTestOutOfMem(void)
         (void)printf("dataPackTestOutOfMem 22 -- FAIL \n");
     }
 
-    memset(arrayTest, 0u, sizeof(arrayTest));
+    (void)memset(arrayTest, 0, sizeof(arrayTest));
     if( DPK_RES_OUTOFMEM == dataPackPushArray( &ctx, arrayTest, sizeof(arrayTest) ) )
     {
         (void)printf("dataPackTestOutOfMem 23 -- OK \n");
