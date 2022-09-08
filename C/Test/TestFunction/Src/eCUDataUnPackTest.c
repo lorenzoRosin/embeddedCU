@@ -460,7 +460,7 @@ void dataUnPackTestOutOfMem(void)
         (void)printf("dataUnPackTestOutOfMem 4  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackReset( &ctx  ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx  ) )
     {
         (void)printf("dataUnPackTestOutOfMem 5  -- OK \n");
     }
@@ -469,7 +469,7 @@ void dataUnPackTestOutOfMem(void)
         (void)printf("dataUnPackTestOutOfMem 5  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_NODATA == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         (void)printf("dataUnPackTestOutOfMem 6  -- OK \n");
     }
@@ -478,7 +478,7 @@ void dataUnPackTestOutOfMem(void)
         (void)printf("dataUnPackTestOutOfMem 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataUnPackPopU32( &ctx, &varTemp32 ) )
+    if( DUNPK_RES_NODATA == dataUnPackPopU32( &ctx, &varTemp32 ) )
     {
         (void)printf("dataUnPackTestOutOfMem 7  -- OK \n");
     }
@@ -487,7 +487,7 @@ void dataUnPackTestOutOfMem(void)
         (void)printf("dataUnPackTestOutOfMem 7  -- FAIL \n");
     }
 
-    if( ECU_RES_OUTOFMEM == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    if( DUNPK_RES_NODATA == dataUnPackPopU64( &ctx, &varTemp64 ) )
     {
         (void)printf("dataUnPackTestOutOfMem 8  -- OK \n");
     }
@@ -514,7 +514,7 @@ void dataUnPackTestEndianLe(void)
     (void)memset(badPointerMempool, 0, sizeof(badPointerMempool));
 
     /* Function */
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 1u, true) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 1u, true) )
     {
         (void)printf("dataUnPackTestEndianLe 1  -- OK \n");
     }
@@ -524,7 +524,7 @@ void dataUnPackTestEndianLe(void)
     }
 
     badPointerMempool[0u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 1u, true) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 1u, true) )
     {
         (void)printf("dataUnPackTestEndianLe 2  -- OK \n");
     }
@@ -534,7 +534,7 @@ void dataUnPackTestEndianLe(void)
     }
 
     badPointerMempool[0u] = 0xF1u;
-    if( ECU_RES_OK == dataUnPackPopArray( &ctx, pushPool, 1u ) )
+    if( DUNPK_RES_OK == dataUnPackPopArray( &ctx, pushPool, 1u ) )
     {
         if( 0xF1u == pushPool[0u] )
         {
@@ -551,7 +551,7 @@ void dataUnPackTestEndianLe(void)
     }
 
     badPointerMempool[0u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackReset( &ctx  ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx  ) )
     {
         (void)printf("dataUnPackTestEndianLe 4  -- OK \n");
     }
@@ -560,7 +560,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 4  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU8( &ctx, &varTemp8 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU8( &ctx, &varTemp8 ) )
     {
         if( 0x12u == varTemp8 )
         {
@@ -578,7 +578,7 @@ void dataUnPackTestEndianLe(void)
 
     badPointerMempool[0u] = 0x34u;
     badPointerMempool[1u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 4u, true) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 4u, true) )
     {
         (void)printf("dataUnPackTestEndianLe 6  -- OK \n");
     }
@@ -587,7 +587,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {
@@ -607,7 +607,7 @@ void dataUnPackTestEndianLe(void)
     badPointerMempool[1u] = 0x56u;
     badPointerMempool[2u] = 0x34u;
     badPointerMempool[3u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestEndianLe 8  -- OK \n");
     }
@@ -616,7 +616,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 8  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU32( &ctx, &varTemp32 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU32( &ctx, &varTemp32 ) )
     {
         if( 0x12345678u == varTemp32 )
         {
@@ -640,7 +640,7 @@ void dataUnPackTestEndianLe(void)
     badPointerMempool[5u] = 0x56u;
     badPointerMempool[6u] = 0x34u;
     badPointerMempool[7u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 8u, true) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, 8u, true) )
     {
         (void)printf("dataUnPackTestEndianLe 10 -- OK \n");
     }
@@ -649,7 +649,7 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
     {
         if( 0x123456789ABCDEF0UL == varTemp64 )
         {
@@ -681,7 +681,7 @@ void dataUnPackTestEndianBe(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), false) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), false) )
     {
         (void)printf("dataUnPackTestEndianBe 1  -- OK \n");
     }
@@ -691,7 +691,7 @@ void dataUnPackTestEndianBe(void)
     }
 
     badPointerMempool[0u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), false) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), false) )
     {
         (void)printf("dataUnPackTestEndianBe 2  -- OK \n");
     }
@@ -701,7 +701,7 @@ void dataUnPackTestEndianBe(void)
     }
 
     badPointerMempool[0u] = 0xF1u;
-    if( ECU_RES_OK == dataUnPackPopArray( &ctx, pushPool, 1u ) )
+    if( DUNPK_RES_OK == dataUnPackPopArray( &ctx, pushPool, 1u ) )
     {
         if( 0xF1u == pushPool[0u] )
         {
@@ -718,7 +718,7 @@ void dataUnPackTestEndianBe(void)
     }
 
     badPointerMempool[0u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestEndianBe 4  -- OK \n");
     }
@@ -727,7 +727,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 4  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU8( &ctx, &varTemp8 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU8( &ctx, &varTemp8 ) )
     {
         if( 0x12u == varTemp8 )
         {
@@ -745,7 +745,7 @@ void dataUnPackTestEndianBe(void)
 
     badPointerMempool[0u] = 0x12u;
     badPointerMempool[1u] = 0x34u;
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestEndianBe 6  -- OK \n");
     }
@@ -754,7 +754,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {
@@ -774,7 +774,7 @@ void dataUnPackTestEndianBe(void)
     badPointerMempool[1u] = 0x34u;
     badPointerMempool[2u] = 0x56u;
     badPointerMempool[3u] = 0x78u;
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestEndianBe 8  -- OK \n");
     }
@@ -783,7 +783,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 8  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU32( &ctx, &varTemp32 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU32( &ctx, &varTemp32 ) )
     {
         if( 0x12345678u == varTemp32 )
         {
@@ -808,7 +808,7 @@ void dataUnPackTestEndianBe(void)
     badPointerMempool[6u] = 0xDEu;
     badPointerMempool[7u] = 0xF0u;
 
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestEndianBe 10 -- OK \n");
     }
@@ -817,7 +817,7 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 10 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
     {
         if( 0x123456789ABCDEF0UL == varTemp64 )
         {
@@ -845,7 +845,7 @@ void dataUnPackTestCycle(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
     {
         (void)printf("dataUnPackTestCycle 1  -- OK \n");
     }
@@ -858,7 +858,7 @@ void dataUnPackTestCycle(void)
     badPointerMempool[1u] = 0x56u;
     badPointerMempool[2u] = 0x34u;
     badPointerMempool[3u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestCycle 2  -- OK \n");
     }
@@ -867,7 +867,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x5678u == varTemp16 )
         {
@@ -883,7 +883,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 3  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {
@@ -900,7 +900,7 @@ void dataUnPackTestCycle(void)
     }
 
     /* Function */
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestCycle 5  -- OK \n");
     }
@@ -913,7 +913,7 @@ void dataUnPackTestCycle(void)
     badPointerMempool[1u] = 0x56u;
     badPointerMempool[2u] = 0x34u;
     badPointerMempool[3u] = 0x12u;
-    if( ECU_RES_OK == dataUnPackReset( &ctx ) )
+    if( DUNPK_RES_OK == dataUnPackReset( &ctx ) )
     {
         (void)printf("dataUnPackTestCycle 6  -- OK \n");
     }
@@ -922,7 +922,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x5678u == varTemp16 )
         {
@@ -938,7 +938,7 @@ void dataUnPackTestCycle(void)
         (void)printf("dataUnPackTestCycle 7  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_OK == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         if( 0x1234u == varTemp16 )
         {

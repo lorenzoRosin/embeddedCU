@@ -63,7 +63,7 @@ void byteUnStuffTestBadPointer(void)
     uint32_t a;
 
     /* Function */
-    if( ECU_RES_BADPOINTER == bUStufferInitCtx(NULL, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInitCtx(NULL, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadPointer 1  -- OK \n");
     }
@@ -72,7 +72,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 1  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInitCtx(&ctx, NULL, sizeof(memArea)) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInitCtx(&ctx, NULL, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadPointer 2  -- OK \n");
     }
@@ -81,7 +81,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 2  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferReset( NULL ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferReset( NULL ) )
     {
         (void)printf("byteUnStuffTestBadPointer 3  -- OK \n");
     }
@@ -90,7 +90,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 3  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferGetNUnstuf( NULL, &varTemp32 ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferGetNUnstuf( NULL, &varTemp32 ) )
     {
         (void)printf("byteUnStuffTestBadPointer 4  -- OK \n");
     }
@@ -99,7 +99,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 4  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferGetNUnstuf( &ctx, NULL ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferGetNUnstuf( &ctx, NULL ) )
     {
         (void)printf("byteUnStuffTestBadPointer 5  -- OK \n");
     }
@@ -108,7 +108,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 5  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 6  -- OK \n");
     }
@@ -117,7 +117,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 6  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 7  -- OK \n");
     }
@@ -126,7 +126,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 7  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 8  -- OK \n");
     }
@@ -135,7 +135,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 8  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL) )
     {
         (void)printf("byteUnStuffTestBadPointer 9  -- OK \n");
     }
@@ -144,7 +144,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 9  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 10 -- OK \n");
     }
@@ -166,7 +166,7 @@ void byteUnStuffTestBadInit(void)
     ctx.isInit = false;
 
     /* Function */
-    if( ECU_RES_NOINITLIB == bUStufferReset(&ctx) )
+    if( DBUSTF_RES_NOINITLIB == bUStufferReset(&ctx) )
     {
         (void)printf("byteUnStuffTestBadInit 1  -- OK \n");
     }
@@ -175,7 +175,7 @@ void byteUnStuffTestBadInit(void)
         (void)printf("byteUnStuffTestBadInit 1  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_NOINITLIB == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadInit 2  -- OK \n");
     }
@@ -184,7 +184,7 @@ void byteUnStuffTestBadInit(void)
         (void)printf("byteUnStuffTestBadInit 2  -- FAIL \n");
     }
 
-    if( ECU_RES_NOINITLIB == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
+    if( DBUSTF_RES_NOINITLIB == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadInit 3  -- OK \n");
     }
@@ -203,7 +203,7 @@ void byteUnStuffTestBadParamEntr(void)
     uint32_t a;
 
     /* Function */
-    if( ECU_RES_BADPARAM == bUStufferInitCtx(&ctx, memArea, 0u) )
+    if( DBUSTF_RES_BADPARAM == bUStufferInitCtx(&ctx, memArea, 0u) )
     {
         (void)printf("byteUnStuffTestBadParamEntr 1  -- OK \n");
     }
@@ -212,7 +212,7 @@ void byteUnStuffTestBadParamEntr(void)
         (void)printf("byteUnStuffTestBadParamEntr 1  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamEntr 2  -- OK \n");
     }
@@ -221,7 +221,7 @@ void byteUnStuffTestBadParamEntr(void)
         (void)printf("byteUnStuffTestBadParamEntr 2  -- FAIL \n");
     }
 
-    if( ECU_RES_BADPARAM == bUStufferInsStufChunk( &ctx, memArea, 0u, &varTemp32, &a ) )
+    if( DBUSTF_RES_BADPARAM == bUStufferInsStufChunk( &ctx, memArea, 0u, &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadParamEntr 3  -- OK \n");
     }
@@ -239,7 +239,7 @@ void byteUnStuffTestBadParamStatus(void)
     uint32_t varTemp32;
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 1  -- OK \n");
     }
@@ -249,7 +249,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaSize = 0u;
-    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 2  -- OK \n");
     }
@@ -259,7 +259,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 3  -- OK \n");
     }
@@ -269,7 +269,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     ctx.memArea = NULL;
-    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 4  -- OK \n");
     }
@@ -279,7 +279,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 5  -- OK \n");
     }
@@ -289,7 +289,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaCntr = ctx.memAreaSize + 1u;
-    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 6  -- OK \n");
     }
@@ -299,7 +299,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 7  -- OK \n");
     }
@@ -310,7 +310,7 @@ void byteUnStuffTestBadParamStatus(void)
 
     ctx.needSof = true;
     ctx.needEof = false;
-    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 8  -- OK \n");
     }
@@ -320,7 +320,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 9  -- OK \n");
     }
@@ -331,7 +331,7 @@ void byteUnStuffTestBadParamStatus(void)
 
     ctx.needSof = true;
     ctx.precedentWasEsc = true;
-    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 10 -- OK \n");
     }
@@ -341,7 +341,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 11 -- OK \n");
     }
@@ -352,7 +352,7 @@ void byteUnStuffTestBadParamStatus(void)
 
     ctx.needEof = false;
     ctx.precedentWasEsc = true;
-    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 12 -- OK \n");
     }
@@ -362,7 +362,7 @@ void byteUnStuffTestBadParamStatus(void)
     }
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 13 -- OK \n");
     }
@@ -373,7 +373,7 @@ void byteUnStuffTestBadParamStatus(void)
 
     ctx.needSof = true;
     ctx.memAreaCntr = 1u;
-    if( ECU_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+    if( DBUSTF_RES_BADPARAM == bUStufferGetNUnstuf(&ctx, &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadParamStatus 14 -- OK \n");
     }
@@ -394,7 +394,7 @@ void byteUnStuffTestOutOfMem(void)
 
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestOutOfMem 1  -- OK \n");
     }
@@ -413,7 +413,7 @@ void byteUnStuffTestOutOfMem(void)
     stuffed[7u] = 0x03u;
     stuffed[8u] = ECU_EOF;
 
-    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, stuffed, 9u, &varTemp32, &errSofRec ) )
+    if( DBUSTF_RES_FRAMEENDED == bUStufferInsStufChunk( &ctx, stuffed, 9u, &varTemp32, &errSofRec ) )
     {
         if( 0u !=  errSofRec )
         {
@@ -438,7 +438,7 @@ void byteUnStuffTestOutOfMem(void)
 
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestOutOfMem 3  -- OK \n");
     }
@@ -455,7 +455,7 @@ void byteUnStuffTestOutOfMem(void)
     stuffed[5u] = 0x05u;
     stuffed[6u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 7u, &varTemp32, &errSofRec ) )
+    if( DBUSTF_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 7u, &varTemp32, &errSofRec ) )
     {
         if( 0u !=  errSofRec )
         {
@@ -481,7 +481,7 @@ void byteUnStuffTestOutOfMem(void)
 
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestOutOfMem 5  -- OK \n");
     }
@@ -500,7 +500,7 @@ void byteUnStuffTestOutOfMem(void)
     stuffed[7] = 0x03u;
     stuffed[8] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
+    if( DBUSTF_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
     {
         if( 0u != errSofRec )
         {
@@ -524,7 +524,7 @@ void byteUnStuffTestOutOfMem(void)
     }
 
 
-    if( ECU_RES_OUTOFMEM == bUStufferInsStufChunk( &ctx, &stuffed[5], 4u, &varTemp32, &errSofRec ) )
+    if( DBUSTF_RES_FRAMEENDED == bUStufferInsStufChunk( &ctx, &stuffed[5], 4u, &varTemp32, &errSofRec ) )
     {
         if( 0u !=  errSofRec )
         {
@@ -557,11 +557,9 @@ void byteUnStuffTestGeneral(void)
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
     uint32_t errSofRec;
-    bool_t eofRec;
-
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestGeneral 1  -- OK \n");
     }
@@ -573,7 +571,7 @@ void byteUnStuffTestGeneral(void)
     stuffed[0u] = ECU_SOF;
     stuffed[1u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 2u, &varTemp32, &errSofRec ) )
+    if( DBUSTF_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 2u, &varTemp32, &errSofRec ) )
     {
         if( 0u != errSofRec  )
         {
@@ -590,7 +588,7 @@ void byteUnStuffTestGeneral(void)
     }
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestGeneral 3  -- OK \n");
     }
@@ -605,7 +603,7 @@ void byteUnStuffTestGeneral(void)
     stuffed[3u] = (uint8_t)(~ECU_SOF);
     stuffed[4u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
+    if( DBUSTF_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
     {
         if( 0u !=  errSofRec )
         {
@@ -615,7 +613,7 @@ void byteUnStuffTestGeneral(void)
         {
             if( ( ECU_SOF == memArea[0u]) )
             {
-                if( ECU_RES_OK == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+                if( DBUSTF_RES_OK == bUStufferGetNUnstuf(&ctx, &varTemp32) )
                 {
                     if( 1u == varTemp32 )
                     {
@@ -644,7 +642,7 @@ void byteUnStuffTestGeneral(void)
 
 
     /* Function  */
-    if( ECU_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteUnStuffTestGeneral 5  -- OK \n");
     }
@@ -659,7 +657,7 @@ void byteUnStuffTestGeneral(void)
     stuffed[3u] = 0x02u;
     stuffed[4u] = ECU_EOF;
 
-    if( ECU_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
+    if( DBUSTF_RES_OK == bUStufferInsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
     {
         if( false == errSofRec )
         {
@@ -667,7 +665,7 @@ void byteUnStuffTestGeneral(void)
         }
         else
         {
-            if( ECU_RES_OK == bUStufferGetNUnstuf(&ctx, &varTemp32) )
+            if( DBUSTF_RES_OK == bUStufferGetNUnstuf(&ctx, &varTemp32) )
             {
                 if( 0u == varTemp32 )
                 {

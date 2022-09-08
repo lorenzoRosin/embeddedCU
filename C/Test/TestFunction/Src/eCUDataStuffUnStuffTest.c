@@ -80,7 +80,7 @@ void dataStuffUnStuffCommon(void)
     for(index = 0u; index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); index++)
     {
         /* Function Init */
-        if( ECU_RES_OK == bStufferInitCtx(&ctxStuff, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
+        if( DBSTF_RES_OK == bStufferInitCtx(&ctxStuff, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
         {
             (void)printf("dataStuffUnStuffCommon 1[%u]  -- OK \n", index);
         }
@@ -89,7 +89,7 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 1[%u]  -- FAIL \n", index);
         }
 
-        if( ECU_RES_OK == bUStufferInitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
+        if( DBUSTF_RES_OK == bUStufferInitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
         {
             (void)printf("dataStuffUnStuffCommon 2[%u]  -- OK \n", index);
         }
@@ -99,7 +99,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* Stuff */
-        if( ECU_RES_OK == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
         {
             (void)printf("dataStuffUnStuffCommon 3[%u]  -- OK \n", index);
         }
@@ -109,7 +109,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* unstuff */
-        if( ECU_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
+        if( DBUSTF_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
         {
             if( 0u != errSofRec )
             {
@@ -117,7 +117,7 @@ void dataStuffUnStuffCommon(void)
             }
             else
             {
-                if( ECU_RES_OK == bUStufferGetNUnstuf(&ctxUnStuff, &temp32sec) )
+                if( DBUSTF_RES_OK == bUStufferGetNUnstuf(&ctxUnStuff, &temp32sec) )
                 {
                     if( testMatrix[index].dataTestSize == temp32sec )
                     {

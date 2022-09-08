@@ -54,7 +54,7 @@ void dataPackUnPackCommon(void)
     uint64_t var64;
 
     /* Function */
-    if( ECU_RES_OK == dataPackinitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
+    if( DPK_RES_OK == dataPackinitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
     {
         (void)printf("dataPackUnPackCommon 1  -- OK \n");
     }
@@ -63,7 +63,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 1  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU8(&ctxPack, 0xF1u) )
+    if( DPK_RES_OK == dataPackPushU8(&ctxPack, 0xF1u) )
     {
         (void)printf("dataPackUnPackCommon 2  -- OK \n");
     }
@@ -72,7 +72,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 2  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU16(&ctxPack, 0xF1F2u) )
+    if( DPK_RES_OK == dataPackPushU16(&ctxPack, 0xF1F2u) )
     {
         (void)printf("dataPackUnPackCommon 3  -- OK \n");
     }
@@ -81,7 +81,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 3  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU32(&ctxPack, 0xF1F2F3F4u) )
+    if( DPK_RES_OK == dataPackPushU32(&ctxPack, 0xF1F2F3F4u) )
     {
         (void)printf("dataPackUnPackCommon 4  -- OK \n");
     }
@@ -90,7 +90,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 4  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackPushU64(&ctxPack, 0xF1F2F3F4F5F6F7F8UL) )
+    if( DPK_RES_OK == dataPackPushU64(&ctxPack, 0xF1F2F3F4F5F6F7F8UL) )
     {
         (void)printf("dataPackUnPackCommon 5  -- OK \n");
     }
@@ -99,7 +99,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 5  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackGetNPushed(&ctxPack, &supportbuffget) )
+    if( DPK_RES_OK == dataPackGetNPushed(&ctxPack, &supportbuffget) )
     {
         (void)printf("dataPackUnPackCommon 6  -- OK \n");
     }
@@ -108,7 +108,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 6  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataPackReset( &ctxPack ) )
+    if( DPK_RES_OK == dataPackReset( &ctxPack ) )
     {
         (void)printf("dataPackUnPackCommon 7  -- OK \n");
     }
@@ -118,7 +118,7 @@ void dataPackUnPackCommon(void)
     }
 
     /* Function */
-    if( ECU_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, supportbuffget, true) )
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, supportbuffget, true) )
     {
         (void)printf("dataPackUnPackCommon 8  -- OK \n");
     }
@@ -127,7 +127,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 8  -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU8(&ctxUnPack, &var8) )
+    if( DUNPK_RES_OK == dataUnPackPopU8(&ctxUnPack, &var8) )
     {
         (void)printf("dataPackUnPackCommon 10 -- OK \n");
     }
@@ -136,7 +136,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 10 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
+    if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
     {
         (void)printf("dataPackUnPackCommon 11 -- OK \n");
     }
@@ -145,7 +145,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 11 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU32(&ctxUnPack, &var32) )
+    if( DUNPK_RES_OK == dataUnPackPopU32(&ctxUnPack, &var32) )
     {
         (void)printf("dataPackUnPackCommon 12 -- OK \n");
     }
@@ -154,7 +154,7 @@ void dataPackUnPackCommon(void)
         (void)printf("dataPackUnPackCommon 12 -- FAIL \n");
     }
 
-    if( ECU_RES_OK == dataUnPackPopU64(&ctxUnPack, &var64) )
+    if( DUNPK_RES_OK == dataUnPackPopU64(&ctxUnPack, &var64) )
     {
         (void)printf("dataPackUnPackCommon 13 -- OK \n");
     }
