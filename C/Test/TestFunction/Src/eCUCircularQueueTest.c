@@ -24,9 +24,11 @@ static void circularqueueTestBadPointer(void);
 static void circularqueueTestBadInit(void);
 static void circularqueueTestBadParamEntr(void);
 static void circularqueueTestBadParamStatus(void);
-static void circularqueueTestOutOfMem(void);
+static void circularqueueTestEmptyMem(void);
+static void circularqueueTestFullMem(void);
 static void circularqueueTestGeneric(void);
-static void circularqueueTestCycle(void);
+static void circularqueueTestCycle1(void);
+static void circularqueueTestCycle2(void);
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
@@ -39,9 +41,11 @@ void circularQueueTest(void)
     circularqueueTestBadInit();
     circularqueueTestBadParamEntr();
     circularqueueTestBadParamStatus();
-    circularqueueTestOutOfMem();
+    circularqueueTestEmptyMem();
+    circularqueueTestFullMem();
     circularqueueTestGeneric();
-    circularqueueTestCycle();
+    circularqueueTestCycle1();
+    circularqueueTestCycle2();
 
     (void)printf("\n\nCIRCULAR QUEUE TEST END \n\n");
 }
@@ -329,7 +333,7 @@ static void circularqueueTestBadParamStatus(void)
     /* Init variable */
     ctx.memPoolSize = 0u;
 
-    if( CQUEUE_RES_BADPARAM == circQReset(&ctx) )
+    if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
         (void)printf("circularqueueTestBadParamStatus 2  -- OK \n");
     }
@@ -337,8 +341,6 @@ static void circularqueueTestBadParamStatus(void)
     {
         (void)printf("circularqueueTestBadParamStatus 2  -- FAIL \n");
     }
-
-
 
 
     /* Init variable */
@@ -356,7 +358,7 @@ static void circularqueueTestBadParamStatus(void)
 
     ctx.memPool = NULL;
 
-    if( CQUEUE_RES_BADPARAM == circQReset(&ctx) )
+    if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
         (void)printf("circularqueueTestBadParamStatus 4  -- OK \n");
     }
@@ -364,8 +366,6 @@ static void circularqueueTestBadParamStatus(void)
     {
         (void)printf("circularqueueTestBadParamStatus 4  -- FAIL \n");
     }
-
-
 
 
     /* Init variable */
@@ -383,7 +383,7 @@ static void circularqueueTestBadParamStatus(void)
 
     ctx.memPoolFrstFreeIdx = sizeof(badPointerMempool) +1u;
 
-    if( CQUEUE_RES_BADPARAM == circQReset(&ctx) )
+    if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
         (void)printf("circularqueueTestBadParamStatus 6  -- OK \n");
     }
@@ -391,8 +391,6 @@ static void circularqueueTestBadParamStatus(void)
     {
         (void)printf("circularqueueTestBadParamStatus 6  -- FAIL \n");
     }
-
-
 
 
     /* Init variable */
@@ -410,7 +408,7 @@ static void circularqueueTestBadParamStatus(void)
 
     ctx.memPoolFrstOccIdx = sizeof(badPointerMempool) +1u;
 
-    if( CQUEUE_RES_BADPARAM == circQReset(&ctx) )
+    if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
         (void)printf("circularqueueTestBadParamStatus 6  -- OK \n");
     }
@@ -418,8 +416,6 @@ static void circularqueueTestBadParamStatus(void)
     {
         (void)printf("circularqueueTestBadParamStatus 6  -- FAIL \n");
     }
-
-
 
 
     /* Init variable */
@@ -437,7 +433,7 @@ static void circularqueueTestBadParamStatus(void)
 
     ctx.memPoolUsedSize = sizeof(badPointerMempool) +1u;
 
-    if( CQUEUE_RES_BADPARAM == circQReset(&ctx) )
+    if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
         (void)printf("circularqueueTestBadParamStatus 6  -- OK \n");
     }
@@ -447,7 +443,7 @@ static void circularqueueTestBadParamStatus(void)
     }
 }
 
-void circularqueueTestOutOfMem(void)
+void circularqueueTestEmptyMem(void)
 {
     /* Local variable */
     s_eCU_circQCtx ctx;
@@ -460,121 +456,197 @@ void circularqueueTestOutOfMem(void)
     /* Easy one  */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestOutOfMem 1  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 1  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 1  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 1  -- FAIL \n");
     }
 
     if( CQUEUE_RES_EMPTY == circQPeekData(&ctx, retriveData, sizeof(retriveData)) )
     {
-        (void)printf("circularqueueTestOutOfMem 2  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 2  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 2  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 2  -- FAIL \n");
     }
 
     if( CQUEUE_RES_EMPTY == circQRetriveData(&ctx, retriveData, sizeof(retriveData)) )
     {
-        (void)printf("circularqueueTestOutOfMem 3  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 3  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 3  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 3  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_FULL == circQInsertData(&ctx, retriveData, sizeof(retriveData)) )
+    if( CQUEUE_RES_OK == circQInsertData(&ctx, retriveData, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestOutOfMem 4  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 4  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 4  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 4  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_FULL == circQInsertData(&ctx, retriveData, sizeof(badPointerMempool) +1u ) )
+    if( CQUEUE_RES_OK == circQPeekData(&ctx, retriveData, sizeof(badPointerMempool) ) )
     {
-        (void)printf("circularqueueTestOutOfMem 5  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 5  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 5  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 5  -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, sizeof(badPointerMempool)) )
+    {
+        (void)printf("circularqueueTestEmptyMem 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestEmptyMem 6  -- FAIL \n");
     }
 
     /* most complete one */
     if( CQUEUE_RES_OK == circQInsertData(&ctx, retriveData, sizeof(badPointerMempool) ) )
     {
-        (void)printf("circularqueueTestOutOfMem 6  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 7  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 6  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 7  -- FAIL \n");
     }
 
     if( CQUEUE_RES_EMPTY == circQRetriveData(&ctx, retriveData, sizeof(retriveData)) )
     {
-        (void)printf("circularqueueTestOutOfMem 7  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 8  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 7  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 8  -- FAIL \n");
     }
 
     if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestOutOfMem 8  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 9  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 8  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 9  -- FAIL \n");
     }
 
     if( CQUEUE_RES_EMPTY == circQRetriveData(&ctx, retriveData, 1u) )
     {
-        (void)printf("circularqueueTestOutOfMem 7  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 10 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 7  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 10 -- FAIL \n");
     }
 
     if( CQUEUE_RES_OK == circQInsertData(&ctx, retriveData, 2u ) )
     {
-        (void)printf("circularqueueTestOutOfMem 8  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 11 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 8  -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 11 -- FAIL \n");
     }
 
     if( CQUEUE_RES_OK == circQInsertData(&ctx, retriveData, 3u ) )
     {
-        (void)printf("circularqueueTestOutOfMem 9  -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 12 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 9  -- FAIL \n");
-    }
-
-    if( CQUEUE_RES_FULL == circQInsertData(&ctx, retriveData, 1u ) )
-    {
-        (void)printf("circularqueueTestOutOfMem 10 -- OK \n");
-    }
-    else
-    {
-        (void)printf("circularqueueTestOutOfMem 10 -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 12 -- FAIL \n");
     }
 
     if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestOutOfMem 11 -- OK \n");
+        (void)printf("circularqueueTestEmptyMem 14 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestOutOfMem 11 -- FAIL \n");
+        (void)printf("circularqueueTestEmptyMem 14 -- FAIL \n");
     }
+}
+
+void circularqueueTestFullMem(void)
+{
+    /* Local variable */
+    s_eCU_circQCtx ctx;
+    uint8_t  badPointerMempool[5u];
+    uint8_t  retriveData[10u];
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Easy one  */
+    if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    {
+        (void)printf("circularqueueTestFullMem 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestFullMem 1  -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_FULL == circQInsertData(&ctx, retriveData, sizeof(retriveData)) )
+    {
+        (void)printf("circularqueueTestFullMem 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestFullMem 2  -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_FULL == circQInsertData(&ctx, retriveData, sizeof(badPointerMempool) +1u ) )
+    {
+        (void)printf("circularqueueTestFullMem 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestFullMem 3  -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_OK == circQInsertData(&ctx, retriveData, sizeof(badPointerMempool) ) )
+    {
+        (void)printf("circularqueueTestFullMem 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestFullMem 4  -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_FULL == circQInsertData(&ctx, retriveData, 1u ) )
+    {
+        (void)printf("circularqueueTestFullMem 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestFullMem 5  -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, 1u) )
+    {
+        (void)printf("circularqueueTestFullMem 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestFullMem 6  -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_FULL == circQInsertData(&ctx, retriveData, 2u ) )
+    {
+        (void)printf("circularqueueTestFullMem 7  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestFullMem 7  -- FAIL \n");
+    }
+
 }
 
 static void circularqueueTestGeneric(void)
@@ -672,7 +744,7 @@ static void circularqueueTestGeneric(void)
     }
 }
 
-static void circularqueueTestCycle(void)
+static void circularqueueTestCycle1(void)
 {
     /* Local variable */
     s_eCU_circQCtx ctx;
@@ -685,14 +757,14 @@ static void circularqueueTestCycle(void)
     /* Init variable */
     ctx.isInit = false;
 
-    /* Easy one  */
+    /* Test */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, pointerMempool, sizeof(pointerMempool) ) )
     {
-        (void)printf("circularqueueTestCycle 1  -- OK \n");
+        (void)printf("circularqueueTestCycle1 1  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestCycle 1  -- FAIL \n");
+        (void)printf("circularqueueTestCycle1 1  -- FAIL \n");
     }
 
     for(uint32_t i = 0u; ( ( i <= 1000u ) && ( true == testOk ) ); i++)
@@ -729,14 +801,77 @@ static void circularqueueTestCycle(void)
 
     if( true == testOk )
     {
-        (void)printf("circularqueueTestCycle 2  -- OK \n");
+        (void)printf("circularqueueTestCycle1 2  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestCycle 2  -- FAIL \n");
+        (void)printf("circularqueueTestCycle1 2  -- FAIL \n");
+    }
+}
+
+static void circularqueueTestCycle2(void)
+{
+    /* Local variable */
+    s_eCU_circQCtx ctx;
+    uint8_t  pointerMempool[10u];
+    uint8_t  retriveData3[1u] = {0u};
+    uint8_t  retriveData4[1u] = {0u};
+    uint8_t  insertData[2u]  = {1u, 1u};
+    bool_t   testOk = true;
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Test */
+    if( CQUEUE_RES_OK == circQInitCtx(&ctx, pointerMempool, sizeof(pointerMempool) ) )
+    {
+        (void)printf("circularqueueTestCycle2 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestCycle2 1  -- FAIL \n");
     }
 
+    for(uint32_t i = 0u; ( ( i <= 1000u ) && ( true == testOk ) ); i++)
+    {
+        if( CQUEUE_RES_OK != circQInsertData(&ctx, insertData, sizeof(insertData) ) )
+        {
+            testOk = false;
+        }
 
+        if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData3, sizeof(retriveData3) ) )
+        {
+            if( 0 != memcmp(insertData, retriveData3, sizeof(retriveData3) ) )
+            {
+                testOk = false;
+            }
+        }
+        else
+        {
+            testOk = false;
+        }
+
+        if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData4, sizeof(retriveData4) ) )
+        {
+            if( 0 != memcmp(insertData, retriveData4, sizeof(retriveData4) ) )
+            {
+                testOk = false;
+            }
+        }
+        else
+        {
+            testOk = false;
+        }
+    }
+
+    if( true == testOk )
+    {
+        (void)printf("circularqueueTestCycle2 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestCycle2 2  -- FAIL \n");
+    }
 }
 
 #ifdef __IAR_SYSTEMS_ICC__
