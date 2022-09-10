@@ -66,7 +66,7 @@ typedef struct
  * @return CRCD_RES_BADPOINTER in case of bad pointer
  *         CRCD_RES_OK crc digester is initialized correctly
  */
-e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* clbCtx);
+e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* const clbCtx);
 
 /**
  * Initialize the CRC32 digester context using a selected seed
@@ -78,7 +78,7 @@ e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbC
  *         CRCD_RES_OK crc digester is initialized correctly
  */
 e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
-                                    void* clbCtx);
+                                    void* const clbCtx);
 
 /**
  * Digest a chunk of data in to the CRC32 calc

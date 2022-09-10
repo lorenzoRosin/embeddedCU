@@ -20,7 +20,7 @@ static bool_t isCrctatusStillCoherent(const s_eCU_CrcDigestCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* clbCtx)
+e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* const clbCtx)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
@@ -47,7 +47,7 @@ e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbC
 }
 
 e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
-                                    void* clbCtx)
+                                    void* const clbCtx)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
