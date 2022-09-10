@@ -3,7 +3,8 @@
  *
  */
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6", "MISRAC2012-Rule-11.5", "CERT-EXP36-C_b",       \
+                            "MISRAC2012-Rule-10.3"
     /* Suppressed for code clarity in test execution*/
 #endif
 
@@ -75,16 +76,25 @@ void cUCrcDigestTest(void)
 bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
 {
     bool_t result;
-    s_eCU_crcAdapterCtx* ctxCur = (s_eCU_crcAdapterCtx*)cntx;
+    s_eCU_crcAdapterCtx* ctxCur;
 
-    ctxCur->lastError = crc32Seed(s, d, dLen, c32Val);
-    if( CRC_RES_OK == ctxCur->lastError )
+    if( ( NULL == cntx ) || ( NULL == c32Val ) )
     {
-        result = true;
+        result = false;
     }
     else
     {
-        result = false;
+        ctxCur = (s_eCU_crcAdapterCtx*)cntx;
+
+        ctxCur->lastError = crc32Seed(s, (const uint8_t*)d, dLen, c32Val);
+        if( CRC_RES_OK == ctxCur->lastError )
+        {
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
     }
 
     return result;
@@ -93,10 +103,24 @@ bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t
 bool_t c32SAdaptEr(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
 {
     bool_t result;
-    s_eCU_crcAdapterCtx* ctxCur = (s_eCU_crcAdapterCtx*)cntx;
+    s_eCU_crcAdapterCtx* ctxCur;
 
-    ctxCur->lastError = CRC_RES_BADPOINTER;
-    result = false;
+    (void)s;
+    (void)d;
+    (void)dLen;
+
+    if( ( NULL == cntx ) || ( NULL == c32Val ) )
+    {
+        result = false;
+    }
+    else
+    {
+        ctxCur = (s_eCU_crcAdapterCtx*)cntx;
+
+        ctxCur->lastError = CRC_RES_BADPOINTER;
+        result = false;
+        *c32Val = 0u;
+    }
 
     return result;
 }
@@ -662,5 +686,6 @@ void cUCrcDigestTestCombined(void)
 }
 
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6", "MISRAC2012-Rule-11.5", "CERT-EXP36-C_b",      \
+                            "MISRAC2012-Rule-10.3"
 #endif
