@@ -16,7 +16,7 @@
         <ShowSource>1</ShowSource>
     </Trace1>
     <DebugChecksum>
-        <Checksum>700245226</Checksum>
+        <Checksum>742102267</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -43,11 +43,6 @@
         <Fmt0>{W}1:crcTestValRet	4	0</Fmt0>
         <Fmt1>{W}1:crcTestValRetC	4	0</Fmt1>
     </watch_formats>
-    <LogFile>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-        <Category2>_ 0</Category2>
-    </LogFile>
     <InterruptLog>
         <GraphEnabled>0</GraphEnabled>
         <LogEnabled>0</LogEnabled>
@@ -98,4 +93,9 @@
         <FreqHi>0</FreqHi>
         <MultiCoreRunAll>1</MultiCoreRunAll>
     </Simulator>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category2>_ 0</Category2>
+    </LogFile>
 </settings>
