@@ -1163,7 +1163,7 @@ void dataUnPackTestCycle(void)
         {
             if( DUNPK_RES_OK == dataUnPackGetRemToPop(&ctx, &remtoPop) )
             {
-                if( 0x12 == remtoPop )
+                if( 0x12u == remtoPop )
                 {
                     (void)printf("dataUnPackTestCycle 3  -- OK \n");
                 }

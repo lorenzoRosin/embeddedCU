@@ -1219,6 +1219,18 @@ void byteUnStuffTestGeneral(void)
     {
         (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
     }
+
+
+    if( DBUSTF_RES_OK == bUStufferReset( &ctx ) )
+    {
+        (void)printf("byteUnStuffTestGeneral 7  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
+    }
+
+
 }
 
 void byteUnStuffTestCornerCase(void)

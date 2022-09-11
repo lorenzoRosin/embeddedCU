@@ -1197,7 +1197,6 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[counter], 2u, &varTemp32) )
     {
-        counter += varTemp32;
         (void)printf("byteStuffTestGeneral 33 -- OK \n");
     }
     else
