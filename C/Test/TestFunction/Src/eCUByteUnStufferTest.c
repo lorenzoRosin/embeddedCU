@@ -374,6 +374,27 @@ void byteUnStuffTestBadParamStatus(void)
     {
         (void)printf("byteUnStuffTestBadParamStatus 14 -- FAIL \n");
     }
+
+    /* Function  */
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 15 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 15 -- FAIL \n");
+    }
+
+    ctx.memAreaSize = 0u;
+    if( DBUSTF_RES_CORRUPTCTX == bUStufferInsStufChunk( &ctx, memArea, 9u, &varTemp32, &varTemp32 ) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 16 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 16 -- FAIL \n");
+    }
+
 }
 
 void byteUnStuffTestOutOfMem(void)
