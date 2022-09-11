@@ -99,7 +99,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* Stuff */
-        if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
         {
             (void)printf("dataStuffUnStuffCommon 3[%u]  -- OK \n", index);
         }
@@ -109,7 +109,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* unstuff */
-        if( DBUSTF_RES_OK == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
+        if( DBUSTF_RES_FRAMEENDED == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
         {
             if( 0u != errSofRec )
             {
