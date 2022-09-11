@@ -367,6 +367,131 @@ void dataPackTestBadParamStatus(void)
     {
         (void)printf("dataPackTestBadParamStatus 6  -- FAIL \n");
     }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestBadParamStatus 7  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 7  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPKASize = 0u;
+
+    if( DPK_RES_CORRUPTCTX == dataPackPushArray(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
+    {
+        (void)printf("dataPackTestBadParamStatus 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 8  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestBadParamStatus 9  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 9  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPKASize = 0u;
+
+    if( DPK_RES_CORRUPTCTX == dataPackPushU8(&ctx, 10u) )
+    {
+        (void)printf("dataPackTestBadParamStatus 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 10 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestBadParamStatus 11 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 11 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPKASize = 0u;
+
+    if( DPK_RES_CORRUPTCTX == dataPackPushU16(&ctx, 10u) )
+    {
+        (void)printf("dataPackTestBadParamStatus 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 12 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestBadParamStatus 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 13 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPKASize = 0u;
+
+    if( DPK_RES_CORRUPTCTX == dataPackPushU32(&ctx, 10u) )
+    {
+        (void)printf("dataPackTestBadParamStatus 14 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 14 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestBadParamStatus 15 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 15 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPKASize = 0u;
+
+    if( DPK_RES_CORRUPTCTX == dataPackPushU64(&ctx, 10u) )
+    {
+        (void)printf("dataPackTestBadParamStatus 16 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 16 -- FAIL \n");
+    }
 }
 
 void dataPackTestOutOfMem(void)
