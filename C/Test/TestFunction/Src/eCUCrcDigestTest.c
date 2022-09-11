@@ -420,6 +420,7 @@ void cUCrcDigestTestClbErr(void)
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
     cb_crc32_seed cbCrcPTestErr = &c32SAdaptEr;
+    cb_crc32_seed cbCrcPTest = &c32SAdapt;
     s_eCU_crcAdapterCtx ctxAdapterCrc;
     uint8_t  varBuff[5u];
 
@@ -454,6 +455,46 @@ void cUCrcDigestTestClbErr(void)
         (void)printf("cUCrcDigestTestClbErr 2  -- FAIL \n");
     }
 
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    ctxAdapterCrc.lastError = CRC_RES_OK;
+    if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    {
+        (void)printf("cUCrcDigestTestClbErr 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestClbErr 3  -- FAIL \n");
+    }
+
+    /* Init variable */
+    if( CRCD_RES_OK== crcDigesDigest( &ctx, varBuff, 1u ) )
+    {
+        (void)printf("cUCrcDigestTestClbErr 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestClbErr 4  -- FAIL \n");
+    }
+
+    ctx.cbCrcPointer = cbCrcPTestErr;
+    if( CRCD_RES_CLBCKREPORTERROR == crcDigesDigest( &ctx, varBuff, sizeof(varBuff) ) )
+    {
+        if( CRC_RES_BADPOINTER == ctxAdapterCrc.lastError )
+        {
+            (void)printf("cUCrcDigestTestClbErr 5  -- OK \n");
+        }
+        else
+        {
+            (void)printf("cUCrcDigestTestClbErr 5  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestClbErr 5  -- FAIL \n");
+    }
 }
 
 void cUCrcDigestTestMono(void)
