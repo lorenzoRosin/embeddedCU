@@ -66,6 +66,7 @@ e_eCU_dBStf_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memAr
  * @param  ctx Byte stuffer context
  * @return DBSTF_RES_BADPOINTER in case of bad pointer
  *		   DBSTF_RES_NOINITLIB need to init the data stuffer context before taking some action
+ *		   DBSTF_RES_CORRUPTCTX in case of an corrupted context
  *         DBSTF_RES_OK operation ended correctly
  */
 e_eCU_dBStf_Res bStufferReset(e_eCU_BStuffCtx* const ctx);

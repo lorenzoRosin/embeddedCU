@@ -73,12 +73,20 @@ e_eCU_dBStf_Res bStufferReset(e_eCU_BStuffCtx* const ctx)
 		}
 		else
 		{
-			/* Update index */
-			ctx->memAreaCntr = 0u;
-            ctx->precedentToCheck = false;
-            ctx->needSof = true;
-            ctx->needEof = true;
-			result = DBSTF_RES_OK;
+            /* Check internal status validity */
+            if( false == isBSStatusStillCoherent(ctx) )
+            {
+                result = DBSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* Update index */
+                ctx->memAreaCntr = 0u;
+                ctx->precedentToCheck = false;
+                ctx->needSof = true;
+                ctx->needEof = true;
+                result = DBSTF_RES_OK;
+            }
 		}
 	}
 
@@ -112,22 +120,22 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* co
             else
             {
 				*retrivedLen = 0u;
-				
+
 				if( true == ctx->needSof )
 				{
 					*retrivedLen = *retrivedLen + 1u;
 				}
-				
+
 				if( true == ctx->needEof )
 				{
 					*retrivedLen = *retrivedLen + 1u;
-				}				
-				
+				}
+
                 if( true == ctx->precedentToCheck )
                 {
                     *retrivedLen = *retrivedLen + 1u;
-                }			
-				
+                }
+
 				for( uint32_t indx = ctx->memAreaCntr; indx < ctx->memAreaSize; indx++ )
 				{
 					if( ECU_SOF == ctx->memArea[indx] )
@@ -150,7 +158,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* co
 						*retrivedLen = *retrivedLen + 1u;
 					}
 				}
-				
+
                 result = DBSTF_RES_OK;
             }
 		}
@@ -164,7 +172,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* co
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dBStf_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest, 
+e_eCU_dBStf_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
 									   const uint32_t maxDestLen, uint32_t* const filledLen)
 {
 	/* Local variable */

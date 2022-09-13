@@ -88,7 +88,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 3  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferGetRemToStuf(NULL, &varTemp32) )
+    if( DBSTF_RES_BADPOINTER == bStufferGetRemToRetrive(NULL, &varTemp32) )
     {
         (void)printf("byteStuffTestBadPointer 4  -- OK \n");
     }
@@ -97,7 +97,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 4  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferGetRemToStuf(&ctx, NULL) )
+    if( DBSTF_RES_BADPOINTER == bStufferGetRemToRetrive(&ctx, NULL) )
     {
         (void)printf("byteStuffTestBadPointer 5  -- OK \n");
     }
@@ -154,7 +154,7 @@ void byteStuffTestBadInit(void)
         (void)printf("byteStuffTestBadInit 1  -- FAIL \n");
     }
 
-    if( DBSTF_RES_NOINITLIB == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_NOINITLIB == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadInit 2  -- OK \n");
     }
@@ -235,7 +235,7 @@ void byteStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaSize = 0u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 2  -- OK \n");
     }
@@ -256,7 +256,7 @@ void byteStuffTestBadParamStatus(void)
     }
 
     ctx.memArea = NULL;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 4  -- OK \n");
     }
@@ -276,7 +276,7 @@ void byteStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaCntr = ctx.memAreaSize + 1u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 6  -- OK \n");
     }
@@ -297,7 +297,7 @@ void byteStuffTestBadParamStatus(void)
 
     ctx.needEof = false;
     ctx.needSof = true;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 8  -- OK \n");
     }
@@ -320,7 +320,7 @@ void byteStuffTestBadParamStatus(void)
     ctx.needSof = false;
     ctx.needEof = false;
     ctx.memAreaCntr = ctx.memAreaSize - 1u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 10 -- OK \n");
     }
@@ -342,7 +342,7 @@ void byteStuffTestBadParamStatus(void)
 
     ctx.needSof = true;
     ctx.precedentToCheck = true;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 12 -- OK \n");
     }
@@ -363,7 +363,7 @@ void byteStuffTestBadParamStatus(void)
 
     ctx.needEof = false;
     ctx.precedentToCheck = true;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 14 -- OK \n");
     }
@@ -384,7 +384,7 @@ void byteStuffTestBadParamStatus(void)
 
     ctx.needSof = true;
     ctx.memAreaCntr = 1u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 16 -- OK \n");
     }
@@ -406,7 +406,7 @@ void byteStuffTestBadParamStatus(void)
     ctx.memAreaCntr = 0u;
     ctx.precedentToCheck = true;
     ctx.needSof = false;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 18 -- OK \n");
     }
@@ -430,7 +430,7 @@ void byteStuffTestBadParamStatus(void)
     ctx.memAreaCntr = 1u;
     memArea[ctx.memAreaCntr - 1u] = 0xFFu;
     ctx.needSof = false;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToStuf(&ctx, &varTemp32) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 20 -- OK \n");
     }
@@ -457,6 +457,27 @@ void byteStuffTestBadParamStatus(void)
     else
     {
         (void)printf("byteStuffTestBadParamStatus 22 -- FAIL \n");
+    }
+
+
+    /* Function */
+    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteStuffTestBadParamStatus 23 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadParamStatus 23 -- FAIL \n");
+    }
+
+    ctx.memAreaSize = 0u;
+    if( DBSTF_RES_CORRUPTCTX == bStufferReset(&ctx) )
+    {
+        (void)printf("byteStuffTestBadParamStatus 24 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadParamStatus 24 -- FAIL \n");
     }
 }
 
@@ -1125,10 +1146,17 @@ void byteStuffTestGeneral(void)
     counter = 0u;
     remaining = 0u;
 
-    result = bStufferGetRemToStuf(&ctx, &remaining);
+    result = bStufferGetRemToRetrive(&ctx, &remaining);
     if( DBSTF_RES_OK == result )
     {
-        (void)printf("byteStuffTestGeneral 29 -- OK \n");
+        if( 9u == remaining )
+        {
+            (void)printf("byteStuffTestGeneral 29 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGeneral 29 -- FAIL \n");
+        }
     }
     else
     {
@@ -1145,7 +1173,7 @@ void byteStuffTestGeneral(void)
             counter += varTemp32;
         }
 
-        result = bStufferGetRemToStuf(&ctx, &remaining);
+        result = bStufferGetRemToRetrive(&ctx, &remaining);
     }
 
     if( DBSTF_RES_OK == result )
@@ -1204,9 +1232,9 @@ void byteStuffTestGeneral(void)
         (void)printf("byteStuffTestGeneral 33 -- FAIL \n");
     }
 
-    if( DBSTF_RES_OK == bStufferGetRemToStuf(&ctx, &remaining) )
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &remaining) )
     {
-        if( 4u == remaining )
+        if( 7u == remaining )
         {
             (void)printf("byteStuffTestGeneral 34 -- OK \n");
         }
@@ -1229,14 +1257,6 @@ void byteStuffTestGeneral(void)
     {
         (void)printf("byteStuffTestGeneral 35 -- FAIL \n");
     }
-
-
-
-
-
-
-
-
 }
 
 
@@ -1284,9 +1304,9 @@ void byteStuffTestGeneralAnother(void)
         counter += varTemp32;
         if( 1u == varTemp32 )
         {
-            if( DBSTF_RES_OK == bStufferGetRemToStuf(&ctx, &varTemp32) )
+            if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
             {
-                if( 4u == varTemp32 )
+                if( 8u == varTemp32 )
                 {
                     (void)printf("byteStuffTestGeneralAnother 2  -- OK \n");
                 }
@@ -1315,9 +1335,9 @@ void byteStuffTestGeneralAnother(void)
         counter += varTemp32;
         if( 7u == varTemp32 )
         {
-            if( DBSTF_RES_OK == bStufferGetRemToStuf(&ctx, &varTemp32) )
+            if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
             {
-                if( 0u == varTemp32 )
+                if( 1u == varTemp32 )
                 {
                     (void)printf("byteStuffTestGeneralAnother 3  -- OK \n");
                 }
@@ -1346,7 +1366,7 @@ void byteStuffTestGeneralAnother(void)
         counter += varTemp32;
         if( 1u == varTemp32 )
         {
-            if( DBSTF_RES_OK == bStufferGetRemToStuf(&ctx, &varTemp32) )
+            if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
             {
                 if( 0u == varTemp32 )
                 {
