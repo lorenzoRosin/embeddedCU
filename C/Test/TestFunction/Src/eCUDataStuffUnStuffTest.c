@@ -117,7 +117,7 @@ void dataStuffUnStuffCommon(void)
             }
             else
             {
-                if( DBUSTF_RES_OK == bUStufferGetNUnstuf(&ctxUnStuff, &temp32sec) )
+                if( DBUSTF_RES_OK == bUStufferGetUnstufLen(&ctxUnStuff, &temp32sec) )
                 {
                     if( testMatrix[index].dataTestSize == temp32sec )
                     {

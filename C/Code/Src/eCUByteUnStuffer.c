@@ -54,7 +54,7 @@ e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const me
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx)
+e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -73,16 +73,60 @@ e_eCU_dBUStf_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx)
 		}
 		else
 		{
-			/* Update index */
-            restartFrameReceiver(ctx);
-			result = DBUSTF_RES_OK;
+            /* Check internal status validity */
+            if( false == isBUSStatusStillCoherent(ctx) )
+            {
+                result = DBUSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* Update index */
+                restartFrameReceiver(ctx);
+                result = DBUSTF_RES_OK;
+            }
 		}
 	}
 
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
+{
+	/* Local variable */
+	e_eCU_dBUStf_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == retrivedLen ) )
+	{
+		result = DBUSTF_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = DBUSTF_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isBUSStatusStillCoherent(ctx) )
+            {
+                result = DBUSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                *dataP = ctx->memArea;
+                *retrivedLen =  ctx->memAreaCntr;
+                result = DBUSTF_RES_OK;
+            }
+		}
+	}
+
+	return result;
+}
+
+e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;

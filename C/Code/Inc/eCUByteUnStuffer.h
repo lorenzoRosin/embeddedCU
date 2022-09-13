@@ -63,24 +63,37 @@ typedef struct
 e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
- * Reset data Unstuffer and restart from memory start
+ * Start receiving new frame
  * @param  ctx Byte Unstuffer context
- * @return DBUSTF_RES_BADPOINTER in case of bad pointer
- *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
- *         DBUSTF_RES_OK operation ended correctly
- */
-e_eCU_dBUStf_Res bUStufferReset(e_eCU_BUStuffCtx* const ctx);
-
-/**
- * Retrive how many raw byte we have unstuffed
- * @param  ctx Byte Unstuffer context
- * @param  retrivedLen Pointer to a memory area were we will store size of the unstuffed raw data
  * @return DBUSTF_RES_BADPOINTER in case of bad pointer
  *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
  *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
  *         DBUSTF_RES_OK operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferGetNUnstuf(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx);
+
+/**
+ * Retrive unstuffed data reference
+ * @param  ctx Byte Unstuffer context
+ * @param  dataP Pointer of Pointer where the unstuffed data are present
+ * @param  retrivedLen Pointer to a memory area were we will store size of the unstuffed data
+ * @return DBUSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
+ *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
+ *         DBUSTF_RES_OK operation ended correctly
+ */
+e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
+
+/**
+ * Retrive how many raw byte we have unstuffed
+ * @param  ctx Byte Unstuffer context
+ * @param  retrivedLen Pointer to a memory area were we will store size of the unstuffed data
+ * @return DBUSTF_RES_BADPOINTER in case of bad pointer
+ *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
+ *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
+ *         DBUSTF_RES_OK operation ended correctly
+ */
+e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Insert stuffed data chunk
