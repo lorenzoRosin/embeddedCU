@@ -79,7 +79,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 2  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferReset(NULL) )
+    if( DBSTF_RES_BADPOINTER == bStufferRestartCurrentFrame(NULL) )
     {
         (void)printf("byteStuffTestBadPointer 3  -- OK \n");
     }
@@ -145,7 +145,7 @@ void byteStuffTestBadInit(void)
     ctx.isInit = false;
 
     /* Function */
-    if( DBSTF_RES_NOINITLIB == bStufferReset(&ctx) )
+    if( DBSTF_RES_NOINITLIB == bStufferRestartCurrentFrame(&ctx) )
     {
         (void)printf("byteStuffTestBadInit 1  -- OK \n");
     }
@@ -471,7 +471,7 @@ void byteStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaSize = 0u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferReset(&ctx) )
+    if( DBSTF_RES_CORRUPTCTX == bStufferRestartCurrentFrame(&ctx) )
     {
         (void)printf("byteStuffTestBadParamStatus 24 -- OK \n");
     }
@@ -1249,7 +1249,7 @@ void byteStuffTestGeneral(void)
     }
 
 
-    if( DBSTF_RES_OK == bStufferReset(&ctx) )
+    if( DBSTF_RES_OK == bStufferRestartCurrentFrame(&ctx) )
     {
         (void)printf("byteStuffTestGeneral 35 -- OK \n");
     }
