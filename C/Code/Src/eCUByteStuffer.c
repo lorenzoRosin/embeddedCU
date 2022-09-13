@@ -85,7 +85,7 @@ e_eCU_dBStf_Res bStufferReset(e_eCU_BStuffCtx* const ctx)
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_dBStf_Res result;
@@ -111,15 +111,46 @@ e_eCU_dBStf_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const
             }
             else
             {
-                if( false == ctx->precedentToCheck )
+				*retrivedLen = 0u;
+				
+				if( true == ctx->needSof )
+				{
+					*retrivedLen = *retrivedLen + 1u;
+				}
+				
+				if( true == ctx->needEof )
+				{
+					*retrivedLen = *retrivedLen + 1u;
+				}				
+				
+                if( true == ctx->precedentToCheck )
                 {
-                    *retrivedLen = ctx->memAreaSize - ctx->memAreaCntr;
-                }
-                else
-                {
-                    *retrivedLen = ctx->memAreaSize - ctx->memAreaCntr + 1u;
-                }
-
+                    *retrivedLen = *retrivedLen + 1u;
+                }			
+				
+				for( uint32_t indx = ctx->memAreaCntr; indx < ctx->memAreaSize; indx++ )
+				{
+					if( ECU_SOF == ctx->memArea[indx] )
+					{
+						/* Stuff with escape */
+						*retrivedLen = *retrivedLen + 2u;
+					}
+					else if( ECU_EOF == ctx->memArea[indx] )
+					{
+						/* Stuff with escape */
+						*retrivedLen = *retrivedLen + 2u;
+					}
+					else if( ECU_ESC == ctx->memArea[indx] )
+					{
+						/* Stuff with escape */
+						*retrivedLen = *retrivedLen + 2u;
+					}
+					else
+					{
+						*retrivedLen = *retrivedLen + 1u;
+					}
+				}
+				
                 result = DBSTF_RES_OK;
             }
 		}

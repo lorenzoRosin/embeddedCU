@@ -71,15 +71,15 @@ e_eCU_dBStf_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, const uint8_t* memAr
 e_eCU_dBStf_Res bStufferReset(e_eCU_BStuffCtx* const ctx);
 
 /**
- * Retrive how many raw byte we can still stuff
+ * Retrive how many byte we can still retrive
  * @param  ctx Byte stuffer context
- * @param  retrivedLen Pointer to a memory area were we will store size of the stuffable data
+ * @param  retrivedLen Pointer to a memory area were we will store size of the retrivable data
  * @return DBSTF_RES_BADPOINTER in case of bad pointer
  *		   DBSTF_RES_NOINITLIB need to init the data stuffer context before taking some action
  *		   DBSTF_RES_CORRUPTCTX in case of an corrupted context
  *         DBSTF_RES_OK operation ended correctly
  */
-e_eCU_dBStf_Res bStufferGetRemToStuf(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * Retrive stuffed data chunk
