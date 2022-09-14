@@ -1,7 +1,11 @@
 /**
- * @file eCUByteStuffer.c
+ * @file       eCUByteStuffer.c
  *
- */
+ * @brief      Byte stuffer utils
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 /***********************************************************************************************************************
  *      INCLUDES
@@ -81,18 +85,58 @@ e_eCU_dBStf_Res bStufferStartNewFrame(e_eCU_BStuffCtx* const ctx, const uint32_t
             }
             else
             {
-                /* Check internal status validity */
+                /* Check param validity */
                 if( ( frameLen <= 0u ) || ( frameLen > ctx->memAreaSize ) )
                 {
                     result = DBSTF_RES_BADPARAM;
                 }
                 else
                 {
-                    /* Update index */
+                    /* Update data */
                     ctx->memAreaFrameSize = frameLen;
-
-                    result = bStufferRestartCurrentFrame(ctx);
+                    ctx->memAreaCntr = 0u;
+                    ctx->precedentToCheck = false;
+                    ctx->needSof = true;
+                    ctx->needEof = true;
+                    result = DBSTF_RES_OK;
                 }
+            }
+		}
+	}
+
+	return result;
+}
+
+e_eCU_dBStf_Res bStufferGetUnStufDataLocation(e_eCU_BStuffCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize)
+{
+	/* Local variable */
+	e_eCU_dBStf_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == maxDataSize ) )
+	{
+		result = DBSTF_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = DBSTF_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isBSStatusStillCoherent(ctx) )
+            {
+                result = DBSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* return data */
+                *dataP = ctx->memArea;
+                *maxDataSize = ctx->memAreaSize;
+                result = DBSTF_RES_OK;
             }
 		}
 	}
@@ -147,42 +191,6 @@ e_eCU_dBStf_Res bStufferRestartCurrentFrame(e_eCU_BStuffCtx* const ctx)
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferGetUnStufDataLocation(e_eCU_BStuffCtx* const ctx, uint8_t** dataP)
-{
-	/* Local variable */
-	e_eCU_dBStf_Res result;
-
-	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == dataP ) )
-	{
-		result = DBSTF_RES_BADPOINTER;
-	}
-	else
-	{
-		/* Check Init */
-		if( false == ctx->isInit )
-		{
-			result = DBSTF_RES_NOINITLIB;
-		}
-		else
-		{
-            /* Check internal status validity */
-            if( false == isBSStatusStillCoherent(ctx) )
-            {
-                result = DBSTF_RES_CORRUPTCTX;
-            }
-            else
-            {
-                /* Update index */
-                *dataP = ctx->memArea;
-                result = DBSTF_RES_OK;
-            }
-		}
-	}
-
-	return result;
-}
-
 e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
@@ -216,23 +224,30 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* co
                 }
                 else
                 {
+                    /* Init ret value */
                     *retrivedLen = 0u;
 
+                    /* now check if we need Start of frame */
                     if( true == ctx->needSof )
                     {
                         *retrivedLen = *retrivedLen + 1u;
                     }
 
+                    /* now check if we need End of frame */
                     if( true == ctx->needEof )
                     {
                         *retrivedLen = *retrivedLen + 1u;
                     }
 
+                    /* If a precedent byte of the payload was an SOF, EOF or ESC character, this means that the
+                     * ESC char is already inserted in the unstuffed data, but that we need to add the negation of the
+                     * payload */
                     if( true == ctx->precedentToCheck )
                     {
                         *retrivedLen = *retrivedLen + 1u;
                     }
 
+                    /* Calculate the remaining byte from the current counter of course */
                     for( uint32_t indx = ctx->memAreaCntr; indx < ctx->memAreaFrameSize; indx++ )
                     {
                         if( ECU_SOF == ctx->memArea[indx] )
