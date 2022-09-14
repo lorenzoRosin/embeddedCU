@@ -191,6 +191,11 @@ e_eCU_dBStf_Res bStufferRestartCurrentFrame(e_eCU_BStuffCtx* const ctx)
 	return result;
 }
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-17.4_b"
+    /* Suppressed for code clarity */
+#endif
+
 e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
@@ -279,11 +284,6 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* co
 
 	return result;
 }
-
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-17.4_b"
-    /* Suppressed for code clarity */
-#endif
 
 e_eCU_dBStf_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
 									   const uint32_t maxDestLen, uint32_t* const filledLen)

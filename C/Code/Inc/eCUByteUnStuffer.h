@@ -1,7 +1,11 @@
 /**
- * @file eCUByteUnStuffer.h
+ * @file       eCUByteUnStuffer.h
  *
- */
+ * @brief      Byte unstuffer utils
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUBYTEUNSTUFFER_H
 #define ECUBYTEUNSTUFFER_H
@@ -52,68 +56,100 @@ typedef struct
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Initialize the byte unstuffer context
- * @param  ctx Byte Unstuffer context
- * @param  memArea Pointer to a memory area that we will use to save unstuffed data
- * @param  memAreaSize Dimension in byte of the memory area
- * @return DBUSTF_RES_BADPOINTER in case of bad pointer
- *		   DBUSTF_RES_BADPARAM in case of an invalid parameter
- *         DBUSTF_RES_OK operation ended correctly
+ * @brief       Initialize the byte unStuffer context
+ *
+ * @param[in]   ctx         - Byte unStuffer context
+ * @param[in]   memArea     - Pointer to a memory area that we will use to store the unstuffed data
+ * @param[in]   memPoolSize - Dimension in byte of the memory area
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_BADPARAM     - In case of an invalid parameter passed to the function
+ *              DBUSTF_RES_OK           - Operation ended correctly
  */
 e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
- * Start receiving new frame
- * @param  ctx Byte Unstuffer context
- * @return DBUSTF_RES_BADPOINTER in case of bad pointer
- *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
- *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
- *         DBUSTF_RES_OK operation ended correctly
+ * @brief       Start receiving a new frame, loosing the previous stored unstuffed frame
+ *
+ * @param[in]   ctx         - Byte unStuffer context
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              DBUSTF_RES_OK           - Operation ended correctly
  */
 e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx);
 
 /**
- * Retrive unstuffed data reference
- * @param  ctx Byte Unstuffer context
- * @param  dataP Pointer of Pointer where the unstuffed data are present
- * @param  retrivedLen Pointer to a memory area were we will store size of the unstuffed data
- * @return DBUSTF_RES_BADPOINTER in case of bad pointer
- *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
- *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
- *         DBUSTF_RES_OK operation ended correctly
+ * @brief       Retrive the pointer to the stored unstuffed data, and the data size of the frame. Keep in mind that
+ *              the frame parsing could be ongoing, and if an error in the frame occour the retrivedLen could be
+ *              setted to 0 again
+ *
+ * @param[in]   ctx         - Byte unStuffer context
+ * @param[out]  dataP       - Pointer to a Pointer pointing to the unstuffed data frame
+ * @param[out]  maxDataSize - Pointer to a uint32_t variable where the size of the unstuffed data will be placed
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              DBUSTF_RES_OK           - Operation ended correctly
  */
 e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
 
 /**
- * Retrive how many raw byte we have unstuffed
- * @param  ctx Byte Unstuffer context
- * @param  retrivedLen Pointer to a memory area were we will store size of the unstuffed data
- * @return DBUSTF_RES_BADPOINTER in case of bad pointer
- *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
- *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
- *         DBUSTF_RES_OK operation ended correctly
+ * @brief       Retrive the current numbers of unstuffed data received. Keep in mind that the frame parsing could be
+ *              ongoing, and if an error in the frame occour the retrivedLen could be setted to 0 again
+ *
+ * @param[in]   ctx         - Byte unStuffer context
+ * @param[out]  retrivedLen - Pointer to a uint32_t variable where the size of the unstuffed data will be placed
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              DBUSTF_RES_OK           - Operation ended correctly
  */
 e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
- * Insert stuffed data chunk
- * @param  ctx Byte Unstuffer context
- * @param  stuffedArea Pointer to the stuffed Data that we will unstuff
- * @param  stuffLen data to unstuff size
- * @param  consumedStuffData Pointer to an uint32_t were we will store how many stuffed data byte were analyzed
- *         and that dosent need to be inserted in this function anymore
- * @param  errSofRec Pointer to an uint32_t were we will store how many protocol error were detected. Even with
- *         some error detected, the protocol will continue parsing data discharging error
- * @return DBUSTF_RES_BADPOINTER in case of bad pointer
- *		   DBUSTF_RES_NOINITLIB need to init context before taking some action
- *		   DBUSTF_RES_BADPARAM in case of an invalid parameter or state
- *		   DBUSTF_RES_CORRUPTCTX in case of an corrupted context
- *         DBUSTF_RES_OUTOFMEM Can not unstuff data, initial mem pointer was too small
- *		   DBUSTF_RES_FRAMEENDED Frame ended, restart context in order to parse a new frame
- *         DBUSTF_RES_OK operation ended correctly
+ * @brief       Check if the current frame is finished or we need to unstuff some more data to have the full frame
+ *
+ * @param[in]   ctx            - Byte unStuffer context
+ * @param[out]  isFrameUnstuff - Pointer to a bool_t variable where we will store if the frame parsing is ongoing
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              DBUSTF_RES_OK           - Operation ended correctly
+ */
+e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(e_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff);
+
+/**
+ * @brief       Insert the stuffed data chunk that the alg will unstuff byte per byte
+ *
+ * @param[in]   ctx                - Byte unStuffer context
+ * @param[in]   stuffedArea        - Pointer to the stuffed Data that we will unstuff
+ * @param[in]   stuffLen           - Size of the stuffedArea
+ * @param[out]  consumedStuffData  - Pointer to an uint32_t were we will store how many stuffed data byte has been
+ *                                   analized. keep in mind that unalized data were not unstuffed and will need to be
+ *                                   reparsed
+ * @param[out]  errSofRec          - Pointer to an uint32_t were we will store how many protocol error were detected.
+ *                                   Even with some error detected, the protocol will continue parsing data discharging
+ *                                   error.
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        DBUSTF_RES_BADPARAM     - In case of an invalid parameter passed to the function
+ *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              DBUSTF_RES_OUTOFMEM     - Can not unstuff data, initial mem pointer was too small. The only way to
+ *                                        resolve the issue is increasing the size of the memory area passed to init
+ *		        DBUSTF_RES_FRAMEENDED   - Frame ended, restart context in order to parse a new frame. Every other call
+ *                                        to this function will not have effect until we call bUStufferStartNewFrame.
+ *                                        In this situation bear in mind that some data could be left out the parsing.
+ *              DBUSTF_RES_OK           - Operation ended correctly. The chunk is parsed correclty but the frame is not
+ *                                        finished yet
  */
 e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
-                                  uint32_t* const consumedStuffData, uint32_t* errSofRec);
+                                       uint32_t* const consumedStuffData, uint32_t* errSofRec);
 
 #ifdef __cplusplus
 } /* extern "C" */

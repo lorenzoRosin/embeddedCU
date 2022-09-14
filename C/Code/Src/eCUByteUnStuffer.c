@@ -1,7 +1,11 @@
 /**
- * @file eCUByteUnStuffer.c
+ * @file       eCUByteUnStuffer.c
  *
- */
+ * @brief      Byte unstuffer utils
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 /***********************************************************************************************************************
  *      INCLUDES
@@ -81,7 +85,10 @@ e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx)
             else
             {
                 /* Update index */
-                restartFrameReceiver(ctx);
+                ctx->memAreaCntr = 0u;
+                ctx->precedentWasEsc = false;
+                ctx->needSof = true;
+                ctx->needEof = true;
                 result = DBUSTF_RES_OK;
             }
 		}
@@ -162,12 +169,63 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* co
 }
 
 #ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2012-Rule-8.13"
+    /* Suppressed for code clarity */
+#endif
+
+e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(e_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff)
+{
+	/* Local variable */
+	e_eCU_dBUStf_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isFrameUnstuff ) )
+	{
+		result = DBUSTF_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = DBUSTF_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isBUSStatusStillCoherent(ctx) )
+            {
+                result = DBUSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                if( false == ctx->needEof )
+                {
+                    *isFrameUnstuff = true;
+                }
+                else
+                {
+                    *isFrameUnstuff = false;
+                }
+                result = DBUSTF_RES_OK;
+            }
+		}
+	}
+
+	return result;
+}
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2012-Rule-8.13"
+#endif
+
+#ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_disable = "MISRAC2004-17.4_b"
     /* Suppressed for code clarity */
 #endif
 
 e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
-                                  uint32_t* const consumedStuffData, uint32_t* errSofRec)
+                                       uint32_t* const consumedStuffData, uint32_t* errSofRec)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
