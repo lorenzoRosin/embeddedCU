@@ -64,6 +64,7 @@ void byteUnStuffTestBadPointer(void)
     uint32_t varTemp32;
     uint32_t a;
     uint8_t *dataP;
+    bool_t frameIsUnstuffed;
 
     /* Function */
     if( DBUSTF_RES_BADPOINTER == bUStufferInitCtx(NULL, memArea, sizeof(memArea)) )
@@ -138,7 +139,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 8  -- FAIL \n");
     }
 
-    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferIsAFullFrameUnstuff( NULL, &frameIsUnstuffed ) )
     {
         (void)printf("byteUnStuffTestBadPointer 9  -- OK \n");
     }
@@ -147,7 +148,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 9  -- FAIL \n");
     }
 
-    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferIsAFullFrameUnstuff( &ctx, NULL ) )
     {
         (void)printf("byteUnStuffTestBadPointer 10 -- OK \n");
     }
@@ -156,7 +157,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 10 -- FAIL \n");
     }
 
-    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a ) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 11 -- OK \n");
     }
@@ -165,13 +166,31 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 11 -- FAIL \n");
     }
 
-    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL) )
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a ) )
     {
         (void)printf("byteUnStuffTestBadPointer 12 -- OK \n");
     }
     else
     {
         (void)printf("byteUnStuffTestBadPointer 12 -- FAIL \n");
+    }
+
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 13 -- FAIL \n");
+    }
+
+    if( DBUSTF_RES_BADPOINTER == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 14 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 14 -- FAIL \n");
     }
 }
 
@@ -183,6 +202,7 @@ void byteUnStuffTestBadInit(void)
     uint32_t varTemp32;
     uint32_t a;
     uint8_t *dataP;
+    bool_t frameIsUnstuffed;
 
     /* Init variable */
     ctx.isInit = false;
@@ -215,13 +235,22 @@ void byteUnStuffTestBadInit(void)
         (void)printf("byteUnStuffTestBadInit 3  -- FAIL \n");
     }
 
-    if( DBUSTF_RES_NOINITLIB == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
+    if( DBUSTF_RES_NOINITLIB == bUStufferIsAFullFrameUnstuff(&ctx, &frameIsUnstuffed) )
     {
         (void)printf("byteUnStuffTestBadInit 4  -- OK \n");
     }
     else
     {
         (void)printf("byteUnStuffTestBadInit 4  -- FAIL \n");
+    }
+
+    if( DBUSTF_RES_NOINITLIB == bUStufferInsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
+    {
+        (void)printf("byteUnStuffTestBadInit 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadInit 5  -- FAIL \n");
     }
 }
 
@@ -269,6 +298,7 @@ void byteUnStuffTestBadParamStatus(void)
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint8_t *dataP;
+    bool_t frameIsUnstuffed;
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
@@ -453,6 +483,46 @@ void byteUnStuffTestBadParamStatus(void)
     {
         (void)printf("byteUnStuffTestBadParamStatus 16 -- FAIL \n");
     }
+
+    /* Function  */
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 17 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 17 -- FAIL \n");
+    }
+
+    ctx.memAreaSize = 0u;
+    if( DBUSTF_RES_CORRUPTCTX == bUStufferIsAFullFrameUnstuff(&ctx, &frameIsUnstuffed) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 18 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 18 -- FAIL \n");
+    }
+
+    /* Function  */
+    if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 19 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 19 -- FAIL \n");
+    }
+
+    ctx.memAreaSize = 0u;
+    if( DBUSTF_RES_CORRUPTCTX == bUStufferStartNewFrame(&ctx) )
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 20 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamStatus 20 -- FAIL \n");
+    }
 }
 
 void byteUnStuffTestOutOfMem(void)
@@ -464,7 +534,7 @@ void byteUnStuffTestOutOfMem(void)
     uint32_t varTemp32;
     uint32_t errSofRec;
     uint8_t* dataP;
-
+    bool_t frIsUnstuf;
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
@@ -515,7 +585,21 @@ void byteUnStuffTestOutOfMem(void)
                             {
                                 if( ( 5u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestOutOfMem 2  -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( false == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 2  -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 2  -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestOutOfMem 2  -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
@@ -594,7 +678,21 @@ void byteUnStuffTestOutOfMem(void)
                             {
                                 if( ( 5u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestOutOfMem 4  -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( false == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 4  -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 4  -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestOutOfMem 4  -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
@@ -724,7 +822,21 @@ void byteUnStuffTestOutOfMem(void)
                             {
                                 if( ( 5u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestOutOfMem 7  -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( false == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 7  -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 7  -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestOutOfMem 7  -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
@@ -795,7 +907,21 @@ void byteUnStuffTestOutOfMem(void)
                         {
                             if( ( 2u == varTemp32 ) && ( memArea == dataP) )
                             {
-                                (void)printf("byteUnStuffTestOutOfMem 9  -- OK \n");
+                                if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                {
+                                    if( false == frIsUnstuf)
+                                    {
+                                        (void)printf("byteUnStuffTestOutOfMem 9  -- OK \n");
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestOutOfMem 9  -- FAIL \n");
+                                    }
+                                }
+                                else
+                                {
+                                    (void)printf("byteUnStuffTestOutOfMem 9  -- FAIL \n");
+                                }
                             }
                             else
                             {
@@ -854,7 +980,21 @@ void byteUnStuffTestOutOfMem(void)
                             {
                                 if( ( 5u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestOutOfMem 10 -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( false == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 10 -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestOutOfMem 10 -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestOutOfMem 10 -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
@@ -895,7 +1035,7 @@ void byteUnStuffTestFrameEnd(void)
     uint32_t varTemp32;
     uint32_t errSofRec;
     uint8_t* dataP;
-
+    bool_t frIsUnstuf;
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
@@ -946,7 +1086,21 @@ void byteUnStuffTestFrameEnd(void)
                             {
                                 if( ( 5u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 2  -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( true == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 2  -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 2  -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 2  -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
@@ -1022,7 +1176,21 @@ void byteUnStuffTestFrameEnd(void)
                             {
                                 if( ( 3u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 4  -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( true == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 4  -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 4  -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 4  -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
@@ -1093,7 +1261,21 @@ void byteUnStuffTestFrameEnd(void)
                         {
                             if( ( 2u == varTemp32 ) && ( memArea == dataP) )
                             {
-                                (void)printf("byteUnStuffTestFrameEnd 6  -- OK \n");
+                                if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                {
+                                    if( false == frIsUnstuf)
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 6  -- OK \n");
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 6  -- FAIL \n");
+                                    }
+                                }
+                                else
+                                {
+                                    (void)printf("byteUnStuffTestFrameEnd 6  -- FAIL \n");
+                                }
                             }
                             else
                             {
@@ -1151,7 +1333,21 @@ void byteUnStuffTestFrameEnd(void)
                             {
                                 if( ( 5u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 7  -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( true == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 7  -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 7  -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 7  -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
@@ -1220,7 +1416,21 @@ void byteUnStuffTestFrameEnd(void)
                         {
                             if( ( 1u == varTemp32 ) && ( memArea == dataP) )
                             {
-                                (void)printf("byteUnStuffTestFrameEnd 9  -- OK \n");
+                                if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                {
+                                    if( false == frIsUnstuf)
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 9  -- OK \n");
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 9  -- FAIL \n");
+                                    }
+                                }
+                                else
+                                {
+                                    (void)printf("byteUnStuffTestFrameEnd 9  -- FAIL \n");
+                                }
                             }
                             else
                             {
@@ -1278,7 +1488,21 @@ void byteUnStuffTestFrameEnd(void)
                             {
                                 if( ( 3u == varTemp32 ) && ( memArea == dataP) )
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 10 -- OK \n");
+                                    if( DBUSTF_RES_OK == bUStufferIsAFullFrameUnstuff(&ctx, &frIsUnstuf) )
+                                    {
+                                        if( true == frIsUnstuf)
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 10 -- OK \n");
+                                        }
+                                        else
+                                        {
+                                            (void)printf("byteUnStuffTestFrameEnd 10 -- FAIL \n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        (void)printf("byteUnStuffTestFrameEnd 10 -- FAIL \n");
+                                    }
                                 }
                                 else
                                 {
