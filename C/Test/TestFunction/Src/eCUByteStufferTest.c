@@ -21,6 +21,7 @@
  **********************************************************************************************************************/
 static void byteStuffTestBadPointer(void);
 static void byteStuffTestBadInit(void);
+static void byteStuffTestBadIniFrame(void);
 static void byteStuffTestBadParamEntr(void);
 static void byteStuffTestBadParamStatus(void);
 static void byteStuffTestOutOfMem(void);
@@ -36,6 +37,7 @@ void byteStufferTest(void)
 
     byteStuffTestBadPointer();
     byteStuffTestBadInit();
+    byteStuffTestBadIniFrame();
     byteStuffTestBadParamEntr();
     byteStuffTestBadParamStatus();
     byteStuffTestOutOfMem();
@@ -58,6 +60,7 @@ void byteStuffTestBadPointer(void)
     e_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
+    uint8_t* pointer;
 
 
     /* Function */
@@ -79,7 +82,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 2  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferRestartCurrentFrame(NULL) )
+    if( DBSTF_RES_BADPOINTER == bStufferStartNewFrame(NULL, 2u) )
     {
         (void)printf("byteStuffTestBadPointer 3  -- OK \n");
     }
@@ -88,7 +91,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 3  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferGetRemToRetrive(NULL, &varTemp32) )
+    if( DBSTF_RES_BADPOINTER == bStufferGetUnStufDataLocation(NULL, &pointer, &varTemp32) )
     {
         (void)printf("byteStuffTestBadPointer 4  -- OK \n");
     }
@@ -97,7 +100,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 4  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferGetRemToRetrive(&ctx, NULL) )
+    if( DBSTF_RES_BADPOINTER == bStufferGetUnStufDataLocation(&ctx, NULL, &varTemp32) )
     {
         (void)printf("byteStuffTestBadPointer 5  -- OK \n");
     }
@@ -106,7 +109,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 5  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferRetriStufChunk(NULL, memArea, sizeof(memArea), &varTemp32 ) )
+    if( DBSTF_RES_BADPOINTER == bStufferGetUnStufDataLocation(&ctx, &pointer, NULL) )
     {
         (void)printf("byteStuffTestBadPointer 6  -- OK \n");
     }
@@ -115,7 +118,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 6  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferRetriStufChunk(&ctx, NULL, sizeof(memArea), &varTemp32) )
+    if( DBSTF_RES_BADPOINTER == bStufferRestartCurrentFrame(NULL) )
     {
         (void)printf("byteStuffTestBadPointer 7  -- OK \n");
     }
@@ -124,7 +127,7 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 7  -- FAIL \n");
     }
 
-    if( DBSTF_RES_BADPOINTER == bStufferRetriStufChunk(&ctx, memArea, sizeof(memArea), NULL) )
+    if( DBSTF_RES_BADPOINTER == bStufferGetRemToRetrive(NULL, &varTemp32) )
     {
         (void)printf("byteStuffTestBadPointer 8  -- OK \n");
     }
@@ -132,6 +135,43 @@ void byteStuffTestBadPointer(void)
     {
         (void)printf("byteStuffTestBadPointer 8  -- FAIL \n");
     }
+
+    if( DBSTF_RES_BADPOINTER == bStufferGetRemToRetrive(&ctx, NULL) )
+    {
+        (void)printf("byteStuffTestBadPointer 9  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadPointer 9  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_BADPOINTER == bStufferRetriStufChunk(NULL, memArea, sizeof(memArea), &varTemp32 ) )
+    {
+        (void)printf("byteStuffTestBadPointer 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadPointer 10 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_BADPOINTER == bStufferRetriStufChunk(&ctx, NULL, sizeof(memArea), &varTemp32) )
+    {
+        (void)printf("byteStuffTestBadPointer 11 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadPointer 11 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_BADPOINTER == bStufferRetriStufChunk(&ctx, memArea, sizeof(memArea), NULL) )
+    {
+        (void)printf("byteStuffTestBadPointer 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadPointer 12 -- FAIL \n");
+    }
+
 }
 
 void byteStuffTestBadInit(void)
@@ -140,12 +180,13 @@ void byteStuffTestBadInit(void)
     e_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
+    uint8_t* pointer;
 
     /* Init variable */
     ctx.isInit = false;
 
     /* Function */
-    if( DBSTF_RES_NOINITLIB == bStufferRestartCurrentFrame(&ctx) )
+    if( DBSTF_RES_NOINITLIB == bStufferStartNewFrame(&ctx, 2u) )
     {
         (void)printf("byteStuffTestBadInit 1  -- OK \n");
     }
@@ -154,7 +195,7 @@ void byteStuffTestBadInit(void)
         (void)printf("byteStuffTestBadInit 1  -- FAIL \n");
     }
 
-    if( DBSTF_RES_NOINITLIB == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    if( DBSTF_RES_NOINITLIB == bStufferGetUnStufDataLocation(&ctx, &pointer, &varTemp32) )
     {
         (void)printf("byteStuffTestBadInit 2  -- OK \n");
     }
@@ -163,13 +204,98 @@ void byteStuffTestBadInit(void)
         (void)printf("byteStuffTestBadInit 2  -- FAIL \n");
     }
 
-    if( DBSTF_RES_NOINITLIB == bStufferRetriStufChunk(&ctx, memArea, sizeof(memArea), &varTemp32) )
+    if( DBSTF_RES_NOINITLIB == bStufferRestartCurrentFrame(&ctx) )
     {
         (void)printf("byteStuffTestBadInit 3  -- OK \n");
     }
     else
     {
         (void)printf("byteStuffTestBadInit 3  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_NOINITLIB == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        (void)printf("byteStuffTestBadInit 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadInit 4  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_NOINITLIB == bStufferRetriStufChunk(&ctx, memArea, sizeof(memArea), &varTemp32) )
+    {
+        (void)printf("byteStuffTestBadInit 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadInit 5  -- FAIL \n");
+    }
+}
+
+void byteStuffTestBadIniFrame(void)
+{
+    /* Local variable */
+    e_eCU_BStuffCtx ctx;
+    uint8_t  memArea[5u];
+    uint32_t varTemp32;
+
+    /* Init variable */
+    ctx.isInit = false;
+    (void)memset(memArea, 0, sizeof(memArea));
+
+    /* Function */
+    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteStuffTestBadIniFrame 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadIniFrame 1  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_NOINITFRAME == bStufferRestartCurrentFrame(&ctx) )
+    {
+        (void)printf("byteStuffTestBadIniFrame 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadIniFrame 2  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_NOINITFRAME == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        (void)printf("byteStuffTestBadIniFrame 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadIniFrame 3  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_NOINITFRAME == bStufferRetriStufChunk(&ctx, memArea, sizeof(memArea), &varTemp32) )
+    {
+        (void)printf("byteStuffTestBadIniFrame 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadIniFrame 4  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, 2u) )
+    {
+        (void)printf("byteStuffTestBadIniFrame 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadIniFrame 5  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferRestartCurrentFrame(&ctx) )
+    {
+        (void)printf("byteStuffTestBadIniFrame 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadIniFrame 6  -- FAIL \n");
     }
 }
 
@@ -203,8 +329,7 @@ void byteStuffTestBadParamEntr(void)
         (void)printf("byteStuffTestBadParamEntr 2  -- FAIL \n");
     }
 
-
-    if( DBSTF_RES_BADPARAM == bStufferRetriStufChunk(&ctx, memArea, 0u, &varTemp32) )
+    if( DBSTF_RES_BADPARAM == bStufferStartNewFrame(&ctx, 0u) )
     {
         (void)printf("byteStuffTestBadParamEntr 3  -- OK \n");
     }
@@ -212,7 +337,92 @@ void byteStuffTestBadParamEntr(void)
     {
         (void)printf("byteStuffTestBadParamEntr 3  -- FAIL \n");
     }
+
+    if( DBSTF_RES_BADPARAM == bStufferStartNewFrame(&ctx, (sizeof(memArea) +1u) ) )
+    {
+        (void)printf("byteStuffTestBadParamEntr 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadParamEntr 4  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
+    {
+        (void)printf("byteStuffTestBadParamEntr 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadParamEntr 5  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_BADPARAM == bStufferRetriStufChunk(&ctx, memArea, 0u, &varTemp32) )
+    {
+        (void)printf("byteStuffTestBadParamEntr 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadParamEntr 6  -- FAIL \n");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void byteStuffTestBadParamStatus(void)
 {
