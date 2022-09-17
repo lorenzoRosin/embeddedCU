@@ -63,51 +63,72 @@ typedef struct
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Initialize the CRC32 digester context ( use as base seed 0xffffffffu )
- * @param ctx Crc digester context
- * @param cbCrcP Pointer to a CRC 32 seed callback function
- * @param clbCtx Custom context passed to the callback function
- * @return CRCD_RES_BADPOINTER in case of bad pointer
- *         CRCD_RES_OK crc digester is initialized correctly
+ * @brief       Initialize the CRC32 digester context ( use as base seed 0xffffffffu )
+ *
+ * @param[in]   ctx         - Crc digester context
+ * @param[in]   cbCrcP      - Pointer to a CRC 32 seed callback function, that will be used to calculate the CRC32
+ * @param[in]   clbCtx      - Custom context passed to the callback function cbCrcP
+ *
+ * @return      CRCD_RES_BADPOINTER     - In case of bad pointer passed to the function
+ *              CRCD_RES_OK             - Crc digester initialized successfully
  */
 e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* const clbCtx);
 
 /**
- * Initialize the CRC32 digester context using a selected seed
- * @param ctx Crc digester context
- * @param seed Base Seed
- * @param cbCrcP Pointer to a CRC 32 seed callback function
- * @param clbCtx Custom context passed to the callback function
- * @return CRCD_RES_BADPOINTER in case of bad pointer
- *         CRCD_RES_OK crc digester is initialized correctly
+ * @brief       Initialize the CRC32 digester context using a selected seed
+ *
+ * @param[in]   ctx         - Crc digester context
+ * @param[in]   seed        - Base Seed
+ * @param[in]   cbCrcP      - Pointer to a CRC 32 seed callback function, that will be used to calculate the CRC32
+ * @param[in]   clbCtx      - Custom context passed to the callback function cbCrcP
+ *
+ * @return      CRCD_RES_BADPOINTER     - In case of bad pointer passed to the function
+ *              CRCD_RES_OK             - Crc digester initialized successfully
  */
 e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
                                     void* const clbCtx);
 
 /**
- * Digest a chunk of data in to the CRC32 calc
- * @param ctx Crc digester context
- * @param data Pointer to a memory area containg a chunk of data to analyze
- * @param dataLen Lenght of the buffer we will digest
- * @return CRCD_RES_BADPOINTER in case of bad pointer
- *		   CRCD_RES_NOINITLIB need to init the lib before taking some action
- *		   CRCD_RES_BADPARAM in case of an invalid parameter
- *		   CRCD_RES_CORRUPTCTX in case of an corrupted context
- *         CRCD_RES_TOOMANYDIGEST Too many digest operation
- *         CRCD_RES_CLBCKREPORTERROR The callback function reported an error
- *         CRCD_RES_OK operation ended correctly
-*/
-e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
+ * @brief       Restart the digester and disharge all old value
+ *
+ * @param[in]   ctx         - Crc digester context
+ *
+ * @return      CRCD_RES_BADPOINTER         - In case of bad pointer passed to the function
+ *              CRCD_RES_OK                 - Data digested successfully
+ *              CRCD_RES_NOINITLIB          - Need to init the lib before taking some action
+ *              CRCD_RES_CORRUPTCTX         - In case of a corrupted context
+ */
+e_eCU_CrcD_Res crcDigesRestart(s_eCU_CrcDigestCtx* const ctx);
 
 /**
- * Retrive the CRC32 value calculated till now
- * @param ctx Crc digester context
- * @param crcCalc Pointer to a memory that will contain the value of the calculated CRC
- * @return CRCD_RES_BADPOINTER in case of bad pointer
- *		   CRCD_RES_NOINITLIB need to init the lib before taking some action
- *		   CRCD_RES_CORRUPTCTX in case of an corrupted context
- *		   CRCD_RES_NODIGESTDONE need to do al least one digest before getting val
- *         CRCD_RES_OK operation ended correctly
+ * @brief       Digest a chunk of data that we want to calculate CRC
+ *
+ * @param[in]   ctx         - Crc digester context
+ * @param[in]   data        - Pointer to a memory area containg a chunk of data to analyze
+ * @param[in]   dataLen     - Lenght of the buffer we will digest
+ *
+ * @return      CRCD_RES_BADPOINTER         - In case of bad pointer passed to the function
+ *              CRCD_RES_OK                 - Data digested successfully
+ *              CRCD_RES_NOINITLIB          - Need to init the lib before taking some action
+ *              CRCD_RES_BADPARAM           - In case of bad parameter passed to the function
+ *              CRCD_RES_CORRUPTCTX         - In case of a corrupted context
+ *              CRCD_RES_TOOMANYDIGEST      - Too many digest operation
+ *              CRCD_RES_CLBCKREPORTERROR   - The callback function reported an error
+ */
+e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
+
+
+/**
+ * @brief       Retrive the CRC32 of all the chunk passed to crcDigesDigest
+ *
+ * @param[in]   ctx         - Crc digester context
+ * @param[out]  crcCalc     - Pointer to a memory area that will contain the value of the calculated CRC
+ *
+ * @return      CRCD_RES_BADPOINTER         - In case of bad pointer passed to the function
+ *              CRCD_RES_OK                 - Data digested successfully
+ *              CRCD_RES_NOINITLIB          - Need to init the lib before taking some action
+ *              CRCD_RES_CORRUPTCTX         - In case of a corrupted context
+ *              CRCD_RES_NODIGESTDONE       - Need to do al least one digest before getting the CRC32
  */
 e_eCU_CrcD_Res crcDigesGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* const crcCalc);
 

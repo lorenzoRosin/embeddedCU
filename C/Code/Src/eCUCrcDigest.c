@@ -77,6 +77,44 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
 	return result;
 }
 
+e_eCU_CrcD_Res crcDigesRestart(s_eCU_CrcDigestCtx* const ctx)
+{
+	/* Local variable */
+	e_eCU_CrcD_Res result;
+
+	/* Check pointer validity */
+	if( NULL == ctx )
+	{
+		result = CRCD_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = CRCD_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isCrctatusStillCoherent(ctx) )
+            {
+                result = CRCD_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* Init context */
+                ctx->digestedTimes = 0u;
+                ctx->lastDigest = 0u;
+
+                result = CRCD_RES_OK;
+            }
+        }
+    }
+
+    return result;
+}
+
 e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
 {
 	/* Local variable */
