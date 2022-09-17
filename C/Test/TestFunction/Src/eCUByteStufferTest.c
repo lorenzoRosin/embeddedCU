@@ -656,6 +656,7 @@ void byteStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaSize = 0u;
+    ctx.memAreaFrameSize = 1u;
     if( DBSTF_RES_CORRUPTCTX == bStufferRestartCurrentFrame(&ctx) )
     {
         (void)printf("byteStuffTestBadParamStatus 27 -- OK \n");
@@ -676,6 +677,7 @@ void byteStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaSize = 0u;
+    ctx.memAreaFrameSize = 1u;
     if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 29 -- OK \n");
@@ -696,6 +698,7 @@ void byteStuffTestBadParamStatus(void)
     }
 
     ctx.memAreaSize = 0u;
+    ctx.memAreaFrameSize = 1u;
     if( DBSTF_RES_CORRUPTCTX == bStufferRetriStufChunk(&ctx, memArea, 1u, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 31 -- OK \n");
@@ -705,69 +708,6 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 31 -- FAIL \n");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void byteStuffTestOutOfMem(void)
 {
@@ -794,23 +734,16 @@ void byteStuffTestOutOfMem(void)
         (void)printf("byteStuffTestOutOfMem 1  -- FAIL \n");
     }
 
-    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[0], 1u, &varTemp32) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        if( 1u == varTemp32 )
-        {
-            (void)printf("byteStuffTestOutOfMem 2  -- OK \n");
-        }
-        else
-        {
-            (void)printf("byteStuffTestOutOfMem 2  -- FAIL \n");
-        }
+        (void)printf("byteStuffTestOutOfMem 2  -- OK \n");
     }
     else
     {
         (void)printf("byteStuffTestOutOfMem 2  -- FAIL \n");
     }
 
-    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[1], 1u, &varTemp32) )
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[0], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
@@ -826,7 +759,7 @@ void byteStuffTestOutOfMem(void)
         (void)printf("byteStuffTestOutOfMem 3  -- FAIL \n");
     }
 
-    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[1], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
@@ -842,9 +775,9 @@ void byteStuffTestOutOfMem(void)
         (void)printf("byteStuffTestOutOfMem 4  -- FAIL \n");
     }
 
-    if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[3], 7u, &varTemp32) )
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
     {
-        if( 7u == varTemp32 )
+        if( 1u == varTemp32 )
         {
             (void)printf("byteStuffTestOutOfMem 5  -- OK \n");
         }
@@ -858,9 +791,9 @@ void byteStuffTestOutOfMem(void)
         (void)printf("byteStuffTestOutOfMem 5  -- FAIL \n");
     }
 
-    if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[10], 1u, &varTemp32) )
+    if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[3], 7u, &varTemp32) )
     {
-        if( 0u == varTemp32 )
+        if( 7u == varTemp32 )
         {
             (void)printf("byteStuffTestOutOfMem 6  -- OK \n");
         }
@@ -873,20 +806,345 @@ void byteStuffTestOutOfMem(void)
     {
         (void)printf("byteStuffTestOutOfMem 6  -- FAIL \n");
     }
+
+    if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[10], 1u, &varTemp32) )
+    {
+        if( 0u == varTemp32 )
+        {
+            (void)printf("byteStuffTestOutOfMem 7  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestOutOfMem 7  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestOutOfMem 7  -- FAIL \n");
+    }
 }
 
 void byteStuffTestGetRemainings(void)
 {
+    /* Local variable */
+    e_eCU_BStuffCtx ctx;
+    uint8_t  memArea[5u];
+    uint8_t  memAreaFinalChunk[50u];
+    uint32_t varTemp32;
+    uint8_t* pointer;
 
+    /* Init variable */
+    memArea[0u] = ECU_SOF;
+    memArea[1u] = ECU_EOF;
+    memArea[2u] = ECU_ESC;
+    memArea[3u] = 0x12u;
+    memArea[4u] = 0xFFu;
 
+    /* Function */
+    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    {
+        (void)printf("byteStuffTestGetRemainings 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 1  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
+    {
+        (void)printf("byteStuffTestGetRemainings 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 2  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 10u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 3  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 3  -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[0], 1u, &varTemp32) )
+    {
+        if( 1u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 4  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 4  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 4  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 9u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 5  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 5  -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[1], 1u, &varTemp32) )
+    {
+        if( 1u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 6  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 6  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 6  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
+    {
+        if( 1u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 7  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 7  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 7  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 7u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 8  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 8  -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[3], 7u, &varTemp32) )
+    {
+        if( 7u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 9  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 9  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 9  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 0u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 10 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 10 -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_OK == bStufferGetUnStufDataLocation(&ctx, &pointer, &varTemp32) )
+    {
+        if( ( sizeof(memArea) == varTemp32 ) && ( memArea == pointer))
+        {
+            (void)printf("byteStuffTestGetRemainings 11 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 11 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 11 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferRestartCurrentFrame(&ctx) )
+    {
+        (void)printf("byteStuffTestGetRemainings 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 12 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 10u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 13 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 3 -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[0], 1u, &varTemp32) )
+    {
+        if( 1u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 14 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 14 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 14 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 9u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 15 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 15 -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[1], 1u, &varTemp32) )
+    {
+        if( 1u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 16 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 16 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 16 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
+    {
+        if( 1u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 17 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 17 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 17 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 7u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 18 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 18 -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[3], 7u, &varTemp32) )
+    {
+        if( 7u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 19 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 19 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 19 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 0u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 20 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 20 -- FAIL \n");
+        }
+    }
+
+    if( DBSTF_RES_OK == bStufferGetUnStufDataLocation(&ctx, &pointer, &varTemp32) )
+    {
+        if( ( sizeof(memArea) == varTemp32 ) && ( memArea == pointer))
+        {
+            (void)printf("byteStuffTestGetRemainings 21 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 21 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 21 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, 1u) )
+    {
+        (void)printf("byteStuffTestGetRemainings 22 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 22 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 4u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGetRemainings 23 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 23 -- FAIL \n");
+        }
+    }
 }
-
-
-
-
-
-
-
 
 void byteStuffTestGeneral(void)
 {
@@ -898,6 +1156,7 @@ void byteStuffTestGeneral(void)
     uint32_t varTemp32;
     uint32_t counter;
     uint32_t remaining;
+    uint8_t* pointer;
 
     /* Init variable */
     memAreaExpected[0u] = ECU_SOF;
@@ -927,6 +1186,15 @@ void byteStuffTestGeneral(void)
         (void)printf("byteStuffTestGeneral 1  -- FAIL \n");
     }
 
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
+    {
+        (void)printf("byteStuffTestGeneral 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestGeneral 2  -- FAIL \n");
+    }
+
     e_eCU_dBStf_Res result = DBSTF_RES_OK;
     varTemp32 = 0u;
     counter = 0u;
@@ -949,27 +1217,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 2  -- OK \n");
+        (void)printf("byteStuffTestGeneral 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 2  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 3  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 3  -- OK \n");
+            (void)printf("byteStuffTestGeneral 4  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 3  -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 3  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 4  -- FAIL \n");
     }
 
     /* Init variable */
@@ -980,13 +1248,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 4  -- OK \n");
+        (void)printf("byteStuffTestGeneral 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 4  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 5  -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1004,27 +1272,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 5  -- OK \n");
+        (void)printf("byteStuffTestGeneral 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 5  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 6  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 6  -- OK \n");
+            (void)printf("byteStuffTestGeneral 7  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 6  -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 6  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 7  -- FAIL \n");
     }
 
     /* Init variable */
@@ -1035,13 +1303,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 7  -- OK \n");
+        (void)printf("byteStuffTestGeneral 8  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 7  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 8  -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1059,27 +1327,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 8  -- OK \n");
+        (void)printf("byteStuffTestGeneral 9  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 8  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 9  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 9  -- OK \n");
+            (void)printf("byteStuffTestGeneral 10 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 9  -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 9  -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 10 -- FAIL \n");
     }
 
 
@@ -1091,13 +1359,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 10 -- OK \n");
+        (void)printf("byteStuffTestGeneral 11 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 10 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 11 -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1115,27 +1383,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 11 -- OK \n");
+        (void)printf("byteStuffTestGeneral 12 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 11 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 12 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 12 -- OK \n");
+            (void)printf("byteStuffTestGeneral 13 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 12 -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 12 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 13 -- FAIL \n");
     }
 
 
@@ -1148,13 +1416,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 13 -- OK \n");
+        (void)printf("byteStuffTestGeneral 14 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 13 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 14 -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1172,27 +1440,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 14 -- OK \n");
+        (void)printf("byteStuffTestGeneral 15 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 14 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 15 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 15 -- OK \n");
+            (void)printf("byteStuffTestGeneral 16 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 15 -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 15 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 16 -- FAIL \n");
     }
 
 
@@ -1204,13 +1472,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 16 -- OK \n");
+        (void)printf("byteStuffTestGeneral 17 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 16 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 17 -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1228,27 +1496,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 17 -- OK \n");
+        (void)printf("byteStuffTestGeneral 18 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 17 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 18 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 18 -- OK \n");
+            (void)printf("byteStuffTestGeneral 19 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 18 -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 19 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 18 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 19 -- FAIL \n");
     }
 
 
@@ -1261,13 +1529,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 19 -- OK \n");
+        (void)printf("byteStuffTestGeneral 20 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 19 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 20 -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1285,27 +1553,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 20 -- OK \n");
+        (void)printf("byteStuffTestGeneral 21 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 20 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 21 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 21 -- OK \n");
+            (void)printf("byteStuffTestGeneral 22 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 21 -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 22 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 21 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 22 -- FAIL \n");
     }
 
 
@@ -1319,13 +1587,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 22 -- OK \n");
+        (void)printf("byteStuffTestGeneral 23 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 22 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 23 -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1343,30 +1611,28 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 23 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestGeneral 23 -- FAIL \n");
-    }
-
-    if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
-    {
-        if( sizeof(memAreaExpected) == counter )
-        {
-            (void)printf("byteStuffTestGeneral 24 -- OK \n");
-        }
-        else
-        {
-            (void)printf("byteStuffTestGeneral 24 -- FAIL \n");
-        }
+        (void)printf("byteStuffTestGeneral 24 -- OK \n");
     }
     else
     {
         (void)printf("byteStuffTestGeneral 24 -- FAIL \n");
     }
 
-
+    if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
+    {
+        if( sizeof(memAreaExpected) == counter )
+        {
+            (void)printf("byteStuffTestGeneral 25 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGeneral 25 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGeneral 25 -- FAIL \n");
+    }
 
 
     /* Init variable */
@@ -1377,13 +1643,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 25 -- OK \n");
+        (void)printf("byteStuffTestGeneral 26 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 25 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 26 -- FAIL \n");
     }
 
     result = DBSTF_RES_OK;
@@ -1401,27 +1667,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 26 -- OK \n");
+        (void)printf("byteStuffTestGeneral 27 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 26 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 27 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 27 -- OK \n");
+            (void)printf("byteStuffTestGeneral 28 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 27 -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 28 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 27 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 28 -- FAIL \n");
     }
 
 
@@ -1434,13 +1700,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 28 -- OK \n");
+        (void)printf("byteStuffTestGeneral 29 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 28 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 29 -- FAIL \n");
     }
 
     varTemp32 = 0u;
@@ -1452,16 +1718,16 @@ void byteStuffTestGeneral(void)
     {
         if( 9u == remaining )
         {
-            (void)printf("byteStuffTestGeneral 29 -- OK \n");
+            (void)printf("byteStuffTestGeneral 30 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 29 -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 30 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 29 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 30 -- FAIL \n");
     }
 
 
@@ -1479,27 +1745,27 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_OK == result )
     {
-        (void)printf("byteStuffTestGeneral 30 -- OK \n");
+        (void)printf("byteStuffTestGeneral 31 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 30 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 31 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 31 -- OK \n");
+            (void)printf("byteStuffTestGeneral 32 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 31 -- FAIL \n");
+            (void)printf("byteStuffTestGeneral 32 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 31 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 32 -- FAIL \n");
     }
 
     /* Init variable */
@@ -1510,13 +1776,13 @@ void byteStuffTestGeneral(void)
     memArea[3u] = ECU_ESC;
 
     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 32 -- OK \n");
+        (void)printf("byteStuffTestGeneral 33 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 32 -- FAIL \n");
+        (void)printf("byteStuffTestGeneral 33 -- FAIL \n");
     }
 
     varTemp32 = 0u;
@@ -1526,37 +1792,53 @@ void byteStuffTestGeneral(void)
 
     if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[counter], 2u, &varTemp32) )
     {
-        (void)printf("byteStuffTestGeneral 33 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestGeneral 33 -- FAIL \n");
-    }
-
-    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &remaining) )
-    {
-        if( 7u == remaining )
-        {
-            (void)printf("byteStuffTestGeneral 34 -- OK \n");
-        }
-        else
-        {
-            (void)printf("byteStuffTestGeneral 34 -- FAIL \n");
-        }
+        (void)printf("byteStuffTestGeneral 34 -- OK \n");
     }
     else
     {
         (void)printf("byteStuffTestGeneral 34 -- FAIL \n");
     }
 
-
-    if( DBSTF_RES_OK == bStufferRestartCurrentFrame(&ctx) )
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &remaining) )
     {
-        (void)printf("byteStuffTestGeneral 35 -- OK \n");
+        if( 7u == remaining )
+        {
+            (void)printf("byteStuffTestGeneral 35 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGeneral 35 -- FAIL \n");
+        }
     }
     else
     {
         (void)printf("byteStuffTestGeneral 35 -- FAIL \n");
+    }
+
+
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, 1u) )
+    {
+        (void)printf("byteStuffTestGeneral 36 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestGeneral 36 -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetUnStufDataLocation(&ctx, &pointer, &varTemp32) )
+    {
+        if( ( sizeof(memArea) == varTemp32 ) && ( memArea == pointer))
+        {
+            (void)printf("byteStuffTestGetRemainings 37 -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGetRemainings 37 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGetRemainings 37 -- FAIL \n");
     }
 }
 
@@ -1600,6 +1882,31 @@ void byteStuffTestGeneralAnother(void)
         (void)printf("byteStuffTestGeneralAnother 1  -- FAIL \n");
     }
 
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, sizeof(memArea)) )
+    {
+        (void)printf("byteStuffTestGeneralAnother 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestGeneralAnother 2  -- FAIL \n");
+    }
+
+    if( DBSTF_RES_OK == bStufferGetRemToRetrive(&ctx, &varTemp32) )
+    {
+        if( 9u == varTemp32 )
+        {
+            (void)printf("byteStuffTestGeneralAnother 3  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+    }
+
     if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[counter], 1u, &varTemp32) )
     {
         counter += varTemp32;
@@ -1609,26 +1916,26 @@ void byteStuffTestGeneralAnother(void)
             {
                 if( 8u == varTemp32 )
                 {
-                    (void)printf("byteStuffTestGeneralAnother 2  -- OK \n");
+                    (void)printf("byteStuffTestGeneralAnother 4  -- OK \n");
                 }
                 else
                 {
-                    (void)printf("byteStuffTestGeneralAnother 2  -- FAIL \n");
+                    (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
                 }
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 2  -- FAIL \n");
+                (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 2  -- FAIL \n");
+            (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 2  -- FAIL \n");
+        (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
     }
 
     if( DBSTF_RES_OK == bStufferRetriStufChunk(&ctx, &memAreaFinalChunk[counter], 7u, &varTemp32) )

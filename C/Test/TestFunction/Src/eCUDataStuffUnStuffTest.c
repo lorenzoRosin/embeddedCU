@@ -76,7 +76,6 @@ void dataStuffUnStuffCommon(void)
         { .dataTestSize = sizeof(test5), .dataTest = test5 }
     };
 
-
     for(index = 0u; index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); index++)
     {
         /* Function Init */
@@ -98,8 +97,9 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 2[%u]  -- FAIL \n", index);
         }
 
-        /* Stuff */
-        if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+
+        /* Function Init part two */
+        if( DBSTF_RES_OK == bStufferStartNewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
         {
             (void)printf("dataStuffUnStuffCommon 3[%u]  -- OK \n", index);
         }
@@ -108,12 +108,31 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 3[%u]  -- FAIL \n", index);
         }
 
+        if( DBUSTF_RES_OK == bUStufferStartNewFrame(&ctxUnStuff) )
+        {
+            (void)printf("dataStuffUnStuffCommon 4[%u]  -- OK \n", index);
+        }
+        else
+        {
+            (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+        }
+
+        /* Stuff */
+        if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        {
+            (void)printf("dataStuffUnStuffCommon 5[%u]  -- OK \n", index);
+        }
+        else
+        {
+            (void)printf("dataStuffUnStuffCommon 5[%u]  -- FAIL \n", index);
+        }
+
         /* unstuff */
         if( DBUSTF_RES_FRAMEENDED == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
         {
             if( 0u != errSofRec )
             {
-                (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+                (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
             }
             else
             {
@@ -123,27 +142,27 @@ void dataStuffUnStuffCommon(void)
                     {
                         if( 0 == memcmp(dataUnStuffPool, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
                         {
-                            (void)printf("dataStuffUnStuffCommon 4[%u]  -- OK \n", index);
+                            (void)printf("dataStuffUnStuffCommon 6[%u]  -- OK \n", index);
                         }
                         else
                         {
-                            (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+                            (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
                         }
                     }
                     else
                     {
-                        (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+                        (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
                     }
                 }
                 else
                 {
-                    (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+                    (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
                 }
             }
         }
         else
         {
-            (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+            (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
         }
     }
 }
