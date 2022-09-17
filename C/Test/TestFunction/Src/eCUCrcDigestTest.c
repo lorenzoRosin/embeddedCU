@@ -195,7 +195,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 6  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == crcDigesDigest( NULL, varBuff, sizeof(varBuff) ) )
+    if( CRCD_RES_BADPOINTER == crcDigesRestart( NULL ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 7  -- OK \n");
     }
@@ -204,7 +204,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 7  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == crcDigesDigest( &ctx, NULL, sizeof(varBuff) ) )
+    if( CRCD_RES_BADPOINTER == crcDigesDigest( NULL, varBuff, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 8  -- OK \n");
     }
@@ -213,7 +213,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 8  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == crcDigesGetDigestVal( NULL, &varTemp) )
+    if( CRCD_RES_BADPOINTER == crcDigesDigest( &ctx, NULL, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 9  -- OK \n");
     }
@@ -222,13 +222,22 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 9  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == crcDigesGetDigestVal( &ctx, NULL) )
+    if( CRCD_RES_BADPOINTER == crcDigesGetDigestVal( NULL, &varTemp) )
     {
         (void)printf("cUCrcDigestTestBadPointer 10 -- OK \n");
     }
     else
     {
         (void)printf("cUCrcDigestTestBadPointer 10 -- FAIL \n");
+    }
+
+    if( CRCD_RES_BADPOINTER == crcDigesGetDigestVal( &ctx, NULL) )
+    {
+        (void)printf("cUCrcDigestTestBadPointer 11 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadPointer 11 -- FAIL \n");
     }
 }
 
@@ -252,13 +261,22 @@ void cUCrcDigestTestBadInit(void)
         (void)printf("cUCrcDigestTestBadInit 1  -- FAIL \n");
     }
 
-    if( CRCD_RES_NOINITLIB == crcDigesGetDigestVal( &ctx, &varTemp) )
+    if( CRCD_RES_NOINITLIB == crcDigesRestart( &ctx ) )
     {
         (void)printf("cUCrcDigestTestBadInit 2  -- OK \n");
     }
     else
     {
         (void)printf("cUCrcDigestTestBadInit 2  -- FAIL \n");
+    }
+
+    if( CRCD_RES_NOINITLIB == crcDigesGetDigestVal( &ctx, &varTemp) )
+    {
+        (void)printf("cUCrcDigestTestBadInit 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadInit 3  -- FAIL \n");
     }
 }
 
@@ -318,7 +336,7 @@ void cUCrcDigestTestBadParamStatus(void)
 
     /* Init variable */
     ctx.cbCrcPointer = NULL;
-    if( CRCD_RES_CORRUPTCTX == crcDigesDigest( &ctx, varBuff, sizeof(varBuff) ) )
+    if( CRCD_RES_CORRUPTCTX == crcDigesRestart( &ctx ) )
     {
         (void)printf("cUCrcDigestTestBadParamStatus 2  -- OK \n");
     }
@@ -326,6 +344,7 @@ void cUCrcDigestTestBadParamStatus(void)
     {
         (void)printf("cUCrcDigestTestBadParamStatus 2  -- FAIL \n");
     }
+
 
     /* Function */
     if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
@@ -338,14 +357,35 @@ void cUCrcDigestTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.cbCrcCtx = NULL;
-    if( CRCD_RES_CORRUPTCTX == crcDigesGetDigestVal( &ctx, &varTemp ) )
+    ctx.cbCrcPointer = NULL;
+    if( CRCD_RES_CORRUPTCTX == crcDigesDigest( &ctx, varBuff, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestBadParamStatus 4  -- OK \n");
     }
     else
     {
         (void)printf("cUCrcDigestTestBadParamStatus 4  -- FAIL \n");
+    }
+
+    /* Function */
+    if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    {
+        (void)printf("cUCrcDigestTestBadParamStatus 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadParamStatus 5  -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.cbCrcCtx = NULL;
+    if( CRCD_RES_CORRUPTCTX == crcDigesGetDigestVal( &ctx, &varTemp ) )
+    {
+        (void)printf("cUCrcDigestTestBadParamStatus 6  -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadParamStatus 6  -- FAIL \n");
     }
 }
 
@@ -580,8 +620,61 @@ void cUCrcDigestTestMono(void)
     {
         (void)printf("cUCrcDigestTestMono 6  -- FAIL \n");
     }
-}
 
+    /* Function */
+    if( CRCD_RES_OK == crcDigesRestart(&ctx) )
+    {
+        (void)printf("cUCrcDigestTestMono 7  -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 7  -- FAIL \n");
+    }
+
+    if( CRCD_RES_OK == crcDigesDigest( &ctx, crcTestData, sizeof(crcTestData) ) )
+    {
+        (void)printf("cUCrcDigestTestMono 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 8  -- FAIL \n");
+    }
+
+    if( CRCD_RES_OK == crcDigesGetDigestVal( &ctx, &crcTestValRet ) )
+    {
+        if( 0xD5F08708u == crcTestValRet)
+        {
+            (void)printf("cUCrcDigestTestMono 9  -- OK \n");
+        }
+        else
+        {
+            (void)printf("cUCrcDigestTestMono 9  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 9  -- FAIL \n");
+    }
+
+    /* Function */
+    if( CRCD_RES_OK == crcDigesRestart(&ctx) )
+    {
+        (void)printf("cUCrcDigestTestMono 10 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 10 -- FAIL \n");
+    }
+
+    if( CRCD_RES_NODIGESTDONE == crcDigesGetDigestVal( &ctx, &crcTestValRet ) )
+    {
+        (void)printf("cUCrcDigestTestMono 11 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 11 -- FAIL \n");
+    }
+}
 
 void cUCrcDigestTestCombined(void)
 {
