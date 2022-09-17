@@ -1,7 +1,11 @@
 /**
- * @file eCUCrcDigest.h
+ * @file       eCUCrcDigest.h
  *
- */
+ * @brief      Cal crc32 (CRC-32/MPEG-2) utils using digest approach
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUCRCDIGEST_H
 #define ECUCRCDIGEST_H
