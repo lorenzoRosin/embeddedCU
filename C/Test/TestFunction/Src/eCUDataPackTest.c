@@ -61,6 +61,7 @@ void dataPackTestBadPointer(void)
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
+    uint8_t* dataP;
 
     /* Function */
     if( DPK_RES_BADPOINTER == dataPackinitCtx(NULL, badPointerMempool, sizeof(badPointerMempool), true) )
@@ -90,7 +91,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 3  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackGetNPushed( NULL, &varTemp ) )
+    if( DPK_RES_BADPOINTER == dataPackGetDataReference( NULL, &dataP, &varTemp ) )
     {
         (void)printf("dataPackTestBadPointer 4  -- OK \n");
     }
@@ -99,7 +100,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 4  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackGetNPushed( &ctx, NULL ) )
+    if( DPK_RES_BADPOINTER == dataPackGetDataReference( &ctx, NULL, &varTemp ) )
     {
         (void)printf("dataPackTestBadPointer 5  -- OK \n");
     }
@@ -108,7 +109,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 5  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackPushArray( NULL, badPointerMempool, sizeof(badPointerMempool) ) )
+    if( DPK_RES_BADPOINTER == dataPackGetDataReference( &ctx, &dataP, NULL ) )
     {
         (void)printf("dataPackTestBadPointer 6  -- OK \n");
     }
@@ -117,7 +118,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 6  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackPushArray( &ctx, NULL, sizeof(badPointerMempool) ) )
+    if( DPK_RES_BADPOINTER == dataPackGetNPushed( NULL, &varTemp ) )
     {
         (void)printf("dataPackTestBadPointer 7  -- OK \n");
     }
@@ -126,7 +127,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 7  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackPushU8( NULL, 10u ) )
+    if( DPK_RES_BADPOINTER == dataPackGetNPushed( &ctx, NULL ) )
     {
         (void)printf("dataPackTestBadPointer 8  -- OK \n");
     }
@@ -135,7 +136,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 8  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackPushU16( NULL, 10u ) )
+    if( DPK_RES_BADPOINTER == dataPackPushArray( NULL, badPointerMempool, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataPackTestBadPointer 9  -- OK \n");
     }
@@ -144,7 +145,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 9  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackPushU32( NULL, 10u ) )
+    if( DPK_RES_BADPOINTER == dataPackPushArray( &ctx, NULL, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataPackTestBadPointer 10 -- OK \n");
     }
@@ -153,13 +154,40 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 10 -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackPushU64( NULL, 10u ) )
+    if( DPK_RES_BADPOINTER == dataPackPushU8( NULL, 10u ) )
     {
         (void)printf("dataPackTestBadPointer 11 -- OK \n");
     }
     else
     {
         (void)printf("dataPackTestBadPointer 11 -- FAIL \n");
+    }
+
+    if( DPK_RES_BADPOINTER == dataPackPushU16( NULL, 10u ) )
+    {
+        (void)printf("dataPackTestBadPointer 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadPointer 12 -- FAIL \n");
+    }
+
+    if( DPK_RES_BADPOINTER == dataPackPushU32( NULL, 10u ) )
+    {
+        (void)printf("dataPackTestBadPointer 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadPointer 13 -- FAIL \n");
+    }
+
+    if( DPK_RES_BADPOINTER == dataPackPushU64( NULL, 10u ) )
+    {
+        (void)printf("dataPackTestBadPointer 14 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadPointer 14 -- FAIL \n");
     }
 }
 
@@ -169,6 +197,7 @@ void dataPackTestBadInit(void)
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
+    uint8_t* dataP;
 
     /* Init variable */
     ctx.isInit = false;
@@ -195,7 +224,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 2  -- FAIL \n");
     }
 
-    if( DPK_RES_NOINITLIB == dataPackGetNPushed( &ctx, &varTemp ) )
+    if( DPK_RES_NOINITLIB == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
     {
         (void)printf("dataPackTestBadInit 3  -- OK \n");
     }
@@ -204,7 +233,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 3  -- FAIL \n");
     }
 
-    if( DPK_RES_NOINITLIB == dataPackPushArray( &ctx, badPointerMempool, sizeof(badPointerMempool) ) )
+    if( DPK_RES_NOINITLIB == dataPackGetNPushed( &ctx, &varTemp ) )
     {
         (void)printf("dataPackTestBadInit 4  -- OK \n");
     }
@@ -213,7 +242,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 4  -- FAIL \n");
     }
 
-    if( DPK_RES_NOINITLIB == dataPackPushU8( &ctx, 10u ) )
+    if( DPK_RES_NOINITLIB == dataPackPushArray( &ctx, badPointerMempool, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataPackTestBadInit 5  -- OK \n");
     }
@@ -222,7 +251,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 5  -- FAIL \n");
     }
 
-    if( DPK_RES_NOINITLIB == dataPackPushU16( &ctx, 10u ) )
+    if( DPK_RES_NOINITLIB == dataPackPushU8( &ctx, 10u ) )
     {
         (void)printf("dataPackTestBadInit 6  -- OK \n");
     }
@@ -231,7 +260,7 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 6  -- FAIL \n");
     }
 
-    if( DPK_RES_NOINITLIB == dataPackPushU32( &ctx, 10u ) )
+    if( DPK_RES_NOINITLIB == dataPackPushU16( &ctx, 10u ) )
     {
         (void)printf("dataPackTestBadInit 7  -- OK \n");
     }
@@ -240,13 +269,22 @@ void dataPackTestBadInit(void)
         (void)printf("dataPackTestBadInit 7  -- FAIL \n");
     }
 
-    if( DPK_RES_NOINITLIB == dataPackPushU64( &ctx, 10u ) )
+    if( DPK_RES_NOINITLIB == dataPackPushU32( &ctx, 10u ) )
     {
         (void)printf("dataPackTestBadInit 8  -- OK \n");
     }
     else
     {
         (void)printf("dataPackTestBadInit 8  -- FAIL \n");
+    }
+
+    if( DPK_RES_NOINITLIB == dataPackPushU64( &ctx, 10u ) )
+    {
+        (void)printf("dataPackTestBadInit 9  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadInit 9  -- FAIL \n");
     }
 }
 
@@ -288,6 +326,7 @@ void dataPackTestBadParamStatus(void)
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
+    uint8_t* dataP;
 
     /* Init variable */
     ctx.isInit = false;
@@ -491,6 +530,31 @@ void dataPackTestBadParamStatus(void)
     else
     {
         (void)printf("dataPackTestBadParamStatus 16 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestBadParamStatus 17 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 17 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPKASize = 0u;
+
+    if( DPK_RES_CORRUPTCTX == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+    {
+        (void)printf("dataPackTestBadInit 18 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadInit 18 -- FAIL \n");
     }
 }
 
@@ -730,6 +794,7 @@ void dataPackTestEndianLe(void)
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[20u];
     uint32_t varTemp;
+    uint8_t* dataP;
 
     /* Init variable */
     ctx.isInit = false;
@@ -766,7 +831,21 @@ void dataPackTestEndianLe(void)
     {
         if( ( 0x34u == badPointerMempool[0u] ) && ( 0x12u == badPointerMempool[1u] ) )
         {
-            (void)printf("dataPackTestEndianLe 4  -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x02u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestEndianLe 4  -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestEndianLe 4  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestEndianLe 4  -- FAIL \n");
+            }
         }
         else
         {
@@ -811,7 +890,21 @@ void dataPackTestEndianLe(void)
         if( ( 0x78u == badPointerMempool[0u] ) && ( 0x56u == badPointerMempool[1u] ) &&
             ( 0x34u == badPointerMempool[2u] ) && ( 0x12u == badPointerMempool[3u] ) )
         {
-            (void)printf("dataPackTestEndianLe 8  -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x04u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestEndianLe 8  -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestEndianLe 8  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestEndianLe 8  -- FAIL \n");
+            }
         }
         else
         {
@@ -858,7 +951,21 @@ void dataPackTestEndianLe(void)
             ( 0x78u == badPointerMempool[4u] ) && ( 0x56u == badPointerMempool[5u] ) &&
             ( 0x34u == badPointerMempool[6u] ) && ( 0x12u == badPointerMempool[7u] ))
         {
-            (void)printf("dataPackTestEndianLe 12 -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x08u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestEndianLe 12 -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestEndianLe 12 -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestEndianLe 12 -- FAIL \n");
+            }
         }
         else
         {
@@ -877,6 +984,7 @@ void dataPackTestEndianBe(void)
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[20u];
     uint32_t varTemp;
+    uint8_t* dataP;
 
     /* Init variable */
     ctx.isInit = false;
@@ -913,7 +1021,21 @@ void dataPackTestEndianBe(void)
     {
         if( ( 0x12u == badPointerMempool[0u] ) && ( 0x34u == badPointerMempool[1u] ) )
         {
-            (void)printf("dataPackTestEndianBe 4  -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x02u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestEndianBe 4  -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestEndianBe 4  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestEndianBe 4  -- FAIL \n");
+            }
         }
         else
         {
@@ -958,7 +1080,21 @@ void dataPackTestEndianBe(void)
         if( ( 0x12u == badPointerMempool[0u] ) && ( 0x34u == badPointerMempool[1u] ) &&
             ( 0x56u == badPointerMempool[2u] ) && ( 0x78u == badPointerMempool[3u] ) )
         {
-            (void)printf("dataPackTestEndianBe 8  -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x04u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestEndianBe 8  -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestEndianBe 8  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestEndianBe 8  -- FAIL \n");
+            }
         }
         else
         {
@@ -1005,7 +1141,21 @@ void dataPackTestEndianBe(void)
             ( 0x9Au == badPointerMempool[4u] ) && ( 0xBCu == badPointerMempool[5u] ) &&
             ( 0xDEu == badPointerMempool[6u] ) && ( 0xF0u == badPointerMempool[7u] ))
         {
-            (void)printf("dataPackTestEndianBe 12 -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x08u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestEndianBe 12 -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestEndianBe 12 -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestEndianBe 12 -- FAIL \n");
+            }
         }
         else
         {
@@ -1024,6 +1174,7 @@ void dataPackTestCycle(void)
     s_eCU_DataPackCtx ctx;
     uint8_t  badPointerMempool[20u];
     uint32_t varTemp;
+    uint8_t* dataP;
 
     /* Init variable */
     ctx.isInit = false;
@@ -1070,7 +1221,21 @@ void dataPackTestCycle(void)
         if( ( 0x34u == badPointerMempool[0u] ) && ( 0x12u == badPointerMempool[1u] ) &&
             ( 0x78u == badPointerMempool[2u] ) && ( 0x56u == badPointerMempool[3u] )  )
         {
-            (void)printf("dataPackTestCycle 5  -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x04u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestCycle 5  -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestCycle 5  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestCycle 5  -- FAIL \n");
+            }
         }
         else
         {
@@ -1124,7 +1289,21 @@ void dataPackTestCycle(void)
         if( ( 0x34u == badPointerMempool[0u] ) && ( 0x12u == badPointerMempool[1u] ) &&
             ( 0x78u == badPointerMempool[2u] ) && ( 0x56u == badPointerMempool[3u] )  )
         {
-            (void)printf("dataPackTestCycle 10 -- OK \n");
+            if( DPK_RES_OK == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
+            {
+                if( ( 0x04u == varTemp ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataPackTestCycle 10 -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataPackTestCycle 10 -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataPackTestCycle 10 -- FAIL \n");
+            }
         }
         else
         {

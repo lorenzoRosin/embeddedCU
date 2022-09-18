@@ -87,7 +87,7 @@ e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx);
  *
  * @param[in]   ctx         - Byte unStuffer context
  * @param[out]  dataP       - Pointer to a Pointer pointing to the unstuffed data frame
- * @param[out]  maxDataSize - Pointer to a uint32_t variable where the size of the unstuffed data will be placed
+ * @param[out]  retrivedLen - Pointer to a uint32_t variable where the size of the unstuffed data will be placed
  *
  * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action

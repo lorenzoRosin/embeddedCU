@@ -85,6 +85,42 @@ e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx)
 	return result;
 }
 
+e_eCU_dPk_Res dataPackGetDataReference(s_eCU_DataPackCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
+{
+	/* Local variable */
+	e_eCU_dPk_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == retrivedLen ) )
+	{
+		result = DPK_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = DPK_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isPackStatusStillCoherent(ctx) )
+            {
+                result = DPK_RES_CORRUPTCTX;
+            }
+            else
+            {
+                *dataP = ctx->memPKA;
+                *retrivedLen = ctx->memPKACntr;
+                result = DPK_RES_OK;
+            }
+		}
+    }
+
+	return result;
+}
+
 e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */

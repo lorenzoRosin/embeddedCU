@@ -53,113 +53,127 @@ typedef struct
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Initialize the data packer context
- * @param ctx Data packer context
- * @param memPKA Pointer to a memory area that we will fill with packet data
- * @param memPKASize Dimension in byte of the data packer area
- * @param isLEnd Select if data packer must work in Little Endian or Big Endian
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_BADPARAM in case of an invalid parameter
- *         DPK_RES_OK operation ended correctly
+ * @brief       Initialize the data packer context
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[in]   memPKA      - Pointer to a memory area that we will fill with packet data
+ * @param[in]   memPKASize  - Dimension in byte of the data packer area
+ * @param[in]   isLEnd      - Select if data packer must work in Little Endian or Big Endian
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_BADPARAM     - In case of an invalid parameter passed to the function
+ *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, const uint32_t memPKASize,
 					          const bool_t isLEnd);
 
 /**
- * Reset data packer and restart packing data from memory start
- * @param ctx Data packer context
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
- *         DPK_RES_OK operation ended correctly
+ * @brief       Reset data packer and restart packing data from start, discharging old data present
+ *
+ * @param[in]   ctx         - Data packer context
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx);
 
 /**
- * @brief       Retrive the pointer to the stored unstuffed data, and the data size of the frame. Keep in mind that
- *              the frame parsing could be ongoing, and if an error in the frame occour the retrivedLen could be
- *              setted to 0 again
+ * @brief       Retrive the pointer to the stored packed data, and the data size of the packed data buffer.
  *
- * @param[in]   ctx         - Byte unStuffer context
- * @param[out]  dataP       - Pointer to a Pointer pointing to the unstuffed data frame
- * @param[out]  maxDataSize - Pointer to a uint32_t variable where the size of the unstuffed data will be placed
+ * @param[in]   ctx         - Data packer context
+ * @param[out]  dataP       - Pointer to a Pointer pointing to the packed data buffer
+ * @param[out]  retrivedLen - Pointer to a uint32_t variable where the size of the packed data buffer will be placed
  *
- * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
- *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
- *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
- *              DBUSTF_RES_OK           - Operation ended correctly
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
+ *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
+e_eCU_dPk_Res dataPackGetDataReference(s_eCU_DataPackCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
 
 /**
- * Retrive how many byte we have pushed
- * @param ctx Data packer context
- * @param retrivedLen Pointer to a memory area were we will store size of serialized data
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
- *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OK operation ended correctly
+ * @brief       Retrive how many byte we have packed
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[out]  retrivedLen - Pointer to a uint32_t variable where the size of the packed data buffer will be placed
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
+ *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
- * Push an array in data packer
- * @param ctx Data packer context
- * @param data Pointer to a memory area where data are stored
- * @param dataLen  data size
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
- *		   DPK_RES_BADPARAM in case of an invalid parameter
- *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data
- *         DPK_RES_OK operation ended correctly
+ * @brief       Push an array in data packer
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[in]   data        - Pointer to a memory area containing the data that we want to push
+ * @param[in]   dataLen     - Data size of the data that we want to push
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_BADPARAM     - In case of an invalid parameter passed to the function
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
+ *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
+ *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
 
 /**
- * Push one byte in data packer
- * @param ctx Data packer context
- * @param dataToPush Byte to push in data packer
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
- *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data
- *         DPK_RES_OK operation ended correctly
+ * @brief       Push one byte in data packer
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[in]   dataToPush  - Data to push in data packer
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
+ *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
+ *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush);
 
 /**
- * Push 2 byte in data packer
- * @param ctx Data packer context
- * @param dataToPush Byte to push in data packer
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
- *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data
- *         DPK_RES_OK operation ended correctly
+ * @brief       Push 2 byte in data packer
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[in]   dataToPush  - Data to push in data packer
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
+ *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
+ *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush);
 
 /**
- * Push 4 byte in data packer
- * @param ctx Data packer context
- * @param dataToPush Byte to push in data packer
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
- *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data
- *         DPK_RES_OK operation ended correctly
+ * @brief       Push 4 byte in data packer
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[in]   dataToPush  - Data to push in data packer
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
+ *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
+ *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPush);
 
 /**
- * Push 8 byte in data packer
- * @param ctx Data packer context
- * @param dataToPush Byte to push in data packer
- * @return DPK_RES_BADPOINTER in case of bad pointer
- *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
- *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data
- *         DPK_RES_OK operation ended correctly
+ * @brief       Push 8 byte in data packer
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[in]   dataToPush  - Data to push in data packer
+ *
+ * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
+ *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
+ *              DPK_RES_OK           - Operation ended correctly
  */
  e_eCU_dPk_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPush);
 
