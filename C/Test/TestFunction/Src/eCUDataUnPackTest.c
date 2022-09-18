@@ -535,6 +535,31 @@ void dataUnPackTestBadParamStatus(void)
     {
         (void)printf("dataUnPackTestBadParamStatus 16 -- FAIL \n");
     }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 17 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 17 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memUPKASize = 0u;
+
+    if( DUNPK_RES_CORRUPTCTX == dataUnPackRestartCurrentUnpack(&ctx) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 18 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 18 -- FAIL \n");
+    }
 }
 
 void dataUnPackTestOutOfMem(void)

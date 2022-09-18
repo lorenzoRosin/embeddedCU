@@ -76,10 +76,17 @@ e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx)
 		}
 		else
 		{
-			/* Update index */
-			ctx->memUPKACntr = 0u;
-
-			result = DUNPK_RES_OK;
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
+            {
+                result = DUNPK_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* Update index */
+                ctx->memUPKACntr = 0u;
+                result = DUNPK_RES_OK;
+            }
 		}
     }
 

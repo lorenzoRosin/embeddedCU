@@ -75,6 +75,7 @@ e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const
  *
  * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
  *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
  *              DUNPK_RES_OK         - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx);
