@@ -36,6 +36,7 @@ typedef enum
 	DUNPK_RES_CORRUPTCTX,
     DUNPK_RES_NODATA,
     DUNPK_RES_NOINITLIB,
+    DUNPK_RES_NOINITFRAME,
 }e_eCU_dUnpk_Res;
 
 typedef struct
@@ -44,6 +45,7 @@ typedef struct
 	bool_t isLE;
 	uint8_t* memUPKA;
 	uint32_t memUPKASize;
+    uint32_t memUPKAFrameSize;
 	uint32_t memUPKACntr;
 }s_eCU_DataUnPackCtx;
 
@@ -68,6 +70,22 @@ e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const
                                   const bool_t isLEnd);
 
 /**
+ * @brief       Start to unpack a new frame given the dimension of raw payload it self. This function suppouse that
+ *              data payload that need to be unpocked were already copied in memory.( see dataUnPackGetUPkDataLocat
+ *              in order to know how get the data pointer )
+ *
+ * @param[in]   ctx         - Data Unpacker context
+ * @param[in]   frameLen    - lenght of the raw data present in the frame that we need to unpack
+ *
+ * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
+ *		        DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
+ *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
+ *              DUNPK_RES_OK         - Operation ended correctly
+ */
+e_eCU_dUnpk_Res dataUnPackStartNewFrame(s_eCU_DataUnPackCtx* const ctx, const uint32_t frameLen);
+
+/**
  * @brief       Retrive the pointer of the buffer that the user can use to insert data payload that need to be unpacked
  *
  * @param[in]   ctx         - Data Unpacker context
@@ -89,10 +107,11 @@ e_eCU_dUnpk_Res dataUnPackGetUPkDataLocat(s_eCU_DataUnPackCtx* const ctx, uint8_
  *
  * @param[in]   ctx         - Data Unpacker context
  *
- * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              DUNPK_RES_OK         - Operation ended correctly
+ * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_NOINITFRAME - Need to start a frame before restarting the current frame
+ *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
+ *              DUNPK_RES_OK          - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx);
 
@@ -102,10 +121,11 @@ e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx);
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  retrivedLen - Pointer to a memory area were we will store the size of the remaining poppable data
  *
- * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              DUNPK_RES_OK         - Operation ended correctly
+ * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_NOINITFRAME - Need to start a frame before restarting the current frame
+ *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
+ *              DUNPK_RES_OK          - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen);
 
@@ -116,12 +136,13 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
  * @param[out]  dataDest    - Pointer to a memory area where popped data will be copied
  * @param[out]  retrivedLen - The amount of data copied in dataDest
  *
- * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
- *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              DUNPK_RES_NODATA     - No data to pop
- *              DUNPK_RES_OK         - Operation ended correctly
+ * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_BADPARAM    - In case of an invalid parameter passed to the function
+ *		        DUNPK_RES_NOINITFRAME - Need to start a frame before restarting the current frame
+ *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
+ *              DUNPK_RES_NODATA      - No data to pop
+ *              DUNPK_RES_OK          - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const dataDest, uint32_t const retrivedLen);
 
@@ -131,11 +152,12 @@ e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* cons
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
  *
- * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              DUNPK_RES_NODATA     - No data to pop
- *              DUNPK_RES_OK         - Operation ended correctly
+ * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_NOINITFRAME - Need to start a frame before restarting the current frame
+ *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
+ *              DUNPK_RES_NODATA      - No data to pop
+ *              DUNPK_RES_OK          - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataP);
 
@@ -145,11 +167,12 @@ e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataP);
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
  *
- * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              DUNPK_RES_NODATA     - No data to pop
- *              DUNPK_RES_OK         - Operation ended correctly
+ * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_NOINITFRAME - Need to start a frame before restarting the current frame
+ *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
+ *              DUNPK_RES_NODATA      - No data to pop
+ *              DUNPK_RES_OK          - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP);
 
@@ -159,11 +182,12 @@ e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
  *
- * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              DUNPK_RES_NODATA     - No data to pop
- *              DUNPK_RES_OK         - Operation ended correctly
+ * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_NOINITFRAME - Need to start a frame before restarting the current frame
+ *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
+ *              DUNPK_RES_NODATA      - No data to pop
+ *              DUNPK_RES_OK          - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP);
 
@@ -173,11 +197,12 @@ e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
  *
- * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              DUNPK_RES_NODATA     - No data to pop
- *              DUNPK_RES_OK         - Operation ended correctly
+ * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_NOINITFRAME - Need to start a frame before restarting the current frame
+ *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
+ *              DUNPK_RES_NODATA      - No data to pop
+ *              DUNPK_RES_OK          - Operation ended correctly
  */
 e_eCU_dUnpk_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP);
 
