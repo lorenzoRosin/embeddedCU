@@ -68,6 +68,22 @@ e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const
                                   const bool_t isLEnd);
 
 /**
+ * @brief       Retrive the pointer of the buffer that the user can use to insert data payload that need to be unpacked
+ *
+ * @param[in]   ctx         - Data Unpacker context
+ * @param[out]  dataP       - Pointer to a Pointer where the raw data needs to be copied before starting a session
+ * @param[out]  maxDataSize - Pointer to a uint32_t variable where the max number of data that can be copied in dataP
+ *                            will be placed
+ *
+ * @return      DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
+ *		        DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
+ *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
+ *              DUNPK_RES_OK         - Operation ended correctly
+ */
+e_eCU_dUnpk_Res dataUnPackGetUPkDataLocat(s_eCU_DataUnPackCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize);
+
+
+/**
  * @brief       Reset data unpacker status and restart from memory start un packing. This will not delete or start a new
  *              session. This function will simply restart packing already previous loaded data.
  *

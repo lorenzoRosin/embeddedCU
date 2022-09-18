@@ -57,6 +57,43 @@ e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const
 	return result;
 }
 
+e_eCU_dUnpk_Res dataUnPackGetUPkDataLocat(s_eCU_DataUnPackCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize)
+{
+	/* Local variable */
+	e_eCU_dUnpk_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == maxDataSize ) )
+	{
+		result = DUNPK_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = DUNPK_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
+            {
+                result = DUNPK_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* return data */
+                *dataP = ctx->memUPKA;
+                *maxDataSize = ctx->memUPKASize;
+                result = DUNPK_RES_OK;
+            }
+		}
+	}
+
+	return result;
+}
+
 e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx)
 {
 	/* Local variable */

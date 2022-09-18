@@ -22,6 +22,7 @@
  **********************************************************************************************************************/
 static void dataUnPackTestBadPointer(void);
 static void dataUnPackTestBadInit(void);
+static void dataUnPackTestBadInitSession(void);
 static void dataUnPackTestBadParamEntr(void);
 static void dataUnPackTestBadParamStatus(void);
 static void dataUnPackTestOutOfMem(void);
@@ -40,6 +41,7 @@ void dataUnPackTest(void)
 
     dataUnPackTestBadPointer();
     dataUnPackTestBadInit();
+    dataUnPackTestBadInitSession();
     dataUnPackTestBadParamEntr();
     dataUnPackTestBadParamStatus();
     dataUnPackTestOutOfMem();
@@ -60,6 +62,7 @@ void dataUnPackTestBadPointer(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[5u];
+    uint8_t* dataP;
     uint64_t varTemp64;
     uint32_t varTemp32;
     uint16_t varTemp16;
@@ -84,7 +87,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 2  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackRestartCurrentUnpack( NULL ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackGetUPkDataLocat( NULL, &dataP, &varTemp32) )
     {
         (void)printf("dataUnPackTestBadPointer 3  -- OK \n");
     }
@@ -93,7 +96,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackGetRemToPop( NULL, &varTemp32 ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackGetUPkDataLocat( &ctx, NULL, &varTemp32) )
     {
         (void)printf("dataUnPackTestBadPointer 4  -- OK \n");
     }
@@ -102,7 +105,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackGetRemToPop( &ctx, NULL ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackGetUPkDataLocat( &ctx, &dataP, NULL) )
     {
         (void)printf("dataUnPackTestBadPointer 5  -- OK \n");
     }
@@ -111,7 +114,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopArray( NULL, badPointerMempool, sizeof(badPointerMempool) ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackRestartCurrentUnpack( NULL ) )
     {
         (void)printf("dataUnPackTestBadPointer 6  -- OK \n");
     }
@@ -120,7 +123,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopArray( &ctx, NULL, sizeof(badPointerMempool) ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackGetRemToPop( NULL, &varTemp32 ) )
     {
         (void)printf("dataUnPackTestBadPointer 7  -- OK \n");
     }
@@ -129,7 +132,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU8( NULL, &varTemp8 ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackGetRemToPop( &ctx, NULL ) )
     {
         (void)printf("dataUnPackTestBadPointer 8  -- OK \n");
     }
@@ -138,7 +141,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 8  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU8( &ctx, NULL ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopArray( NULL, badPointerMempool, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataUnPackTestBadPointer 9  -- OK \n");
     }
@@ -147,7 +150,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 9  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU16( NULL, &varTemp16 ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopArray( &ctx, NULL, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataUnPackTestBadPointer 10 -- OK \n");
     }
@@ -156,7 +159,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU16( &ctx, NULL ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU8( NULL, &varTemp8 ) )
     {
         (void)printf("dataUnPackTestBadPointer 11 -- OK \n");
     }
@@ -165,7 +168,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 11 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU32( NULL, &varTemp32 ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU8( &ctx, NULL ) )
     {
         (void)printf("dataUnPackTestBadPointer 12 -- OK \n");
     }
@@ -174,7 +177,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 12 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU32( &ctx, NULL ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU16( NULL, &varTemp16 ) )
     {
         (void)printf("dataUnPackTestBadPointer 13 -- OK \n");
     }
@@ -183,7 +186,7 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 13 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU64( NULL, &varTemp64 ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU16( &ctx, NULL ) )
     {
         (void)printf("dataUnPackTestBadPointer 14 -- OK \n");
     }
@@ -192,13 +195,40 @@ void dataUnPackTestBadPointer(void)
         (void)printf("dataUnPackTestBadPointer 14 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == dataUnPackPopU64( &ctx, NULL ) )
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU32( NULL, &varTemp32 ) )
     {
         (void)printf("dataUnPackTestBadPointer 15 -- OK \n");
     }
     else
     {
         (void)printf("dataUnPackTestBadPointer 15 -- FAIL \n");
+    }
+
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU32( &ctx, NULL ) )
+    {
+        (void)printf("dataUnPackTestBadPointer 16 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadPointer 16 -- FAIL \n");
+    }
+
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU64( NULL, &varTemp64 ) )
+    {
+        (void)printf("dataUnPackTestBadPointer 17 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadPointer 17 -- FAIL \n");
+    }
+
+    if( DUNPK_RES_BADPOINTER == dataUnPackPopU64( &ctx, NULL ) )
+    {
+        (void)printf("dataUnPackTestBadPointer 18 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadPointer 18 -- FAIL \n");
     }
 }
 
@@ -207,6 +237,7 @@ void dataUnPackTestBadInit(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[5u];
+    uint8_t* dataP;
     uint64_t varTemp64;
     uint32_t varTemp32;
     uint16_t varTemp16;
@@ -228,16 +259,16 @@ void dataUnPackTestBadInit(void)
     /* Init variable */
     ctx.isInit = false;
 
-    if( DUNPK_RES_NOINITLIB == dataUnPackRestartCurrentUnpack( &ctx ) )
+    if( DUNPK_RES_NOINITLIB == dataUnPackGetUPkDataLocat( &ctx, &dataP, &varTemp32 ) )
     {
-        (void)printf("dataUnPackTestBadInit 2  -- OK \n");
+        (void)printf("dataUnPackTestBadPointer 2  -- OK \n");
     }
     else
     {
-        (void)printf("dataUnPackTestBadInit 2  -- FAIL \n");
+        (void)printf("dataUnPackTestBadPointer 2  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == dataUnPackGetRemToPop( &ctx, &varTemp32 ) )
+    if( DUNPK_RES_NOINITLIB == dataUnPackRestartCurrentUnpack( &ctx ) )
     {
         (void)printf("dataUnPackTestBadInit 3  -- OK \n");
     }
@@ -246,7 +277,7 @@ void dataUnPackTestBadInit(void)
         (void)printf("dataUnPackTestBadInit 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == dataUnPackPopArray( &ctx, badPointerMempool, sizeof(badPointerMempool) ) )
+    if( DUNPK_RES_NOINITLIB == dataUnPackGetRemToPop( &ctx, &varTemp32 ) )
     {
         (void)printf("dataUnPackTestBadInit 4  -- OK \n");
     }
@@ -255,7 +286,7 @@ void dataUnPackTestBadInit(void)
         (void)printf("dataUnPackTestBadInit 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == dataUnPackPopU8( &ctx, &varTemp8 ) )
+    if( DUNPK_RES_NOINITLIB == dataUnPackPopArray( &ctx, badPointerMempool, sizeof(badPointerMempool) ) )
     {
         (void)printf("dataUnPackTestBadInit 5  -- OK \n");
     }
@@ -264,7 +295,7 @@ void dataUnPackTestBadInit(void)
         (void)printf("dataUnPackTestBadInit 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == dataUnPackPopU16( &ctx, &varTemp16 ) )
+    if( DUNPK_RES_NOINITLIB == dataUnPackPopU8( &ctx, &varTemp8 ) )
     {
         (void)printf("dataUnPackTestBadInit 6  -- OK \n");
     }
@@ -273,7 +304,7 @@ void dataUnPackTestBadInit(void)
         (void)printf("dataUnPackTestBadInit 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == dataUnPackPopU32( &ctx, &varTemp32 ) )
+    if( DUNPK_RES_NOINITLIB == dataUnPackPopU16( &ctx, &varTemp16 ) )
     {
         (void)printf("dataUnPackTestBadInit 7  -- OK \n");
     }
@@ -282,7 +313,7 @@ void dataUnPackTestBadInit(void)
         (void)printf("dataUnPackTestBadInit 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    if( DUNPK_RES_NOINITLIB == dataUnPackPopU32( &ctx, &varTemp32 ) )
     {
         (void)printf("dataUnPackTestBadInit 8  -- OK \n");
     }
@@ -290,6 +321,41 @@ void dataUnPackTestBadInit(void)
     {
         (void)printf("dataUnPackTestBadInit 8  -- FAIL \n");
     }
+
+    if( DUNPK_RES_NOINITLIB == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    {
+        (void)printf("dataUnPackTestBadInit 9  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadInit 9  -- FAIL \n");
+    }
+}
+
+void dataUnPackTestBadInitSession(void)
+{
+    /* Local variable */
+    s_eCU_DataUnPackCtx ctx;
+    uint8_t  badPointerMempool[5u];
+    uint8_t* dataP;
+    uint64_t varTemp64;
+    uint32_t varTemp32;
+    uint16_t varTemp16;
+    uint8_t  varTemp8;
+
+    /* Init variable */
+    ctx.isInit = true;
+
+    /* Function */
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataUnPackTestBadInitSession 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadInitSession 1  -- FAIL \n");
+    }
+
 }
 
 void dataUnPackTestBadParamEntr(void)
@@ -330,6 +396,7 @@ void dataUnPackTestBadParamStatus(void)
     /* Local variable */
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[5u];
+    uint8_t* dataP;
     uint32_t varTemp;
     uint8_t  varTemp8;
     uint16_t varTemp16;
@@ -559,6 +626,31 @@ void dataUnPackTestBadParamStatus(void)
     else
     {
         (void)printf("dataUnPackTestBadParamStatus 18 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 19 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 19 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memUPKASize = 0u;
+
+    if( DUNPK_RES_CORRUPTCTX == dataUnPackGetUPkDataLocat( &ctx, &dataP, &varTemp32 ) )
+    {
+        (void)printf("dataUnPackTestBadParamStatus 20 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadParamStatus 20 -- FAIL \n");
     }
 }
 
@@ -818,6 +910,8 @@ void dataUnPackTestEndianLe(void)
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[20u];
     uint8_t  pushPool[20u];
+    uint32_t remtoPop;
+    uint8_t* dataP;
     uint64_t varTemp64;
     uint32_t varTemp32;
     uint16_t varTemp16;
@@ -963,11 +1057,25 @@ void dataUnPackTestEndianLe(void)
         (void)printf("dataUnPackTestEndianLe 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    if( DUNPK_RES_OK == dataUnPackGetRemToPop(&ctx, &remtoPop) )
     {
-        if( 0x123456789ABCDEF0UL == varTemp64 )
+        if( 0x08u == remtoPop )
         {
-            (void)printf("dataUnPackTestEndianLe 11 -- OK \n");
+            if( DUNPK_RES_OK == dataUnPackGetUPkDataLocat(&ctx, &dataP, &remtoPop) )
+            {
+                if( ( 8u == remtoPop ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataUnPackTestEndianLe 11 -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataUnPackTestEndianLe 11 -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataUnPackTestEndianLe 11 -- FAIL \n");
+            }
         }
         else
         {
@@ -978,6 +1086,22 @@ void dataUnPackTestEndianLe(void)
     {
         (void)printf("dataUnPackTestEndianLe 11 -- FAIL \n");
     }
+
+    if( DUNPK_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    {
+        if( 0x123456789ABCDEF0UL == varTemp64 )
+        {
+            (void)printf("dataUnPackTestEndianLe 12 -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestEndianLe 12 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianLe 12 -- FAIL \n");
+    }
 }
 
 void dataUnPackTestEndianBe(void)
@@ -986,6 +1110,8 @@ void dataUnPackTestEndianBe(void)
     s_eCU_DataUnPackCtx ctx;
     uint8_t  badPointerMempool[20u];
     uint8_t  pushPool[20u];
+    uint32_t remtoPop;
+    uint8_t* dataP;
     uint64_t varTemp64;
     uint32_t varTemp32;
     uint16_t varTemp16;
@@ -1131,11 +1257,25 @@ void dataUnPackTestEndianBe(void)
         (void)printf("dataUnPackTestEndianBe 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    if( DUNPK_RES_OK == dataUnPackGetRemToPop(&ctx, &remtoPop) )
     {
-        if( 0x123456789ABCDEF0UL == varTemp64 )
+        if( 0x08u == remtoPop )
         {
-            (void)printf("dataUnPackTestEndianBe 11 -- OK \n");
+            if( DUNPK_RES_OK == dataUnPackGetUPkDataLocat(&ctx, &dataP, &remtoPop) )
+            {
+                if( ( 8u == remtoPop ) && ( badPointerMempool == dataP ) )
+                {
+                    (void)printf("dataUnPackTestEndianBe 11 -- OK \n");
+                }
+                else
+                {
+                    (void)printf("dataUnPackTestEndianBe 11 -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("dataUnPackTestEndianBe 11 -- FAIL \n");
+            }
         }
         else
         {
@@ -1146,6 +1286,22 @@ void dataUnPackTestEndianBe(void)
     {
         (void)printf("dataUnPackTestEndianBe 11 -- FAIL \n");
     }
+
+    if( DUNPK_RES_OK == dataUnPackPopU64( &ctx, &varTemp64 ) )
+    {
+        if( 0x123456789ABCDEF0UL == varTemp64 )
+        {
+            (void)printf("dataUnPackTestEndianBe 12 -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestEndianBe 12 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestEndianBe 12 -- FAIL \n");
+    }
 }
 
 void dataUnPackTestCycle(void)
@@ -1155,6 +1311,7 @@ void dataUnPackTestCycle(void)
     uint8_t  badPointerMempool[20u];
     uint16_t varTemp16;
     uint32_t remtoPop;
+    uint8_t* dataP;
 
     /* Init variable */
     ctx.isInit = false;
@@ -1190,7 +1347,21 @@ void dataUnPackTestCycle(void)
             {
                 if( 0x12u == remtoPop )
                 {
-                    (void)printf("dataUnPackTestCycle 3  -- OK \n");
+                    if( DUNPK_RES_OK == dataUnPackGetUPkDataLocat(&ctx, &dataP, &remtoPop) )
+                    {
+                        if( ( sizeof(badPointerMempool) == remtoPop ) && ( badPointerMempool == dataP ) )
+                        {
+                            (void)printf("dataUnPackTestCycle 3  -- OK \n");
+                        }
+                        else
+                        {
+                            (void)printf("dataUnPackTestCycle 3  -- FAIL \n");
+                        }
+                    }
+                    else
+                    {
+                        (void)printf("dataUnPackTestCycle 3  -- FAIL \n");
+                    }
                 }
                 else
                 {
