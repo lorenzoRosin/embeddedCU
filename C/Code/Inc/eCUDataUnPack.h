@@ -42,7 +42,7 @@ typedef struct
 {
     bool_t isInit;
 	bool_t isLE;
-	const uint8_t* memUPKA;
+	uint8_t* memUPKA;
 	uint32_t memUPKASize;
 	uint32_t memUPKACntr;
 }s_eCU_DataUnPackCtx;
@@ -64,7 +64,7 @@ typedef struct
  *		        DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
  *              DUNPK_RES_OK         - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, const uint8_t* memUPKA, const uint32_t memUPKASize,
+e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUPKA, const uint32_t memUPKASize,
                                   const bool_t isLEnd);
 
 /**
