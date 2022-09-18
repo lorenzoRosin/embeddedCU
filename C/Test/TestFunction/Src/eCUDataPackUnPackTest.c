@@ -149,15 +149,6 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 9  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackStartNewPack( &ctxPack ) )
-    {
-        (void)printf("dataPackUnPackLE 10 -- OK \n");
-    }
-    else
-    {
-        (void)printf("dataPackUnPackLE 10 -- FAIL \n");
-    }
-
     /* Function */
     if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), true) )
     {
@@ -372,7 +363,8 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 8  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackStartNewPack( &ctxPack ) )
+    /* Function */
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), false) )
     {
         (void)printf("dataPackUnPackBE 9  -- OK \n");
     }
@@ -381,8 +373,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 9  -- FAIL \n");
     }
 
-    /* Function */
-    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, supportbuffget, false) )
+    if( DUNPK_RES_OK == dataUnPackStartNewFrame(&ctxUnPack, supportbuffget) )
     {
         (void)printf("dataPackUnPackBE 10 -- OK \n");
     }
@@ -397,7 +388,7 @@ void dataPackUnPackBE(void)
     }
     else
     {
-        (void)printf("dataPackUnPackBE 14 -- FAIL \n");
+        (void)printf("dataPackUnPackBE 11 -- FAIL \n");
     }
 
     if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
