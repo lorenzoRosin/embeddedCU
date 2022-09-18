@@ -1,7 +1,11 @@
 /**
- * @file eCUDataPack.h
+ * @file       eCUDataPack.h
  *
- */
+ * @brief      Data pack utils
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUDATAPACK_H
 #define ECUDATAPACK_H
@@ -90,7 +94,7 @@ e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const r
  *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
  *		   DPK_RES_BADPARAM in case of an invalid parameter
  *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data 
+ *         DPK_RES_OUTOFMEM Not enought memory to push other data
  *         DPK_RES_OK operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
@@ -102,7 +106,7 @@ e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* dat
  * @return DPK_RES_BADPOINTER in case of bad pointer
  *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
  *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data 
+ *         DPK_RES_OUTOFMEM Not enought memory to push other data
  *         DPK_RES_OK operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush);
@@ -114,7 +118,7 @@ e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToP
  * @return DPK_RES_BADPOINTER in case of bad pointer
  *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
  *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data 
+ *         DPK_RES_OUTOFMEM Not enought memory to push other data
  *         DPK_RES_OK operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush);
@@ -126,7 +130,7 @@ e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataT
  * @return DPK_RES_BADPOINTER in case of bad pointer
  *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
  *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data 
+ *         DPK_RES_OUTOFMEM Not enought memory to push other data
  *         DPK_RES_OK operation ended correctly
  */
 e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPush);
@@ -138,7 +142,7 @@ e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataT
  * @return DPK_RES_BADPOINTER in case of bad pointer
  *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
  *         DPK_RES_CORRUPTCTX in case of an corrupted context
- *         DPK_RES_OUTOFMEM Not enought memory to push other data 
+ *         DPK_RES_OUTOFMEM Not enought memory to push other data
  *         DPK_RES_OK operation ended correctly
  */
  e_eCU_dPk_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPush);
