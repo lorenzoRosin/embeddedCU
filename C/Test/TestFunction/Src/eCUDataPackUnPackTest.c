@@ -140,7 +140,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 8  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackReset( &ctxPack ) )
+    if( DPK_RES_OK == dataPackStartNewPack( &ctxPack ) )
     {
         (void)printf("dataPackUnPackLE 9  -- OK \n");
     }
@@ -354,7 +354,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 8  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackReset( &ctxPack ) )
+    if( DPK_RES_OK == dataPackStartNewPack( &ctxPack ) )
     {
         (void)printf("dataPackUnPackBE 9  -- OK \n");
     }

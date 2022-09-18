@@ -81,7 +81,7 @@ void dataPackTestBadPointer(void)
         (void)printf("dataPackTestBadPointer 2  -- FAIL \n");
     }
 
-    if( DPK_RES_BADPOINTER == dataPackReset( NULL ) )
+    if( DPK_RES_BADPOINTER == dataPackStartNewPack( NULL ) )
     {
         (void)printf("dataPackTestBadPointer 3  -- OK \n");
     }
@@ -186,7 +186,7 @@ void dataPackTestBadInit(void)
     /* Init variable */
     ctx.isInit = false;
 
-    if( DPK_RES_NOINITLIB == dataPackReset( &ctx ) )
+    if( DPK_RES_NOINITLIB == dataPackStartNewPack( &ctx ) )
     {
         (void)printf("dataPackTestBadInit 2  -- OK \n");
     }
@@ -779,7 +779,7 @@ void dataPackTestEndianLe(void)
     }
 
     /* Function */
-    if( DPK_RES_OK == dataPackReset( &ctx ) )
+    if( DPK_RES_OK == dataPackStartNewPack( &ctx ) )
     {
         (void)printf("dataPackTestEndianLe 5  -- OK \n");
     }
@@ -824,7 +824,7 @@ void dataPackTestEndianLe(void)
     }
 
     /* Function */
-    if( DPK_RES_OK == dataPackReset( &ctx ) )
+    if( DPK_RES_OK == dataPackStartNewPack( &ctx ) )
     {
         (void)printf("dataPackTestEndianLe 9  -- OK \n");
     }
@@ -926,7 +926,7 @@ void dataPackTestEndianBe(void)
     }
 
     /* Function */
-    if( DPK_RES_OK == dataPackReset( &ctx ) )
+    if( DPK_RES_OK == dataPackStartNewPack( &ctx ) )
     {
         (void)printf("dataPackTestEndianBe 5  -- OK \n");
     }
@@ -971,7 +971,7 @@ void dataPackTestEndianBe(void)
     }
 
     /* Function */
-    if( DPK_RES_OK == dataPackReset( &ctx ) )
+    if( DPK_RES_OK == dataPackStartNewPack( &ctx ) )
     {
         (void)printf("dataPackTestEndianBe 9  -- OK \n");
     }
@@ -1083,7 +1083,7 @@ void dataPackTestCycle(void)
     }
 
     /* Function */
-    if( DPK_RES_OK == dataPackReset( &ctx ) )
+    if( DPK_RES_OK == dataPackStartNewPack( &ctx ) )
     {
         (void)printf("dataPackTestCycle 6  -- OK \n");
     }

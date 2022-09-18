@@ -72,7 +72,23 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPK
  *		   DPK_RES_NOINITLIB need to init the data packer before taking some action
  *         DPK_RES_OK operation ended correctly
  */
-e_eCU_dPk_Res dataPackReset(s_eCU_DataPackCtx* const ctx);
+e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx);
+
+/**
+ * @brief       Retrive the pointer to the stored unstuffed data, and the data size of the frame. Keep in mind that
+ *              the frame parsing could be ongoing, and if an error in the frame occour the retrivedLen could be
+ *              setted to 0 again
+ *
+ * @param[in]   ctx         - Byte unStuffer context
+ * @param[out]  dataP       - Pointer to a Pointer pointing to the unstuffed data frame
+ * @param[out]  maxDataSize - Pointer to a uint32_t variable where the size of the unstuffed data will be placed
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              DBUSTF_RES_OK           - Operation ended correctly
+ */
+e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
 
 /**
  * Retrive how many byte we have pushed

@@ -57,7 +57,7 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPK
 	return result;
 }
 
-e_eCU_dPk_Res dataPackReset(s_eCU_DataPackCtx* const ctx)
+e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_dPk_Res result;
