@@ -1,7 +1,11 @@
 /**
- * @file eCUDataUnPack.c
+ * @file       eCUDataUnPack.c
  *
- */
+ * @brief      Data pack utils
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 /***********************************************************************************************************************
  *      INCLUDES
@@ -53,7 +57,7 @@ e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, const uint8_t*
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackReset(s_eCU_DataUnPackCtx* const ctx)
+e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_dUnpk_Res result;
