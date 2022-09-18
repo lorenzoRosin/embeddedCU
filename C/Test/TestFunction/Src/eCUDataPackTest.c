@@ -550,12 +550,38 @@ void dataPackTestBadParamStatus(void)
 
     if( DPK_RES_CORRUPTCTX == dataPackGetDataReference( &ctx, &dataP, &varTemp ) )
     {
-        (void)printf("dataPackTestBadInit 18 -- OK \n");
+        (void)printf("dataPackTestBadParamStatus 18 -- OK \n");
     }
     else
     {
-        (void)printf("dataPackTestBadInit 18 -- FAIL \n");
+        (void)printf("dataPackTestBadParamStatus 18 -- FAIL \n");
     }
+
+    /* Init variable */
+    ctx.isInit = false;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestBadParamStatus 19 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 19 -- FAIL \n");
+    }
+
+    /* Init variable */
+    ctx.memPKASize = 0u;
+
+    if( DPK_RES_CORRUPTCTX == dataPackStartNewPack( &ctx ) )
+    {
+        (void)printf("dataPackTestBadParamStatus 20 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamStatus 20 -- FAIL \n");
+    }
+
 }
 
 void dataPackTestOutOfMem(void)

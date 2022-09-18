@@ -76,9 +76,17 @@ e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx)
 		}
 		else
 		{
-			/* Update index */
-			ctx->memPKACntr = 0u;
-			result = DPK_RES_OK;
+            /* Check internal status validity */
+            if( false == isPackStatusStillCoherent(ctx) )
+            {
+                result = DPK_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* Update index */
+                ctx->memPKACntr = 0u;
+                result = DPK_RES_OK;
+            }
 		}
     }
 

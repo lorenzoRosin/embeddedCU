@@ -74,6 +74,7 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPK
  *
  * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
+ *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
  *              DPK_RES_OK           - Operation ended correctly
  */
 e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx);
