@@ -270,6 +270,12 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                         {
                             calLen = calLen + 1u;
                         }
+
+                        /* Try to avoid overflow. Resonable limit for HW */
+                        if( calLen > 0xFFFFFFFDu )
+                        {
+                            calLen = 0xFFFFFFFDu;
+                        }
                     }
 
                     /* Copy calc value */
@@ -331,76 +337,97 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                         /* Execute parsing cycle */
                         while( ( nExamByte < maxDestLen ) && ( DBSTF_SM_PRV_STUFFEND != ctx->stuffState ) )
                         {
-                            if( DBSTF_SM_PRV_NEEDRAWDATA == ctx->stuffState )
+                            switch( ctx->stuffState )
                             {
-                                /* Parse data from the frame now */
-                                if( ECU_SOF == ctx->memArea[ctx->memAreaCntr] )
+                                case DBSTF_SM_PRV_NEEDRAWDATA :
                                 {
-                                    /* Stuff with escape */
-                                    stuffedDest[nExamByte] = ECU_ESC;
-                                    ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
-                                    nExamByte++;
-                                    ctx->memAreaCntr++;
+                                    /* Parse data from the frame now */
+                                    if( ECU_SOF == ctx->memArea[ctx->memAreaCntr] )
+                                    {
+                                        /* Stuff with escape */
+                                        stuffedDest[nExamByte] = ECU_ESC;
+                                        ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
+                                        nExamByte++;
+                                        ctx->memAreaCntr++;
+                                    }
+                                    else if( ECU_EOF == ctx->memArea[ctx->memAreaCntr] )
+                                    {
+                                        /* Stuff with escape */
+                                        stuffedDest[nExamByte] = ECU_ESC;
+                                        ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
+                                        nExamByte++;
+                                        ctx->memAreaCntr++;
+                                    }
+                                    else if( ECU_ESC == ctx->memArea[ctx->memAreaCntr] )
+                                    {
+                                        /* Stuff with escape */
+                                        stuffedDest[nExamByte] = ECU_ESC;
+                                        ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
+                                        nExamByte++;
+                                        ctx->memAreaCntr++;
+                                    }
+                                    else
+                                    {
+                                        /* Can insert data */
+                                        stuffedDest[nExamByte] = ctx->memArea[ctx->memAreaCntr];
+                                        nExamByte++;
+                                        ctx->memAreaCntr++;
+
+                                        if( ctx->memAreaCntr == ctx->memAreaFrameSize )
+                                        {
+                                            /* End of frame needed */
+                                            ctx->stuffState = DBSTF_SM_PRV_NEEDEOF;
+                                        }
+                                    }
+
+                                    break;
                                 }
-                                else if( ECU_EOF == ctx->memArea[ctx->memAreaCntr] )
+
+                                case DBSTF_SM_PRV_NEEDNEGATEPRECDATA :
                                 {
-                                    /* Stuff with escape */
-                                    stuffedDest[nExamByte] = ECU_ESC;
-                                    ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
+                                    /* Something from an old iteration  */
+                                    stuffedDest[nExamByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
                                     nExamByte++;
-                                    ctx->memAreaCntr++;
-                                }
-                                else if( ECU_ESC == ctx->memArea[ctx->memAreaCntr] )
-                                {
-                                    /* Stuff with escape */
-                                    stuffedDest[nExamByte] = ECU_ESC;
-                                    ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
-                                    nExamByte++;
-                                    ctx->memAreaCntr++;
-                                }
-                                else
-                                {
-                                    /* Can insert data */
-                                    stuffedDest[nExamByte] = ctx->memArea[ctx->memAreaCntr];
-                                    nExamByte++;
-                                    ctx->memAreaCntr++;
 
                                     if( ctx->memAreaCntr == ctx->memAreaFrameSize )
                                     {
                                         /* End of frame needed */
                                         ctx->stuffState = DBSTF_SM_PRV_NEEDEOF;
                                     }
-                                }
-                            }
-                            else if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
-                            {
-                                /* Something from an old iteration  */
-                                stuffedDest[nExamByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
-                                nExamByte++;
+                                    else
+                                    {
+                                        ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
+                                    }
 
-                                if( ctx->memAreaCntr == ctx->memAreaFrameSize )
-                                {
-                                    /* End of frame needed */
-                                    ctx->stuffState = DBSTF_SM_PRV_NEEDEOF;
+                                    break;
                                 }
-                                else
+
+                                case DBSTF_SM_PRV_NEEDEOF :
                                 {
+                                    /* End of frame */
+                                    stuffedDest[nExamByte] = ECU_EOF;
+                                    ctx->stuffState = DBSTF_SM_PRV_STUFFEND;
+                                    nExamByte++;
+
+                                    break;
+                                }
+
+                                case DBSTF_SM_PRV_NEEDSOF :
+                                {
+                                    /* Start of frame */
+                                    stuffedDest[nExamByte] = ECU_SOF;
+                                    nExamByte++;
                                     ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
+
+                                    break;
                                 }
-                            }
-                            else if( DBSTF_SM_PRV_NEEDEOF == ctx->stuffState )
-                            {
-                                /* End of frame */
-                                stuffedDest[nExamByte] = ECU_EOF;
-                                ctx->stuffState = DBSTF_SM_PRV_STUFFEND;
-                                nExamByte++;
-                            }
-                            else if( DBSTF_SM_PRV_NEEDSOF == ctx->stuffState )
-                            {
-                                /* Start of frame */
-                                stuffedDest[nExamByte] = ECU_SOF;
-                                nExamByte++;
-                                ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
+
+                               // case DBSTF_SM_PRV_STUFFEND :
+                               // {
+                               //     /* Impossible end here */
+                               //
+                               //     break;
+                               // }
                             }
                         }
 
