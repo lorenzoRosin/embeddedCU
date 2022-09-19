@@ -47,7 +47,7 @@ typedef struct
 	uint32_t memAreaSize;
     uint32_t memAreaFrameSize;
 	uint32_t memAreaCntr;
-    e_eCU_dBStf_st_prv stuffState;
+    e_eCU_dBStf_sm_prv stuffState;
 }s_eCU_BStuffCtx;
 
 

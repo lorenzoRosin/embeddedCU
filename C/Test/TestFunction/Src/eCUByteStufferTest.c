@@ -471,7 +471,7 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 9  -- FAIL \n");
     }
 
-    ctx.stuffState = DBSTF_ST_PRV_STUFFEND;
+    ctx.stuffState = DBSTF_SM_PRV_STUFFEND;
     ctx.memAreaCntr = 1u;
     ctx.memAreaFrameSize = 2u;
     ctx.memAreaSize = 3u;
@@ -495,7 +495,7 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 11 -- FAIL \n");
     }
 
-    ctx.stuffState = DBSTF_ST_PRV_NEEDSOF;
+    ctx.stuffState = DBSTF_SM_PRV_NEEDSOF;
     ctx.memAreaCntr = 1u;
     ctx.memAreaFrameSize = 2u;
     ctx.memAreaSize = 3u;
@@ -527,7 +527,7 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 14 -- FAIL \n");
     }
 
-    ctx.stuffState = DBSTF_ST_PRV_NEEDNEGATEPRECDATA;
+    ctx.stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
     ctx.memAreaCntr = 1u;
     memArea[ctx.memAreaCntr - 1u] = 0xFFu;
     if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
