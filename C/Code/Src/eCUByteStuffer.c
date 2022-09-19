@@ -49,9 +49,8 @@ e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t* const memAr
             ctx->memAreaSize = memAreaSize;
             ctx->memAreaFrameSize = 0u;
             ctx->memAreaCntr = 0u;
-            ctx->precedentToCheck = false;
-            ctx->needSof = true;
-            ctx->needEof = true;
+            ctx->stuffState = DBSTF_ST_PRV_NEEDSOF;
+
             result = DBSTF_RES_OK;
         }
 	}
@@ -95,9 +94,8 @@ e_eCU_dBStf_Res bStufferStartNewFrame(s_eCU_BStuffCtx* const ctx, const uint32_t
                     /* Update data */
                     ctx->memAreaFrameSize = frameLen;
                     ctx->memAreaCntr = 0u;
-                    ctx->precedentToCheck = false;
-                    ctx->needSof = true;
-                    ctx->needEof = true;
+                    ctx->stuffState = DBSTF_ST_PRV_NEEDSOF;
+
                     result = DBSTF_RES_OK;
                 }
             }
@@ -179,9 +177,8 @@ e_eCU_dBStf_Res bStufferRestartCurrentFrame(s_eCU_BStuffCtx* const ctx)
                 {
                     /* Update index */
                     ctx->memAreaCntr = 0u;
-                    ctx->precedentToCheck = false;
-                    ctx->needSof = true;
-                    ctx->needEof = true;
+                    ctx->stuffState = DBSTF_ST_PRV_NEEDSOF;
+
                     result = DBSTF_RES_OK;
                 }
             }
@@ -200,6 +197,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 {
 	/* Local variable */
 	e_eCU_dBStf_Res result;
+    uint32_t calLen;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
@@ -229,27 +227,25 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                 }
                 else
                 {
-                    /* Init ret value */
-                    *retrivedLen = 0u;
-
-                    /* now check if we need Start of frame */
-                    if( true == ctx->needSof )
+                    /* Analyze the current state of the state machine */
+                    if( DBSTF_ST_PRV_NEEDSOF == ctx->stuffState )
                     {
-                        *retrivedLen = *retrivedLen + 1u;
+                        calLen = 2u;
                     }
-
-                    /* now check if we need End of frame */
-                    if( true == ctx->needEof )
+                    else if( DBSTF_ST_PRV_NEEDEOF == ctx->stuffState )
                     {
-                        *retrivedLen = *retrivedLen + 1u;
+                        calLen = 1u;
                     }
-
-                    /* If a precedent byte of the payload was an SOF, EOF or ESC character, this means that the
-                     * ESC char is already inserted in the unstuffed data, but that we need to add the negation of the
-                     * payload */
-                    if( true == ctx->precedentToCheck )
+                    else if( DBSTF_ST_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
                     {
-                        *retrivedLen = *retrivedLen + 1u;
+                        /* If a precedent byte of the payload was an SOF, EOF or ESC character, this means that the
+                        * ESC char is already inserted in the unstuffed data, but that we need to add the negation of
+                        * the payload */
+                        calLen = 1u;
+                    }
+                    else
+                    {
+                        calLen = 0u;
                     }
 
                     /* Calculate the remaining byte from the current counter of course */
@@ -258,23 +254,26 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                         if( ECU_SOF == ctx->memArea[indx] )
                         {
                             /* Stuff with escape */
-                            *retrivedLen = *retrivedLen + 2u;
+                            calLen = calLen + 2u;
                         }
                         else if( ECU_EOF == ctx->memArea[indx] )
                         {
                             /* Stuff with escape */
-                            *retrivedLen = *retrivedLen + 2u;
+                            calLen = calLen + 2u;
                         }
                         else if( ECU_ESC == ctx->memArea[indx] )
                         {
                             /* Stuff with escape */
-                            *retrivedLen = *retrivedLen + 2u;
+                            calLen = calLen + 2u;
                         }
                         else
                         {
-                            *retrivedLen = *retrivedLen + 1u;
+                            calLen = calLen + 1u;
                         }
                     }
+
+                    /* Copy calc value */
+                    *retrivedLen = calLen;
 
                     result = DBSTF_RES_OK;
                 }
@@ -329,40 +328,17 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                         /* Init counter */
                         nExamByte = 0u;
 
-                        /* Detect start of frame here to maximize efficency */
-                        if( true == ctx->needSof )
-                        {
-                            /* Start of frame */
-                            stuffedDest[nExamByte] = ECU_SOF;
-                            nExamByte++;
-                            ctx->needSof = false;
-                        }
-
                         /* Execute parsing cycle */
-                        while( ( nExamByte < maxDestLen ) && ( true == ctx->needEof ) )
+                        while( ( nExamByte < maxDestLen ) && ( DBSTF_ST_PRV_STUFFEND != ctx->stuffState ) )
                         {
-                            if( true == ctx->precedentToCheck )
+                            if( DBSTF_ST_PRV_NEEDRAWDATA == ctx->stuffState )
                             {
-                                /* Something from an old iteration  */
-                                stuffedDest[nExamByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
-                                ctx->precedentToCheck = false;
-                                nExamByte++;
-                            }
-                            else if( ctx->memAreaCntr == ctx->memAreaFrameSize )
-                            {
-                                /* End of frame */
-                                stuffedDest[nExamByte] = ECU_EOF;
-                                ctx->needEof = false;
-                                nExamByte++;
-                            }
-                            else
-                            {
-                                /* Current iteration */
+                                /* Parse data from the frame now */
                                 if( ECU_SOF == ctx->memArea[ctx->memAreaCntr] )
                                 {
                                     /* Stuff with escape */
                                     stuffedDest[nExamByte] = ECU_ESC;
-                                    ctx->precedentToCheck = true;
+                                    ctx->stuffState = DBSTF_ST_PRV_NEEDNEGATEPRECDATA;
                                     nExamByte++;
                                     ctx->memAreaCntr++;
                                 }
@@ -370,7 +346,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                                 {
                                     /* Stuff with escape */
                                     stuffedDest[nExamByte] = ECU_ESC;
-                                    ctx->precedentToCheck = true;
+                                    ctx->stuffState = DBSTF_ST_PRV_NEEDNEGATEPRECDATA;
                                     nExamByte++;
                                     ctx->memAreaCntr++;
                                 }
@@ -378,7 +354,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                                 {
                                     /* Stuff with escape */
                                     stuffedDest[nExamByte] = ECU_ESC;
-                                    ctx->precedentToCheck = true;
+                                    ctx->stuffState = DBSTF_ST_PRV_NEEDNEGATEPRECDATA;
                                     nExamByte++;
                                     ctx->memAreaCntr++;
                                 }
@@ -388,7 +364,43 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                                     stuffedDest[nExamByte] = ctx->memArea[ctx->memAreaCntr];
                                     nExamByte++;
                                     ctx->memAreaCntr++;
+
+                                    if( ctx->memAreaCntr == ctx->memAreaFrameSize )
+                                    {
+                                        /* End of frame needed */
+                                        ctx->stuffState = DBSTF_ST_PRV_NEEDEOF;
+                                    }
                                 }
+                            }
+                            else if( DBSTF_ST_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
+                            {
+                                /* Something from an old iteration  */
+                                stuffedDest[nExamByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
+                                nExamByte++;
+
+                                if( ctx->memAreaCntr == ctx->memAreaFrameSize )
+                                {
+                                    /* End of frame needed */
+                                    ctx->stuffState = DBSTF_ST_PRV_NEEDEOF;
+                                }
+                                else
+                                {
+                                    ctx->stuffState = DBSTF_ST_PRV_NEEDRAWDATA;
+                                }
+                            }
+                            else if( DBSTF_ST_PRV_NEEDEOF == ctx->stuffState )
+                            {
+                                /* End of frame */
+                                stuffedDest[nExamByte] = ECU_EOF;
+                                ctx->stuffState = DBSTF_ST_PRV_STUFFEND;
+                                nExamByte++;
+                            }
+                            else if( DBSTF_ST_PRV_NEEDSOF == ctx->stuffState )
+                            {
+                                /* Start of frame */
+                                stuffedDest[nExamByte] = ECU_SOF;
+                                nExamByte++;
+                                ctx->stuffState = DBSTF_ST_PRV_NEEDRAWDATA;
                             }
                         }
 
@@ -396,7 +408,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                         *filledLen = nExamByte;
 
                         /* result? */
-                        if( false == ctx->needEof )
+                        if( DBSTF_ST_PRV_STUFFEND == ctx->stuffState )
                         {
                             /* Nothing more */
                             result = DBSTF_RES_FRAMEENDED;
@@ -431,39 +443,28 @@ bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
 	else
 	{
 		/* Check data coherence */
-		if( ( ( true == ctx->needSof ) && ( false == ctx->needEof ) ) ||
-            ( ( false == ctx->needSof ) && ( false == ctx->needEof ) && ( ctx->memAreaCntr != ctx->memAreaFrameSize )
-            ) ||
-            ( ( true == ctx->needSof ) && ( true == ctx->precedentToCheck ) ) ||
-            ( ( false == ctx->needEof ) && ( true == ctx->precedentToCheck ) ) ||
-            ( ( true == ctx->needSof ) && ( 0u != ctx->memAreaCntr ) ) )
+		if( ( ( DBSTF_ST_PRV_STUFFEND == ctx->stuffState ) && ( ctx->memAreaCntr != ctx->memAreaFrameSize ) ) ||
+            ( ( DBSTF_ST_PRV_NEEDSOF  == ctx->stuffState ) && ( 0u != ctx->memAreaCntr ) ) )
 		{
             result = false;
 		}
 		else
 		{
-            if( ( 0u == ctx->memAreaCntr ) && ( true == ctx->precedentToCheck ) )
+            if( DBSTF_ST_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
             {
-                result = false;
-            }
-            else
-            {
-                if( true == ctx->precedentToCheck )
+                precedentByte = ctx->memArea[ctx->memAreaCntr - 1u];
+                if( (ECU_ESC != precedentByte) && (ECU_EOF != precedentByte) && (ECU_SOF != precedentByte) )
                 {
-                    precedentByte = ctx->memArea[ctx->memAreaCntr - 1u];
-                    if( (ECU_ESC != precedentByte) && (ECU_EOF != precedentByte) && (ECU_SOF != precedentByte) )
-                    {
-                        result = false;
-                    }
-                    else
-                    {
-                        result = true;
-                    }
+                    result = false;
                 }
                 else
                 {
                     result = true;
                 }
+            }
+            else
+            {
+                result = true;
             }
 		}
 	}

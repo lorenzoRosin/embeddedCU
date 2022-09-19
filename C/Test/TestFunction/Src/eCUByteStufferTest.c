@@ -471,8 +471,10 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 9  -- FAIL \n");
     }
 
-    ctx.needEof = false;
-    ctx.needSof = true;
+    ctx.stuffState = DBSTF_ST_PRV_STUFFEND;
+    ctx.memAreaCntr = 1u;
+    ctx.memAreaFrameSize = 2u;
+    ctx.memAreaSize = 3u;
     if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
     {
         (void)printf("byteStuffTestBadParamStatus 10 -- OK \n");
@@ -493,10 +495,10 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 11 -- FAIL \n");
     }
 
-    ctx.memAreaFrameSize = 4u;
-    ctx.needSof = false;
-    ctx.needEof = false;
-    ctx.memAreaCntr = ctx.memAreaFrameSize - 1u;
+    ctx.stuffState = DBSTF_ST_PRV_NEEDSOF;
+    ctx.memAreaCntr = 1u;
+    ctx.memAreaFrameSize = 2u;
+    ctx.memAreaSize = 3u;
     if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
     {
         (void)printf("byteStuffTestBadParamStatus 12 -- OK \n");
@@ -505,7 +507,6 @@ void byteStuffTestBadParamStatus(void)
     {
         (void)printf("byteStuffTestBadParamStatus 12 -- FAIL \n");
     }
-
 
      /* Function */
     if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
@@ -517,9 +518,7 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 13 -- FAIL \n");
     }
 
-    ctx.needSof = true;
-    ctx.precedentToCheck = true;
-    if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
+    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, 4u) )
     {
         (void)printf("byteStuffTestBadParamStatus 14 -- OK \n");
     }
@@ -528,8 +527,10 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 14 -- FAIL \n");
     }
 
-     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    ctx.stuffState = DBSTF_ST_PRV_NEEDNEGATEPRECDATA;
+    ctx.memAreaCntr = 1u;
+    memArea[ctx.memAreaCntr - 1u] = 0xFFu;
+    if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
     {
         (void)printf("byteStuffTestBadParamStatus 15 -- OK \n");
     }
@@ -538,9 +539,8 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 15 -- FAIL \n");
     }
 
-    ctx.needEof = false;
-    ctx.precedentToCheck = true;
-    if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
+    /* Function */
+    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteStuffTestBadParamStatus 16 -- OK \n");
     }
@@ -549,8 +549,8 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 16 -- FAIL \n");
     }
 
-     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    ctx.memAreaSize = 0u;
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetUnStufDataLocation(&ctx, &dataP, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 17 -- OK \n");
     }
@@ -559,9 +559,9 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 17 -- FAIL \n");
     }
 
-    ctx.needSof = true;
-    ctx.memAreaCntr = 1u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
+
+    /* Function */
+    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteStuffTestBadParamStatus 18 -- OK \n");
     }
@@ -570,8 +570,9 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 18 -- FAIL \n");
     }
 
-     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    ctx.memAreaSize = 0u;
+    ctx.memAreaFrameSize = 1u;
+    if( DBSTF_RES_CORRUPTCTX == bStufferRestartCurrentFrame(&ctx) )
     {
         (void)printf("byteStuffTestBadParamStatus 19 -- OK \n");
     }
@@ -580,10 +581,8 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 19 -- FAIL \n");
     }
 
-    ctx.memAreaCntr = 0u;
-    ctx.precedentToCheck = true;
-    ctx.needSof = false;
-    if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
+    /* Function */
+    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteStuffTestBadParamStatus 20 -- OK \n");
     }
@@ -592,8 +591,9 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 20 -- FAIL \n");
     }
 
-     /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
+    ctx.memAreaSize = 0u;
+    ctx.memAreaFrameSize = 1u;
+    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 21 -- OK \n");
     }
@@ -602,7 +602,8 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 21 -- FAIL \n");
     }
 
-    if( DBSTF_RES_OK == bStufferStartNewFrame(&ctx, 4u) )
+    /* Function */
+    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
         (void)printf("byteStuffTestBadParamStatus 22 -- OK \n");
     }
@@ -611,101 +612,15 @@ void byteStuffTestBadParamStatus(void)
         (void)printf("byteStuffTestBadParamStatus 22 -- FAIL \n");
     }
 
-    ctx.precedentToCheck = true;
-    ctx.memAreaCntr = 1u;
-    memArea[ctx.memAreaCntr - 1u] = 0xFFu;
-    ctx.needSof = false;
-    if( DBSTF_RES_CORRUPTCTX == bStufferStartNewFrame(&ctx, 4u) )
+    ctx.memAreaSize = 0u;
+    ctx.memAreaFrameSize = 1u;
+    if( DBSTF_RES_CORRUPTCTX == bStufferRetriStufChunk(&ctx, memArea, 1u, &varTemp32) )
     {
         (void)printf("byteStuffTestBadParamStatus 23 -- OK \n");
     }
     else
     {
         (void)printf("byteStuffTestBadParamStatus 23 -- FAIL \n");
-    }
-
-    /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 24 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 24 -- FAIL \n");
-    }
-
-    ctx.memAreaSize = 0u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetUnStufDataLocation(&ctx, &dataP, &varTemp32) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 25 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 25 -- FAIL \n");
-    }
-
-
-    /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 26 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 26 -- FAIL \n");
-    }
-
-    ctx.memAreaSize = 0u;
-    ctx.memAreaFrameSize = 1u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferRestartCurrentFrame(&ctx) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 27 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 27 -- FAIL \n");
-    }
-
-    /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 28 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 28 -- FAIL \n");
-    }
-
-    ctx.memAreaSize = 0u;
-    ctx.memAreaFrameSize = 1u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferGetRemToRetrive(&ctx, &varTemp32) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 29 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 29 -- FAIL \n");
-    }
-
-    /* Function */
-    if( DBSTF_RES_OK == bStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 30 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 30 -- FAIL \n");
-    }
-
-    ctx.memAreaSize = 0u;
-    ctx.memAreaFrameSize = 1u;
-    if( DBSTF_RES_CORRUPTCTX == bStufferRetriStufChunk(&ctx, memArea, 1u, &varTemp32) )
-    {
-        (void)printf("byteStuffTestBadParamStatus 31 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteStuffTestBadParamStatus 31 -- FAIL \n");
     }
 }
 

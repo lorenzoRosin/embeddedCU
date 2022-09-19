@@ -22,6 +22,7 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUType.h"
+#include "eCUByteStuffer_prv.h"
 
 
 
@@ -46,9 +47,7 @@ typedef struct
 	uint32_t memAreaSize;
     uint32_t memAreaFrameSize;
 	uint32_t memAreaCntr;
-    bool_t   precedentToCheck;
-    bool_t   needSof;
-    bool_t   needEof;
+    e_eCU_dBStf_st_prv stuffState;
 }s_eCU_BStuffCtx;
 
 
