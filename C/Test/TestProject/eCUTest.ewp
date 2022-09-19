@@ -2162,6 +2162,9 @@
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteStuffer.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteStuffer_prv.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\Code\Inc\eCUByteUnStuffer.h</name>
             </file>
             <file>

@@ -59,7 +59,7 @@ void byteUnStufferTest(void)
 void byteUnStuffTestBadPointer(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint32_t a;
@@ -197,7 +197,7 @@ void byteUnStuffTestBadPointer(void)
 void byteUnStuffTestBadInit(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint32_t a;
@@ -257,7 +257,7 @@ void byteUnStuffTestBadInit(void)
 void byteUnStuffTestBadParamEntr(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint32_t a;
@@ -294,7 +294,7 @@ void byteUnStuffTestBadParamEntr(void)
 void byteUnStuffTestBadParamStatus(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint8_t *dataP;
@@ -528,7 +528,7 @@ void byteUnStuffTestBadParamStatus(void)
 void byteUnStuffTestOutOfMem(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
@@ -1029,7 +1029,7 @@ void byteUnStuffTestOutOfMem(void)
 void byteUnStuffTestFrameEnd(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
@@ -1536,7 +1536,7 @@ void byteUnStuffTestFrameEnd(void)
 void byteUnStuffTestGeneral(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[50u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
@@ -1717,7 +1717,7 @@ void byteUnStuffTestGeneral(void)
 void byteUnStuffTestCornerCase(void)
 {
     /* Local variable */
-    e_eCU_BUStuffCtx ctx;
+    s_eCU_BUStuffCtx ctx;
     uint8_t  memArea[5u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;

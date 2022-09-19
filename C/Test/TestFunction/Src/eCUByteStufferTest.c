@@ -59,7 +59,7 @@ void byteStufferTest(void)
 void byteStuffTestBadPointer(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint8_t* pointer;
@@ -179,7 +179,7 @@ void byteStuffTestBadPointer(void)
 void byteStuffTestBadInit(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint8_t* pointer;
@@ -237,7 +237,7 @@ void byteStuffTestBadInit(void)
 void byteStuffTestBadIniFrame(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
 
@@ -304,7 +304,7 @@ void byteStuffTestBadIniFrame(void)
 void byteStuffTestBadParamEntr(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
 
@@ -371,7 +371,7 @@ void byteStuffTestBadParamEntr(void)
 void byteStuffTestBadParamStatus(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint8_t* dataP;
@@ -712,7 +712,7 @@ void byteStuffTestBadParamStatus(void)
 void byteStuffTestOutOfMem(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint8_t  memAreaFinalChunk[50u];
     uint32_t varTemp32;
@@ -827,7 +827,7 @@ void byteStuffTestOutOfMem(void)
 void byteStuffTestGetRemainings(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[5u];
     uint8_t  memAreaFinalChunk[50u];
     uint32_t varTemp32;
@@ -1149,7 +1149,7 @@ void byteStuffTestGetRemainings(void)
 void byteStuffTestGeneral(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[4u];
     uint8_t  memAreaFinalChunk[50u];
     uint8_t  memAreaExpected[9u];
@@ -1846,7 +1846,7 @@ void byteStuffTestGeneral(void)
 void byteStuffTestGeneralAnother(void)
 {
     /* Local variable */
-    e_eCU_BStuffCtx ctx;
+    s_eCU_BStuffCtx ctx;
     uint8_t  memArea[4u];
     uint8_t  memAreaFinalChunk[50u];
     uint8_t  memAreaExpected[9u];

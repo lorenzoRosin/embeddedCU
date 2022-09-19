@@ -49,7 +49,7 @@ typedef struct
     bool_t   precedentToCheck;
     bool_t   needSof;
     bool_t   needEof;
-}e_eCU_BStuffCtx;
+}s_eCU_BStuffCtx;
 
 
 
@@ -67,7 +67,7 @@ typedef struct
  *		        DBSTF_RES_BADPARAM      - In case of an invalid parameter passed to the function
  *              DBSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_dBStf_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
+e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
  * @brief       Start to stuff a new frame given the dimension of raw payload it self. This function suppouse that
@@ -83,7 +83,7 @@ e_eCU_dBStf_Res bStufferInitCtx(e_eCU_BStuffCtx* const ctx, uint8_t* const memAr
  *		        DBSTF_RES_CORRUPTCTX    - In case of an corrupted context
  *              DBSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_dBStf_Res bStufferStartNewFrame(e_eCU_BStuffCtx* const ctx, const uint32_t frameLen);
+e_eCU_dBStf_Res bStufferStartNewFrame(s_eCU_BStuffCtx* const ctx, const uint32_t frameLen);
 
 /**
  * @brief       Retrive the pointer of the buffer that the user can use to insert data payload that need to be stuffed
@@ -98,7 +98,7 @@ e_eCU_dBStf_Res bStufferStartNewFrame(e_eCU_BStuffCtx* const ctx, const uint32_t
  *		        DBSTF_RES_CORRUPTCTX    - In case of an corrupted context
  *              DBSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_dBStf_Res bStufferGetUnStufDataLocation(e_eCU_BStuffCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize);
+e_eCU_dBStf_Res bStufferGetUnStufDataLocation(s_eCU_BStuffCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize);
 
 /**
  * @brief       Restart to stuff the already passed/the current frame
@@ -111,7 +111,7 @@ e_eCU_dBStf_Res bStufferGetUnStufDataLocation(e_eCU_BStuffCtx* const ctx, uint8_
  *		        DBSTF_RES_CORRUPTCTX    - In case of an corrupted context
  *              DBSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_dBStf_Res bStufferRestartCurrentFrame(e_eCU_BStuffCtx* const ctx);
+e_eCU_dBStf_Res bStufferRestartCurrentFrame(s_eCU_BStuffCtx* const ctx);
 
 /**
  * @brief       Retrive the numbers of stuffed bytes that can be retrived using bStufferRetriStufChunk (e.g. if the
@@ -126,7 +126,7 @@ e_eCU_dBStf_Res bStufferRestartCurrentFrame(e_eCU_BStuffCtx* const ctx);
  *		        DBSTF_RES_CORRUPTCTX    - In case of an corrupted context
  *              DBSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * @brief       Retrive stuffed data chunk. The raw data copied in the buffer retrived using the function
@@ -146,7 +146,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(e_eCU_BStuffCtx* const ctx, uint32_t* co
  *              DBSTF_RES_OK            - Operation ended correctly. This dosent mean that the stuffing process is
  *                                        completed.
  */
-e_eCU_dBStf_Res bStufferRetriStufChunk(e_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
+e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
 									   const uint32_t maxDestLen, uint32_t* const filledLen);
 
 #ifdef __cplusplus

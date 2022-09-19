@@ -48,7 +48,7 @@ typedef struct
     bool_t   precedentWasEsc;
     bool_t   needSof;
     bool_t   needEof;
-}e_eCU_BUStuffCtx;
+}s_eCU_BUStuffCtx;
 
 
 
@@ -66,7 +66,7 @@ typedef struct
  *		        DBUSTF_RES_BADPARAM     - In case of an invalid parameter passed to the function
  *              DBUSTF_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
+e_eCU_dBUStf_Res bUStufferInitCtx(s_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
 
 /**
  * @brief       Start receiving a new frame, loosing the previous stored unstuffed frame
@@ -78,7 +78,7 @@ e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const me
  *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
  *              DBUSTF_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx);
+e_eCU_dBUStf_Res bUStufferStartNewFrame(s_eCU_BUStuffCtx* const ctx);
 
 /**
  * @brief       Retrive the pointer to the stored unstuffed data, and the data size of the frame. Keep in mind that
@@ -94,7 +94,7 @@ e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx);
  *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
  *              DBUSTF_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
+e_eCU_dBUStf_Res bUStufferGetUnstufData(s_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
 
 /**
  * @brief       Retrive the current numbers of unstuffed data received. Keep in mind that the frame parsing could be
@@ -108,7 +108,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** d
  *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
  *              DBUSTF_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * @brief       Check if the current frame is finished or we need to unstuff some more data to have the full frame
@@ -121,7 +121,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* co
  *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
  *              DBUSTF_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(e_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff);
+e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff);
 
 /**
  * @brief       Insert the stuffed data chunk that the alg will unstuff byte per byte
@@ -148,7 +148,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(e_eCU_BUStuffCtx* const ctx, bool_
  *              DBUSTF_RES_OK           - Operation ended correctly. The chunk is parsed correclty but the frame is not
  *                                        finished yet
  */
-e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
+e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec);
 
 #ifdef __cplusplus

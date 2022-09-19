@@ -17,14 +17,14 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx);
-static void restartFrameReceiver(e_eCU_BUStuffCtx* const ctx);
+static bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx);
+static void restartFrameReceiver(s_eCU_BUStuffCtx* const ctx);
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
+e_eCU_dBUStf_Res bUStufferInitCtx(s_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -58,7 +58,7 @@ e_eCU_dBUStf_Res bUStufferInitCtx(e_eCU_BUStuffCtx* const ctx, uint8_t* const me
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx)
+e_eCU_dBUStf_Res bUStufferStartNewFrame(s_eCU_BUStuffCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -97,7 +97,7 @@ e_eCU_dBUStf_Res bUStufferStartNewFrame(e_eCU_BUStuffCtx* const ctx)
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
+e_eCU_dBUStf_Res bUStufferGetUnstufData(s_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -133,7 +133,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufData(e_eCU_BUStuffCtx* const ctx, uint8_t** d
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -173,7 +173,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(e_eCU_BUStuffCtx* const ctx, uint32_t* co
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(e_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff)
+e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -224,7 +224,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(e_eCU_BUStuffCtx* const ctx, bool_
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
+e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec)
 {
 	/* Local variable */
@@ -400,7 +400,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(e_eCU_BUStuffCtx* const ctx, const uint8_
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
+bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
 {
     bool_t result;
 
@@ -434,7 +434,7 @@ bool_t isBUSStatusStillCoherent(const e_eCU_BUStuffCtx* ctx)
     return result;
 }
 
-void restartFrameReceiver(e_eCU_BUStuffCtx* const ctx)
+void restartFrameReceiver(s_eCU_BUStuffCtx* const ctx)
 {
     /* Found start, but wasn't expected */
     ctx->memAreaCntr = 0u;
