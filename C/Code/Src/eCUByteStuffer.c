@@ -198,6 +198,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 	/* Local variable */
 	e_eCU_dBStf_Res result;
     uint32_t calLen;
+	uint32_t indx;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
@@ -249,33 +250,54 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                     }
 
                     /* Calculate the remaining byte from the current counter of course */
-                    for( uint32_t indx = ctx->memAreaCntr; indx < ctx->memAreaFrameSize; indx++ )
+					indx = ctx->memAreaCntr;
+                    while( ( indx < ctx->memAreaFrameSize) && (calLen < 0xFFFFFFFFu) )
                     {
                         if( ECU_SOF == ctx->memArea[indx] )
                         {
-                            /* Stuff with escape */
-                            calLen = calLen + 2u;
+							/* Try to avoid overflow. Resonable limit for HW */
+							if( calLen <= 0xFFFFFFFDu )
+							{
+								/* Stuff with escape */
+								calLen = calLen + 2u;
+							}
+							else
+							{
+								calLen = 0xFFFFFFFFu;
+							}
                         }
                         else if( ECU_EOF == ctx->memArea[indx] )
                         {
-                            /* Stuff with escape */
-                            calLen = calLen + 2u;
+							/* Try to avoid overflow. Resonable limit for HW */
+							if( calLen <= 0xFFFFFFFDu )
+							{
+								/* Stuff with escape */
+								calLen = calLen + 2u;
+							}
+							else
+							{
+								calLen = 0xFFFFFFFFu;
+							}
                         }
                         else if( ECU_ESC == ctx->memArea[indx] )
                         {
-                            /* Stuff with escape */
-                            calLen = calLen + 2u;
+							/* Try to avoid overflow. Resonable limit for HW */
+							if( calLen <= 0xFFFFFFFDu )
+							{
+								/* Stuff with escape */
+								calLen = calLen + 2u;
+							}
+							else
+							{
+								calLen = 0xFFFFFFFFu;
+							}
                         }
                         else
                         {
                             calLen = calLen + 1u;
                         }
 
-                        /* Try to avoid overflow. Resonable limit for HW */
-                        if( calLen > 0xFFFFFFFDu )
-                        {
-                            calLen = 0xFFFFFFFDu;
-                        }
+						indx++;
                     }
 
                     /* Copy calc value */
@@ -333,9 +355,12 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                     {
                         /* Init counter */
                         nExamByte = 0u;
+						result = DBSTF_RES_OK;
 
                         /* Execute parsing cycle */
-                        while( ( nExamByte < maxDestLen ) && ( DBSTF_SM_PRV_STUFFEND != ctx->stuffState ) )
+                        while( ( nExamByte < maxDestLen ) &&
+						       ( DBSTF_SM_PRV_STUFFEND != ctx->stuffState ) &&
+							   ( DBSTF_RES_OK == result ) )
                         {
                             switch( ctx->stuffState )
                             {
@@ -422,28 +447,27 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                                     break;
                                 }
 
-                               // case DBSTF_SM_PRV_STUFFEND :
-                               // {
-                               //     /* Impossible end here */
-                               //
-                               //     break;
-                               // }
+                               default:
+                               {
+                                   /* Impossible end here, and if so something horrible happened */
+									result = DBSTF_RES_CORRUPTCTX;
+                                   break;
+                               }
                             }
                         }
 
-                        /* Save counter */
-                        *filledLen = nExamByte;
+						if( DBSTF_RES_OK == result )
+						{
+							/* Save counter */
+							*filledLen = nExamByte;
 
-                        /* result? */
-                        if( DBSTF_SM_PRV_STUFFEND == ctx->stuffState )
-                        {
-                            /* Nothing more */
-                            result = DBSTF_RES_FRAMEENDED;
-                        }
-                        else
-                        {
-                            result = DBSTF_RES_OK;
-                        }
+							/* result? */
+							if( DBSTF_SM_PRV_STUFFEND == ctx->stuffState )
+							{
+								/* Nothing more */
+								result = DBSTF_RES_FRAMEENDED;
+							}
+						}
                     }
                 }
             }
