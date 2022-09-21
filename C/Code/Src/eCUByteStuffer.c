@@ -231,22 +231,30 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                     /* Analyze the current state of the state machine */
                     if( DBSTF_SM_PRV_NEEDSOF == ctx->stuffState )
                     {
+                        /* SOF + Data + EOF */
                         calLen = 2u;
                     }
                     else if( DBSTF_SM_PRV_NEEDEOF == ctx->stuffState )
                     {
+                        /* EOF */
                         calLen = 1u;
                     }
                     else if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
                     {
                         /* If a precedent byte of the payload was an SOF, EOF or ESC character, this means that the
                         * ESC char is already inserted in the unstuffed data, but that we need to add the negation of
-                        * the payload */
-                        calLen = 1u;
+                        * the payload + the EOF */
+                        calLen = 2u;
+                    }
+                    else if( DBSTF_SM_PRV_STUFFEND == ctx->stuffState )
+                    {
+                        /* Stuffend ended, no data to wait */
+                        calLen = 0u;
                     }
                     else
                     {
-                        calLen = 0u;
+                        /* data + EOF */
+                        calLen = 1u;
                     }
 
                     /* Calculate the remaining byte from the current counter of course */

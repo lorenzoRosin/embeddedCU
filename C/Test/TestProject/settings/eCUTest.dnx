@@ -16,7 +16,7 @@
         <ShowSource>1</ShowSource>
     </Trace1>
     <DebugChecksum>
-        <Checksum>1068261080</Checksum>
+        <Checksum>2253875952</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -35,34 +35,15 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
-    <struct_types>
-        <Fmt0>s_eCU_CrcDigestCtx-lastDigest	4	0</Fmt0>
-        <Fmt1>s_eCU_CrcDigestCtx-usedBaseSeed	4	0</Fmt1>
-    </struct_types>
-    <watch_formats>
-        <Fmt0>{W}1:crcTestValRet	4	0</Fmt0>
-        <Fmt1>{W}1:crcTestValRetC	4	0</Fmt1>
-    </watch_formats>
     <CodeCoverage>
         <Enabled>1</Enabled>
         <ShowSource>0</ShowSource>
         <HideCovered>0</HideCovered>
     </CodeCoverage>
-    <DriverProfiling>
-        <Enabled>0</Enabled>
-        <Mode>1</Mode>
-        <Graph>0</Graph>
-        <Symbiont>0</Symbiont>
-    </DriverProfiling>
-    <TermIOLog>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-    </TermIOLog>
-    <LogFile>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-        <Category2>_ 0</Category2>
-    </LogFile>
+    <watch_formats>
+        <Fmt0>{W}1:crcTestValRet	4	0</Fmt0>
+        <Fmt1>{W}1:crcTestValRetC	4	0</Fmt1>
+    </watch_formats>
     <InterruptLog>
         <GraphEnabled>0</GraphEnabled>
         <LogEnabled>0</LogEnabled>
@@ -94,6 +75,16 @@
         <TypeViol>0</TypeViol>
         <Stop>1</Stop>
     </MemConfig>
+    <DriverProfiling>
+        <Enabled>0</Enabled>
+        <Mode>1</Mode>
+        <Graph>0</Graph>
+        <Symbiont>0</Symbiont>
+    </DriverProfiling>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+    </TermIOLog>
     <Aliases>
         <Count>0</Count>
         <SuppressDialog>0</SuppressDialog>
@@ -103,4 +94,9 @@
         <FreqHi>0</FreqHi>
         <MultiCoreRunAll>1</MultiCoreRunAll>
     </Simulator>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category2>_ 0</Category2>
+    </LogFile>
 </settings>
