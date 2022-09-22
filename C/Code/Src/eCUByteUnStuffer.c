@@ -14,11 +14,12 @@
 #include "eCUByteStuffer.h"
 
 
+
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
 static bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx);
-static void restartFrameReceiver(s_eCU_BUStuffCtx* const ctx);
+
 
 
 /***********************************************************************************************************************
@@ -48,9 +49,7 @@ e_eCU_dBUStf_Res bUStufferInitCtx(s_eCU_BUStuffCtx* const ctx, uint8_t* const me
             ctx->memArea = memArea;
             ctx->memAreaSize = memAreaSize;
             ctx->memAreaCntr = 0u;
-            ctx->precedentWasEsc = false;
-            ctx->needSof = true;
-            ctx->needEof = true;
+            ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
             result = DBUSTF_RES_OK;
         }
 	}
@@ -86,9 +85,7 @@ e_eCU_dBUStf_Res bUStufferStartNewFrame(s_eCU_BUStuffCtx* const ctx)
             {
                 /* Update index */
                 ctx->memAreaCntr = 0u;
-                ctx->precedentWasEsc = false;
-                ctx->needSof = true;
-                ctx->needEof = true;
+				ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
                 result = DBUSTF_RES_OK;
             }
 		}
@@ -199,7 +196,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
             }
             else
             {
-                if( false == ctx->needEof )
+                if( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState )
                 {
                     *isFrameUnstuff = true;
                 }
@@ -268,127 +265,156 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
                     result = DBUSTF_RES_OK;
 
                     /* Elab all data */
-                    while( ( nExamByte < stuffLen ) && ( true == ctx->needEof ) && ( DBUSTF_RES_OK == result ) )
+                    while( ( nExamByte < stuffLen ) && ( DBUSTF_RES_OK == result ) && 
+					       ( DBUSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) )
                     {
-                        if( true == ctx->needSof )
-                        {
-                            /* Wait SOF, discharge others */
-                            if( ECU_SOF == stuffedArea[nExamByte] )
-                            {
-                                /* Found start */
-                                restartFrameReceiver(ctx);
-                                ctx->needSof = false;
-                            }
-                            else
-                            {
-                                /* Waiting for start, no other bytes */
-                                restartFrameReceiver(ctx);
-                                *errSofRec = ( *errSofRec + 1u );
-                            }
-                            nExamByte++;
-                        }
-                        else
-                        {
-                            if( ECU_SOF == stuffedArea[nExamByte] )
-                            {
-                                /* Found start, but wasn't expected */
-                                restartFrameReceiver(ctx);
-                                ctx->needSof = false;
-                                *errSofRec = ( *errSofRec + 1u );
+						switch( ctx->unStuffState )
+						{
+							case(DBUSTF_SM_PRV_NEEDSOF):
+							{
+								/* Wait SOF, discharge others */
+								if( ECU_SOF == stuffedArea[nExamByte] )
+								{
+									/* Found start */
+									ctx->memAreaCntr = 0u;
+									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+								}
+								else
+								{
+									/* Waiting for start, no other bytes */
+									ctx->memAreaCntr = 0u;
+									*errSofRec = ( *errSofRec + 1u );
+								}
+								nExamByte++;								
+								break;
+							}
+							
+							case(DBUSTF_SM_PRV_NEEDRAWDATA):
+							{
+								if( ECU_SOF == stuffedArea[nExamByte] )
+								{
+									/* Found start, but wasn't expected */
+									ctx->memAreaCntr = 0u;
+									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+									*errSofRec = ( *errSofRec + 1u );
+									nExamByte++;
+								}
+								else if( ECU_EOF == stuffedArea[nExamByte] )
+								{
+									if( 0u <= ctx->memAreaCntr )
+									{
+										/* Found end, but no data received..  */
+										ctx->memAreaCntr = 0u;
+										ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
+										*errSofRec = ( *errSofRec + 1u );
+									}
+									else
+									{
+										/* Can close the frame, yey */
+										ctx->unStuffState = DBUSTF_SM_PRV_UNSTUFFEND;
+									}
+	
+									nExamByte++;
+								}
+								else if( ECU_ESC == stuffedArea[nExamByte] )
+								{
+									/* Next data will be negated data */
+									ctx->unStuffState = DBUSTF_SM_PRV_NEEDNEGATEPRECDATA;
+									nExamByte++;
+								}								
+								else
+								{
+									/* Received good raw data */
+									if( ctx->memAreaCntr >= ctx->memAreaSize )
+									{
+										/* No more data avaiable to save that thing */
+										result = DBUSTF_RES_OUTOFMEM;
+									}
+									else
+									{
+										/* Only raw data */
+										ctx->memArea[ctx->memAreaCntr] = stuffedArea[nExamByte];
+										ctx->memAreaCntr++;
+										nExamByte++;
+									}
+								}
+								break;
+							}
 
-                                nExamByte++;
-                            }
-                            else if( ECU_EOF == stuffedArea[nExamByte] )
-                            {
-                                if( 0u == ctx->memAreaCntr )
-                                {
-                                    /* Found end, but no data received..  */
-                                    restartFrameReceiver(ctx);
-                                    *errSofRec = ( *errSofRec + 1u );
-                                }
-                                else if( true == ctx->precedentWasEsc )
-                                {
-                                    /* Received eof but was expecting data..*/
-                                    restartFrameReceiver(ctx);
-                                    *errSofRec = ( *errSofRec + 1u );
-                                }
-                                else
-                                {
-                                    /* Can close the frame, yey */
-                                    ctx->needEof = false;
-                                }
+							case(DBUSTF_SM_PRV_NEEDNEGATEPRECDATA):
+							{
+								if( ECU_SOF == stuffedArea[nExamByte] )
+								{
+									/* Found start, but wasn't expected */
+									ctx->memAreaCntr = 0u;
+									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+									*errSofRec = ( *errSofRec + 1u );
+	
+									nExamByte++;
+								}
+								else if( ( ECU_EOF == stuffedArea[nExamByte] ) || 
+								         ( ECU_ESC == stuffedArea[nExamByte] ) )
+								{
+									/* Found end, but no data received..  */
+									ctx->memAreaCntr = 0u;
+									ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
+									*errSofRec = ( *errSofRec + 1u );
 
-                                nExamByte++;
-                            }
-                            else if( ECU_ESC == stuffedArea[nExamByte] )
-                            {
-                                if( true == ctx->precedentWasEsc )
-                                {
-                                    /* Impossible receive two esc */
-                                    restartFrameReceiver(ctx);
-                                    *errSofRec = ( *errSofRec + 1u );
-                                    nExamByte++;
-                                }
-                                else if( ctx->memAreaCntr == ctx->memAreaSize )
-                                {
-                                    /* No more data avaiable to save that thing */
-                                    result = DBUSTF_RES_OUTOFMEM;
-                                }
-                                else
-                                {
-                                    /* Next data will be data */
-                                    ctx->precedentWasEsc = true;
-                                    nExamByte++;
-                                }
-                            }
-                            else
-                            {
-                                /* Received good data */
-                                if( ctx->memAreaCntr == ctx->memAreaSize )
-                                {
-                                    /* No more data avaiable to save that thing */
-                                    result = DBUSTF_RES_OUTOFMEM;
-                                }
-                                else if( true == ctx->precedentWasEsc )
-                                {
-                                    /* Is it true? */
-                                    if( ( ECU_SOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
-                                        ( ECU_EOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
-                                        ( ECU_ESC == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) )
-                                    {
-                                        /* current data is neg */
-                                        ctx->memArea[ctx->memAreaCntr] = ( uint8_t ) ( ~stuffedArea[nExamByte] );
-                                        ctx->precedentWasEsc = false;
-                                        ctx->memAreaCntr++;
-                                        nExamByte++;
-                                    }
-                                    else
-                                    {
-                                        /* Impossible receive a data after esc that is not SOF EOF or ESC neg */
-                                        restartFrameReceiver(ctx);
-                                        *errSofRec = ( *errSofRec + 1u );
-                                        nExamByte++;
-                                    }
+									nExamByte++;
+								}
+								else
+								{
+									/* Received good negated data */
+									if( ctx->memAreaCntr >= ctx->memAreaSize )
+									{
+										/* No more data avaiable to save that thing */
+										result = DBUSTF_RES_OUTOFMEM;
+									}
+									else
+									{
+										/* Is it true that negate data is present ? */
+										if( ( ECU_SOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
+											( ECU_EOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
+											( ECU_ESC == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) )
+										{
+											/* current data is neg */
+											ctx->memArea[ctx->memAreaCntr] = ( uint8_t ) ( ~stuffedArea[nExamByte] );
+											ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+											ctx->memAreaCntr++;
+											nExamByte++;
+										}
+										else
+										{
+											/* Impossible receive a data after esc that is not SOF EOF or ESC neg */
+											ctx->memAreaCntr = 0u;
+											ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
+											*errSofRec = ( *errSofRec + 1u );
+											nExamByte++;
+										}
+									}
+								}
+								break;
+							}
 
-                                }
-                                else
-                                {
-                                    /* Only raw data */
-                                    ctx->memArea[ctx->memAreaCntr] = stuffedArea[nExamByte];
-                                    ctx->memAreaCntr++;
-                                    nExamByte++;
-                                }
-                            }
-                        }
+							default:
+							{
+								/* Impossible end here, and if so something horrible happened */
+								result = DBSTF_RES_CORRUPTCTX;
+								break;
+							}							
+						}
                     }
 
-                    /* Save the result */
-                    *consumedStuffData = nExamByte;
+					/* Save the result */
+					*consumedStuffData = nExamByte;
 
-                    if( false == ctx->needEof )
-                    {
-                        result = DBUSTF_RES_FRAMEENDED;
-                    }
+					if( DBUSTF_RES_OK == result )
+					{
+						if( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState )
+						{
+							result = DBUSTF_RES_FRAMEENDED;
+						}
+					}
                 }
             }
         }
@@ -412,36 +438,22 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
 	else
 	{
 		/* Check data coherence */
-		if( ( ( true == ctx->needSof ) && ( false == ctx->needEof ) ) ||
-            ( ( true == ctx->needSof ) && ( true == ctx->precedentWasEsc ) ) ||
-            ( ( false == ctx->needEof ) && ( true == ctx->precedentWasEsc ) ) )
-		{
+        if( ( ( DBUSTF_SM_PRV_NEEDSOF    == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) ) &&  
+		    ( ( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( 0u == ctx->memAreaCntr ) ) )
+        {
             result = false;
-		}
-		else
-		{
-            if( ( true == ctx->needSof ) && ( 0u != ctx->memAreaCntr ) )
-            {
-                result = false;
-            }
-            else
-            {
-                result = true;
-            }
-		}
+        }
+        else
+        {
+            result = true;
+        }
+		
 	}
 
     return result;
 }
 
-void restartFrameReceiver(s_eCU_BUStuffCtx* const ctx)
-{
-    /* Found start, but wasn't expected */
-    ctx->memAreaCntr = 0u;
-    ctx->precedentWasEsc = false;
-    ctx->needSof = true;
-    ctx->needEof = true;
-}
+
 
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_restore = "MISRAC2004-17.4_b"

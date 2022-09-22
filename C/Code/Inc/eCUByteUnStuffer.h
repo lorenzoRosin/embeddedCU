@@ -46,9 +46,7 @@ typedef struct
 	uint8_t* memArea;
 	uint32_t memAreaSize;
 	uint32_t memAreaCntr;
-    bool_t   precedentWasEsc;
-    bool_t   needSof;
-    bool_t   needEof;
+	e_eCU_dBUStf_sm_prv unStuffState;
 }s_eCU_BUStuffCtx;
 
 
