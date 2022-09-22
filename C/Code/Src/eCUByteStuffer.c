@@ -162,7 +162,7 @@ e_eCU_dBStf_Res bStufferRestartCurrentFrame(s_eCU_BStuffCtx* const ctx)
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memAreaFrameSize )
+            if( 0u >= ctx->memAreaFrameSize )
             {
                 result = DBSTF_RES_NOINITFRAME;
             }
@@ -215,7 +215,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memAreaFrameSize )
+            if( 0u >= ctx->memAreaFrameSize )
             {
                 result = DBSTF_RES_NOINITFRAME;
             }
@@ -342,7 +342,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memAreaFrameSize )
+            if( 0u >= ctx->memAreaFrameSize )
             {
                 result = DBSTF_RES_NOINITFRAME;
             }
@@ -406,7 +406,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                                         nExamByte++;
                                         ctx->memAreaCntr++;
 
-                                        if( ctx->memAreaCntr == ctx->memAreaFrameSize )
+                                        if( ctx->memAreaCntr >= ctx->memAreaFrameSize )
                                         {
                                             /* End of frame needed */
                                             ctx->stuffState = DBSTF_SM_PRV_NEEDEOF;
@@ -422,7 +422,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* cons
                                     stuffedDest[nExamByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
                                     nExamByte++;
 
-                                    if( ctx->memAreaCntr == ctx->memAreaFrameSize )
+                                    if( ctx->memAreaCntr >= ctx->memAreaFrameSize )
                                     {
                                         /* End of frame needed */
                                         ctx->stuffState = DBSTF_SM_PRV_NEEDEOF;
