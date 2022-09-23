@@ -265,7 +265,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
                     result = DBUSTF_RES_OK;
 
                     /* Elab all data */
-                    while( ( nExamByte < stuffLen ) && ( DBUSTF_RES_OK == result ) && 
+                    while( ( nExamByte < stuffLen ) && ( DBUSTF_RES_OK == result ) &&
 					       ( DBUSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) )
                     {
 						switch( ctx->unStuffState )
@@ -285,10 +285,10 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									ctx->memAreaCntr = 0u;
 									*errSofRec = ( *errSofRec + 1u );
 								}
-								nExamByte++;								
+								nExamByte++;
 								break;
 							}
-							
+
 							case(DBUSTF_SM_PRV_NEEDRAWDATA):
 							{
 								if( ECU_SOF == stuffedArea[nExamByte] )
@@ -313,7 +313,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 										/* Can close the frame, yey */
 										ctx->unStuffState = DBUSTF_SM_PRV_UNSTUFFEND;
 									}
-	
+
 									nExamByte++;
 								}
 								else if( ECU_ESC == stuffedArea[nExamByte] )
@@ -321,7 +321,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									/* Next data will be negated data */
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDNEGATEPRECDATA;
 									nExamByte++;
-								}								
+								}
 								else
 								{
 									/* Received good raw data */
@@ -349,10 +349,10 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									ctx->memAreaCntr = 0u;
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
 									*errSofRec = ( *errSofRec + 1u );
-	
+
 									nExamByte++;
 								}
-								else if( ( ECU_EOF == stuffedArea[nExamByte] ) || 
+								else if( ( ECU_EOF == stuffedArea[nExamByte] ) ||
 								         ( ECU_ESC == stuffedArea[nExamByte] ) )
 								{
 									/* Found end, but no data received..  */
@@ -401,7 +401,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								/* Impossible end here, and if so something horrible happened */
 								result = DBSTF_RES_CORRUPTCTX;
 								break;
-							}							
+							}
 						}
                     }
 
@@ -438,8 +438,8 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
 	else
 	{
 		/* Check data coherence */
-        if( ( ( DBUSTF_SM_PRV_NEEDSOF    == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) ) &&  
-		    ( ( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( 0u == ctx->memAreaCntr ) ) )
+        if( ( ( DBUSTF_SM_PRV_NEEDSOF    == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) ) &&
+		    ( ( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( 0u >= ctx->memAreaCntr ) ) )
         {
             result = false;
         }
@@ -447,7 +447,7 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
         {
             result = true;
         }
-		
+
 	}
 
     return result;

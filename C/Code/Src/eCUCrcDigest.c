@@ -158,7 +158,7 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
                     else
                     {
                         /* First time? */
-                        if( 0u == ctx->digestedTimes )
+                        if( 0u >= ctx->digestedTimes )
                         {
                             /* Use base seed */
                             crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->usedBaseSeed, data, dataLen, &cR32 );

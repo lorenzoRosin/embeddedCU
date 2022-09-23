@@ -160,7 +160,7 @@ e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx)
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memUPKAFrameSize )
+            if( 0u >= ctx->memUPKAFrameSize )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -204,7 +204,7 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memUPKAFrameSize )
+            if( 0u >= ctx->memUPKAFrameSize )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -253,7 +253,7 @@ e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* cons
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memUPKAFrameSize )
+            if( 0u >= ctx->memUPKAFrameSize )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -317,7 +317,7 @@ e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t *dataP)
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memUPKAFrameSize )
+            if( 0u >= ctx->memUPKAFrameSize )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -373,7 +373,7 @@ e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memUPKAFrameSize )
+            if( 0u >= ctx->memUPKAFrameSize )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -449,7 +449,7 @@ e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memUPKAFrameSize )
+            if( 0u >= ctx->memUPKAFrameSize )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -541,7 +541,7 @@ e_eCU_dUnpk_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP
 		else
 		{
             /* Check Init */
-            if( 0u == ctx->memUPKAFrameSize )
+            if( 0u >= ctx->memUPKAFrameSize )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
