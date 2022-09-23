@@ -301,7 +301,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								}
 								else if( ECU_EOF == stuffedArea[nExamByte] )
 								{
-									if( 0u <= ctx->memAreaCntr )
+									if( 0u >= ctx->memAreaCntr )
 									{
 										/* Found end, but no data received..  */
 										ctx->memAreaCntr = 0u;
@@ -399,7 +399,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 							default:
 							{
 								/* Impossible end here, and if so something horrible happened */
-								result = DBSTF_RES_CORRUPTCTX;
+								result = DBUSTF_RES_CORRUPTCTX;
 								break;
 							}
 						}
