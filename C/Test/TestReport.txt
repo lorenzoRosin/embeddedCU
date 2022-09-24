@@ -1,9 +1,5 @@
 
 
- << Logging of terminal I/O resumes >> 
-
-
-
 CRC TEST START 
 
 crc32TestBadPointer 1  -- OK 
@@ -662,9 +658,9 @@ byteUnStuffTestBadParamStatus 4  -- OK
 byteUnStuffTestBadParamStatus 5  -- OK 
 byteUnStuffTestBadParamStatus 6  -- OK 
 byteUnStuffTestBadParamStatus 7  -- OK 
-byteUnStuffTestBadParamStatus 8  -- FAIL 
+byteUnStuffTestBadParamStatus 8  -- OK 
 byteUnStuffTestBadParamStatus 9  -- OK 
-byteUnStuffTestBadParamStatus 10 -- FAIL 
+byteUnStuffTestBadParamStatus 10 -- OK 
 byteUnStuffTestBadParamStatus 11 -- OK 
 byteUnStuffTestBadParamStatus 12 -- OK 
 byteUnStuffTestBadParamStatus 13 -- OK 
@@ -674,15 +670,16 @@ byteUnStuffTestBadParamStatus 16 -- OK
 byteUnStuffTestBadParamStatus 17 -- OK 
 byteUnStuffTestBadParamStatus 18 -- OK 
 byteUnStuffTestOutOfMem 1  -- OK 
-byteUnStuffTestOutOfMem 2  -- FAIL 
+byteUnStuffTestOutOfMem 2  -- OK 
 byteUnStuffTestOutOfMem 3  -- OK 
 byteUnStuffTestOutOfMem 4  -- OK 
 byteUnStuffTestOutOfMem 5  -- OK 
 byteUnStuffTestOutOfMem 6  -- OK 
-byteUnStuffTestOutOfMem 7  -- FAIL 
+byteUnStuffTestOutOfMem 7  -- OK 
 byteUnStuffTestOutOfMem 8  -- OK 
 byteUnStuffTestOutOfMem 9  -- OK 
 byteUnStuffTestOutOfMem 10 -- OK 
+byteUnStuffTestOutOfMem 11 -- OK 
 byteUnStuffTestFrameEnd 1  -- OK 
 byteUnStuffTestFrameEnd 2  -- OK 
 byteUnStuffTestFrameEnd 3  -- OK 
@@ -712,6 +709,8 @@ byteUnStuffTestCornerCase 9  -- OK
 byteUnStuffTestCornerCase 10 -- OK 
 byteUnStuffTestCornerCase 11 -- OK 
 byteUnStuffTestCornerCase 12 -- OK 
+byteUnStuffTestCornerCase2 1  -- OK 
+byteUnStuffTestCornerCase2 2  -- OK 
 
 
 BYTE UNSTUFFER TEST END 
