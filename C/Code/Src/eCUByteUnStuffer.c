@@ -227,6 +227,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
     uint32_t nExamByte;
+    uint8_t currentByte;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) )
@@ -268,12 +269,16 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
                     while( ( nExamByte < stuffLen ) && ( DBUSTF_RES_OK == result ) &&
 					       ( DBUSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) )
                     {
+                        /* Read current byte */
+                        currentByte = stuffedArea[nExamByte];
+
+                        /* Decide what to do */
 						switch( ctx->unStuffState )
 						{
 							case(DBUSTF_SM_PRV_NEEDSOF):
 							{
 								/* Wait SOF, discharge others */
-								if( ECU_SOF == stuffedArea[nExamByte] )
+								if( ECU_SOF == currentByte )
 								{
 									/* Found start */
 									ctx->memAreaCntr = 0u;
@@ -291,7 +296,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 
 							case(DBUSTF_SM_PRV_NEEDRAWDATA):
 							{
-								if( ECU_SOF == stuffedArea[nExamByte] )
+								if( ECU_SOF == currentByte )
 								{
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
@@ -299,7 +304,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									*errSofRec = ( *errSofRec + 1u );
 									nExamByte++;
 								}
-								else if( ECU_EOF == stuffedArea[nExamByte] )
+								else if( ECU_EOF == currentByte )
 								{
 									if( 0u >= ctx->memAreaCntr )
 									{
@@ -316,7 +321,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 
 									nExamByte++;
 								}
-								else if( ECU_ESC == stuffedArea[nExamByte] )
+								else if( ECU_ESC == currentByte )
 								{
 									/* Next data will be negated data */
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDNEGATEPRECDATA;
@@ -333,7 +338,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									else
 									{
 										/* Only raw data */
-										ctx->memArea[ctx->memAreaCntr] = stuffedArea[nExamByte];
+										ctx->memArea[ctx->memAreaCntr] = currentByte;
 										ctx->memAreaCntr++;
 										nExamByte++;
 									}
@@ -343,28 +348,26 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 
 							case(DBUSTF_SM_PRV_NEEDNEGATEPRECDATA):
 							{
-								if( ECU_SOF == stuffedArea[nExamByte] )
+								if( ECU_SOF == currentByte )
 								{
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
 									*errSofRec = ( *errSofRec + 1u );
-
 									nExamByte++;
 								}
-								else if( ( ECU_EOF == stuffedArea[nExamByte] ) ||
-								         ( ECU_ESC == stuffedArea[nExamByte] ) )
+								else if( ( ECU_EOF == currentByte ) ||
+								         ( ECU_ESC == currentByte ) )
 								{
-									/* Found end, but no data received..  */
+									/* Found and error, we were expecting raw negated data here.  */
 									ctx->memAreaCntr = 0u;
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
 									*errSofRec = ( *errSofRec + 1u );
-
 									nExamByte++;
 								}
 								else
 								{
-									/* Received good negated data */
+									/* Received negated data */
 									if( ctx->memAreaCntr >= ctx->memAreaSize )
 									{
 										/* No more data avaiable to save that thing */
@@ -373,12 +376,12 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									else
 									{
 										/* Is it true that negate data is present ? */
-										if( ( ECU_SOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
-											( ECU_EOF == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) ||
-											( ECU_ESC == ( ( uint8_t ) ~stuffedArea[nExamByte] ) ) )
+										if( ( ECU_SOF == ( ( uint8_t ) ~currentByte ) ) ||
+											( ECU_EOF == ( ( uint8_t ) ~currentByte ) ) ||
+											( ECU_ESC == ( ( uint8_t ) ~currentByte ) ) )
 										{
 											/* current data is neg */
-											ctx->memArea[ctx->memAreaCntr] = ( uint8_t ) ( ~stuffedArea[nExamByte] );
+											ctx->memArea[ctx->memAreaCntr] = ( uint8_t ) ( ~currentByte );
 											ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
 											ctx->memAreaCntr++;
 											nExamByte++;
