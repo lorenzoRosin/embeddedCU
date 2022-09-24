@@ -441,7 +441,7 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
 	else
 	{
 		/* Check data coherence */
-        if( ( ( DBUSTF_SM_PRV_NEEDSOF    == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) ) &&
+        if( ( ( DBUSTF_SM_PRV_NEEDSOF    == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) ) ||
 		    ( ( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( 0u >= ctx->memAreaCntr ) ) )
         {
             result = false;
