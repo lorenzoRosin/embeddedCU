@@ -1,5 +1,9 @@
 
 
+ << Logging of terminal I/O resumes >> 
+
+
+
 CRC TEST START 
 
 crc32TestBadPointer 1  -- OK 
@@ -718,4 +722,38 @@ BYTE UNSTUFFER TEST END
 
 
 DATA STUFF UNSTUFF TEST START 
+
+dataStuffUnStuffCommon 1[0]  -- OK 
+dataStuffUnStuffCommon 2[0]  -- OK 
+dataStuffUnStuffCommon 3[0]  -- OK 
+dataStuffUnStuffCommon 4[0]  -- OK 
+dataStuffUnStuffCommon 5[0]  -- OK 
+dataStuffUnStuffCommon 6[0]  -- OK 
+dataStuffUnStuffCommon 1[1]  -- OK 
+dataStuffUnStuffCommon 2[1]  -- OK 
+dataStuffUnStuffCommon 3[1]  -- OK 
+dataStuffUnStuffCommon 4[1]  -- OK 
+dataStuffUnStuffCommon 5[1]  -- OK 
+dataStuffUnStuffCommon 6[1]  -- OK 
+dataStuffUnStuffCommon 1[2]  -- OK 
+dataStuffUnStuffCommon 2[2]  -- OK 
+dataStuffUnStuffCommon 3[2]  -- OK 
+dataStuffUnStuffCommon 4[2]  -- OK 
+dataStuffUnStuffCommon 5[2]  -- OK 
+dataStuffUnStuffCommon 6[2]  -- OK 
+dataStuffUnStuffCommon 1[3]  -- OK 
+dataStuffUnStuffCommon 2[3]  -- OK 
+dataStuffUnStuffCommon 3[3]  -- OK 
+dataStuffUnStuffCommon 4[3]  -- OK 
+dataStuffUnStuffCommon 5[3]  -- OK 
+dataStuffUnStuffCommon 6[3]  -- OK 
+dataStuffUnStuffCommon 1[4]  -- OK 
+dataStuffUnStuffCommon 2[4]  -- OK 
+dataStuffUnStuffCommon 3[4]  -- OK 
+dataStuffUnStuffCommon 4[4]  -- OK 
+dataStuffUnStuffCommon 5[4]  -- OK 
+dataStuffUnStuffCommon 6[4]  -- OK 
+
+
+DATA STUFF UNSTUFF END 
 
