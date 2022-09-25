@@ -1,0 +1,110 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\XclFileGenerator.exe" $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\XclFileGenerator.exe" $flags
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\SourceIndexer.exe" $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\SourceIndexer.exe" $flags
+
+rule MAKEBROWSE
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\makeBrowseData.exe" $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\makeBrowseData.exe" $flags
+
+rule PDBLINK
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\PbdLink.exe" $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\PbdLink.exe" $flags
+
+
+
+#Build steps
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\Project\embeddedCU\C\Code\Src\eCUByteStuffer.c -xcl_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.xcl -macro_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = C$:\Project\embeddedCU\C\Code\Src\eCUByteStuffer.c -o C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Obj\Src --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M3 -e --fpu=None -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Inc\ -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Src\ -On --predef_macros C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.tmp
+  rspfile_name = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.xcl.rsp
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\Project\embeddedCU\C\Code\Src\eCUByteUnStuffer.c -xcl_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.xcl -macro_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = C$:\Project\embeddedCU\C\Code\Src\eCUByteUnStuffer.c -o C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Obj\Src --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M3 -e --fpu=None -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Inc\ -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Src\ -On --predef_macros C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.tmp
+  rspfile_name = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.xcl.rsp
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\Project\embeddedCU\C\Code\Src\eCUCircularQueue.c -xcl_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.xcl -macro_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = C$:\Project\embeddedCU\C\Code\Src\eCUCircularQueue.c -o C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Obj\Src --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M3 -e --fpu=None -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Inc\ -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Src\ -On --predef_macros C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.tmp
+  rspfile_name = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.xcl.rsp
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\Project\embeddedCU\C\Code\Src\eCUCrc.c -xcl_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.xcl -macro_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = C$:\Project\embeddedCU\C\Code\Src\eCUCrc.c -o C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Obj\Src --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M3 -e --fpu=None -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Inc\ -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Src\ -On --predef_macros C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.tmp
+  rspfile_name = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.xcl.rsp
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\Project\embeddedCU\C\Code\Src\eCUCrcDigest.c -xcl_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.xcl -macro_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = C$:\Project\embeddedCU\C\Code\Src\eCUCrcDigest.c -o C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Obj\Src --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M3 -e --fpu=None -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Inc\ -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Src\ -On --predef_macros C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.tmp
+  rspfile_name = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.xcl.rsp
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\Project\embeddedCU\C\Code\Src\eCUDataPack.c -xcl_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.xcl -macro_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = C$:\Project\embeddedCU\C\Code\Src\eCUDataPack.c -o C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Obj\Src --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M3 -e --fpu=None -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Inc\ -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Src\ -On --predef_macros C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.tmp
+  rspfile_name = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.xcl.rsp
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\Project\embeddedCU\C\Code\Src\eCUDataUnPack.c -xcl_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.xcl -macro_file C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = C$:\Project\embeddedCU\C\Code\Src\eCUDataUnPack.c -o C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Obj\Src --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M3 -e --fpu=None -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Inc\ -I C$:\Project\embeddedCU\C\Test\Project\LibEcu\..\..\..\Code\Src\ -On --predef_macros C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.tmp
+  rspfile_name = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.xcl.rsp
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.pbi : INDEXER C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.xcl |  $
+C$:\Project\embeddedCU\C\Code\Src\eCUByteStuffer.c
+  flags = -out=C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.pbi -f C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.xcl
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.pbi : INDEXER C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.xcl |  $
+C$:\Project\embeddedCU\C\Code\Src\eCUByteUnStuffer.c
+  flags = -out=C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.pbi -f C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.xcl
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.pbi : INDEXER C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.xcl |  $
+C$:\Project\embeddedCU\C\Code\Src\eCUCircularQueue.c
+  flags = -out=C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.pbi -f C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.xcl
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.pbi : INDEXER C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.xcl |  $
+C$:\Project\embeddedCU\C\Code\Src\eCUCrc.c
+  flags = -out=C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.pbi -f C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.xcl
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.pbi : INDEXER C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.xcl |  $
+C$:\Project\embeddedCU\C\Code\Src\eCUCrcDigest.c
+  flags = -out=C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.pbi -f C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.xcl
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.pbi : INDEXER C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.xcl |  $
+C$:\Project\embeddedCU\C\Code\Src\eCUDataPack.c
+  flags = -out=C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.pbi -f C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.xcl
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.pbi : INDEXER C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.xcl |  $
+C$:\Project\embeddedCU\C\Code\Src\eCUDataUnPack.c
+  flags = -out=C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.pbi -f C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.xcl
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu.pbw : MAKEBROWSE C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu.pbd
+  flags = C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu.pbd -output C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu.pbw
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part0.pbi : PDBLINK C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.pbi |  $
+C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.pbi $
+C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.pbi
+  flags = -M C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part0.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteStuffer.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUByteUnStuffer.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCircularQueue.pbi
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part1.pbi : PDBLINK C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.pbi |  $
+C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.pbi $
+C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.pbi
+  flags = -M C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part1.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrc.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUCrcDigest.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataPack.pbi
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part2.pbi : PDBLINK C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.pbi
+  flags = -M C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part2.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\Src\eCUDataUnPack.pbi
+
+build C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu.pbd : PDBLINK C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part0.pbi |  $
+C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part1.pbi $
+C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part2.pbi
+  flags = -M C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu.pbd C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part0.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part1.pbi C$:\Project\embeddedCU\C\Test\Project\LibEcu\Library\BrowseInfo\LibEcu_part2.pbi
+
