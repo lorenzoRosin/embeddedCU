@@ -259,7 +259,7 @@ e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t data[]
 	return result;
 }
 
-e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
+e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t data[], const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_cQueue_Res result;
@@ -341,7 +341,7 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data
 	return result;
 }
 
-e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, const uint32_t datalen)
+e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t data[], const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_cQueue_Res result;
