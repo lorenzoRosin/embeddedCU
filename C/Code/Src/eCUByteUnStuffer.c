@@ -11,7 +11,6 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUByteUnStuffer.h"
-#include "eCUByteStuffer.h"
 
 
 
@@ -275,7 +274,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
                         /* Decide what to do */
 						switch( ctx->unStuffState )
 						{
-							case(DBUSTF_SM_PRV_NEEDSOF):
+							case DBUSTF_SM_PRV_NEEDSOF:
 							{
 								/* Wait SOF, discharge others */
 								if( ECU_SOF == currentByte )
@@ -294,7 +293,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								break;
 							}
 
-							case(DBUSTF_SM_PRV_NEEDRAWDATA):
+							case DBUSTF_SM_PRV_NEEDRAWDATA:
 							{
 								if( ECU_SOF == currentByte )
 								{
@@ -346,7 +345,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								break;
 							}
 
-							case(DBUSTF_SM_PRV_NEEDNEGATEPRECDATA):
+							case DBUSTF_SM_PRV_NEEDNEGATEPRECDATA:
 							{
 								if( ECU_SOF == currentByte )
 								{

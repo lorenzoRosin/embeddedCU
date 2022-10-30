@@ -148,6 +148,8 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
 									   const uint32_t maxDestLen, uint32_t* const filledLen);
 
+
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

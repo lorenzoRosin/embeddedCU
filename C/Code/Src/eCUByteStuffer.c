@@ -512,7 +512,7 @@ bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
             if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
             {
                 precedentByte = ctx->memArea[ctx->memAreaCntr - 1u];
-                if( (ECU_ESC != precedentByte) && (ECU_EOF != precedentByte) && (ECU_SOF != precedentByte) )
+                if( ( ECU_ESC != precedentByte ) && ( ECU_EOF != precedentByte ) && ( ECU_SOF != precedentByte ) )
                 {
                     result = false;
                 }

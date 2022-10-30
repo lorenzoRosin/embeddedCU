@@ -150,6 +150,8 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
 e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec);
 
+
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
