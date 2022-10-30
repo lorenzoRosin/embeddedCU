@@ -675,6 +675,3 @@ bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx)
 
     return result;
 }
-
-
-
