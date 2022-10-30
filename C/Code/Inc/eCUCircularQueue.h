@@ -42,11 +42,11 @@ typedef enum
 typedef struct
 {
     bool_t   isInit;
-    uint8_t* memPool;
-    uint32_t memPoolSize;
-    uint32_t memPoolUsedSize;
-    uint32_t memPoolFrstFreeIdx;
-    uint32_t memPoolFrstOccIdx;
+    uint8_t* memP;
+    uint32_t memPSize;
+    uint32_t memPUsedSize;
+    uint32_t memPFreeIdx;
+    uint32_t memPOccIdx;
 }s_eCU_circQCtx;
 
 
@@ -58,14 +58,14 @@ typedef struct
  * @brief       Initialize the circular queue context
  *
  * @param[in]   ctx         - Circular queue context
- * @param[in]   memPool     - Pointer to a memory buffer that we will use to manage the circular queue
- * @param[out]  memPoolSize - Dimension in byte of the circular queue
+ * @param[in]   memP        - Pointer to a memory buffer that we will use to manage the circular queue
+ * @param[out]  memPSize    - Dimension in byte of the memory buffer
  *
  * @return      CQUEUE_RES_BADPOINTER   - In case of bad pointer passed to the function
  *              CQUEUE_RES_BADPARAM     - In case of bad parameter passed to the function
  *              CQUEUE_RES_OK           - Circular queue initialized successfully
  */
-e_eCU_cQueue_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t* memPool, const uint32_t memPoolSize);
+e_eCU_cQueue_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t memP[], const uint32_t memPSize);
 
 /**
  * @brief       Reset the state of the circular queue and discharge all saved data

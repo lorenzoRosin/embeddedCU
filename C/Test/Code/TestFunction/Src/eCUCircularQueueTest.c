@@ -332,7 +332,7 @@ static void circularqueueTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolSize = 0u;
+    ctx.memPSize = 0u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
@@ -357,7 +357,7 @@ static void circularqueueTestBadParamStatus(void)
         (void)printf("circularqueueTestBadParamStatus 3  -- FAIL \n");
     }
 
-    ctx.memPool = NULL;
+    ctx.memP = NULL;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
@@ -382,7 +382,7 @@ static void circularqueueTestBadParamStatus(void)
         (void)printf("circularqueueTestBadParamStatus 5  -- FAIL \n");
     }
 
-    ctx.memPoolFrstFreeIdx = sizeof(badPointerMempool) +1u;
+    ctx.memPFreeIdx = sizeof(badPointerMempool) +1u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
@@ -407,7 +407,7 @@ static void circularqueueTestBadParamStatus(void)
         (void)printf("circularqueueTestBadParamStatus 5  -- FAIL \n");
     }
 
-    ctx.memPoolFrstOccIdx = sizeof(badPointerMempool) +1u;
+    ctx.memPOccIdx = sizeof(badPointerMempool) +1u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
@@ -432,7 +432,7 @@ static void circularqueueTestBadParamStatus(void)
         (void)printf("circularqueueTestBadParamStatus 5  -- FAIL \n");
     }
 
-    ctx.memPoolUsedSize = sizeof(badPointerMempool) +1u;
+    ctx.memPUsedSize = sizeof(badPointerMempool) +1u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
@@ -454,7 +454,7 @@ static void circularqueueTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolSize = 0u;
+    ctx.memPSize = 0u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQGetFreeSapce(&ctx, &val) )
     {
@@ -476,7 +476,7 @@ static void circularqueueTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolSize = 0u;
+    ctx.memPSize = 0u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQGetOccupiedSapce(&ctx, &val) )
     {
@@ -498,7 +498,7 @@ static void circularqueueTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolSize = 0u;
+    ctx.memPSize = 0u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQInsertData(&ctx, badPointerMempool, 1u) )
     {
@@ -520,7 +520,7 @@ static void circularqueueTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolSize = 0u;
+    ctx.memPSize = 0u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQRetriveData(&ctx, badPointerMempool, 1u) )
     {
@@ -543,7 +543,7 @@ static void circularqueueTestBadParamStatus(void)
     }
 
     /* Init variable */
-    ctx.memPoolSize = 0u;
+    ctx.memPSize = 0u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQPeekData(&ctx, badPointerMempool, 1u) )
     {
