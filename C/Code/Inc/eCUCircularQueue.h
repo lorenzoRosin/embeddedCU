@@ -46,7 +46,6 @@ typedef struct
     uint32_t memPSize;
     uint32_t memPUsedSize;
     uint32_t memPFreeIdx;
-    uint32_t memPOccIdx;
 }s_eCU_circQCtx;
 
 
@@ -119,7 +118,7 @@ e_eCU_cQueue_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* cons
  *		        CQUEUE_RES_CORRUPTCTX   - In case of an corrupted context
  *              CQUEUE_RES_OK           - Operation ended successfully
  */
-e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const uint32_t datalen);
+e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t data[], const uint32_t datalen);
 
 /**
  * @brief       Retrive data from the queue if avaiable

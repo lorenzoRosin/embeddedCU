@@ -18,6 +18,7 @@
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
 static bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx);
+static uint32_t getoccupiedIndex(const s_eCU_circQCtx* ctx);
 
 
 
@@ -49,7 +50,6 @@ e_eCU_cQueue_Res circQInitCtx(s_eCU_circQCtx* const ctx, uint8_t memP[], const u
 			ctx->memPSize = memPSize;
 			ctx->memPUsedSize = 0u;
 			ctx->memPFreeIdx = 0u;
-			ctx->memPOccIdx = 0u;
 
 			result = CQUEUE_RES_OK;
 		}
@@ -87,7 +87,7 @@ e_eCU_cQueue_Res circQReset(s_eCU_circQCtx* const ctx)
                 /* Update index in order to discharge all saved data */
                 ctx->memPUsedSize = 0u;
                 ctx->memPFreeIdx = 0u;
-                ctx->memPOccIdx = 0u;
+
                 result = CQUEUE_RES_OK;
             }
 		}
@@ -95,7 +95,7 @@ e_eCU_cQueue_Res circQReset(s_eCU_circQCtx* const ctx)
 
 	return result;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 e_eCU_cQueue_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace)
 {
 	/* Local variable */
@@ -171,7 +171,7 @@ e_eCU_cQueue_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* cons
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data, const uint32_t datalen)
+e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t data[], const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_cQueue_Res result;
@@ -220,7 +220,7 @@ e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t* data,
                         else
                         {
                             /* Can insert data */
-                            if( ( datalen +  ctx->memPFreeIdx ) <= ctx->memPSize )
+                            if( ( datalen + ctx->memPFreeIdx ) <= ctx->memPSize )
                             {
                                 /* Direct copy */
                                 (void)memcpy(&ctx->memP[ctx->memPFreeIdx], data, datalen);
@@ -266,6 +266,7 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data
 	uint32_t usedSpace;
 	uint32_t firstTranshLen;
 	uint32_t secondTranshLen;
+    uint32_t memPOccIdx;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
@@ -305,17 +306,20 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data
                         }
                         else
                         {
+                            /* Retrive occupied index */
+                            memPOccIdx = getoccupiedIndex(ctx);
+
                             /* Can retrive data */
-                            if( ( datalen +  ctx->memPOccIdx ) <= ctx->memPSize )
+                            if( ( datalen +  memPOccIdx ) <= ctx->memPSize )
                             {
                                 /* Direct copy */
-                                (void)memcpy(data, &ctx->memP[ctx->memPOccIdx], datalen);
+                                (void)memcpy(data, &ctx->memP[memPOccIdx], datalen);
 
                                 /* Update used index */
-                                ctx->memPOccIdx += datalen;
-                                if(ctx->memPOccIdx >= ctx->memPSize)
+                                memPOccIdx += datalen;
+                                if(memPOccIdx >= ctx->memPSize)
                                 {
-                                    ctx->memPOccIdx = 0u;
+                                    memPOccIdx = 0u;
                                 }
                             }
                             else
@@ -323,14 +327,14 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data
                                 /* Multicopy */
 
                                 /* First round */
-                                firstTranshLen = ctx->memPSize - ctx->memPOccIdx;
-                                (void)memcpy(data, &ctx->memP[ctx->memPOccIdx], firstTranshLen);
-                                ctx->memPOccIdx = 0u;
+                                firstTranshLen = ctx->memPSize - memPOccIdx;
+                                (void)memcpy(data, &ctx->memP[memPOccIdx], firstTranshLen);
+                                memPOccIdx = 0u;
 
                                 /* Second round */
                                 secondTranshLen = datalen - firstTranshLen;
-                                (void)memcpy(&data[firstTranshLen], &ctx->memP[ctx->memPOccIdx], secondTranshLen);
-                                ctx->memPOccIdx += secondTranshLen;
+                                (void)memcpy(&data[firstTranshLen], &ctx->memP[memPOccIdx], secondTranshLen);
+                                memPOccIdx += secondTranshLen;
                             }
 
                             ctx->memPUsedSize -= datalen;
@@ -352,6 +356,7 @@ e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, c
 	uint32_t usedSpace;
 	uint32_t firstTranshLen;
 	uint32_t secondTranshLen;
+    uint32_t memPOccIdx;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
@@ -391,19 +396,22 @@ e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, c
                         }
                         else
                         {
+                            /* Retrive occupied index */
+                            memPOccIdx = getoccupiedIndex(ctx);
+
                             /* Can retrive data */
-                            if( ( datalen +  ctx->memPOccIdx ) <= ctx->memPSize )
+                            if( ( datalen +  memPOccIdx ) <= ctx->memPSize )
                             {
                                 /* Direct copy */
-                                (void)memcpy(data, &ctx->memP[ctx->memPOccIdx], datalen);
+                                (void)memcpy(data, &ctx->memP[memPOccIdx], datalen);
                             }
                             else
                             {
                                 /* Multicopy */
 
                                 /* First round */
-                                firstTranshLen = ctx->memPSize - ctx->memPOccIdx;
-                                (void)memcpy(data, &ctx->memP[ctx->memPOccIdx], firstTranshLen);
+                                firstTranshLen = ctx->memPSize - memPOccIdx;
+                                (void)memcpy(data, &ctx->memP[memPOccIdx], firstTranshLen);
 
                                 /* Second round */
                                 secondTranshLen = datalen - firstTranshLen;
@@ -447,41 +455,32 @@ bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx)
 		else
 		{
             /* Cannot go beyond limits */
-            if( ( ctx->memPFreeIdx >= ctx->memPSize ) || ( ctx->memPOccIdx >= ctx->memPSize ) )
+            if( ctx->memPFreeIdx >= ctx->memPSize )
             {
                 result = false;
             }
             else
             {
-                /* if queue is empty index must be the same */
-                if( ( 0u == ctx->memPUsedSize ) && ( ctx->memPFreeIdx != ctx->memPOccIdx ) )
-                {
-                    result = false;
-                }
-                else
-                {
-                    /* if queue is full index must be the same */
-                    if( ( ctx->memPUsedSize == ctx->memPSize ) && ( ctx->memPFreeIdx != ctx->memPOccIdx ) )
-                    {
-                        result = false;
-                    }
-                    else
-                    {
-                        /* index can be equals only if the queue is full or empty */
-                        if( ( ctx->memPFreeIdx == ctx->memPOccIdx ) && ( ctx->memPUsedSize != ctx->memPSize ) &&
-                            ( 0u != ctx->memPUsedSize ) )
-                        {
-                            result = false;
-                        }
-                        else
-                        {
-                            result = true;
-                        }
-                    }
-                }
+                result = true;
             }
 		}
 	}
 
     return result;
+}
+
+uint32_t getoccupiedIndex(const s_eCU_circQCtx* ctx)
+{
+    uint32_t occIndx;
+
+    if( ctx->memPUsedSize <= ctx->memPFreeIdx )
+    {
+        occIndx = ctx->memPFreeIdx - ctx->memPUsedSize;
+    }
+    else
+    {
+        occIndx = ctx->memPSize - ( ctx->memPUsedSize - ctx->memPFreeIdx );
+    }
+
+    return occIndx;
 }

@@ -393,32 +393,6 @@ static void circularqueueTestBadParamStatus(void)
         (void)printf("circularqueueTestBadParamStatus 6  -- FAIL \n");
     }
 
-
-    /* Init variable */
-    ctx.isInit = false;
-
-    /* Function */
-    if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
-    {
-        (void)printf("circularqueueTestBadParamStatus 5  -- OK \n");
-    }
-    else
-    {
-        (void)printf("circularqueueTestBadParamStatus 5  -- FAIL \n");
-    }
-
-    ctx.memPOccIdx = sizeof(badPointerMempool) +1u;
-
-    if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
-    {
-        (void)printf("circularqueueTestBadParamStatus 6  -- OK \n");
-    }
-    else
-    {
-        (void)printf("circularqueueTestBadParamStatus 6  -- FAIL \n");
-    }
-
-
     /* Init variable */
     ctx.isInit = false;
 
