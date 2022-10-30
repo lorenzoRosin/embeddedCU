@@ -24,14 +24,14 @@ static bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t* const memUPKA, const uint32_t memUPKASize,
+e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t memUPKA[], const uint32_t memUPKASize,
                                   const bool_t isLEnd)
 {
 	/* Local variable */
 	e_eCU_dUnpk_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx) || ( NULL ==  memUPKA) )
+	if( ( NULL == ctx ) || ( NULL ==  memUPKA ) )
 	{
 		result = DUNPK_RES_BADPOINTER;
 	}
@@ -160,7 +160,7 @@ e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx)
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memUPKAFrameSize )
+            if( ctx->memUPKAFrameSize <= 0u )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -204,7 +204,7 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memUPKAFrameSize )
+            if( ctx->memUPKAFrameSize <= 0u )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -233,7 +233,7 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* const dataDest, uint32_t const retrivedLen)
+e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataDest[], uint32_t const toRetrivedLen)
 {
 	/* Local variable */
 	e_eCU_dUnpk_Res result;
@@ -253,14 +253,14 @@ e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* cons
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memUPKAFrameSize )
+            if( ctx->memUPKAFrameSize <= 0u )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
             else
             {
                 /* Check data validity */
-                if( retrivedLen <= 0u )
+                if( toRetrivedLen <= 0u )
                 {
                     /* We have removed more data that we had */
                     result = DUNPK_RES_BADPARAM;
@@ -275,17 +275,17 @@ e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t* cons
                     else
                     {
                         /* Check if we can pop that amount */
-                        if( ( ctx->memUPKACntr + retrivedLen ) > ctx->memUPKAFrameSize )
+                        if( ( ctx->memUPKACntr + toRetrivedLen ) > ctx->memUPKAFrameSize )
                         {
                             result = DUNPK_RES_NODATA;
                         }
                         else
                         {
                             /* Copy data */
-                            (void)memcpy(dataDest, &ctx->memUPKA[ctx->memUPKACntr], retrivedLen);
+                            (void)memcpy(dataDest, &ctx->memUPKA[ctx->memUPKACntr], toRetrivedLen);
 
                             /* Update index */
-                            ctx->memUPKACntr += retrivedLen;
+                            ctx->memUPKACntr += toRetrivedLen;
                             result = DUNPK_RES_OK;
                         }
                     }
@@ -317,7 +317,7 @@ e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t *dataP)
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memUPKAFrameSize )
+            if( ctx->memUPKAFrameSize <= 0u )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -373,7 +373,7 @@ e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memUPKAFrameSize )
+            if( ctx->memUPKAFrameSize <= 0u )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -449,7 +449,7 @@ e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memUPKAFrameSize )
+            if( ctx->memUPKAFrameSize <= 0u )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
@@ -541,7 +541,7 @@ e_eCU_dUnpk_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memUPKAFrameSize )
+            if( ctx->memUPKAFrameSize <= 0u )
             {
                 result = DUNPK_RES_NOINITFRAME;
             }
