@@ -58,7 +58,7 @@ typedef struct
  *
  * @param[in]   ctx         - Circular queue context
  * @param[in]   memP        - Pointer to a memory buffer that we will use to manage the circular queue
- * @param[out]  memPSize    - Dimension in byte of the memory buffer
+ * @param[in]   memPSize    - Dimension in byte of the memory buffer
  *
  * @return      CQUEUE_RES_BADPOINTER   - In case of bad pointer passed to the function
  *              CQUEUE_RES_BADPARAM     - In case of bad parameter passed to the function
@@ -95,7 +95,7 @@ e_eCU_cQueue_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const fr
  * @brief       Get used space present in the queue
  *
  * @param[in]   ctx         - Circular queue context
- * @param[out]  usedSpace  - Pointer to variable where used space present in queue will be stored
+ * @param[out]  usedSpace   - Pointer to variable where used space present in queue will be stored
  *
  * @return      CQUEUE_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        CQUEUE_RES_NOINITLIB    - Need to init the queue before taking some action

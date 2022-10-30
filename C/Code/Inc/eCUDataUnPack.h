@@ -134,7 +134,7 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
  *
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataDest    - Pointer to a memory area where popped data will be copied
- * @param[out]  retrivedLen - The amount of data that need to be copied in dataDest
+ * @param[in]   retrivedLen - The amount of data that need to be copied in dataDest
  *
  * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
  *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
@@ -147,7 +147,7 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
 e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataDest[], uint32_t const toRetrivedLen);
 
 /**
- * @brief       Pop one byte from data packeted passed to session
+ * @brief       Pop one byte from data passed to session
  *
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
@@ -162,7 +162,7 @@ e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataD
 e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataP);
 
 /**
- * @brief       Pop 2 byte from data packeted passed to session
+ * @brief       Pop 2 byte from data passed to session
  *
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
@@ -177,7 +177,7 @@ e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataP);
 e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP);
 
 /**
- * @brief       Pop 4 byte from data packeted passed to session
+ * @brief       Pop 4 byte from data passed to session
  *
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
@@ -192,7 +192,7 @@ e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP
 e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP);
 
 /**
- * @brief       Pop 8 byte from data packeted passed to session
+ * @brief       Pop 8 byte from data passed to session
  *
  * @param[in]   ctx         - Data Unpacker context
  * @param[out]  dataP       - Pointer to a variable that will contain the popped data
