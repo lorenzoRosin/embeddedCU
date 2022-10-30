@@ -1,7 +1,11 @@
 /**
- * @file eCUType.h
+ * @file       eCUType.h
  *
- */
+ * @brief      Ecu lib type header
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECU_TYPE_H
 #define ECU_TYPE_H
@@ -24,9 +28,9 @@ extern "C" {
 /***********************************************************************************************************************
  *      DEFINES
  **********************************************************************************************************************/
-#define ECU_SOF                               ( ( uint8_t ) 0xA1u )
-#define ECU_EOF                               ( ( uint8_t ) 0xA2u )
-#define ECU_ESC                               ( ( uint8_t ) 0xA3u )
+#define ECU_SOF                                                                                    ( ( uint8_t ) 0xA1u )
+#define ECU_EOF                                                                                    ( ( uint8_t ) 0xA2u )
+#define ECU_ESC                                                                                    ( ( uint8_t ) 0xA3u )
 
 
 

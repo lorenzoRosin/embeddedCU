@@ -6,5 +6,17 @@
     <project>
         <path>$WS_DIR$\TestEcu.ewp</path>
     </project>
-    <batchBuild />
+    <batchBuild>
+        <batchDefinition>
+            <name>TEST_BUILD</name>
+            <member>
+                <project>LibEcu</project>
+                <configuration>Library</configuration>
+            </member>
+            <member>
+                <project>TestEcu</project>
+                <configuration>Release</configuration>
+            </member>
+        </batchDefinition>
+    </batchBuild>
 </workspace>
