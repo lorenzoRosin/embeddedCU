@@ -389,7 +389,7 @@ e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t* const data, c
                     result = circQGetOccupiedSapce(ctx, &usedSpace);
                     if( CQUEUE_RES_OK == result )
                     {
-                        if( datalen > usedSpace)
+                        if( datalen > usedSpace )
                         {
                             /* No enoght data in the queue */
                             result = CQUEUE_RES_EMPTY;
