@@ -52,7 +52,7 @@ typedef struct
     bool_t isInit;
     uint32_t baseSeed;
 	uint32_t digestedTimes;
-    uint32_t lastDigest;
+    uint32_t lastDigVal;
     cb_crc32_seed cbCrcPointer;
     void* cbCrcCtx;
 }s_eCU_CrcDigestCtx;

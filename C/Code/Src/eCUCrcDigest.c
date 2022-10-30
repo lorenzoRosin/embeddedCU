@@ -40,7 +40,7 @@ e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbC
 		ctx->isInit = true;
 		ctx->baseSeed = ECU_CRC_BASE_SEED;
 		ctx->digestedTimes = 0u;
-		ctx->lastDigest = 0u;
+		ctx->lastDigVal = 0u;
 		ctx->cbCrcPointer = cbCrcP;
         ctx->cbCrcCtx = clbCtx;
 
@@ -67,7 +67,7 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
 		ctx->isInit = true;
 		ctx->baseSeed = seed;
 		ctx->digestedTimes = 0u;
-		ctx->lastDigest = 0u;
+		ctx->lastDigVal = 0u;
 		ctx->cbCrcPointer = cbCrcP;
         ctx->cbCrcCtx = clbCtx;
 
@@ -105,7 +105,7 @@ e_eCU_CrcD_Res crcDigesRestart(s_eCU_CrcDigestCtx* const ctx)
             {
                 /* Init context */
                 ctx->digestedTimes = 0u;
-                ctx->lastDigest = 0u;
+                ctx->lastDigVal = 0u;
 
                 result = CRCD_RES_OK;
             }
@@ -166,7 +166,7 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
                             if( true == crcRes )
                             {
                                 ctx->digestedTimes++;
-                                ctx->lastDigest = cR32;
+                                ctx->lastDigVal = cR32;
 								result = CRCD_RES_OK;
                             }
 							else
@@ -177,12 +177,12 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
                         else
                         {
                             /* Continue calc */
-                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->lastDigest, data, dataLen, &cR32 );
+                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->lastDigVal, data, dataLen, &cR32 );
 
                             if( true == crcRes )
                             {
                                 ctx->digestedTimes++;
-                                ctx->lastDigest = cR32;
+                                ctx->lastDigVal = cR32;
 								result = CRCD_RES_OK;
                             }
 							else
@@ -233,11 +233,11 @@ e_eCU_CrcD_Res crcDigesGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* con
                 else
                 {
                     /* Return digested value */
-                    *crcCalc = ctx->lastDigest;
+                    *crcCalc = ctx->lastDigVal;
 
                     /* Restart */
                     ctx->digestedTimes = 0u;
-                    ctx->lastDigest = 0u;
+                    ctx->lastDigVal = 0u;
 
                     result = CRCD_RES_OK;
                 }
