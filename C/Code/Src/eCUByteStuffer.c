@@ -24,7 +24,7 @@ static bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
+e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t memArea[], const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_dBStf_Res result;
@@ -320,8 +320,8 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
-									   const uint32_t maxDestLen, uint32_t* const filledLen)
+e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuffedDest[], const uint32_t maxDestLen,
+                                       uint32_t* const filledLen)
 {
 	/* Local variable */
 	e_eCU_dBStf_Res result;

@@ -24,7 +24,7 @@ static bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dBUStf_Res bUStufferInitCtx(s_eCU_BUStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize)
+e_eCU_dBUStf_Res bUStufferInitCtx(s_eCU_BUStuffCtx* const ctx, uint8_t memArea[], const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -220,7 +220,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_t* stuffedArea, const uint32_t stuffLen,
+e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuffedArea[], const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec)
 {
 	/* Local variable */

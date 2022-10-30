@@ -66,7 +66,7 @@ typedef struct
  *		        DBSTF_RES_BADPARAM      - In case of an invalid parameter passed to the function
  *              DBSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t* const memArea, const uint32_t memAreaSize);
+e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t memArea[], const uint32_t memAreaSize);
 
 /**
  * @brief       Start to stuff a new frame given the dimension of raw payload it self. This function suppouse that
@@ -145,8 +145,8 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
  *              DBSTF_RES_OK            - Operation ended correctly. This dosent mean that the stuffing process is
  *                                        completed.
  */
-e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t* const stuffedDest,
-									   const uint32_t maxDestLen, uint32_t* const filledLen);
+e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuffedDest[], const uint32_t maxDestLen,
+                                       uint32_t* const filledLen);
 
 
 
