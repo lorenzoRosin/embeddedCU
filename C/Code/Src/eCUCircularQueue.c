@@ -95,7 +95,7 @@ e_eCU_cQueue_Res circQReset(s_eCU_circQCtx* const ctx)
 
 	return result;
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 e_eCU_cQueue_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const freeSpace)
 {
 	/* Local variable */
