@@ -24,7 +24,7 @@ static bool_t isPackStatusStillCoherent(const s_eCU_DataPackCtx* ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, const uint32_t memPKASize,
+e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], const uint32_t memPKASize,
 					          const bool_t isLEnd)
 {
 	/* Local variable */
@@ -169,7 +169,7 @@ e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const r
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
+e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, uint8_t data[], const uint32_t dataLen)
 {
 	/* Local variable */
 	e_eCU_dPk_Res result;

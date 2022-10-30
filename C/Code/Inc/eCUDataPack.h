@@ -64,7 +64,7 @@ typedef struct
  *		        DPK_RES_BADPARAM     - In case of an invalid parameter passed to the function
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t* const memPKA, const uint32_t memPKASize,
+e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], const uint32_t memPKASize,
 					          const bool_t isLEnd);
 
 /**
@@ -120,7 +120,7 @@ e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const r
  *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
+e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, uint8_t data[], const uint32_t dataLen);
 
 /**
  * @brief       Push one byte in data packer
