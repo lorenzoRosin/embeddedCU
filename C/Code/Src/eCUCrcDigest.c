@@ -1,7 +1,7 @@
 /**
  * @file       eCUCrcDigest.c
  *
- * @brief      Cal crc32 (CRC-32/MPEG-2) utils using digest approach
+ * @brief      Cal CRC using custom CRC32 using digest approach
  *
  * @author     Lorenzo Rosin
  *
@@ -38,7 +38,7 @@ e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbC
 	{
         /* Init context */
 		ctx->isInit = true;
-		ctx->usedBaseSeed = ECU_CRC_BASE_SEED;
+		ctx->baseSeed = ECU_CRC_BASE_SEED;
 		ctx->digestedTimes = 0u;
 		ctx->lastDigest = 0u;
 		ctx->cbCrcPointer = cbCrcP;
@@ -65,7 +65,7 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
 	{
         /* Init context */
 		ctx->isInit = true;
-		ctx->usedBaseSeed = seed;
+		ctx->baseSeed = seed;
 		ctx->digestedTimes = 0u;
 		ctx->lastDigest = 0u;
 		ctx->cbCrcPointer = cbCrcP;
@@ -161,7 +161,7 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
                         if( 0u >= ctx->digestedTimes )
                         {
                             /* Use base seed */
-                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->usedBaseSeed, data, dataLen, &cR32 );
+                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->baseSeed, data, dataLen, &cR32 );
 
                             if( true == crcRes )
                             {

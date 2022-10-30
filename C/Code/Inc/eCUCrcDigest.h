@@ -1,7 +1,7 @@
 /**
  * @file       eCUCrcDigest.h
  *
- * @brief      Cal crc32 (CRC-32/MPEG-2) utils using digest approach
+ * @brief      Cal CRC using custom CRC32 using digest approach
  *
  * @author     Lorenzo Rosin
  *
@@ -29,7 +29,7 @@ extern "C" {
  *      TYPEDEFS
  **********************************************************************************************************************/
 
-/* Call back to a function that will calculate the CRC for this modules
+/* Call back of a function that will calculate the CRC for this modules.
  * the cntx parameter is a custom pointer that can be used by the creator of this CRC callback, and will not be used
  * by the CRCdigest module */
 typedef bool_t (*cb_crc32_seed) ( void* cntx, const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen,
@@ -50,7 +50,7 @@ typedef enum
 typedef struct
 {
     bool_t isInit;
-    uint32_t usedBaseSeed;
+    uint32_t baseSeed;
 	uint32_t digestedTimes;
     uint32_t lastDigest;
     cb_crc32_seed cbCrcPointer;
@@ -63,7 +63,7 @@ typedef struct
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * @brief       Initialize the CRC32 digester context ( use as base seed 0xffffffffu )
+ * @brief       Initialize the CRC32 digester context ( use as base seed 0xFFFFFFFFu )
  *
  * @param[in]   ctx         - Crc digester context
  * @param[in]   cbCrcP      - Pointer to a CRC 32 seed callback function, that will be used to calculate the CRC32
@@ -132,6 +132,8 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
  */
 e_eCU_CrcD_Res crcDigesGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* const crcCalc);
 
+
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
@@ -139,13 +141,3 @@ e_eCU_CrcD_Res crcDigesGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* con
 
 
 #endif /* ECUCRCDIGEST_H */
-
-
-
-
-
-
-
-
-
-
