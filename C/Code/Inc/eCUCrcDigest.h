@@ -98,7 +98,7 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
  *              CRCD_RES_NOINITLIB          - Need to init the lib before taking some action
  *              CRCD_RES_CORRUPTCTX         - In case of a corrupted context
  */
-e_eCU_CrcD_Res crcDigesRestart(s_eCU_CrcDigestCtx* const ctx);
+e_eCU_CrcD_Res crcDigestRestart(s_eCU_CrcDigestCtx* const ctx);
 
 /**
  * @brief       Digest a chunk of data that we want to calculate CRC
@@ -115,11 +115,11 @@ e_eCU_CrcD_Res crcDigesRestart(s_eCU_CrcDigestCtx* const ctx);
  *              CRCD_RES_TOOMANYDIGEST      - Too many digest operation
  *              CRCD_RES_CLBCKREPORTERROR   - The callback function reported an error
  */
-e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
+e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
 
 
 /**
- * @brief       Retrive the CRC32 of all the chunk passed to crcDigesDigest
+ * @brief       Retrive the CRC32 of all the chunk passed to crcDigestDigest
  *
  * @param[in]   ctx         - Crc digester context
  * @param[out]  crcCalc     - Pointer to a memory area that will contain the value of the calculated CRC
@@ -130,7 +130,7 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
  *              CRCD_RES_CORRUPTCTX         - In case of a corrupted context
  *              CRCD_RES_NODIGESTDONE       - Need to do al least one digest before getting the CRC32
  */
-e_eCU_CrcD_Res crcDigesGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* const crcCalc);
+e_eCU_CrcD_Res crcDigestGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* const crcCalc);
 
 
 

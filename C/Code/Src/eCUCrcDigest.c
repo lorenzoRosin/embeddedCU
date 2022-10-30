@@ -77,7 +77,7 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
 	return result;
 }
 
-e_eCU_CrcD_Res crcDigesRestart(s_eCU_CrcDigestCtx* const ctx)
+e_eCU_CrcD_Res crcDigestRestart(s_eCU_CrcDigestCtx* const ctx)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
@@ -115,7 +115,7 @@ e_eCU_CrcD_Res crcDigesRestart(s_eCU_CrcDigestCtx* const ctx)
     return result;
 }
 
-e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
+e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
@@ -199,7 +199,7 @@ e_eCU_CrcD_Res crcDigesDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data
 	return result;
 }
 
-e_eCU_CrcD_Res crcDigesGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* const crcCalc)
+e_eCU_CrcD_Res crcDigestGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* const crcCalc)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
