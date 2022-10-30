@@ -314,13 +314,6 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data
                             {
                                 /* Direct copy */
                                 (void)memcpy(data, &ctx->memP[memPOccIdx], datalen);
-
-                                /* Update used index */
-                                memPOccIdx += datalen;
-                                if( memPOccIdx >= ctx->memPSize )
-                                {
-                                    memPOccIdx = 0u;
-                                }
                             }
                             else
                             {
@@ -334,7 +327,6 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t* const data
                                 /* Second round */
                                 secondTranshLen = datalen - firstTranshLen;
                                 (void)memcpy(&data[firstTranshLen], &ctx->memP[memPOccIdx], secondTranshLen);
-                                memPOccIdx += secondTranshLen;
                             }
 
                             ctx->memPUsedSize -= datalen;
