@@ -68,7 +68,7 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], co
 					          const bool_t isLEnd);
 
 /**
- * @brief       Reset data packer and restart packing data from start, discharging old data present
+ * @brief       Reset data packer and restart packing data from start, discharging old data present, if any
  *
  * @param[in]   ctx         - Data packer context
  *
@@ -80,7 +80,7 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], co
 e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx);
 
 /**
- * @brief       Retrive the pointer to the stored packed data, and the data size of the packed data buffer.
+ * @brief       Retrive the pointer to the stored packed data, and the data size of the packed data.
  *
  * @param[in]   ctx         - Data packer context
  * @param[out]  dataP       - Pointer to a Pointer pointing to the packed data buffer

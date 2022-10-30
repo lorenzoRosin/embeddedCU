@@ -31,7 +31,7 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], co
 	e_eCU_dPk_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx) || ( NULL ==  memPKA) )
+	if( ( NULL == ctx ) || ( NULL ==  memPKA ) )
 	{
 		result = DPK_RES_BADPOINTER;
 	}
