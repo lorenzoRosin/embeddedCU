@@ -115,7 +115,7 @@ e_eCU_CrcD_Res crcDigestRestart(s_eCU_CrcDigestCtx* const ctx)
     return result;
 }
 
-e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen)
+e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t data[], const uint32_t dataLen)
 {
 	/* Local variable */
 	e_eCU_CrcD_Res result;
@@ -151,7 +151,7 @@ e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* dat
                 else
                 {
                     /* Check if we have memory for this */
-                    if( ctx->digestedTimes >= 0xFFFFFFFFu )
+                    if( ctx->digestedTimes >= MAX_UINT32VAL )
                     {
                         result = CRCD_RES_TOOMANYDIGEST;
                     }
@@ -160,7 +160,7 @@ e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* dat
                         /* First time? */
                         if( 0u >= ctx->digestedTimes )
                         {
-                            /* Use base seed */
+                            /* Use base seed for the first time */
                             crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->baseSeed, data, dataLen, &cR32 );
 
                             if( true == crcRes )
@@ -176,7 +176,7 @@ e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* dat
                         }
                         else
                         {
-                            /* Continue calc */
+                            /* Continue calc using old digested value for seed */
                             crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->lastDigVal, data, dataLen, &cR32 );
 
                             if( true == crcRes )
@@ -228,6 +228,7 @@ e_eCU_CrcD_Res crcDigestGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* co
                 /* Check data validity */
                 if( ctx->digestedTimes <= 0u )
                 {
+                    /* Cannot retrive undigested value */
                     result = CRCD_RES_NODIGESTDONE;
                 }
                 else

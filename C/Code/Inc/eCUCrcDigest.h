@@ -104,7 +104,7 @@ e_eCU_CrcD_Res crcDigestRestart(s_eCU_CrcDigestCtx* const ctx);
  * @brief       Digest a chunk of data that we want to calculate CRC
  *
  * @param[in]   ctx         - Crc digester context
- * @param[in]   data        - Pointer to a memory area containg a chunk of data to analyze
+ * @param[in]   data        - Pointer to a memory area containg a chunk of data to digest
  * @param[in]   dataLen     - Lenght of the buffer we will digest
  *
  * @return      CRCD_RES_BADPOINTER         - In case of bad pointer passed to the function
@@ -115,11 +115,11 @@ e_eCU_CrcD_Res crcDigestRestart(s_eCU_CrcDigestCtx* const ctx);
  *              CRCD_RES_TOOMANYDIGEST      - Too many digest operation
  *              CRCD_RES_CLBCKREPORTERROR   - The callback function reported an error
  */
-e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t* data, const uint32_t dataLen);
-
+e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t data[], const uint32_t dataLen);
 
 /**
- * @brief       Retrive the CRC32 of all the chunk passed to crcDigestDigest
+ * @brief       Retrive the CRC32 of all the chunk digested using crcDigestDigest. After this function is used the
+ *              internal state is resetted and old result are discharged.
  *
  * @param[in]   ctx         - Crc digester context
  * @param[out]  crcCalc     - Pointer to a memory area that will contain the value of the calculated CRC
