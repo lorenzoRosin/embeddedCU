@@ -59,7 +59,7 @@ typedef struct
  *
  * @param[in]   ctx         - Byte unStuffer context
  * @param[in]   memArea     - Pointer to a memory area that we will use to store the unstuffed data
- * @param[in]   memPoolSize - Dimension in byte of the memory area
+ * @param[in]   memAreaSize - Dimension in byte of the memory area
  *
  * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        DBUSTF_RES_BADPARAM     - In case of an invalid parameter passed to the function
@@ -82,7 +82,7 @@ e_eCU_dBUStf_Res bUStufferStartNewFrame(s_eCU_BUStuffCtx* const ctx);
 /**
  * @brief       Retrive the pointer to the stored unstuffed data, and the data size of the frame. Keep in mind that
  *              the frame parsing could be ongoing, and if an error in the frame occour the retrivedLen could be
- *              setted to 0 again
+ *              setted to 0 again.
  *
  * @param[in]   ctx         - Byte unStuffer context
  * @param[out]  dataP       - Pointer to a Pointer pointing to the unstuffed data frame
@@ -97,7 +97,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufData(s_eCU_BUStuffCtx* const ctx, uint8_t** d
 
 /**
  * @brief       Retrive the current numbers of unstuffed data received. Keep in mind that the frame parsing could be
- *              ongoing, and if an error in the frame occour the retrivedLen could be setted to 0 again
+ *              ongoing, and if an error in the frame occour the retrivedLen could be setted to 0 again.
  *
  * @param[in]   ctx         - Byte unStuffer context
  * @param[out]  retrivedLen - Pointer to a uint32_t variable where the size of the unstuffed data will be placed
