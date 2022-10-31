@@ -142,11 +142,14 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
  * @param[in]   stuffedArea        - Pointer to the stuffed Data that we will unstuff
  * @param[in]   stuffLen           - Size of the stuffedArea
  * @param[out]  consumedStuffData  - Pointer to an uint32_t were we will store how many stuffed data byte has been
- *                                   analized. keep in mind that unalized data were not unstuffed and will need to be
- *                                   reparsed
+ *                                   analized. Keep in mind that unalized data were not unstuffed and will need to be
+ *                                   reparsed. Un parsed data happens when the frame ended earlier
+ *                                   ( DBUSTF_RES_FRAMEENDED is returned ) or when some error is returned. When the
+ *                                   function return DBUSTF_RES_OK consumedStuffData will always be returned has
+ *                                   stuffLen.
  * @param[out]  errSofRec          - Pointer to an uint32_t were we will store how many protocol error were detected.
  *                                   Even with some error detected, the protocol will continue parsing data discharging
- *                                   error.
+ *                                   error. When an error is found the algoritms will restart searching for the SOF.
  *
  * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
@@ -156,9 +159,11 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
  *                                        resolve the issue is increasing the size of the memory area passed to init
  *		        DBUSTF_RES_FRAMEENDED   - Frame ended, restart context in order to parse a new frame. Every other call
  *                                        to this function will not have effect until we call bUStufferStartNewFrame.
- *                                        In this situation bear in mind that some data could be left out the parsing.
+ *                                        In this situation bear in mind that some data could be left out the parsing,
+ *                                        and so we need to reparse that data after calling bUStufferStartNewFrame.
  *              DBUSTF_RES_OK           - Operation ended correctly. The chunk is parsed correclty but the frame is not
- *                                        finished yet
+ *                                        finished yet. In this situation consumedStuffData is always reported with a
+ *                                        value equals to stuffLen.
  */
 e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuffedArea[], const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec);
