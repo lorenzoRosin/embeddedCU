@@ -164,6 +164,48 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* co
 	return result;
 }
 
+e_eCU_dBUStf_Res bUStufferIsWaitingSof(s_eCU_BUStuffCtx* const ctx, bool_t* const isWaitingSof)
+{
+	/* Local variable */
+	e_eCU_dBUStf_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isWaitingSof ) )
+	{
+		result = DBUSTF_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = DBUSTF_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isBUSStatusStillCoherent(ctx) )
+            {
+                result = DBUSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                if( DBUSTF_SM_PRV_NEEDSOF == ctx->unStuffState )
+                {
+                    *isWaitingSof = true;
+                }
+                else
+                {
+                    *isWaitingSof = false;
+                }
+
+                result = DBUSTF_RES_OK;
+            }
+		}
+	}
+
+	return result;
+}
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_disable = "MISRAC2012-Rule-8.13"
     /* Suppressed for code clarity */

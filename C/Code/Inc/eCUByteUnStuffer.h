@@ -110,6 +110,19 @@ e_eCU_dBUStf_Res bUStufferGetUnstufData(s_eCU_BUStuffCtx* const ctx, uint8_t** d
 e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen);
 
 /**
+ * @brief       Retrive if the Unstuffer is currently waiting for the Start of frame in order to start saving data.
+ *
+ * @param[in]   ctx          - Byte unStuffer context
+ * @param[out]  isWaitingSof - Pointer to a bool_t variable that will be filled with true if we are waiting SOF
+ *
+ * @return      DBUSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        DBUSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              DBUSTF_RES_OK           - Operation ended correctly
+ */
+e_eCU_dBUStf_Res bUStufferIsWaitingSof(s_eCU_BUStuffCtx* const ctx, bool_t* const isWaitingSof);
+
+/**
  * @brief       Check if the current frame is finished or we need to unstuff some more data to have the full frame
  *
  * @param[in]   ctx            - Byte unStuffer context
