@@ -365,7 +365,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 								else if( ECU_ESC == currentByte )
 								{
 									/* Next data will be negated data */
-									ctx->unStuffState = DBUSTF_SM_PRV_NEEDNEGATEPRECDATA;
+									ctx->unStuffState = DBUSTF_SM_PRV_NEEDNEGATEDATA;
 									nExamByte++;
 								}
 								else
@@ -387,7 +387,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 								break;
 							}
 
-							case DBUSTF_SM_PRV_NEEDNEGATEPRECDATA:
+							case DBUSTF_SM_PRV_NEEDNEGATEDATA:
 							{
 								if( ECU_SOF == currentByte )
 								{
@@ -474,24 +474,39 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
 {
     bool_t result;
 
-	/* Check context validity */
-	if( ( ctx->memAreaSize <= 0u ) || ( NULL == ctx->memArea ) || ( ctx->memAreaCntr > ctx->memAreaSize ) )
+	/* Check basic context validity */
+	if( ( ctx->memAreaSize <= 0u ) || ( NULL == ctx->memArea ) )
 	{
 		result = false;
 	}
 	else
 	{
-		/* Check data coherence */
-        if( ( ( DBUSTF_SM_PRV_NEEDSOF    == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) ) ||
-		    ( ( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( 0u >= ctx->memAreaCntr ) ) )
+        /* Check size validity */
+        if( ctx->memAreaCntr > ctx->memAreaSize )
         {
             result = false;
         }
         else
         {
-            result = true;
-        }
+            /* Check status coherence */
+            if( ( DBUSTF_SM_PRV_NEEDSOF == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) )
+            {
+                result = false;
+            }
+            else
+            {
+                /* Check status coherence */
+                if( ( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( ctx->memAreaCntr <= 0u ) )
+                {
+                    result = false;
+                }
+                else
+                {
+                    result = true;
+                }
+            }
 
+        }
 	}
 
     return result;
