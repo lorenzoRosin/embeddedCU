@@ -347,7 +347,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 								}
 								else if( ECU_EOF == currentByte )
 								{
-									if( 0u >= ctx->memAreaCntr )
+									if( ctx->memAreaCntr <= 0u )
 									{
 										/* Found end, but no data received..  */
 										ctx->memAreaCntr = 0u;
