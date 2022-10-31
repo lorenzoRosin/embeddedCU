@@ -123,7 +123,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* co
 e_eCU_dBUStf_Res bUStufferIsWaitingSof(s_eCU_BUStuffCtx* const ctx, bool_t* const isWaitingSof);
 
 /**
- * @brief       Check if the current frame is finished or we need to unstuff some more data to have the full frame
+ * @brief       Check if the current frame is finished or if we need to unstuff some more data to have the full frame
  *
  * @param[in]   ctx            - Byte unStuffer context
  * @param[out]  isFrameUnstuff - Pointer to a bool_t variable where we will store if the frame parsing is ongoing
