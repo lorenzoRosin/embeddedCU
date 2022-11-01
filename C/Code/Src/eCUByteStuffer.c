@@ -215,7 +215,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memAreaFrameSize )
+            if( ctx->memAreaFrameSize <= 0u )
             {
                 result = DBSTF_RES_NOINITFRAME;
             }
@@ -259,7 +259,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 
                     /* Calculate the remaining byte from the current counter of course */
 					indx = ctx->memAreaCntr;
-                    while( ( indx < ctx->memAreaFrameSize) && (calLen < 0xFFFFFFFFu) )
+                    while( ( indx < ctx->memAreaFrameSize ) && ( calLen < 0xFFFFFFFFu ) )
                     {
                         if( ECU_SOF == ctx->memArea[indx] )
                         {
@@ -267,7 +267,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 							if( calLen <= 0xFFFFFFFDu )
 							{
 								/* Stuff with escape */
-								calLen = calLen + 2u;
+								calLen += 2u;
 							}
 							else
 							{
@@ -280,7 +280,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 							if( calLen <= 0xFFFFFFFDu )
 							{
 								/* Stuff with escape */
-								calLen = calLen + 2u;
+								calLen += 2u;
 							}
 							else
 							{
@@ -293,7 +293,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 							if( calLen <= 0xFFFFFFFDu )
 							{
 								/* Stuff with escape */
-								calLen = calLen + 2u;
+								calLen += 2u;
 							}
 							else
 							{
@@ -302,7 +302,16 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                         }
                         else
                         {
-                            calLen = calLen + 1u;
+                            /* Raw data, weigth 1 */
+							if( calLen <= 0xFFFFFFFEu )
+							{
+								/* Stuff with escape */
+								calLen += 1u;
+							}
+							else
+							{
+								calLen = 0xFFFFFFFFu;
+							}
                         }
 
 						indx++;
