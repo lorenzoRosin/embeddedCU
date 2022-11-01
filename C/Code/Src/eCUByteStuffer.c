@@ -357,7 +357,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
             }
             else
             {
-                if(maxDestLen <= 0u)
+                if( maxDestLen <= 0u )
                 {
                     result = DBSTF_RES_BADPARAM;
                 }
@@ -381,6 +381,16 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                         {
                             switch( ctx->stuffState )
                             {
+                                case DBSTF_SM_PRV_NEEDSOF :
+                                {
+                                    /* Start of frame */
+                                    stuffedDest[nFillByte] = ECU_SOF;
+                                    nFillByte++;
+                                    ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
+
+                                    break;
+                                }
+
                                 case DBSTF_SM_PRV_NEEDRAWDATA :
                                 {
                                     /* Parse data from the frame now */
@@ -454,30 +464,20 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                     break;
                                 }
 
-                                case DBSTF_SM_PRV_NEEDSOF :
-                                {
-                                    /* Start of frame */
-                                    stuffedDest[nFillByte] = ECU_SOF;
-                                    nFillByte++;
-                                    ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
-
-                                    break;
-                                }
-
                                default:
                                {
-                                   /* Impossible end here, and if so something horrible happened */
+                                   /* Impossible end here, and if so something horrible happened (memory corruption) */
 									result = DBSTF_RES_CORRUPTCTX;
                                    break;
                                }
                             }
                         }
 
+						/* Save counter */
+						*filledLen = nFillByte;
+
 						if( DBSTF_RES_OK == result )
 						{
-							/* Save counter */
-							*filledLen = nFillByte;
-
 							/* result? */
 							if( DBSTF_SM_PRV_STUFFEND == ctx->stuffState )
 							{
