@@ -534,4 +534,3 @@ bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_restore = "MISRAC2004-17.4_b"
 #endif
-
