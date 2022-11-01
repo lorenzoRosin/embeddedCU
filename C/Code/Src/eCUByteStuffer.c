@@ -491,7 +491,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
 bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
 {
     bool_t result;
-    uint8_t precedentByte;
+    uint8_t preceByte;
 
 	/* Check basic context validity */
 	if( ( ctx->memAreaSize <= 0u ) || ( NULL == ctx->memArea ) )
@@ -507,29 +507,46 @@ bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
         }
         else
         {
-            /* Check data coherence */
-            if( ( ( DBSTF_SM_PRV_STUFFEND == ctx->stuffState ) && ( ctx->memAreaCntr != ctx->memAreaFrameSize ) ) ||
-                ( ( DBSTF_SM_PRV_NEEDSOF  == ctx->stuffState ) && ( 0u != ctx->memAreaCntr ) ) )
+            /* Check data coherence on SOF */
+            if( ( DBSTF_SM_PRV_NEEDSOF  == ctx->stuffState ) && ( 0u != ctx->memAreaCntr ) )
             {
                 result = false;
             }
             else
             {
-                if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
+                /* Check data coherence on SOF */
+                if( ( 0u == ctx->memAreaCntr ) && ( DBSTF_SM_PRV_NEEDSOF  == ctx->stuffState ) &&
+                    ( DBSTF_SM_PRV_NEEDRAWDATA  == ctx->stuffState ) )
                 {
-                    precedentByte = ctx->memArea[ctx->memAreaCntr - 1u];
-                    if( ( ECU_ESC != precedentByte ) && ( ECU_EOF != precedentByte ) && ( ECU_SOF != precedentByte ) )
+                    result = false;
+                }
+                else
+                {
+                    /* Check data coherence on EOF */
+                    if( ( DBSTF_SM_PRV_STUFFEND == ctx->stuffState ) && ( ctx->memAreaCntr != ctx->memAreaFrameSize ) )
                     {
                         result = false;
                     }
                     else
                     {
-                        result = true;
+                        /* Check data coherence on precedent data */
+                        if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
+                        {
+                            preceByte = ctx->memArea[ctx->memAreaCntr - 1u];
+                            if( ( ECU_ESC != preceByte ) && ( ECU_EOF != preceByte ) && ( ECU_SOF != preceByte ) )
+                            {
+                                result = false;
+                            }
+                            else
+                            {
+                                result = true;
+                            }
+                        }
+                        else
+                        {
+                            result = true;
+                        }
                     }
-                }
-                else
-                {
-                    result = true;
                 }
             }
         }
