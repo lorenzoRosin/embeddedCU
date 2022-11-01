@@ -60,7 +60,7 @@ typedef struct
  *
  * @param[in]   ctx         - Byte stuffer context
  * @param[in]   memArea     - Pointer to a memory area that we will use to store data that needs to be stuffed
- * @param[in]   memPoolSize - Dimension in byte of the memory area
+ * @param[in]   memAreaSize - Dimension in byte of the memory area
  *
  * @return      DBSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
  *		        DBSTF_RES_BADPARAM      - In case of an invalid parameter passed to the function
