@@ -134,16 +134,21 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
  * @param[in]   ctx         - Byte stuffer context
  * @param[in]   stuffedDest - Pointer to the destination area where stuffed data will be placed by this function
  * @param[in]   maxDestLen  - Max fillable size of the destination area
- * @param[out]  filledLen   - Pointer to an uint32_t were we will store the number stuffed data inserted in stuffedDest
+ * @param[out]  filledLen   - Pointer to an uint32_t were we will store the number stuffed data inserted in stuffedDest.
+ *                            Note that if the function return DBSTF_RES_OK the value of filledLen will be equals to
+ *                            maxDestLen. The value filledLen infact could be lower than max dest size only if
+ *                            some error is returned or if the frame is ended ( DBSTF_RES_FRAMEENDED )
  * @return      DBSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
  *		        DBSTF_RES_NOINITLIB     - Need to init the data stuffer context before taking some action
  *		        DBSTF_RES_BADPARAM      - In case of an invalid parameter passed to the function
  *		        DBSTF_RES_NOINITFRAME   - Need to start a frame before retriving data
  *		        DBSTF_RES_CORRUPTCTX    - In case of an corrupted context
  *              DBSTF_RES_FRAMEENDED    - No more data that we can elaborate, restart or start a new frame to proceed.
- *                                        This means that we have finished stuffing the current frame.
+ *                                        This means that we have finished stuffing the current frame. Keep in mind
+ *                                        in this case that the value of filledLen could be lower than maxDestLen.
  *              DBSTF_RES_OK            - Operation ended correctly. This dosent mean that the stuffing process is
- *                                        completed.
+ *                                        completed, but we can be sure that filledLen will have the same value of
+ *                                        maxDestLen
  */
 e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuffedDest[], const uint32_t maxDestLen,
                                        uint32_t* const filledLen);
