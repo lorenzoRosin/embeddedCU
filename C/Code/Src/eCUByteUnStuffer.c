@@ -258,7 +258,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
 #endif
 
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-17.4_b"
+    #pragma cstat_disable = "MISRAC2004-17.4_b", "CERT-INT30-C_b"
     /* Suppressed for code clarity */
 #endif
 
@@ -515,6 +515,6 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
 
 
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-17.4_b"
+    #pragma cstat_restore = "MISRAC2004-17.4_b", "CERT-INT30-C_b"
 #endif
 
