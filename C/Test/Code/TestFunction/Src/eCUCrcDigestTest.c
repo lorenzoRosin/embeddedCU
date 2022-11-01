@@ -25,7 +25,10 @@
 #endif
 
 
-
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2012-Rule-10.3", "MISRAC2012-Rule-11.5", "CERT-EXP36-C_b"
+    /* Suppressed for code clarity in test execution*/
+#endif
 /***********************************************************************************************************************
  *   PRIVATE TEST FUNCTION DECLARATION
  **********************************************************************************************************************/
@@ -45,9 +48,9 @@ static bool_t c32SAdaptEr(void* cntx, const uint32_t s, const uint8_t d[], const
 static void cUCrcDigestTestBadPointer(void);
 static void cUCrcDigestTestBadInit(void);
 static void cUCrcDigestTestBadParamEntr(void);
-static void cUCrcDigestTestBadParamStatus(void);
-static void cUCrcDigestTestOutOfMem(void);
-static void cUCrcDigestTestLowOfMem(void);
+static void cUCrcDigestTestContextStatus(void);
+static void cUCrcDigestTestToManyOperation(void);
+static void cUCrcDigestTestNoOperation(void);
 static void cUCrcDigestTestClbErr(void);
 static void cUCrcDigestTestMono(void);
 static void cUCrcDigestTestCombined(void);
@@ -64,9 +67,9 @@ void cUCrcDigestTest(void)
     cUCrcDigestTestBadPointer();
     cUCrcDigestTestBadInit();
     cUCrcDigestTestBadParamEntr();
-    cUCrcDigestTestBadParamStatus();
-    cUCrcDigestTestOutOfMem();
-    cUCrcDigestTestLowOfMem();
+    cUCrcDigestTestContextStatus();
+    cUCrcDigestTestToManyOperation();
+    cUCrcDigestTestNoOperation();
     cUCrcDigestTestClbErr();
     cUCrcDigestTestMono();
     cUCrcDigestTestCombined();
@@ -92,7 +95,7 @@ bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t
     {
         ctxCur = (s_eCU_crcAdapterCtx*)cntx;
 
-        ctxCur->lastError = crc32Seed(s, (const uint8_t*)d, dLen, c32Val);
+        ctxCur->lastError = crc32Seed(s, d, dLen, c32Val);
         if( CRC_RES_OK == ctxCur->lastError )
         {
             result = true;
@@ -259,7 +262,7 @@ void cUCrcDigestTestBadInit(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_NOINITLIB == crcDigestDigest( &ctx, varBuff, sizeof(varBuff) ) )
+    if( CRCD_RES_NOINITLIB == crcDigestRestart( &ctx ) )
     {
         (void)printf("cUCrcDigestTestBadInit 1  -- OK \n");
     }
@@ -268,7 +271,7 @@ void cUCrcDigestTestBadInit(void)
         (void)printf("cUCrcDigestTestBadInit 1  -- FAIL \n");
     }
 
-    if( CRCD_RES_NOINITLIB == crcDigestRestart( &ctx ) )
+    if( CRCD_RES_NOINITLIB == crcDigestDigest( &ctx, varBuff, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestBadInit 2  -- OK \n");
     }
@@ -319,7 +322,7 @@ void cUCrcDigestTestBadParamEntr(void)
     }
 }
 
-void cUCrcDigestTestBadParamStatus(void)
+void cUCrcDigestTestContextStatus(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
@@ -334,69 +337,69 @@ void cUCrcDigestTestBadParamStatus(void)
     /* Function */
     if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 1  -- OK \n");
+        (void)printf("cUCrcDigestTestContextStatus 1  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 1  -- FAIL \n");
+        (void)printf("cUCrcDigestTestContextStatus 1  -- FAIL \n");
     }
 
     /* Init variable */
     ctx.cbCrcPointer = NULL;
     if( CRCD_RES_CORRUPTCTX == crcDigestRestart( &ctx ) )
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 2  -- OK \n");
+        (void)printf("cUCrcDigestTestContextStatus 2  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 2  -- FAIL \n");
+        (void)printf("cUCrcDigestTestContextStatus 2  -- FAIL \n");
     }
 
 
     /* Function */
     if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 3  -- OK \n");
+        (void)printf("cUCrcDigestTestContextStatus 3  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 3  -- FAIL \n");
+        (void)printf("cUCrcDigestTestContextStatus 3  -- FAIL \n");
     }
 
     /* Init variable */
     ctx.cbCrcPointer = NULL;
     if( CRCD_RES_CORRUPTCTX == crcDigestDigest( &ctx, varBuff, sizeof(varBuff) ) )
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 4  -- OK \n");
+        (void)printf("cUCrcDigestTestContextStatus 4  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 4  -- FAIL \n");
+        (void)printf("cUCrcDigestTestContextStatus 4  -- FAIL \n");
     }
 
     /* Function */
     if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 5  -- OK \n");
+        (void)printf("cUCrcDigestTestContextStatus 5  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 5  -- FAIL \n");
+        (void)printf("cUCrcDigestTestContextStatus 5  -- FAIL \n");
     }
 
     /* Init variable */
     ctx.cbCrcCtx = NULL;
     if( CRCD_RES_CORRUPTCTX == crcDigestGetDigestVal( &ctx, &varTemp ) )
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 6  -- OK \n");
+        (void)printf("cUCrcDigestTestContextStatus 6  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestBadParamStatus 6  -- FAIL \n");
+        (void)printf("cUCrcDigestTestContextStatus 6  -- FAIL \n");
     }
 }
 
-void cUCrcDigestTestOutOfMem(void)
+void cUCrcDigestTestToManyOperation(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
@@ -410,26 +413,26 @@ void cUCrcDigestTestOutOfMem(void)
     /* Function */
     if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
-        (void)printf("cUCrcDigestTestOutOfMem 1  -- OK \n");
+        (void)printf("cUCrcDigestTestToManyOperation 1  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestOutOfMem 1  -- FAIL \n");
+        (void)printf("cUCrcDigestTestToManyOperation 1  -- FAIL \n");
     }
 
     /* Init variable */
     ctx.digestedTimes = 0xFFFFFFFFu;
     if( CRCD_RES_TOOMANYDIGEST == crcDigestDigest( &ctx, varBuff, sizeof(varBuff) ) )
     {
-        (void)printf("cUCrcDigestTestOutOfMem 2  -- OK \n");
+        (void)printf("cUCrcDigestTestToManyOperation 2  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestOutOfMem 2  -- FAIL \n");
+        (void)printf("cUCrcDigestTestToManyOperation 2  -- FAIL \n");
     }
 }
 
-void cUCrcDigestTestLowOfMem(void)
+void cUCrcDigestTestNoOperation(void)
 {
     /* Local variable */
     s_eCU_CrcDigestCtx ctx;
@@ -443,21 +446,21 @@ void cUCrcDigestTestLowOfMem(void)
     /* Function */
     if( CRCD_RES_OK == crcDigestInitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
-        (void)printf("cUCrcDigestTestLowOfMem 1  -- OK \n");
+        (void)printf("cUCrcDigestTestNoOperation 1  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestLowOfMem 1  -- FAIL \n");
+        (void)printf("cUCrcDigestTestNoOperation 1  -- FAIL \n");
     }
 
     /* Init variable */
     if( CRCD_RES_NODIGESTDONE == crcDigestGetDigestVal( &ctx, &varCarc ) )
     {
-        (void)printf("cUCrcDigestTestLowOfMem 2  -- OK \n");
+        (void)printf("cUCrcDigestTestNoOperation 2  -- OK \n");
     }
     else
     {
-        (void)printf("cUCrcDigestTestLowOfMem 2  -- FAIL \n");
+        (void)printf("cUCrcDigestTestNoOperation 2  -- FAIL \n");
     }
 }
 
@@ -681,6 +684,40 @@ void cUCrcDigestTestMono(void)
     {
         (void)printf("cUCrcDigestTestMono 11 -- FAIL \n");
     }
+
+    if( CRCD_RES_OK == crcDigestDigest( &ctx, crcTestData, sizeof(crcTestData) ) )
+    {
+        (void)printf("cUCrcDigestTestMono 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 12 -- FAIL \n");
+    }
+
+    if( CRCD_RES_OK == crcDigestGetDigestVal( &ctx, &crcTestValRet ) )
+    {
+        if( 0xD5F08708u == crcTestValRet)
+        {
+            (void)printf("cUCrcDigestTestMono 13 -- OK \n");
+        }
+        else
+        {
+            (void)printf("cUCrcDigestTestMono 13 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 13 -- FAIL \n");
+    }
+
+    if( CRCD_RES_NODIGESTDONE == crcDigestGetDigestVal( &ctx, &crcTestValRet ) )
+    {
+        (void)printf("cUCrcDigestTestMono 14 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestMono 14 -- FAIL \n");
+    }
 }
 
 void cUCrcDigestTestCombined(void)
@@ -824,4 +861,17 @@ void cUCrcDigestTestCombined(void)
     {
         (void)printf("cUCrcDigestTestCombined 12 -- FAIL \n");
     }
+
+    if( CRCD_RES_NODIGESTDONE == crcDigestGetDigestVal( &ctx, &crcTestValRetC ) )
+    {
+        (void)printf("cUCrcDigestTestCombined 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestCombined 13 -- FAIL \n");
+    }
 }
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2012-Rule-10.3", "MISRAC2012-Rule-11.5", "CERT-EXP36-C_b"
+#endif

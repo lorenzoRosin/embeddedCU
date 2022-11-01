@@ -877,3 +877,73 @@ cUCrcDigestTestCombined 12 -- OK
 
 CRC DIGEST END 
 
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+CRC DIGEST TEST START 
+
+cUCrcDigestTestBadPointer 1  -- OK 
+cUCrcDigestTestBadPointer 2  -- OK 
+cUCrcDigestTestBadPointer 2  -- OK 
+cUCrcDigestTestBadPointer 4  -- OK 
+cUCrcDigestTestBadPointer 5  -- OK 
+cUCrcDigestTestBadPointer 6  -- OK 
+cUCrcDigestTestBadPointer 7  -- OK 
+cUCrcDigestTestBadPointer 8  -- OK 
+cUCrcDigestTestBadPointer 9  -- OK 
+cUCrcDigestTestBadPointer 10 -- OK 
+cUCrcDigestTestBadPointer 11 -- OK 
+cUCrcDigestTestBadInit 1  -- OK 
+cUCrcDigestTestBadInit 2  -- OK 
+cUCrcDigestTestBadInit 3  -- OK 
+cUCrcDigestTestBadParamEntr 1  -- OK 
+cUCrcDigestTestBadParamEntr 2  -- OK 
+cUCrcDigestTestContextStatus 1  -- OK 
+cUCrcDigestTestContextStatus 2  -- OK 
+cUCrcDigestTestContextStatus 3  -- OK 
+cUCrcDigestTestContextStatus 4  -- OK 
+cUCrcDigestTestContextStatus 5  -- OK 
+cUCrcDigestTestContextStatus 6  -- OK 
+cUCrcDigestTestToManyOperation 1  -- OK 
+cUCrcDigestTestToManyOperation 2  -- OK 
+cUCrcDigestTestNoOperation 1  -- OK 
+cUCrcDigestTestNoOperation 2  -- OK 
+cUCrcDigestTestClbErr 1  -- OK 
+cUCrcDigestTestClbErr 2  -- OK 
+cUCrcDigestTestClbErr 3  -- OK 
+cUCrcDigestTestClbErr 4  -- OK 
+cUCrcDigestTestClbErr 5  -- OK 
+cUCrcDigestTestMono 1  -- OK 
+cUCrcDigestTestMono 2  -- OK 
+cUCrcDigestTestMono 3  -- OK 
+cUCrcDigestTestMono 4  -- OK 
+cUCrcDigestTestMono 5  -- OK 
+cUCrcDigestTestMono 6  -- OK 
+cUCrcDigestTestMono 7  -- OK 
+cUCrcDigestTestMono 8  -- OK 
+cUCrcDigestTestMono 9  -- OK 
+cUCrcDigestTestMono 10 -- OK 
+cUCrcDigestTestMono 11 -- OK 
+cUCrcDigestTestMono 12 -- OK 
+cUCrcDigestTestMono 13 -- OK 
+cUCrcDigestTestMono 14 -- OK 
+cUCrcDigestTestCombined 1  -- OK 
+cUCrcDigestTestCombined 2  -- OK 
+cUCrcDigestTestCombined 3  -- OK 
+cUCrcDigestTestCombined 4  -- OK 
+cUCrcDigestTestCombined 5  -- OK 
+cUCrcDigestTestCombined 6  -- OK 
+cUCrcDigestTestCombined 7  -- OK 
+cUCrcDigestTestCombined 8  -- OK 
+cUCrcDigestTestCombined 9  -- OK 
+cUCrcDigestTestCombined 10 -- OK 
+cUCrcDigestTestCombined 11 -- OK 
+cUCrcDigestTestCombined 12 -- OK 
+cUCrcDigestTestCombined 13 -- OK 
+
+
+CRC DIGEST END 
+
