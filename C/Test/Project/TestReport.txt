@@ -947,3 +947,117 @@ cUCrcDigestTestCombined 13 -- OK
 
 CRC DIGEST END 
 
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+DATA PACK TEST START 
+
+dataPackTestBadPointer 1  -- OK 
+dataPackTestBadPointer 2  -- OK 
+dataPackTestBadPointer 3  -- OK 
+dataPackTestBadPointer 4  -- OK 
+dataPackTestBadPointer 5  -- OK 
+dataPackTestBadPointer 6  -- OK 
+dataPackTestBadPointer 7  -- OK 
+dataPackTestBadPointer 8  -- OK 
+dataPackTestBadPointer 9  -- OK 
+dataPackTestBadPointer 10 -- OK 
+dataPackTestBadPointer 11 -- OK 
+dataPackTestBadPointer 12 -- OK 
+dataPackTestBadPointer 13 -- OK 
+dataPackTestBadPointer 14 -- OK 
+dataPackTestBadInit 1  -- OK 
+dataPackTestBadInit 2  -- OK 
+dataPackTestBadInit 3  -- OK 
+dataPackTestBadInit 4  -- OK 
+dataPackTestBadInit 5  -- OK 
+dataPackTestBadInit 6  -- OK 
+dataPackTestBadInit 7  -- OK 
+dataPackTestBadInit 8  -- OK 
+dataPackTestBadInit 9  -- OK 
+dataPackTestBadParamEntr 1  -- OK 
+dataPackTestBadParamEntr 2  -- OK 
+dataPackTestBadParamStatus 1  -- OK 
+dataPackTestBadParamStatus 2  -- OK 
+dataPackTestBadParamStatus 3  -- OK 
+dataPackTestBadParamStatus 4  -- OK 
+dataPackTestBadParamStatus 5  -- OK 
+dataPackTestBadParamStatus 6  -- OK 
+dataPackTestBadParamStatus 7  -- OK 
+dataPackTestBadParamStatus 8  -- OK 
+dataPackTestBadParamStatus 9  -- OK 
+dataPackTestBadParamStatus 10 -- OK 
+dataPackTestBadParamStatus 11 -- OK 
+dataPackTestBadParamStatus 12 -- OK 
+dataPackTestBadParamStatus 13 -- OK 
+dataPackTestBadParamStatus 14 -- OK 
+dataPackTestBadParamStatus 15 -- OK 
+dataPackTestBadParamStatus 16 -- OK 
+dataPackTestBadParamStatus 17 -- OK 
+dataPackTestBadParamStatus 18 -- OK 
+dataPackTestBadParamStatus 19 -- OK 
+dataPackTestBadParamStatus 20 -- OK 
+dataPackTestOutOfMem 1  -- OK 
+dataPackTestOutOfMem 2  -- OK 
+dataPackTestOutOfMem 3  -- OK 
+dataPackTestOutOfMem 4  -- OK 
+dataPackTestOutOfMem 5  -- OK 
+dataPackTestOutOfMem 6  -- OK 
+dataPackTestOutOfMem 7  -- OK 
+dataPackTestOutOfMem 8  -- OK 
+dataPackTestOutOfMem 9  -- OK 
+dataPackTestOutOfMem 10 -- OK 
+dataPackTestOutOfMem 11 -- OK 
+dataPackTestOutOfMem 12 -- OK 
+dataPackTestOutOfMem 13 -- OK 
+dataPackTestOutOfMem 14 -- OK 
+dataPackTestOutOfMem 15 -- OK 
+dataPackTestOutOfMem 16 -- OK 
+dataPackTestOutOfMem 17 -- OK 
+dataPackTestOutOfMem 18 -- OK 
+dataPackTestOutOfMem 19 -- OK 
+dataPackTestOutOfMem 20 -- OK 
+dataPackTestOutOfMem 21 -- OK 
+dataPackTestOutOfMem 22 -- OK 
+dataPackTestOutOfMem 23 -- OK 
+dataPackTestEndianLe 1  -- OK 
+dataPackTestEndianLe 2  -- OK 
+dataPackTestEndianLe 3  -- OK 
+dataPackTestEndianLe 4  -- OK 
+dataPackTestEndianLe 5  -- OK 
+dataPackTestEndianLe 6  -- OK 
+dataPackTestEndianLe 7  -- OK 
+dataPackTestEndianLe 8  -- OK 
+dataPackTestEndianLe 9  -- OK 
+dataPackTestEndianLe 10 -- OK 
+dataPackTestEndianLe 11 -- OK 
+dataPackTestEndianLe 12 -- OK 
+dataPackTestEndianBe 1  -- OK 
+dataPackTestEndianBe 2  -- OK 
+dataPackTestEndianBe 3  -- OK 
+dataPackTestEndianBe 4  -- OK 
+dataPackTestEndianBe 5  -- OK 
+dataPackTestEndianBe 6  -- OK 
+dataPackTestEndianBe 7  -- OK 
+dataPackTestEndianBe 8  -- OK 
+dataPackTestEndianBe 9  -- OK 
+dataPackTestEndianBe 10 -- OK 
+dataPackTestEndianBe 11 -- OK 
+dataPackTestEndianBe 12 -- OK 
+dataPackTestCycle 1  -- OK 
+dataPackTestCycle 2  -- OK 
+dataPackTestCycle 3  -- OK 
+dataPackTestCycle 4  -- OK 
+dataPackTestCycle 5  -- OK 
+dataPackTestCycle 6  -- OK 
+dataPackTestCycle 7  -- OK 
+dataPackTestCycle 8  -- OK 
+dataPackTestCycle 9  -- OK 
+dataPackTestCycle 10 -- OK 
+
+
+DATA PACK END 
+

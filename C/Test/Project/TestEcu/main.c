@@ -13,10 +13,10 @@ int main(void);
 int main(void)
 {
     /* Start testing */
-    // crc32Test();
-    cUCrcDigestTest();
+    // -- crc32Test();
+    // -- cUCrcDigestTest();
     // circularQueueTest();
-    // dataPackTest();
+    dataPackTest();
     // dataUnPackTest();
 	// dataPackUnPackTest();
     // byteStufferTest();
