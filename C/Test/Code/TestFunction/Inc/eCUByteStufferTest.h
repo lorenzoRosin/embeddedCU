@@ -1,7 +1,11 @@
 /**
- * @file eCUByteStufferTest.h
+ * @file       eCUByteStufferTest.h
  *
- */
+ * @brief      Byte stuffer test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUBYTESTUFFERTEST_H
 #define ECUBYTESTUFFERTEST_H
@@ -26,7 +30,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCrc module
+ * @brief       Test the byte stuffer module
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void byteStufferTest(void);
 

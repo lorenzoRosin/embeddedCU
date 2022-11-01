@@ -1,7 +1,11 @@
 /**
- * @file eCUByteUnStufferTest.h
+ * @file       eCUByteUnStufferTest.h
  *
- */
+ * @brief      Byte unstuffer test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUBYTEUNSTUFFERTEST_H
 #define ECUBYTEUNSTUFFERTEST_H
@@ -26,7 +30,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCrc module
+ * @brief       Test the byte unstuffer module
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void byteUnStufferTest(void);
 

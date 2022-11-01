@@ -1,7 +1,11 @@
 /**
- * @file eCUDataPackTest.h
+ * @file       eCUDataPackTest.h
  *
- */
+ * @brief      Data pack test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUDATAPACKTEST_H
 #define ECUDATAPACKTEST_H
@@ -26,7 +30,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCrc module
+ * @brief       Test the data pack module
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void dataPackTest(void);
 

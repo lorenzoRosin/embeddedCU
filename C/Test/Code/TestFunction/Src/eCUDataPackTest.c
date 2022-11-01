@@ -1,19 +1,28 @@
 /**
- * @file eCUDataPackTest.c
+ * @file       eCUDataPackTest.c
  *
- */
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
-    /* Suppressed for code clarity in test execution*/
-#endif
-
-
+ * @brief      Data pack test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUDataPackTest.h"
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+    /* Suppressed for code clarity in test execution*/
+#endif
+
 #include <stdio.h>
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+#endif
+
 
 
 
@@ -1344,6 +1353,3 @@ void dataPackTestCycle(void)
 
 
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
-#endif

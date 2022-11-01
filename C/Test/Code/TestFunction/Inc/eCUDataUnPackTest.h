@@ -1,7 +1,11 @@
 /**
- * @file eCUDataUnPackTest.h
+ * @file       eCUDataUnPackTest.h
  *
- */
+ * @brief      Data unpack test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUDATAUNPACKTEST_H
 #define ECUDATAUNPACKTEST_H
@@ -26,7 +30,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCrc module
+ * @brief       Test the data unpack module
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void dataUnPackTest(void);
 

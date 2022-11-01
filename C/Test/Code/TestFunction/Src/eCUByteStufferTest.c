@@ -1,18 +1,28 @@
 /**
- * @file eCUByteStufferTest.c
+ * @file       eCUByteStufferTest.c
  *
- */
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6", "MISRAC2004-17.4_b", "CERT-STR32-C"
-    /* Suppressed for code clarity in test execution*/
-#endif
-
+ * @brief      Byte stuffer test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUByteStufferTest.h"
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+    /* Suppressed for code clarity in test execution*/
+#endif
+
 #include <stdio.h>
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+#endif
+
 
 
 
@@ -2318,6 +2328,3 @@ void byteStuffTestGeneralAnother(void)
     }
 }
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6", "MISRAC2004-17.4_b", "CERT-STR32-C"
-#endif

@@ -1,7 +1,11 @@
 /**
- * @file eCUDataStuffUnStuffTest.h
+ * @file       eCUDataStuffUnStuffTest.h
  *
- */
+ * @brief      Data stuffer and unstuffer test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUDATASTUFFUNSTUFFTEST_H
 #define ECUDATASTUFFUNSTUFFTEST_H
@@ -27,7 +31,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the data stuff and unstuff
+ * @brief       Test the data stuffer and unstuffer modules
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void dataStuffUnStuffTest(void);
 

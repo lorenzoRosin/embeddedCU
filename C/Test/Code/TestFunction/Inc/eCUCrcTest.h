@@ -1,7 +1,11 @@
 /**
- * @file eCUCrcTest.h
+ * @file       eCUCrcTest.h
  *
- */
+ * @brief      CRC test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUCRCTEST_H
 #define ECUCRCTEST_H
@@ -26,7 +30,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCrc module
+ * @brief       Test the crc module
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void crc32Test(void);
 

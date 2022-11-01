@@ -1,7 +1,11 @@
 /**
- * @file eCUCircularQueueTest.h
+ * @file       eCUCircularQueueTest.h
  *
- */
+ * @brief      Circular queue test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUCIRCULARQUEUETEST_H
 #define ECUCIRCULARQUEUETEST_H
@@ -26,7 +30,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCircularQueue module
+ * @brief       Test the circular queue module
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void circularQueueTest(void);
 

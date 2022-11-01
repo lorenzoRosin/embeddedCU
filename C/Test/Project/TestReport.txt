@@ -757,3 +757,28 @@ dataStuffUnStuffCommon 6[4]  -- OK
 
 DATA STUFF UNSTUFF END 
 
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+CRC TEST START 
+
+crc32TestBadPointer 1  -- OK 
+crc32TestBadPointer 2  -- OK 
+crc32TestBadPointer 3  -- OK 
+crc32TestBadPointer 4  -- OK 
+crc32TestValue 1  -- OK 
+crc32TestValue 2  -- OK 
+crc32TestValue 3  -- OK 
+crc32TestValue 4  -- OK 
+crc32TestValue 5  -- OK 
+crc32TestValue 6  -- OK 
+crc32TestCombined 1  -- OK 
+crc32TestCombined 2  -- OK 
+crc32TestCombined 3  -- OK 
+
+
+CRC TEST END 
+

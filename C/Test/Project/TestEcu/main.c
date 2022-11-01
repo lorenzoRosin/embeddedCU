@@ -14,14 +14,14 @@ int main(void)
 {
     /* Start testing */
     crc32Test();
-    cUCrcDigestTest();
-    circularQueueTest();
-    dataPackTest();
-    dataUnPackTest();
-	dataPackUnPackTest();
-    byteStufferTest();
-    byteUnStufferTest();
-    dataStuffUnStuffTest();
+    // cUCrcDigestTest();
+    // circularQueueTest();
+    // dataPackTest();
+    // dataUnPackTest();
+	// dataPackUnPackTest();
+    // byteStufferTest();
+    // byteUnStufferTest();
+    // dataStuffUnStuffTest();
 
     return 0;
 }

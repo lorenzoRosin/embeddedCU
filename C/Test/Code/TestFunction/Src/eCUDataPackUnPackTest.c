@@ -1,19 +1,28 @@
 /**
- * @file eCUDataPackUnPackTest.c
+ * @file       eCUDataPackUnPackTest.c
  *
- */
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
-    /* Suppressed for code clarity in test execution*/
-#endif
-
-
+ * @brief      Data pack and unpack test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUDataPackUnPackTest.h"
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+    /* Suppressed for code clarity in test execution*/
+#endif
+
 #include <stdio.h>
+
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
+#endif
+
 
 
 
@@ -479,6 +488,3 @@ void dataPackUnPackBE(void)
     }
 }
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
-#endif

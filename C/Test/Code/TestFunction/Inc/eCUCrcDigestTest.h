@@ -1,7 +1,11 @@
 /**
- * @file eCUCrcDigestTest.h
+ * @file       eCUCrcDigestTest.h
  *
- */
+ * @brief      CRC digest test
+ *
+ * @author     Lorenzo Rosin
+ *
+ **********************************************************************************************************************/
 
 #ifndef ECUCRCDIGESTTEST_H
 #define ECUCRCDIGESTTEST_H
@@ -26,7 +30,11 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * Test the eCUCrcDigest module
+ * @brief       Test the crc digest module
+ *
+ * @param[in]   none
+ *
+ * @return      none
  */
 void cUCrcDigestTest(void);
 
