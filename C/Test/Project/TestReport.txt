@@ -782,3 +782,98 @@ crc32TestCombined 3  -- OK
 
 CRC TEST END 
 
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+CRC TEST START 
+
+crc32TestBadPointer 1  -- OK 
+crc32TestBadPointer 2  -- OK 
+crc32TestBadPointer 3  -- OK 
+crc32TestBadPointer 4  -- OK 
+crc32TestValue 1  -- OK 
+crc32TestValue 2  -- OK 
+crc32TestValue 3  -- OK 
+crc32TestValue 4  -- OK 
+crc32TestValue 5  -- OK 
+crc32TestValue 6  -- OK 
+crc32TestCombined 1  -- OK 
+crc32TestCombined 2  -- OK 
+crc32TestCombined 3  -- OK 
+
+
+CRC TEST END 
+
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+CRC DIGEST TEST START 
+
+cUCrcDigestTestBadPointer 1  -- OK 
+cUCrcDigestTestBadPointer 2  -- OK 
+cUCrcDigestTestBadPointer 2  -- OK 
+cUCrcDigestTestBadPointer 4  -- OK 
+cUCrcDigestTestBadPointer 5  -- OK 
+cUCrcDigestTestBadPointer 6  -- OK 
+cUCrcDigestTestBadPointer 7  -- OK 
+cUCrcDigestTestBadPointer 8  -- OK 
+cUCrcDigestTestBadPointer 9  -- OK 
+cUCrcDigestTestBadPointer 10 -- OK 
+cUCrcDigestTestBadPointer 11 -- OK 
+cUCrcDigestTestBadInit 1  -- OK 
+cUCrcDigestTestBadInit 2  -- OK 
+cUCrcDigestTestBadInit 3  -- OK 
+cUCrcDigestTestBadParamEntr 1  -- OK 
+cUCrcDigestTestBadParamEntr 2  -- OK 
+cUCrcDigestTestBadParamStatus 1  -- OK 
+cUCrcDigestTestBadParamStatus 2  -- OK 
+cUCrcDigestTestBadParamStatus 3  -- OK 
+cUCrcDigestTestBadParamStatus 4  -- OK 
+cUCrcDigestTestBadParamStatus 5  -- OK 
+cUCrcDigestTestBadParamStatus 6  -- OK 
+cUCrcDigestTestOutOfMem 1  -- OK 
+cUCrcDigestTestOutOfMem 2  -- OK 
+cUCrcDigestTestLowOfMem 1  -- OK 
+cUCrcDigestTestLowOfMem 2  -- OK 
+cUCrcDigestTestClbErr 1  -- OK 
+cUCrcDigestTestClbErr 2  -- OK 
+cUCrcDigestTestClbErr 3  -- OK 
+cUCrcDigestTestClbErr 4  -- OK 
+cUCrcDigestTestClbErr 5  -- OK 
+cUCrcDigestTestMono 1  -- OK 
+cUCrcDigestTestMono 2  -- OK 
+cUCrcDigestTestMono 3  -- OK 
+cUCrcDigestTestMono 4  -- OK 
+cUCrcDigestTestMono 5  -- OK 
+cUCrcDigestTestMono 6  -- OK 
+cUCrcDigestTestMono 7  -- OK 
+cUCrcDigestTestMono 8  -- OK 
+cUCrcDigestTestMono 9  -- OK 
+cUCrcDigestTestMono 10 -- OK 
+cUCrcDigestTestMono 11 -- OK 
+cUCrcDigestTestCombined 1  -- OK 
+cUCrcDigestTestCombined 2  -- OK 
+cUCrcDigestTestCombined 3  -- OK 
+cUCrcDigestTestCombined 4  -- OK 
+cUCrcDigestTestCombined 5  -- OK 
+cUCrcDigestTestCombined 6  -- OK 
+cUCrcDigestTestCombined 7  -- OK 
+cUCrcDigestTestCombined 8  -- OK 
+cUCrcDigestTestCombined 9  -- OK 
+cUCrcDigestTestCombined 10 -- OK 
+cUCrcDigestTestCombined 11 -- OK 
+cUCrcDigestTestCombined 12 -- OK 
+
+
+CRC DIGEST END 
+

@@ -26,8 +26,6 @@
 
 
 
-
-
 /***********************************************************************************************************************
  *   PRIVATE TEST FUNCTION DECLARATION
  **********************************************************************************************************************/
@@ -38,6 +36,7 @@ typedef struct
 
 static bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
 static bool_t c32SAdaptEr(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
+
 
 
 /***********************************************************************************************************************
@@ -52,7 +51,6 @@ static void cUCrcDigestTestLowOfMem(void);
 static void cUCrcDigestTestClbErr(void);
 static void cUCrcDigestTestMono(void);
 static void cUCrcDigestTestCombined(void);
-
 
 
 
@@ -132,6 +130,7 @@ bool_t c32SAdaptEr(void* cntx, const uint32_t s, const uint8_t d[], const uint32
 
     return result;
 }
+
 
 
 /***********************************************************************************************************************
@@ -826,4 +825,3 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 12 -- FAIL \n");
     }
 }
-

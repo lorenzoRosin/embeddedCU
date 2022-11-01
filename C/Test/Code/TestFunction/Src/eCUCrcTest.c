@@ -31,6 +31,7 @@ static void crc32TestValue(void);
 static void crc32TestCombined(void);
 
 
+
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
@@ -44,8 +45,6 @@ void crc32Test(void)
 
     (void)printf("\n\nCRC TEST END \n\n");
 }
-
-
 
 
 
@@ -269,4 +268,3 @@ void crc32TestCombined(void)
         (void)printf("crc32TestCombined 3  -- FAIL \n");
     }
 }
-
