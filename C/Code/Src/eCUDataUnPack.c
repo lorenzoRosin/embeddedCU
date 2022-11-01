@@ -228,11 +228,6 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
 	return result;
 }
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-17.4_b"
-    /* Suppressed for code clarity */
-#endif
-
 e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataDest[], uint32_t const toRetrivedLen)
 {
 	/* Local variable */
@@ -644,9 +639,7 @@ e_eCU_dUnpk_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP
 	return result;
 }
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-17.4_b"
-#endif
+
 
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION

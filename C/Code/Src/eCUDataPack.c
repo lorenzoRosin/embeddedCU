@@ -164,11 +164,6 @@ e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const r
 	return result;
 }
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-17.4_b"
-    /* Suppressed for code clarity */
-#endif
-
 e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, uint8_t data[], const uint32_t dataLen)
 {
 	/* Local variable */
@@ -486,9 +481,7 @@ e_eCU_dPk_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataT
 	return result;
 }
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-17.4_b"
-#endif
+
 
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
