@@ -120,7 +120,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* co
  *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
  *              DBUSTF_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferIsWaitingSof(s_eCU_BUStuffCtx* const ctx, bool_t* const isWaitingSof);
+e_eCU_dBUStf_Res bUStufferIsWaitingSof(const s_eCU_BUStuffCtx* ctx, bool_t* const isWaitingSof);
 
 /**
  * @brief       Check if the current frame is finished or if we need to unstuff some more data to have the full frame
@@ -139,8 +139,8 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
  * @brief       Insert the stuffed data chunk that the alg will unstuff byte per byte
  *
  * @param[in]   ctx                - Byte unStuffer context
- * @param[in]   stuffedArea        - Pointer to the stuffed Data that we will unstuff
- * @param[in]   stuffLen           - Size of the stuffedArea
+ * @param[in]   stuffArea          - Pointer to the stuffed Data that we will unstuff
+ * @param[in]   stuffLen           - Size of the stuffArea
  * @param[out]  consumedStuffData  - Pointer to an uint32_t were we will store how many stuffed data byte has been
  *                                   analized. Keep in mind that unalized data were not unstuffed and will need to be
  *                                   reparsed. Un parsed data happens when the frame ended earlier
@@ -165,7 +165,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
  *                                        finished yet. In this situation consumedStuffData is always reported with a
  *                                        value equals to stuffLen.
  */
-e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuffedArea[], const uint32_t stuffLen,
+e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_t stuffArea[], const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec);
 
 

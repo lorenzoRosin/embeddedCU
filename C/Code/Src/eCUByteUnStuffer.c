@@ -164,7 +164,7 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* co
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferIsWaitingSof(s_eCU_BUStuffCtx* const ctx, bool_t* const isWaitingSof)
+e_eCU_dBUStf_Res bUStufferIsWaitingSof(const s_eCU_BUStuffCtx* ctx, bool_t* const isWaitingSof)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -262,7 +262,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuffedArea[], const uint32_t stuffLen,
+e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_t stuffArea[], const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec)
 {
 	/* Local variable */
@@ -272,7 +272,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
     uint8_t currentByte;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == stuffedArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) )
+	if( ( NULL == ctx ) || ( NULL == stuffArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) )
 	{
 		result = DBUSTF_RES_BADPOINTER;
 	}
@@ -310,7 +310,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 					       ( DBUSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) )
                     {
                         /* Read current byte */
-                        currentByte = stuffedArea[nExamByte];
+                        currentByte = stuffArea[nExamByte];
 
                         /* Decide what to do */
 						switch( ctx->unStuffState )
