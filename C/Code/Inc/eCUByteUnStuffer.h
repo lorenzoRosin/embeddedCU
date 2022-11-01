@@ -133,7 +133,7 @@ e_eCU_dBUStf_Res bUStufferIsWaitingSof(const s_eCU_BUStuffCtx* ctx, bool_t* cons
  *		        DBUSTF_RES_CORRUPTCTX   - In case of an corrupted context
  *              DBUSTF_RES_OK           - Operation ended correctly
  */
-e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff);
+e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(const s_eCU_BUStuffCtx* ctx, bool_t* const isFrameUnstuff);
 
 /**
  * @brief       Insert the stuffed data chunk that the alg will unstuff byte per byte

@@ -206,12 +206,8 @@ e_eCU_dBUStf_Res bUStufferIsWaitingSof(const s_eCU_BUStuffCtx* ctx, bool_t* cons
 
 	return result;
 }
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2012-Rule-8.13"
-    /* Suppressed for code clarity */
-#endif
 
-e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_t* const isFrameUnstuff)
+e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(const s_eCU_BUStuffCtx* ctx, bool_t* const isFrameUnstuff)
 {
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
@@ -252,10 +248,6 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(s_eCU_BUStuffCtx* const ctx, bool_
 
 	return result;
 }
-
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2012-Rule-8.13"
-#endif
 
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_disable = "CERT-INT30-C_b"
