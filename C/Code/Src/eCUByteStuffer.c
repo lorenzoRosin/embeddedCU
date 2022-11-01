@@ -515,8 +515,8 @@ bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
             else
             {
                 /* Check data coherence on SOF */
-                if( ( 0u == ctx->memAreaCntr ) && ( DBSTF_SM_PRV_NEEDSOF  == ctx->stuffState ) &&
-                    ( DBSTF_SM_PRV_NEEDRAWDATA  == ctx->stuffState ) )
+                if( ( 0u == ctx->memAreaCntr ) && ( DBSTF_SM_PRV_NEEDSOF != ctx->stuffState ) &&
+                    ( DBSTF_SM_PRV_NEEDRAWDATA != ctx->stuffState ) )
                 {
                     result = false;
                 }
