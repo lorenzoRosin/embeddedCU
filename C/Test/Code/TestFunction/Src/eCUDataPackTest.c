@@ -842,6 +842,62 @@ void dataPackTestOutOfMem(void)
     {
         (void)printf("dataPackTestOutOfMem 23 -- FAIL \n");
     }
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool), true) )
+    {
+        (void)printf("dataPackTestOutOfMem 24 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestOutOfMem 24 -- FAIL \n");
+    }
+
+    (void)memset(arrayTest, 0, sizeof(arrayTest));
+    if( DPK_RES_OK == dataPackPushArray( &ctx, arrayTest, sizeof(arrayTest) ) )
+    {
+        (void)printf("dataPackTestOutOfMem 25 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestOutOfMem 25 -- FAIL \n");
+    }
+
+    if( DPK_RES_OUTOFMEM == dataPackPushU8( &ctx, 10u ) )
+    {
+        (void)printf("dataPackTestOutOfMem 26 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestOutOfMem 26 -- FAIL \n");
+    }
+
+    if( DPK_RES_OUTOFMEM == dataPackPushU16( &ctx, 10u ) )
+    {
+        (void)printf("dataPackTestOutOfMem 27 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestOutOfMem 27 -- FAIL \n");
+    }
+
+    if( DPK_RES_OUTOFMEM == dataPackPushU32( &ctx, 10u ) )
+    {
+        (void)printf("dataPackTestOutOfMem 28 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestOutOfMem 28 -- FAIL \n");
+    }
+
+    if( DPK_RES_OUTOFMEM == dataPackPushU64( &ctx, 10u ) )
+    {
+        (void)printf("dataPackTestOutOfMem 29 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestOutOfMem 29 -- FAIL \n");
+    }
 }
 
 void dataPackTestEndianLe(void)
