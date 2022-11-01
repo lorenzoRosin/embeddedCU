@@ -325,7 +325,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
 {
 	/* Local variable */
 	e_eCU_dBStf_Res result;
-    uint32_t nExamByte;
+    uint32_t nFillByte;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == stuffedDest ) || ( NULL == filledLen ) )
@@ -362,11 +362,11 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                     else
                     {
                         /* Init counter */
-                        nExamByte = 0u;
+                        nFillByte = 0u;
 						result = DBSTF_RES_OK;
 
                         /* Execute parsing cycle */
-                        while( ( nExamByte < maxDestLen ) &&
+                        while( ( nFillByte < maxDestLen ) &&
 						       ( DBSTF_SM_PRV_STUFFEND != ctx->stuffState ) &&
 							   ( DBSTF_RES_OK == result ) )
                         {
@@ -378,32 +378,32 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                     if( ECU_SOF == ctx->memArea[ctx->memAreaCntr] )
                                     {
                                         /* Stuff with escape */
-                                        stuffedDest[nExamByte] = ECU_ESC;
+                                        stuffedDest[nFillByte] = ECU_ESC;
                                         ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
-                                        nExamByte++;
+                                        nFillByte++;
                                         ctx->memAreaCntr++;
                                     }
                                     else if( ECU_EOF == ctx->memArea[ctx->memAreaCntr] )
                                     {
                                         /* Stuff with escape */
-                                        stuffedDest[nExamByte] = ECU_ESC;
+                                        stuffedDest[nFillByte] = ECU_ESC;
                                         ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
-                                        nExamByte++;
+                                        nFillByte++;
                                         ctx->memAreaCntr++;
                                     }
                                     else if( ECU_ESC == ctx->memArea[ctx->memAreaCntr] )
                                     {
                                         /* Stuff with escape */
-                                        stuffedDest[nExamByte] = ECU_ESC;
+                                        stuffedDest[nFillByte] = ECU_ESC;
                                         ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
-                                        nExamByte++;
+                                        nFillByte++;
                                         ctx->memAreaCntr++;
                                     }
                                     else
                                     {
                                         /* Can insert data */
-                                        stuffedDest[nExamByte] = ctx->memArea[ctx->memAreaCntr];
-                                        nExamByte++;
+                                        stuffedDest[nFillByte] = ctx->memArea[ctx->memAreaCntr];
+                                        nFillByte++;
                                         ctx->memAreaCntr++;
 
                                         if( ctx->memAreaCntr >= ctx->memAreaFrameSize )
@@ -419,8 +419,8 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                 case DBSTF_SM_PRV_NEEDNEGATEPRECDATA :
                                 {
                                     /* Something from an old iteration  */
-                                    stuffedDest[nExamByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
-                                    nExamByte++;
+                                    stuffedDest[nFillByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
+                                    nFillByte++;
 
                                     if( ctx->memAreaCntr >= ctx->memAreaFrameSize )
                                     {
@@ -438,9 +438,9 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                 case DBSTF_SM_PRV_NEEDEOF :
                                 {
                                     /* End of frame */
-                                    stuffedDest[nExamByte] = ECU_EOF;
+                                    stuffedDest[nFillByte] = ECU_EOF;
                                     ctx->stuffState = DBSTF_SM_PRV_STUFFEND;
-                                    nExamByte++;
+                                    nFillByte++;
 
                                     break;
                                 }
@@ -448,8 +448,8 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                 case DBSTF_SM_PRV_NEEDSOF :
                                 {
                                     /* Start of frame */
-                                    stuffedDest[nExamByte] = ECU_SOF;
-                                    nExamByte++;
+                                    stuffedDest[nFillByte] = ECU_SOF;
+                                    nFillByte++;
                                     ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
 
                                     break;
@@ -467,7 +467,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
 						if( DBSTF_RES_OK == result )
 						{
 							/* Save counter */
-							*filledLen = nExamByte;
+							*filledLen = nFillByte;
 
 							/* result? */
 							if( DBSTF_SM_PRV_STUFFEND == ctx->stuffState )
