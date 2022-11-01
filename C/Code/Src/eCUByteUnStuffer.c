@@ -268,6 +268,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 	/* Local variable */
 	e_eCU_dBUStf_Res result;
     uint32_t nExamByte;
+    uint32_t nErrorFound;
     uint8_t currentByte;
 
 	/* Check pointer validity */
@@ -284,7 +285,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 		}
 		else
 		{
-            if(stuffLen <= 0u)
+            if( stuffLen <= 0u )
             {
                 result = DBUSTF_RES_BADPARAM;
             }
@@ -299,9 +300,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
                 {
                     /* Init counter */
                     nExamByte = 0u;
-
-                    /* Init var */
-                    *errSofRec = 0u;
+                    nErrorFound = 0u;
 
                     /* Init result */
                     result = DBUSTF_RES_OK;
@@ -329,7 +328,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 								{
 									/* Waiting for start, no other bytes */
 									ctx->memAreaCntr = 0u;
-									*errSofRec = ( *errSofRec + 1u );
+                                    nErrorFound += 1u;
 								}
 								nExamByte++;
 								break;
@@ -342,7 +341,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
-									*errSofRec = ( *errSofRec + 1u );
+									nErrorFound += 1u;
 									nExamByte++;
 								}
 								else if( ECU_EOF == currentByte )
@@ -352,7 +351,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 										/* Found end, but no data received..  */
 										ctx->memAreaCntr = 0u;
 										ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
-										*errSofRec = ( *errSofRec + 1u );
+										nErrorFound += 1u;
 									}
 									else
 									{
@@ -394,7 +393,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
-									*errSofRec = ( *errSofRec + 1u );
+									nErrorFound += 1u;
 									nExamByte++;
 								}
 								else if( ( ECU_EOF == currentByte ) ||
@@ -403,7 +402,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 									/* Found and error, we were expecting raw negated data here.  */
 									ctx->memAreaCntr = 0u;
 									ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
-									*errSofRec = ( *errSofRec + 1u );
+									nErrorFound += 1u;
 									nExamByte++;
 								}
 								else
@@ -432,7 +431,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 											/* Impossible receive a data after esc that is not SOF EOF or ESC neg */
 											ctx->memAreaCntr = 0u;
 											ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
-											*errSofRec = ( *errSofRec + 1u );
+											nErrorFound += 1u;
 											nExamByte++;
 										}
 									}
@@ -442,7 +441,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 
 							default:
 							{
-								/* Impossible end here, and if so something horrible happened */
+								/* Impossible end here, and if so something horrible happened ( memory corruption ) */
 								result = DBUSTF_RES_CORRUPTCTX;
 								break;
 							}
@@ -451,6 +450,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, uint8_t stuf
 
 					/* Save the result */
 					*consumedStuffData = nExamByte;
+                    *errSofRec = nErrorFound;
 
 					if( DBUSTF_RES_OK == result )
 					{
