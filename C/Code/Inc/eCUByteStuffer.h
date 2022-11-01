@@ -100,7 +100,7 @@ e_eCU_dBStf_Res bStufferStartNewFrame(s_eCU_BStuffCtx* const ctx, const uint32_t
 e_eCU_dBStf_Res bStufferGetUnStufDataLocation(s_eCU_BStuffCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize);
 
 /**
- * @brief       Restart to stuff the already passed/the current frame
+ * @brief       Restart to stuff the already passed data/the current frame
  *
  * @param[in]   ctx         - Byte stuffer context
  *
