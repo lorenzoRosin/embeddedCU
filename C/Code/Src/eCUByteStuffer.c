@@ -351,7 +351,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
 		else
 		{
             /* Check Init */
-            if( 0u >= ctx->memAreaFrameSize )
+            if( ctx->memAreaFrameSize <= 0u )
             {
                 result = DBSTF_RES_NOINITFRAME;
             }
