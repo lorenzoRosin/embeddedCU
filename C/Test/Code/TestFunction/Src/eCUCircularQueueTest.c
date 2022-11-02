@@ -23,6 +23,10 @@
     #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
 #endif
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "CERT-STR32-C"
+    /* Suppressed for code clarity in test execution*/
+#endif
 
 
 
@@ -1114,3 +1118,6 @@ static void circularqueueTestCycle2(void)
     }
 }
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "CERT-STR32-C"
+#endif
