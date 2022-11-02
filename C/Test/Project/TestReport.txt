@@ -1183,3 +1183,210 @@ dataPackTestCycle 10 -- OK
 
 DATA PACK END 
 
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+DATA UNPACK TEST START 
+
+dataUnPackTestBadPointer 1  -- OK 
+dataUnPackTestBadPointer 2  -- OK 
+dataUnPackTestBadPointer 3  -- OK 
+dataUnPackTestBadPointer 4  -- OK 
+dataUnPackTestBadPointer 5  -- OK 
+dataUnPackTestBadPointer 6  -- OK 
+dataUnPackTestBadPointer 7  -- OK 
+dataUnPackTestBadPointer 8  -- OK 
+dataUnPackTestBadPointer 9  -- OK 
+dataUnPackTestBadPointer 10 -- OK 
+dataUnPackTestBadPointer 11 -- OK 
+dataUnPackTestBadPointer 12 -- OK 
+dataUnPackTestBadPointer 13 -- OK 
+dataUnPackTestBadPointer 14 -- OK 
+dataUnPackTestBadPointer 15 -- OK 
+dataUnPackTestBadPointer 16 -- OK 
+dataUnPackTestBadPointer 17 -- OK 
+dataUnPackTestBadPointer 18 -- OK 
+dataUnPackTestBadPointer 19 -- OK 
+dataUnPackTestBadInit 1  -- OK 
+dataUnPackTestBadInit 2  -- OK 
+dataUnPackTestBadInit 3  -- OK 
+dataUnPackTestBadInit 4  -- OK 
+dataUnPackTestBadInit 5  -- OK 
+dataUnPackTestBadInit 6  -- OK 
+dataUnPackTestBadInit 7  -- OK 
+dataUnPackTestBadInit 8  -- OK 
+dataUnPackTestBadInit 9  -- OK 
+dataUnPackTestBadInit 10 -- OK 
+dataUnPackTestBadInitSession 1  -- OK 
+dataUnPackTestBadInitSession 2  -- OK 
+dataUnPackTestBadInitSession 3  -- OK 
+dataUnPackTestBadInitSession 4  -- OK 
+dataUnPackTestBadInitSession 5  -- OK 
+dataUnPackTestBadInitSession 6  -- OK 
+dataUnPackTestBadInitSession 7  -- OK 
+dataUnPackTestBadInitSession 8  -- OK 
+dataUnPackTestBadParamEntr 1  -- OK 
+dataUnPackTestBadParamEntr 2  -- OK 
+dataUnPackTestBadParamEntr 3  -- OK 
+dataUnPackTestBadParamEntr 4  -- OK 
+dataUnPackTestBadParamEntr 5  -- OK 
+dataUnPackTestBadParamEntr 6  -- OK 
+dataUnPackTestCorruptContext 1  -- OK 
+dataUnPackTestCorruptContext 2  -- OK 
+dataUnPackTestCorruptContext 3  -- OK 
+dataUnPackTestCorruptContext 4  -- OK 
+dataUnPackTestCorruptContext 5  -- OK 
+dataUnPackTestCorruptContext 6  -- OK 
+dataUnPackTestCorruptContext 7  -- OK 
+dataUnPackTestCorruptContext 8  -- OK 
+dataUnPackTestCorruptContext 9  -- OK 
+dataUnPackTestCorruptContext 10 -- OK 
+dataUnPackTestCorruptContext 11 -- OK 
+dataUnPackTestCorruptContext 12 -- OK 
+dataUnPackTestCorruptContext 13 -- OK 
+dataUnPackTestCorruptContext 14 -- OK 
+dataUnPackTestCorruptContext 15 -- OK 
+dataUnPackTestCorruptContext 16 -- OK 
+dataUnPackTestCorruptContext 17 -- OK 
+dataUnPackTestCorruptContext 18 -- OK 
+dataUnPackTestCorruptContext 19 -- OK 
+dataUnPackTestCorruptContext 20 -- OK 
+dataUnPackTestCorruptContext 21 -- OK 
+dataUnPackTestCorruptContext 22 -- OK 
+dataUnPackTestCorruptContext 23 -- OK 
+dataUnPackTestCorruptContext 24 -- OK 
+dataUnPackTestOutOfMem 1  -- OK 
+dataUnPackTestOutOfMem 2  -- OK 
+dataUnPackTestOutOfMem 3  -- OK 
+dataUnPackTestOutOfMem 4  -- OK 
+dataUnPackTestOutOfMem 5  -- OK 
+dataUnPackTestOutOfMem 6  -- OK 
+dataUnPackTestOutOfMem 7  -- OK 
+dataUnPackTestOutOfMem 8  -- OK 
+dataUnPackTestOutOfMem 9  -- OK 
+dataUnPackTestOutOfMem 10 -- OK 
+dataUnPackTestOutOfMem 11 -- OK 
+dataUnPackTestOutOfMem 12 -- OK 
+dataUnPackTestOutOfMem 13 -- OK 
+dataUnPackTestOutOfMem 14 -- OK 
+dataUnPackTestOutOfMem 15 -- OK 
+dataUnPackTestOutOfMem 16 -- OK 
+dataUnPackTestOutOfMem 17 -- OK 
+dataUnPackTestOutOfMem 18 -- OK 
+dataUnPackTestOutOfMem 19 -- OK 
+dataUnPackTestOutOfMem 20 -- OK 
+dataUnPackTestOutOfMem 21 -- OK 
+dataUnPackTestOutOfMem 22 -- OK 
+dataUnPackTestOutOfMem 23 -- OK 
+dataUnPackTestOutOfMem 24 -- OK 
+dataUnPackTestOutOfMem 25 -- OK 
+dataUnPackTestOutOfMem 26 -- OK 
+dataUnPackTestOutOfMem 27 -- OK 
+dataUnPackTestOutOfMem 28 -- OK 
+dataUnPackTestOutOfMem 29 -- OK 
+dataUnPackTestOutOfMem 30 -- OK 
+dataUnPackTestOutOfMem 31 -- OK 
+dataUnPackTestOutOfMem 32 -- OK 
+dataUnPackTestOutOfMem 33 -- OK 
+dataUnPackTestOutOfMem 34 -- OK 
+dataUnPackTestEndianLe 1  -- OK 
+dataUnPackTestEndianLe 2  -- OK 
+dataUnPackTestEndianLe 3  -- OK 
+dataUnPackTestEndianLe 4  -- OK 
+dataUnPackTestEndianLe 5  -- OK 
+dataUnPackTestEndianLe 6  -- OK 
+dataUnPackTestEndianLe 7  -- OK 
+dataUnPackTestEndianLe 8  -- OK 
+dataUnPackTestEndianLe 9  -- OK 
+dataUnPackTestEndianLe 10 -- OK 
+dataUnPackTestEndianLe 11 -- OK 
+dataUnPackTestEndianLe 12 -- OK 
+dataUnPackTestEndianBe 1  -- OK 
+dataUnPackTestEndianBe 2  -- OK 
+dataUnPackTestEndianBe 3  -- OK 
+dataUnPackTestEndianBe 4  -- OK 
+dataUnPackTestEndianBe 5  -- OK 
+dataUnPackTestEndianBe 6  -- OK 
+dataUnPackTestEndianBe 7  -- OK 
+dataUnPackTestEndianBe 8  -- OK 
+dataUnPackTestEndianBe 9  -- OK 
+dataUnPackTestEndianBe 10 -- OK 
+dataUnPackTestEndianBe 11 -- OK 
+dataUnPackTestEndianBe 12 -- OK 
+dataUnPackTestCycle 1  -- OK 
+dataUnPackTestCycle 2  -- OK 
+dataUnPackTestCycle 3  -- OK 
+dataUnPackTestCycle 4  -- OK 
+dataUnPackTestCycle 5  -- OK 
+dataUnPackTestCycle 6  -- OK 
+dataUnPackTestCycle 7  -- OK 
+dataUnPackTestCycle 8  -- OK 
+dataUnPackTestCycle 9  -- OK 
+
+
+DATA UNPACK END 
+
+
+
+ << Logging of terminal I/O resumes >> 
+
+
+
+DATA PACK UNPACK TEST START 
+
+dataPackUnPackLE 1  -- OK 
+dataPackUnPackLE 2  -- OK 
+dataPackUnPackLE 3  -- OK 
+dataPackUnPackLE 4  -- OK 
+dataPackUnPackLE 5  -- OK 
+dataPackUnPackLE 6  -- OK 
+dataPackUnPackLE 7  -- OK 
+dataPackUnPackLE 8  -- OK 
+dataPackUnPackLE 9  -- OK 
+dataPackUnPackLE 10 -- OK 
+dataPackUnPackLE 11 -- OK 
+dataPackUnPackLE 12 -- OK 
+dataPackUnPackLE 13 -- OK 
+dataPackUnPackLE 14 -- OK 
+dataPackUnPackLE 15 -- OK 
+dataPackUnPackLE 16 -- OK 
+dataPackUnPackLE 17 -- OK 
+dataPackUnPackLE 18 -- OK 
+dataPackUnPackLE 19 -- OK 
+dataPackUnPackLE 20 -- OK 
+dataPackUnPackLE 21 -- OK 
+dataPackUnPackBE 1  -- OK 
+dataPackUnPackBE 2  -- OK 
+dataPackUnPackBE 3  -- OK 
+dataPackUnPackBE 4  -- OK 
+dataPackUnPackBE 5  -- OK 
+dataPackUnPackBE 6  -- OK 
+dataPackUnPackBE 7  -- OK 
+dataPackUnPackBE 8  -- OK 
+dataPackUnPackBE 9  -- OK 
+dataPackUnPackBE 10 -- OK 
+dataPackUnPackBE 11 -- OK 
+dataPackUnPackBE 12 -- OK 
+dataPackUnPackBE 13 -- OK 
+dataPackUnPackBE 14 -- OK 
+dataPackUnPackBE 15 -- OK 
+dataPackUnPackBE 16 -- OK 
+dataPackUnPackBE 17 -- OK 
+dataPackUnPackBE 18 -- OK 
+dataPackUnPackBE 19 -- OK 
+dataPackUnPackBE 20 -- OK 
+dataPackUnPackGeneral 1  -- OK 
+dataPackUnPackGeneral 2  -- OK 
+dataPackUnPackGeneral 3  -- OK 
+dataPackUnPackGeneral 4  -- OK 
+dataPackUnPackGeneral 5  -- OK 
+dataPackUnPackGeneral 6  -- OK 
+dataPackUnPackGeneral 7  -- OK 
+dataPackUnPackGeneral 8  -- OK 
+
+
+DATA PACK UNPACK END 
+

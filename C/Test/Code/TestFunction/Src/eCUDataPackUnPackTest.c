@@ -31,6 +31,8 @@
  **********************************************************************************************************************/
 static void dataPackUnPackLE(void);
 static void dataPackUnPackBE(void);
+static void dataPackUnPackGeneral(void);
+
 
 
 /***********************************************************************************************************************
@@ -42,6 +44,7 @@ void dataPackUnPackTest(void)
 
     dataPackUnPackLE();
     dataPackUnPackBE();
+    dataPackUnPackGeneral();
 
     (void)printf("\n\nDATA PACK UNPACK END \n\n");
 }
@@ -488,3 +491,100 @@ void dataPackUnPackBE(void)
     }
 }
 
+
+
+void dataPackUnPackGeneral(void)
+{
+    /* Local variable */
+    s_eCU_DataPackCtx ctxPack;
+    s_eCU_DataUnPackCtx ctxUnPack;
+    uint8_t  dataPackPool[20u];
+    uint16_t var16;
+
+    /* Function */
+    if( DPK_RES_OK == dataPackinitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
+    {
+        (void)printf("dataPackUnPackGeneral 1  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 1  -- FAIL \n");
+    }
+
+    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), true) )
+    {
+        (void)printf("dataPackUnPackGeneral 2  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 2  -- FAIL \n");
+    }
+
+    if( DPK_RES_OK == dataPackStartNewPack(&ctxPack) )
+    {
+        (void)printf("dataPackUnPackGeneral 3  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 3  -- FAIL \n");
+    }
+
+    if( DUNPK_RES_OK == dataUnPackStartNewFrame(&ctxUnPack, 4u) )
+    {
+        (void)printf("dataPackUnPackGeneral 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 4  -- FAIL \n");
+    }
+
+    if( DPK_RES_OK == dataPackPushU32(&ctxPack, 0x12345678u) )
+    {
+        (void)printf("dataPackUnPackGeneral 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 5  -- FAIL \n");
+    }
+
+    if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
+    {
+        if( 0x5678u == var16 )
+        {
+            (void)printf("dataPackUnPackGeneral 6  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataPackUnPackGeneral 6  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 6  -- FAIL \n");
+    }
+
+    if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
+    {
+        if( 0x1234u == var16 )
+        {
+            (void)printf("dataPackUnPackGeneral 7  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataPackUnPackGeneral 7  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 7  -- FAIL \n");
+    }
+
+    if( DUNPK_RES_NODATA == dataUnPackPopU16(&ctxUnPack, &var16) )
+    {
+        (void)printf("dataPackUnPackGeneral 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackUnPackGeneral 8  -- FAIL \n");
+    }
+}
