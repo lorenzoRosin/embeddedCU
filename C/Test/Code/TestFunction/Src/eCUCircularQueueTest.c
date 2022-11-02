@@ -750,6 +750,7 @@ static void circularqueueTestGeneric(void)
     /* Local variable */
     s_eCU_circQCtx ctx;
     uint8_t  pointerMempool[10u];
+    uint32_t varTemp;
     uint8_t  retriveData[10u] = {0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u};
     uint8_t  insertData[10u]  = {0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u};
 
@@ -766,18 +767,25 @@ static void circularqueueTestGeneric(void)
         (void)printf("circularqueueTestGeneric 1  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, sizeof(insertData) ) )
+    if( CQUEUE_RES_OK == circQGetFreeSapce(&ctx, &varTemp) )
     {
-        (void)printf("circularqueueTestGeneric 2  -- OK \n");
+        if( 10u == varTemp )
+        {
+            (void)printf("circularqueueTestGeneric 2  -- OK \n");
+        }
+        else
+        {
+            (void)printf("circularqueueTestGeneric 2  -- FAIL \n");
+        }
     }
     else
     {
         (void)printf("circularqueueTestGeneric 2  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_OK == circQPeekData(&ctx, retriveData, sizeof(retriveData)) )
+    if( CQUEUE_RES_OK == circQGetOccupiedSapce(&ctx, &varTemp) )
     {
-        if( 0 == memcmp(insertData, retriveData, sizeof(retriveData) ) )
+        if( 0u == varTemp )
         {
             (void)printf("circularqueueTestGeneric 3  -- OK \n");
         }
@@ -791,43 +799,36 @@ static void circularqueueTestGeneric(void)
         (void)printf("circularqueueTestGeneric 3  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, 7u ) )
+    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, sizeof(insertData) ) )
     {
-        if( 0 == memcmp(insertData, retriveData, 7u ) )
-        {
-            (void)printf("circularqueueTestGeneric 4  -- OK \n");
-        }
-        else
-        {
-            (void)printf("circularqueueTestGeneric 4  -- FAIL \n");
-        }
+        (void)printf("circularqueueTestGeneric 4  -- OK \n");
     }
     else
     {
         (void)printf("circularqueueTestGeneric 4  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, 2u ) )
+    if( CQUEUE_RES_OK == circQGetFreeSapce(&ctx, &varTemp) )
     {
-        (void)printf("circularqueueTestGeneric 5  -- OK \n");
+        if( 0u == varTemp )
+        {
+            (void)printf("circularqueueTestGeneric 5  -- OK \n");
+        }
+        else
+        {
+            (void)printf("circularqueueTestGeneric 5  -- FAIL \n");
+        }
     }
     else
     {
         (void)printf("circularqueueTestGeneric 5  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, 5u ) )
+    if( CQUEUE_RES_OK == circQGetOccupiedSapce(&ctx, &varTemp) )
     {
-        if( 0 == memcmp(&insertData[7], retriveData, 3u ) )
+        if( 10u == varTemp )
         {
-            if( 0 == memcmp(&insertData[0], &retriveData[3u], 2u ) )
-            {
-                (void)printf("circularqueueTestGeneric 6  -- OK \n");
-            }
-            else
-            {
-                (void)printf("circularqueueTestGeneric 6  -- FAIL \n");
-            }
+            (void)printf("circularqueueTestGeneric 6  -- OK \n");
         }
         else
         {
@@ -839,26 +840,39 @@ static void circularqueueTestGeneric(void)
         (void)printf("circularqueueTestGeneric 6  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_OK == circQReset(&ctx) )
+    if( CQUEUE_RES_OK == circQPeekData(&ctx, retriveData, sizeof(retriveData)) )
     {
-        (void)printf("circularqueueTestGeneric 7  -- OK \n");
+        if( 0 == memcmp(insertData, retriveData, sizeof(retriveData) ) )
+        {
+            (void)printf("circularqueueTestGeneric 7  -- OK \n");
+        }
+        else
+        {
+            (void)printf("circularqueueTestGeneric 7  -- FAIL \n");
+        }
     }
     else
     {
         (void)printf("circularqueueTestGeneric 7  -- FAIL \n");
     }
 
-    /* Easy one  */
-    if( CQUEUE_RES_OK == circQInitCtx(&ctx, pointerMempool, sizeof(pointerMempool) ) )
+    if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, 7u ) )
     {
-        (void)printf("circularqueueTestGeneric 8  -- OK \n");
+        if( 0 == memcmp(insertData, retriveData, 7u ) )
+        {
+            (void)printf("circularqueueTestGeneric 8  -- OK \n");
+        }
+        else
+        {
+            (void)printf("circularqueueTestGeneric 8  -- FAIL \n");
+        }
     }
     else
     {
         (void)printf("circularqueueTestGeneric 8  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, sizeof(insertData) ) )
+    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, 2u ) )
     {
         (void)printf("circularqueueTestGeneric 9  -- OK \n");
     }
@@ -869,9 +883,16 @@ static void circularqueueTestGeneric(void)
 
     if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, 5u ) )
     {
-        if( 0 == memcmp(insertData, retriveData, 5u ) )
+        if( 0 == memcmp(&insertData[7], retriveData, 3u ) )
         {
-            (void)printf("circularqueueTestGeneric 10 -- OK \n");
+            if( 0 == memcmp(&insertData[0], &retriveData[3u], 2u ) )
+            {
+                (void)printf("circularqueueTestGeneric 10 -- OK \n");
+            }
+            else
+            {
+                (void)printf("circularqueueTestGeneric 10 -- FAIL \n");
+            }
         }
         else
         {
@@ -883,14 +904,58 @@ static void circularqueueTestGeneric(void)
         (void)printf("circularqueueTestGeneric 10 -- FAIL \n");
     }
 
-
-    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, 5u ) )
+    if( CQUEUE_RES_OK == circQReset(&ctx) )
     {
         (void)printf("circularqueueTestGeneric 11 -- OK \n");
     }
     else
     {
         (void)printf("circularqueueTestGeneric 11 -- FAIL \n");
+    }
+
+    /* Easy one  */
+    if( CQUEUE_RES_OK == circQInitCtx(&ctx, pointerMempool, sizeof(pointerMempool) ) )
+    {
+        (void)printf("circularqueueTestGeneric 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestGeneric 12 -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, sizeof(insertData) ) )
+    {
+        (void)printf("circularqueueTestGeneric 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestGeneric 13 -- FAIL \n");
+    }
+
+    if( CQUEUE_RES_OK == circQRetriveData(&ctx, retriveData, 5u ) )
+    {
+        if( 0 == memcmp(insertData, retriveData, 5u ) )
+        {
+            (void)printf("circularqueueTestGeneric 14 -- OK \n");
+        }
+        else
+        {
+            (void)printf("circularqueueTestGeneric 14 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("circularqueueTestGeneric 14 -- FAIL \n");
+    }
+
+
+    if( CQUEUE_RES_OK == circQInsertData(&ctx, insertData, 5u ) )
+    {
+        (void)printf("circularqueueTestGeneric 15 -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestGeneric 15 -- FAIL \n");
     }
 
 
@@ -900,21 +965,21 @@ static void circularqueueTestGeneric(void)
         {
             if( 0 == memcmp(insertData, &retriveData[5], 5u ) )
             {
-                (void)printf("circularqueueTestGeneric 12 -- OK \n");
+                (void)printf("circularqueueTestGeneric 16 -- OK \n");
             }
             else
             {
-                (void)printf("circularqueueTestGeneric 12 -- FAIL \n");
+                (void)printf("circularqueueTestGeneric 16 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("circularqueueTestGeneric 12 -- FAIL \n");
+            (void)printf("circularqueueTestGeneric 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("circularqueueTestGeneric 12 -- FAIL \n");
+        (void)printf("circularqueueTestGeneric 16 -- FAIL \n");
     }
 
 }
