@@ -16,8 +16,8 @@ int main(void)
     // -- crc32Test();
     // -- cUCrcDigestTest();
     // circularQueueTest();
-    dataPackTest();
-    // dataUnPackTest();
+    // -- dataPackTest();
+    ataUnPackTest();
 	// dataPackUnPackTest();
     // byteStufferTest();
     // byteUnStufferTest();
