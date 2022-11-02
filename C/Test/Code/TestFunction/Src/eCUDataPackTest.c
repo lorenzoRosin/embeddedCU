@@ -863,7 +863,7 @@ void dataPackTestOutOfMem(void)
         (void)printf("dataPackTestOutOfMem 25 -- FAIL \n");
     }
 
-    if( DPK_RES_OUTOFMEM == dataPackPushU8( &ctx, 10u ) )
+    if( DPK_RES_OK == dataPackPushU8( &ctx, 10u ) )
     {
         (void)printf("dataPackTestOutOfMem 26 -- OK \n");
     }
@@ -872,7 +872,7 @@ void dataPackTestOutOfMem(void)
         (void)printf("dataPackTestOutOfMem 26 -- FAIL \n");
     }
 
-    if( DPK_RES_OUTOFMEM == dataPackPushU16( &ctx, 10u ) )
+    if( DPK_RES_OK == dataPackPushU16( &ctx, 10u ) )
     {
         (void)printf("dataPackTestOutOfMem 27 -- OK \n");
     }
