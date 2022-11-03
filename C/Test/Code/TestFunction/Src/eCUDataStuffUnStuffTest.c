@@ -65,9 +65,9 @@ void dataStuffUnStuffCommon(void)
     /* Local variable */
     s_eCU_BUStuffCtx ctxUnStuff;
     s_eCU_BStuffCtx ctxStuff;
-    uint8_t  dataUnStuffPool[300];
-    uint8_t  dataStuffPool[300];
-    uint8_t  tempPool[300u];
+    static uint8_t  dataUnStuffPool[300];
+    static uint8_t  dataStuffPool[300];
+    static uint8_t  tempPool[300u];
     uint32_t  temp32;
     uint32_t  temp32sec;
     uint32_t  errSofRec;
