@@ -15,13 +15,13 @@ int main(void)
     /* Start testing */
     // -- crc32Test();
     // -- cUCrcDigestTest();
-    circularQueueTest();
+    // -- circularQueueTest();
     // -- dataPackTest();
     // -- dataUnPackTest();
 	// -- dataPackUnPackTest();
     // byteStufferTest();
     // byteUnStufferTest();
-    // dataStuffUnStuffTest();
+    dataStuffUnStuffTest();
 
     return 0;
 }

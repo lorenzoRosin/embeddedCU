@@ -23,6 +23,10 @@
     #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
 #endif
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_disable = "CERT-STR32-C"
+    /* Suppressed for code clarity in test execution*/
+#endif
 
 
 
@@ -62,11 +66,14 @@ void dataStuffUnStuffCommon(void)
     s_eCU_BUStuffCtx ctxUnStuff;
     s_eCU_BStuffCtx ctxStuff;
     uint8_t  dataUnStuffPool[300];
+    uint8_t  dataStuffPool[300];
     uint8_t  tempPool[300u];
     uint32_t  temp32;
     uint32_t  temp32sec;
     uint32_t  errSofRec;
     uint32_t index;
+    uint8_t* tempP;
+    uint32_t tempPSize;
 
     /* Test data */
     static uint8_t test1[5u]   = {0x01u, ECU_SOF, ECU_EOF, ECU_ESC, 0x21u};
@@ -88,7 +95,7 @@ void dataStuffUnStuffCommon(void)
     for(index = 0u; index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); index++)
     {
         /* Function Init */
-        if( DBSTF_RES_OK == bStufferInitCtx(&ctxStuff, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
+        if( DBSTF_RES_OK == bStufferInitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
         {
             (void)printf("dataStuffUnStuffCommon 1[%u]  -- OK \n", index);
         }
@@ -106,18 +113,27 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 2[%u]  -- FAIL \n", index);
         }
 
-
-        /* Function Init part two */
-        if( DBSTF_RES_OK == bStufferStartNewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
+        /* Copy data in byte stuffer */
+        if( DBSTF_RES_OK == bStufferGetUnStufDataLocation(&ctxStuff, &tempP, &tempPSize) )
         {
-            (void)printf("dataStuffUnStuffCommon 3[%u]  -- OK \n", index);
+            if( tempPSize == sizeof(dataStuffPool) )
+            {
+                (void)memcpy(tempP, testMatrix[index].dataTest, testMatrix[index].dataTestSize);
+                (void)printf("dataStuffUnStuffCommon 3[%u]  -- OK \n", index);
+            }
+            else
+            {
+                (void)printf("dataStuffUnStuffCommon 3[%u]  -- FAIL \n", index);
+            }
         }
         else
         {
             (void)printf("dataStuffUnStuffCommon 3[%u]  -- FAIL \n", index);
         }
 
-        if( DBUSTF_RES_OK == bUStufferStartNewFrame(&ctxUnStuff) )
+
+        /* Function Init part two */
+        if( DBSTF_RES_OK == bStufferStartNewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
         {
             (void)printf("dataStuffUnStuffCommon 4[%u]  -- OK \n", index);
         }
@@ -126,8 +142,7 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
         }
 
-        /* Stuff */
-        if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        if( DBUSTF_RES_OK == bUStufferStartNewFrame(&ctxUnStuff) )
         {
             (void)printf("dataStuffUnStuffCommon 5[%u]  -- OK \n", index);
         }
@@ -136,12 +151,22 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 5[%u]  -- FAIL \n", index);
         }
 
+        /* Stuff */
+        if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        {
+            (void)printf("dataStuffUnStuffCommon 6[%u]  -- OK \n", index);
+        }
+        else
+        {
+            (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
+        }
+
         /* unstuff */
         if( DBUSTF_RES_FRAMEENDED == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
         {
             if( 0u != errSofRec )
             {
-                (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
+                (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
             }
             else
             {
@@ -151,28 +176,31 @@ void dataStuffUnStuffCommon(void)
                     {
                         if( 0 == memcmp(dataUnStuffPool, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
                         {
-                            (void)printf("dataStuffUnStuffCommon 6[%u]  -- OK \n", index);
+                            (void)printf("dataStuffUnStuffCommon 7[%u]  -- OK \n", index);
                         }
                         else
                         {
-                            (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
+                            (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
                         }
                     }
                     else
                     {
-                        (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
+                        (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
                     }
                 }
                 else
                 {
-                    (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
+                    (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
                 }
             }
         }
         else
         {
-            (void)printf("dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
+            (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
         }
     }
 }
 
+#ifdef __IAR_SYSTEMS_ICC__
+    #pragma cstat_restore = "CERT-STR32-C"
+#endif
