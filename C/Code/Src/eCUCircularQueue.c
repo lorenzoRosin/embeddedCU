@@ -19,8 +19,7 @@
  **********************************************************************************************************************/
 static bool_t isQueueStatusStillCoherent(const s_eCU_circQCtx* ctx);
 static uint32_t getoccupiedIndex(const s_eCU_circQCtx* ctx);
-static uint32_t getOccupiedSapce(const s_eCU_circQCtx* ctx);
-static uint32_t getFreeSapce(const s_eCU_circQCtx* ctx);
+
 
 
 /***********************************************************************************************************************
@@ -123,7 +122,7 @@ e_eCU_cQueue_Res circQGetFreeSapce(s_eCU_circQCtx* const ctx, uint32_t* const fr
             }
 			else
 			{
-				*freeSpace = getFreeSapce(ctx);
+				*freeSpace = ctx->memPSize - ctx->memPUsedSize;
 				result = CQUEUE_RES_OK;
 			}
 		}
@@ -158,7 +157,7 @@ e_eCU_cQueue_Res circQGetOccupiedSapce(s_eCU_circQCtx* const ctx, uint32_t* cons
             }
 			else
 			{
-				*usedSpace = getOccupiedSapce(ctx);
+				*usedSpace = ctx->memPUsedSize;
 				result = CQUEUE_RES_OK;
 			}
 		}
@@ -203,7 +202,7 @@ e_eCU_cQueue_Res circQInsertData(s_eCU_circQCtx* const ctx, const uint8_t data[]
                 }
                 else
                 {
-                    freeSpace = getFreeSapce(ctx);
+                    freeSpace = ctx->memPSize - ctx->memPUsedSize;
                     if( datalen > freeSpace )
                     {
                         /* No memory avaiable */
@@ -254,7 +253,6 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t data[], con
 {
 	/* Local variable */
 	e_eCU_cQueue_Res result;
-	uint32_t usedSpace;
 	uint32_t firstTranshLen;
 	uint32_t secondTranshLen;
     uint32_t memPOccIdx;
@@ -287,8 +285,7 @@ e_eCU_cQueue_Res circQRetriveData(s_eCU_circQCtx* const ctx, uint8_t data[], con
                 }
                 else
                 {
-                    usedSpace = getOccupiedSapce(ctx);
-                    if( datalen > usedSpace )
+                    if( datalen > ctx->memPUsedSize )
                     {
                         /* No enoght data in the queue */
                         result = CQUEUE_RES_EMPTY;
@@ -333,7 +330,6 @@ e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t data[], const 
 {
 	/* Local variable */
 	e_eCU_cQueue_Res result;
-	uint32_t usedSpace;
 	uint32_t firstTranshLen;
 	uint32_t secondTranshLen;
     uint32_t memPOccIdx;
@@ -366,8 +362,7 @@ e_eCU_cQueue_Res circQPeekData(s_eCU_circQCtx* const ctx, uint8_t data[], const 
                 }
                 else
                 {
-                    usedSpace = getOccupiedSapce(ctx);
-                    if( datalen > usedSpace )
+                    if( datalen > ctx->memPUsedSize )
                     {
                         /* No enoght data in the queue */
                         result = CQUEUE_RES_EMPTY;
@@ -459,14 +454,4 @@ uint32_t getoccupiedIndex(const s_eCU_circQCtx* ctx)
     }
 
     return occIndx;
-}
-
-uint32_t getOccupiedSapce(const s_eCU_circQCtx* ctx)
-{
-    return ctx->memPUsedSize;
-}
-
-uint32_t getFreeSapce(const s_eCU_circQCtx* ctx)
-{
-    return ctx->memPSize - ctx->memPUsedSize;
 }
