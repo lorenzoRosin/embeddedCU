@@ -36,7 +36,7 @@
 static void circularqueueTestBadPointer(void);
 static void circularqueueTestBadInit(void);
 static void circularqueueTestBadParamEntr(void);
-static void circularqueueTestBadParamStatus(void);
+static void circularqueueTestCorruptedContext(void);
 static void circularqueueTestEmptyMem(void);
 static void circularqueueTestFullMem(void);
 static void circularqueueTestGeneric(void);
@@ -53,7 +53,7 @@ void circularQueueTest(void)
     circularqueueTestBadPointer();
     circularqueueTestBadInit();
     circularqueueTestBadParamEntr();
-    circularqueueTestBadParamStatus();
+    circularqueueTestCorruptedContext();
     circularqueueTestEmptyMem();
     circularqueueTestFullMem();
     circularqueueTestGeneric();
@@ -293,10 +293,8 @@ void circularqueueTestBadParamEntr(void)
         (void)printf("circularqueueTestBadParamEntr 1  -- FAIL \n");
     }
 
-    /* Init variable */
-    ctx.isInit = true;
-
-    if( CQUEUE_RES_BADPARAM == circQInsertData(&ctx, badPointerMempool, 0u) )
+    /* Function */
+    if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
         (void)printf("circularqueueTestBadParamEntr 2  -- OK \n");
     }
@@ -305,7 +303,7 @@ void circularqueueTestBadParamEntr(void)
         (void)printf("circularqueueTestBadParamEntr 2  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_BADPARAM == circQRetriveData(&ctx, badPointerMempool, 0u) )
+    if( CQUEUE_RES_BADPARAM == circQInsertData(&ctx, badPointerMempool, 0u) )
     {
         (void)printf("circularqueueTestBadParamEntr 3  -- OK \n");
     }
@@ -314,7 +312,7 @@ void circularqueueTestBadParamEntr(void)
         (void)printf("circularqueueTestBadParamEntr 3  -- FAIL \n");
     }
 
-    if( CQUEUE_RES_BADPARAM == circQPeekData(&ctx, badPointerMempool, 0u) )
+    if( CQUEUE_RES_BADPARAM == circQRetriveData(&ctx, badPointerMempool, 0u) )
     {
         (void)printf("circularqueueTestBadParamEntr 4  -- OK \n");
     }
@@ -322,9 +320,18 @@ void circularqueueTestBadParamEntr(void)
     {
         (void)printf("circularqueueTestBadParamEntr 4  -- FAIL \n");
     }
+
+    if( CQUEUE_RES_BADPARAM == circQPeekData(&ctx, badPointerMempool, 0u) )
+    {
+        (void)printf("circularqueueTestBadParamEntr 5  -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestBadParamEntr 5  -- FAIL \n");
+    }
 }
 
-static void circularqueueTestBadParamStatus(void)
+static void circularqueueTestCorruptedContext(void)
 {
     /* Local variable */
     s_eCU_circQCtx ctx;
@@ -337,11 +344,11 @@ static void circularqueueTestBadParamStatus(void)
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 1  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 1  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 1  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 1  -- FAIL \n");
     }
 
     /* Init variable */
@@ -349,11 +356,11 @@ static void circularqueueTestBadParamStatus(void)
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
-        (void)printf("circularqueueTestBadParamStatus 2  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 2  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 2  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 2  -- FAIL \n");
     }
 
 
@@ -363,22 +370,22 @@ static void circularqueueTestBadParamStatus(void)
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 3  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 3  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 3  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 3  -- FAIL \n");
     }
 
     ctx.memP = NULL;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
-        (void)printf("circularqueueTestBadParamStatus 4  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 4  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 4  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 4  -- FAIL \n");
     }
 
 
@@ -388,22 +395,22 @@ static void circularqueueTestBadParamStatus(void)
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 5  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 5  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 5  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 5  -- FAIL \n");
     }
 
     ctx.memPFreeIdx = sizeof(badPointerMempool) +1u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
-        (void)printf("circularqueueTestBadParamStatus 6  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 6  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 6  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 6  -- FAIL \n");
     }
 
     /* Init variable */
@@ -412,32 +419,32 @@ static void circularqueueTestBadParamStatus(void)
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 5  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 5  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 5  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 5  -- FAIL \n");
     }
 
     ctx.memPUsedSize = sizeof(badPointerMempool) +1u;
 
     if( CQUEUE_RES_CORRUPTCTX == circQReset(&ctx) )
     {
-        (void)printf("circularqueueTestBadParamStatus 6  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 6  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 6  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 6  -- FAIL \n");
     }
 
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 7  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 7  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 7  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 7  -- FAIL \n");
     }
 
     /* Init variable */
@@ -445,21 +452,21 @@ static void circularqueueTestBadParamStatus(void)
 
     if( CQUEUE_RES_CORRUPTCTX == circQGetFreeSapce(&ctx, &val) )
     {
-        (void)printf("circularqueueTestBadParamStatus 8  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 8  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 8  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 8  -- FAIL \n");
     }
 
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 9  -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 9  -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 9  -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 9  -- FAIL \n");
     }
 
     /* Init variable */
@@ -467,21 +474,21 @@ static void circularqueueTestBadParamStatus(void)
 
     if( CQUEUE_RES_CORRUPTCTX == circQGetOccupiedSapce(&ctx, &val) )
     {
-        (void)printf("circularqueueTestBadParamStatus 10 -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 10 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 10 -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 10 -- FAIL \n");
     }
 
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 11 -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 11 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 11 -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 11 -- FAIL \n");
     }
 
     /* Init variable */
@@ -489,21 +496,21 @@ static void circularqueueTestBadParamStatus(void)
 
     if( CQUEUE_RES_CORRUPTCTX == circQInsertData(&ctx, badPointerMempool, 1u) )
     {
-        (void)printf("circularqueueTestBadParamStatus 12 -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 12 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 12 -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 12 -- FAIL \n");
     }
 
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 13 -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 13 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 13 -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 13 -- FAIL \n");
     }
 
     /* Init variable */
@@ -511,22 +518,22 @@ static void circularqueueTestBadParamStatus(void)
 
     if( CQUEUE_RES_CORRUPTCTX == circQRetriveData(&ctx, badPointerMempool, 1u) )
     {
-        (void)printf("circularqueueTestBadParamStatus 14 -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 14 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 14 -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 14 -- FAIL \n");
     }
 
 
     /* Function */
     if( CQUEUE_RES_OK == circQInitCtx(&ctx, badPointerMempool, sizeof(badPointerMempool)) )
     {
-        (void)printf("circularqueueTestBadParamStatus 15 -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 15 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 15 -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 15 -- FAIL \n");
     }
 
     /* Init variable */
@@ -534,11 +541,11 @@ static void circularqueueTestBadParamStatus(void)
 
     if( CQUEUE_RES_CORRUPTCTX == circQPeekData(&ctx, badPointerMempool, 1u) )
     {
-        (void)printf("circularqueueTestBadParamStatus 16 -- OK \n");
+        (void)printf("circularqueueTestCorruptedContext 16 -- OK \n");
     }
     else
     {
-        (void)printf("circularqueueTestBadParamStatus 16 -- FAIL \n");
+        (void)printf("circularqueueTestCorruptedContext 16 -- FAIL \n");
     }
 
 }
