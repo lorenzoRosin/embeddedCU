@@ -19,7 +19,7 @@ int main(void)
     // -- dataPackTest();
     // -- dataUnPackTest();
 	// -- dataPackUnPackTest();
-    // byteStufferTest();
+    byteStufferTest();
     // byteUnStufferTest();
     // -- dataStuffUnStuffTest();
 

@@ -35,7 +35,7 @@
 static void byteUnStuffTestBadPointer(void);
 static void byteUnStuffTestBadInit(void);
 static void byteUnStuffTestBadParamEntr(void);
-static void byteUnStuffTestBadParamStatus(void);
+static void byteUnStuffTestCorrupterContext(void);
 static void byteUnStuffTestOutOfMem(void);
 static void byteUnStuffTestFrameEnd(void);
 static void byteUnStuffTestGeneral(void);
@@ -52,7 +52,7 @@ void byteUnStufferTest(void)
     byteUnStuffTestBadPointer();
     byteUnStuffTestBadInit();
     byteUnStuffTestBadParamEntr();
-    byteUnStuffTestBadParamStatus();
+    byteUnStuffTestCorrupterContext();
     byteUnStuffTestOutOfMem();
     byteUnStuffTestFrameEnd();
     byteUnStuffTestGeneral();
@@ -304,7 +304,7 @@ void byteUnStuffTestBadParamEntr(void)
     }
 }
 
-void byteUnStuffTestBadParamStatus(void)
+void byteUnStuffTestCorrupterContext(void)
 {
     /* Local variable */
     s_eCU_BUStuffCtx ctx;
@@ -316,183 +316,183 @@ void byteUnStuffTestBadParamStatus(void)
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 1  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 1  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 1  -- FAIL \n");
     }
 
     ctx.memAreaSize = 0u;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferGetUnstufLen(&ctx, &varTemp32) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 2  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 2  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 2  -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 3  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 3  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 3  -- FAIL \n");
     }
 
     ctx.memArea = NULL;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferGetUnstufLen(&ctx, &varTemp32) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 4  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 4  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 4  -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 5  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 5  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 5  -- FAIL \n");
     }
 
     ctx.memAreaCntr = ctx.memAreaSize + 1u;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferGetUnstufLen(&ctx, &varTemp32) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 6  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 6  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 6  -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 7  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 7  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 7  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 7  -- FAIL \n");
     }
 
     ctx.memAreaCntr = 1u;
     ctx.unStuffState = DBUSTF_SM_PRV_NEEDSOF;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferGetUnstufLen(&ctx, &varTemp32) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 8  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 8  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 8  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 8  -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 9  -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 9  -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 9  -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 9  -- FAIL \n");
     }
 
     ctx.memAreaCntr = 0u;
     ctx.unStuffState = DBUSTF_SM_PRV_UNSTUFFEND;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferGetUnstufLen(&ctx, &varTemp32) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 10 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 10 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 10 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 10 -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 11 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 11 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 11 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 11 -- FAIL \n");
     }
 
     ctx.memAreaSize = 0u;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferStartNewFrame(&ctx) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 12 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 12 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 12 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 12 -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 13 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 13 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 13 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 13 -- FAIL \n");
     }
 
     ctx.memAreaSize = 0u;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferGetUnstufData( &ctx, &dataP, &varTemp32 ) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 14 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 14 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 14 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 14 -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 15 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 15 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 15 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 15 -- FAIL \n");
     }
 
     ctx.memAreaSize = 0u;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferIsAFullFrameUnstuff(&ctx, &frameIsUnstuffed) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 16 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 16 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 16 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 16 -- FAIL \n");
     }
 
     /* Function  */
     if( DBUSTF_RES_OK == bUStufferInitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 17 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 17 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 17 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 17 -- FAIL \n");
     }
 
     ctx.memAreaSize = 0u;
     if( DBUSTF_RES_CORRUPTCTX == bUStufferInsStufChunk( &ctx, memArea, 9u, &varTemp32, &varTemp32 ) )
     {
-        (void)printf("byteUnStuffTestBadParamStatus 18 -- OK \n");
+        (void)printf("byteUnStuffTestCorrupterContext 18 -- OK \n");
     }
     else
     {
-        (void)printf("byteUnStuffTestBadParamStatus 18 -- FAIL \n");
+        (void)printf("byteUnStuffTestCorrupterContext 18 -- FAIL \n");
     }
 }
 
