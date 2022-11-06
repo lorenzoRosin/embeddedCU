@@ -229,11 +229,6 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                         /* SOF + Data + EOF */
                         calLen = 2u;
                     }
-                    else if( DBSTF_SM_PRV_NEEDEOF == ctx->stuffState )
-                    {
-                        /* EOF */
-                        calLen = 1u;
-                    }
                     else if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
                     {
                         /* If a precedent byte of the payload was an SOF, EOF or ESC character, this means that the
@@ -248,7 +243,8 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                     }
                     else
                     {
-                        /* data + EOF */
+                        /* data + EOF. With the current state machine is not possible to have a single call that
+                         * leave the system in the state: DBSTF_SM_PRV_NEEDEOF */
                         calLen = 1u;
                     }
 

@@ -19,8 +19,8 @@ int main(void)
     // -- dataPackTest();
     // -- dataUnPackTest();
 	// -- dataPackUnPackTest();
-    byteStufferTest();
-    // byteUnStufferTest();
+    // -- byteStufferTest();
+    byteUnStufferTest();
     // -- dataStuffUnStuffTest();
 
     return 0;
