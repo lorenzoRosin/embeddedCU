@@ -36,7 +36,7 @@ typedef enum
 	DPK_RES_CORRUPTCTX,
     DPK_RES_OUTOFMEM,
     DPK_RES_NOINITLIB,
-}e_eCU_dPk_Res;
+}e_eCU_DPK_Res;
 
 typedef struct
 {
@@ -45,7 +45,7 @@ typedef struct
 	uint8_t* memPKA;
 	uint32_t memPKASize;
 	uint32_t memPKACntr;
-}s_eCU_DataPackCtx;
+}s_eCU_DPK_Ctx;
 
 
 
@@ -64,8 +64,7 @@ typedef struct
  *		        DPK_RES_BADPARAM     - In case of an invalid parameter passed to the function
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], const uint32_t memPKASize,
-					          const bool_t isLEnd);
+e_eCU_DPK_Res DPK_InitCtx(s_eCU_DPK_Ctx* const ctx, uint8_t memPKA[], const uint32_t memPKASize, const bool_t isLEnd);
 
 /**
  * @brief       Reset data packer and restart packing data from start, discharging old data present, if any
@@ -77,7 +76,7 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], co
  *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx);
+e_eCU_DPK_Res DPK_StartNewPack(s_eCU_DPK_Ctx* const ctx);
 
 /**
  * @brief       Retrive the pointer to the stored packed data, and the data size of the packed data.
@@ -91,7 +90,7 @@ e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx);
  *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackGetDataReference(s_eCU_DataPackCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
+e_eCU_DPK_Res DPK_GetDataReference(s_eCU_DPK_Ctx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen);
 
 /**
  * @brief       Retrive how many byte we have packed
@@ -104,7 +103,7 @@ e_eCU_dPk_Res dataPackGetDataReference(s_eCU_DataPackCtx* const ctx, uint8_t** d
  *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_DPK_Res DPK_GetNPushed(s_eCU_DPK_Ctx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * @brief       Push an array in data packer
@@ -120,7 +119,7 @@ e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const r
  *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, uint8_t data[], const uint32_t dataLen);
+e_eCU_DPK_Res DPK_PushArray(s_eCU_DPK_Ctx* const ctx, uint8_t data[], const uint32_t dataLen);
 
 /**
  * @brief       Push one byte in data packer
@@ -134,7 +133,7 @@ e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, uint8_t data[], co
  *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush);
+e_eCU_DPK_Res DPK_PushU8(s_eCU_DPK_Ctx* const ctx, const uint8_t dataToPush);
 
 /**
  * @brief       Push 2 byte in data packer
@@ -148,7 +147,7 @@ e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToP
  *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush);
+e_eCU_DPK_Res DPK_PushU16(s_eCU_DPK_Ctx* const ctx, const uint16_t dataToPush);
 
 /**
  * @brief       Push 4 byte in data packer
@@ -162,7 +161,7 @@ e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataT
  *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPush);
+e_eCU_DPK_Res DPK_PushU32(s_eCU_DPK_Ctx* const ctx, const uint32_t dataToPush);
 
 /**
  * @brief       Push 8 byte in data packer
@@ -176,7 +175,7 @@ e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataT
  *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              DPK_RES_OK           - Operation ended correctly
  */
- e_eCU_dPk_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPush);
+ e_eCU_DPK_Res DPK_PushU64(s_eCU_DPK_Ctx* const ctx, const uint64_t dataToPush);
 
 
 

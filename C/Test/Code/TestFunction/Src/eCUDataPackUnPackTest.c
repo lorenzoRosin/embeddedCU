@@ -57,8 +57,8 @@ void dataPackUnPackTest(void)
 void dataPackUnPackLE(void)
 {
     /* Local variable */
-    s_eCU_DataPackCtx ctxPack;
-    s_eCU_DataUnPackCtx ctxUnPack;
+    s_eCU_DPK_Ctx ctxPack;
+    s_eCU_DUNPK_Ctx ctxUnPack;
     uint8_t  dataPackPool[20u];
     uint8_t  supportArray[5u];
     uint32_t supportbuffget;
@@ -68,7 +68,7 @@ void dataPackUnPackLE(void)
     uint64_t var64;
 
     /* Function */
-    if( DPK_RES_OK == dataPackinitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
+    if( DPK_RES_OK == DPK_InitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
     {
         (void)printf("dataPackUnPackLE 1  -- OK \n");
     }
@@ -77,7 +77,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 1  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackStartNewPack(&ctxPack) )
+    if( DPK_RES_OK == DPK_StartNewPack(&ctxPack) )
     {
         (void)printf("dataPackUnPackLE 2  -- OK \n");
     }
@@ -86,7 +86,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 2  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU8(&ctxPack, 0x12u) )
+    if( DPK_RES_OK == DPK_PushU8(&ctxPack, 0x12u) )
     {
         (void)printf("dataPackUnPackLE 3  -- OK \n");
     }
@@ -95,7 +95,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 3  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU16(&ctxPack, 0x1234u) )
+    if( DPK_RES_OK == DPK_PushU16(&ctxPack, 0x1234u) )
     {
         (void)printf("dataPackUnPackLE 4  -- OK \n");
     }
@@ -104,7 +104,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 4  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU32(&ctxPack, 0x12345678u) )
+    if( DPK_RES_OK == DPK_PushU32(&ctxPack, 0x12345678u) )
     {
         (void)printf("dataPackUnPackLE 5  -- OK \n");
     }
@@ -113,7 +113,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 5  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU64(&ctxPack, 0x123456789ABCDEF0UL) )
+    if( DPK_RES_OK == DPK_PushU64(&ctxPack, 0x123456789ABCDEF0UL) )
     {
         (void)printf("dataPackUnPackLE 6  -- OK \n");
     }
@@ -127,7 +127,7 @@ void dataPackUnPackLE(void)
     supportArray[2u] = 0xF2u;
     supportArray[3u] = 0xF3u;
     supportArray[4u] = 0xF4u;
-    if( DPK_RES_OK == dataPackPushArray( &ctxPack, supportArray, sizeof(supportArray) ) )
+    if( DPK_RES_OK == DPK_PushArray( &ctxPack, supportArray, sizeof(supportArray) ) )
     {
         (void)printf("dataPackUnPackLE 7  -- OK \n");
     }
@@ -136,7 +136,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 7  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackGetNPushed(&ctxPack, &supportbuffget) )
+    if( DPK_RES_OK == DPK_GetNPushed(&ctxPack, &supportbuffget) )
     {
         if( 20u == supportbuffget )
         {
@@ -152,7 +152,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 8  -- FAIL \n");
     }
 
-    if( DPK_RES_OUTOFMEM == dataPackPushU8(&ctxPack, 0x12u) )
+    if( DPK_RES_OUTOFMEM == DPK_PushU8(&ctxPack, 0x12u) )
     {
         (void)printf("dataPackUnPackLE 9  -- OK \n");
     }
@@ -162,7 +162,7 @@ void dataPackUnPackLE(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), true) )
+    if( DUNPK_RES_OK == DUNPK_InitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), true) )
     {
         (void)printf("dataPackUnPackLE 10 -- OK \n");
     }
@@ -171,7 +171,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackStartNewFrame(&ctxUnPack, supportbuffget) )
+    if( DUNPK_RES_OK == DUNPK_StartNewFrame(&ctxUnPack, supportbuffget) )
     {
         (void)printf("dataPackUnPackLE 11 -- OK \n");
     }
@@ -180,7 +180,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 11 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU8(&ctxUnPack, &var8) )
+    if( DUNPK_RES_OK == DUNPK_PopU8(&ctxUnPack, &var8) )
     {
         (void)printf("dataPackUnPackLE 12 -- OK \n");
     }
@@ -189,7 +189,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 12 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
+    if( DUNPK_RES_OK == DUNPK_PopU16(&ctxUnPack, &var16) )
     {
         (void)printf("dataPackUnPackLE 13 -- OK \n");
     }
@@ -198,7 +198,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 13 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU32(&ctxUnPack, &var32) )
+    if( DUNPK_RES_OK == DUNPK_PopU32(&ctxUnPack, &var32) )
     {
         (void)printf("dataPackUnPackLE 14 -- OK \n");
     }
@@ -207,7 +207,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 14 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU64(&ctxUnPack, &var64) )
+    if( DUNPK_RES_OK == DUNPK_PopU64(&ctxUnPack, &var64) )
     {
         (void)printf("dataPackUnPackLE 15 -- OK \n");
     }
@@ -221,7 +221,7 @@ void dataPackUnPackLE(void)
     supportArray[2u] = 0x00u;
     supportArray[3u] = 0x00u;
     supportArray[4u] = 0x00u;
-    if( DUNPK_RES_OK == dataUnPackPopArray(&ctxUnPack, supportArray, 5u) )
+    if( DUNPK_RES_OK == DUNPK_PopArray(&ctxUnPack, supportArray, 5u) )
     {
         (void)printf("dataPackUnPackLE 16 -- OK \n");
     }
@@ -230,7 +230,7 @@ void dataPackUnPackLE(void)
         (void)printf("dataPackUnPackLE 16 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == dataUnPackPopU8(&ctxUnPack, &var8) )
+    if( DUNPK_RES_NODATA == DUNPK_PopU8(&ctxUnPack, &var8) )
     {
         (void)printf("dataPackUnPackLE 17 -- OK \n");
     }
@@ -280,8 +280,8 @@ void dataPackUnPackLE(void)
 void dataPackUnPackBE(void)
 {
     /* Local variable */
-    s_eCU_DataPackCtx ctxPack;
-    s_eCU_DataUnPackCtx ctxUnPack;
+    s_eCU_DPK_Ctx ctxPack;
+    s_eCU_DUNPK_Ctx ctxUnPack;
     uint8_t  dataPackPool[20u];
     uint8_t  supportArray[5u];
     uint32_t supportbuffget;
@@ -291,7 +291,7 @@ void dataPackUnPackBE(void)
     uint64_t var64;
 
     /* Function */
-    if( DPK_RES_OK == dataPackinitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), false) )
+    if( DPK_RES_OK == DPK_InitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), false) )
     {
         (void)printf("dataPackUnPackBE 1  -- OK \n");
     }
@@ -300,7 +300,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 1  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU8(&ctxPack, 0x12u) )
+    if( DPK_RES_OK == DPK_PushU8(&ctxPack, 0x12u) )
     {
         (void)printf("dataPackUnPackBE 2  -- OK \n");
     }
@@ -309,7 +309,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 2  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU16(&ctxPack, 0x1234u) )
+    if( DPK_RES_OK == DPK_PushU16(&ctxPack, 0x1234u) )
     {
         (void)printf("dataPackUnPackBE 3  -- OK \n");
     }
@@ -318,7 +318,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 3  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU32(&ctxPack, 0x12345678u) )
+    if( DPK_RES_OK == DPK_PushU32(&ctxPack, 0x12345678u) )
     {
         (void)printf("dataPackUnPackBE 4  -- OK \n");
     }
@@ -327,7 +327,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 4  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU64(&ctxPack, 0x123456789ABCDEF0UL) )
+    if( DPK_RES_OK == DPK_PushU64(&ctxPack, 0x123456789ABCDEF0UL) )
     {
         (void)printf("dataPackUnPackBE 5  -- OK \n");
     }
@@ -341,7 +341,7 @@ void dataPackUnPackBE(void)
     supportArray[2u] = 0xF2u;
     supportArray[3u] = 0xF3u;
     supportArray[4u] = 0xF4u;
-    if( DPK_RES_OK == dataPackPushArray( &ctxPack, supportArray, sizeof(supportArray) ) )
+    if( DPK_RES_OK == DPK_PushArray( &ctxPack, supportArray, sizeof(supportArray) ) )
     {
         (void)printf("dataPackUnPackBE 6  -- OK \n");
     }
@@ -350,7 +350,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 6  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackGetNPushed(&ctxPack, &supportbuffget) )
+    if( DPK_RES_OK == DPK_GetNPushed(&ctxPack, &supportbuffget) )
     {
         if( 20u == supportbuffget )
         {
@@ -366,7 +366,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 7  -- FAIL \n");
     }
 
-    if( DPK_RES_OUTOFMEM == dataPackPushU8(&ctxPack, 0x12u) )
+    if( DPK_RES_OUTOFMEM == DPK_PushU8(&ctxPack, 0x12u) )
     {
         (void)printf("dataPackUnPackBE 8  -- OK \n");
     }
@@ -376,7 +376,7 @@ void dataPackUnPackBE(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), false) )
+    if( DUNPK_RES_OK == DUNPK_InitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), false) )
     {
         (void)printf("dataPackUnPackBE 9  -- OK \n");
     }
@@ -385,7 +385,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 9  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackStartNewFrame(&ctxUnPack, supportbuffget) )
+    if( DUNPK_RES_OK == DUNPK_StartNewFrame(&ctxUnPack, supportbuffget) )
     {
         (void)printf("dataPackUnPackBE 10 -- OK \n");
     }
@@ -394,7 +394,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU8(&ctxUnPack, &var8) )
+    if( DUNPK_RES_OK == DUNPK_PopU8(&ctxUnPack, &var8) )
     {
         (void)printf("dataPackUnPackBE 11 -- OK \n");
     }
@@ -403,7 +403,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 11 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
+    if( DUNPK_RES_OK == DUNPK_PopU16(&ctxUnPack, &var16) )
     {
         (void)printf("dataPackUnPackBE 12 -- OK \n");
     }
@@ -412,7 +412,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 12 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU32(&ctxUnPack, &var32) )
+    if( DUNPK_RES_OK == DUNPK_PopU32(&ctxUnPack, &var32) )
     {
         (void)printf("dataPackUnPackBE 13 -- OK \n");
     }
@@ -421,7 +421,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 13 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU64(&ctxUnPack, &var64) )
+    if( DUNPK_RES_OK == DUNPK_PopU64(&ctxUnPack, &var64) )
     {
         (void)printf("dataPackUnPackBE 14 -- OK \n");
     }
@@ -435,7 +435,7 @@ void dataPackUnPackBE(void)
     supportArray[2u] = 0x00u;
     supportArray[3u] = 0x00u;
     supportArray[4u] = 0x00u;
-    if( DUNPK_RES_OK == dataUnPackPopArray(&ctxUnPack, supportArray, 5u) )
+    if( DUNPK_RES_OK == DUNPK_PopArray(&ctxUnPack, supportArray, 5u) )
     {
         (void)printf("dataPackUnPackBE 15 -- OK \n");
     }
@@ -444,7 +444,7 @@ void dataPackUnPackBE(void)
         (void)printf("dataPackUnPackBE 15 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == dataUnPackPopU8(&ctxUnPack, &var8) )
+    if( DUNPK_RES_NODATA == DUNPK_PopU8(&ctxUnPack, &var8) )
     {
         (void)printf("dataPackUnPackBE 16 -- OK \n");
     }
@@ -496,13 +496,13 @@ void dataPackUnPackBE(void)
 void dataPackUnPackGeneral(void)
 {
     /* Local variable */
-    s_eCU_DataPackCtx ctxPack;
-    s_eCU_DataUnPackCtx ctxUnPack;
+    s_eCU_DPK_Ctx ctxPack;
+    s_eCU_DUNPK_Ctx ctxUnPack;
     uint8_t  dataPackPool[20u];
     uint16_t var16;
 
     /* Function */
-    if( DPK_RES_OK == dataPackinitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
+    if( DPK_RES_OK == DPK_InitCtx(&ctxPack, dataPackPool, sizeof(dataPackPool), true) )
     {
         (void)printf("dataPackUnPackGeneral 1  -- OK \n");
     }
@@ -511,7 +511,7 @@ void dataPackUnPackGeneral(void)
         (void)printf("dataPackUnPackGeneral 1  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackinitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), true) )
+    if( DUNPK_RES_OK == DUNPK_InitCtx(&ctxUnPack, dataPackPool, sizeof(dataPackPool), true) )
     {
         (void)printf("dataPackUnPackGeneral 2  -- OK \n");
     }
@@ -520,7 +520,7 @@ void dataPackUnPackGeneral(void)
         (void)printf("dataPackUnPackGeneral 2  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackStartNewPack(&ctxPack) )
+    if( DPK_RES_OK == DPK_StartNewPack(&ctxPack) )
     {
         (void)printf("dataPackUnPackGeneral 3  -- OK \n");
     }
@@ -529,7 +529,7 @@ void dataPackUnPackGeneral(void)
         (void)printf("dataPackUnPackGeneral 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackStartNewFrame(&ctxUnPack, 4u) )
+    if( DUNPK_RES_OK == DUNPK_StartNewFrame(&ctxUnPack, 4u) )
     {
         (void)printf("dataPackUnPackGeneral 4  -- OK \n");
     }
@@ -538,7 +538,7 @@ void dataPackUnPackGeneral(void)
         (void)printf("dataPackUnPackGeneral 4  -- FAIL \n");
     }
 
-    if( DPK_RES_OK == dataPackPushU32(&ctxPack, 0x12345678u) )
+    if( DPK_RES_OK == DPK_PushU32(&ctxPack, 0x12345678u) )
     {
         (void)printf("dataPackUnPackGeneral 5  -- OK \n");
     }
@@ -547,7 +547,7 @@ void dataPackUnPackGeneral(void)
         (void)printf("dataPackUnPackGeneral 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
+    if( DUNPK_RES_OK == DUNPK_PopU16(&ctxUnPack, &var16) )
     {
         if( 0x5678u == var16 )
         {
@@ -563,7 +563,7 @@ void dataPackUnPackGeneral(void)
         (void)printf("dataPackUnPackGeneral 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == dataUnPackPopU16(&ctxUnPack, &var16) )
+    if( DUNPK_RES_OK == DUNPK_PopU16(&ctxUnPack, &var16) )
     {
         if( 0x1234u == var16 )
         {
@@ -579,7 +579,7 @@ void dataPackUnPackGeneral(void)
         (void)printf("dataPackUnPackGeneral 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == dataUnPackPopU16(&ctxUnPack, &var16) )
+    if( DUNPK_RES_NODATA == DUNPK_PopU16(&ctxUnPack, &var16) )
     {
         (void)printf("dataPackUnPackGeneral 8  -- OK \n");
     }

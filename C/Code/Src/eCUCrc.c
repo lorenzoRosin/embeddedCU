@@ -17,12 +17,12 @@
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_Crc_Res crc32(const uint8_t data[], const uint32_t dataLen, uint32_t* const crc32Val)
+e_eCU_CRC_Res CRC_32(const uint8_t data[], const uint32_t dataLen, uint32_t* const crc32Val)
 {
-	return crc32Seed(ECU_CRC_BASE_SEED, data, dataLen, crc32Val);
+	return CRC_32Seed(ECU_CRC_BASE_SEED, data, dataLen, crc32Val);
 }
 
-e_eCU_Crc_Res crc32Seed(const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen, uint32_t* const crc32SVal)
+e_eCU_CRC_Res CRC_32Seed(const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen, uint32_t* const crc32SVal)
 {
     /* lookup table */
     static const uint32_t crctable[256u] = {
@@ -72,7 +72,7 @@ e_eCU_Crc_Res crc32Seed(const uint32_t seed, const uint8_t dataS[], const uint32
     };
 
 	/* Local variable */
-	e_eCU_Crc_Res result;
+	e_eCU_CRC_Res result;
 	uint32_t len;
     uint32_t lenStart;
 	uint32_t seedCalc;

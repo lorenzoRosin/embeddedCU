@@ -63,8 +63,8 @@ typedef struct
 void dataStuffUnStuffCommon(void)
 {
     /* Local variable */
-    s_eCU_BUStuffCtx ctxUnStuff;
-    s_eCU_BStuffCtx ctxStuff;
+    s_eCU_BUNSTF_Ctx ctxUnStuff;
+    s_eCU_BSTF_Ctx ctxStuff;
     static uint8_t  dataUnStuffPool[300];
     static uint8_t  dataStuffPool[300];
     static uint8_t  tempPool[300u];
@@ -95,7 +95,7 @@ void dataStuffUnStuffCommon(void)
     for(index = 0u; index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); index++)
     {
         /* Function Init */
-        if( DBSTF_RES_OK == bStufferInitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
+        if( BSTF_RES_OK == BSTF_InitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
         {
             (void)printf("dataStuffUnStuffCommon 1[%u]  -- OK \n", index);
         }
@@ -104,7 +104,7 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 1[%u]  -- FAIL \n", index);
         }
 
-        if( DBUSTF_RES_OK == bUStufferInitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
+        if( BUNSTF_RES_OK == BUNSTF_InitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
         {
             (void)printf("dataStuffUnStuffCommon 2[%u]  -- OK \n", index);
         }
@@ -114,7 +114,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* Copy data in byte stuffer */
-        if( DBSTF_RES_OK == bStufferGetUnStufDataLocation(&ctxStuff, &tempP, &tempPSize) )
+        if( BSTF_RES_OK == BSTF_GetUnStufDataLocation(&ctxStuff, &tempP, &tempPSize) )
         {
             if( tempPSize == sizeof(dataStuffPool) )
             {
@@ -133,7 +133,7 @@ void dataStuffUnStuffCommon(void)
 
 
         /* Function Init part two */
-        if( DBSTF_RES_OK == bStufferStartNewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
+        if( BSTF_RES_OK == BSTF_StartNewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
         {
             (void)printf("dataStuffUnStuffCommon 4[%u]  -- OK \n", index);
         }
@@ -142,7 +142,7 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
         }
 
-        if( DBUSTF_RES_OK == bUStufferStartNewFrame(&ctxUnStuff) )
+        if( BUNSTF_RES_OK == BUNSTF_StartNewFrame(&ctxUnStuff) )
         {
             (void)printf("dataStuffUnStuffCommon 5[%u]  -- OK \n", index);
         }
@@ -152,7 +152,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* Stuff */
-        if( DBSTF_RES_FRAMEENDED == bStufferRetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        if( BSTF_RES_FRAMEENDED == BSTF_RetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
         {
             (void)printf("dataStuffUnStuffCommon 6[%u]  -- OK \n", index);
         }
@@ -162,7 +162,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* unstuff */
-        if( DBUSTF_RES_FRAMEENDED == bUStufferInsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
+        if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
         {
             if( 0u != errSofRec )
             {
@@ -170,7 +170,7 @@ void dataStuffUnStuffCommon(void)
             }
             else
             {
-                if( DBUSTF_RES_OK == bUStufferGetUnstufLen(&ctxUnStuff, &temp32sec) )
+                if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctxUnStuff, &temp32sec) )
                 {
                     if( testMatrix[index].dataTestSize == temp32sec )
                     {

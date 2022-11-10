@@ -17,29 +17,29 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx);
+static bool_t isBUSStatusStillCoherent(const s_eCU_BUNSTF_Ctx* ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dBUStf_Res bUStufferInitCtx(s_eCU_BUStuffCtx* const ctx, uint8_t memArea[], const uint32_t memAreaSize)
+s_eCU_BUNSTF_Res BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const ctx, uint8_t memArea[], const uint32_t memAreaSize)
 {
 	/* Local variable */
-	e_eCU_dBUStf_Res result;
+	s_eCU_BUNSTF_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == memArea ) )
 	{
-		result = DBUSTF_RES_BADPOINTER;
+		result = BUNSTF_RES_BADPOINTER;
 	}
 	else
 	{
         /* Check data validity */
         if( memAreaSize <= 0u )
         {
-            result = DBUSTF_RES_BADPARAM;
+            result = BUNSTF_RES_BADPARAM;
         }
         else
         {
@@ -48,44 +48,44 @@ e_eCU_dBUStf_Res bUStufferInitCtx(s_eCU_BUStuffCtx* const ctx, uint8_t memArea[]
             ctx->memArea = memArea;
             ctx->memAreaSize = memAreaSize;
             ctx->memAreaCntr = 0u;
-            ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
-            result = DBUSTF_RES_OK;
+            ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
+            result = BUNSTF_RES_OK;
         }
 	}
 
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferStartNewFrame(s_eCU_BUStuffCtx* const ctx)
+s_eCU_BUNSTF_Res BUNSTF_StartNewFrame(s_eCU_BUNSTF_Ctx* const ctx)
 {
 	/* Local variable */
-	e_eCU_dBUStf_Res result;
+	s_eCU_BUNSTF_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = DBUSTF_RES_BADPOINTER;
+		result = BUNSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBUSTF_RES_NOINITLIB;
+			result = BUNSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBUSStatusStillCoherent(ctx) )
             {
-                result = DBUSTF_RES_CORRUPTCTX;
+                result = BUNSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* Update index */
                 ctx->memAreaCntr = 0u;
-				ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
-                result = DBUSTF_RES_OK;
+				ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
+                result = BUNSTF_RES_OK;
             }
 		}
 	}
@@ -93,35 +93,35 @@ e_eCU_dBUStf_Res bUStufferStartNewFrame(s_eCU_BUStuffCtx* const ctx)
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferGetUnstufData(s_eCU_BUStuffCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
+s_eCU_BUNSTF_Res BUNSTF_GetUnstufData(s_eCU_BUNSTF_Ctx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_dBUStf_Res result;
+	s_eCU_BUNSTF_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == retrivedLen ) )
 	{
-		result = DBUSTF_RES_BADPOINTER;
+		result = BUNSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBUSTF_RES_NOINITLIB;
+			result = BUNSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBUSStatusStillCoherent(ctx) )
             {
-                result = DBUSTF_RES_CORRUPTCTX;
+                result = BUNSTF_RES_CORRUPTCTX;
             }
             else
             {
                 *dataP = ctx->memArea;
                 *retrivedLen =  ctx->memAreaCntr;
-                result = DBUSTF_RES_OK;
+                result = BUNSTF_RES_OK;
             }
 		}
 	}
@@ -129,34 +129,34 @@ e_eCU_dBUStf_Res bUStufferGetUnstufData(s_eCU_BUStuffCtx* const ctx, uint8_t** d
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* const retrivedLen)
+s_eCU_BUNSTF_Res BUNSTF_GetUnstufLen(s_eCU_BUNSTF_Ctx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_dBUStf_Res result;
+	s_eCU_BUNSTF_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
 	{
-		result = DBUSTF_RES_BADPOINTER;
+		result = BUNSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBUSTF_RES_NOINITLIB;
+			result = BUNSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBUSStatusStillCoherent(ctx) )
             {
-                result = DBUSTF_RES_CORRUPTCTX;
+                result = BUNSTF_RES_CORRUPTCTX;
             }
             else
             {
                 *retrivedLen =  ctx->memAreaCntr;
-                result = DBUSTF_RES_OK;
+                result = BUNSTF_RES_OK;
             }
 		}
 	}
@@ -164,33 +164,33 @@ e_eCU_dBUStf_Res bUStufferGetUnstufLen(s_eCU_BUStuffCtx* const ctx, uint32_t* co
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferIsWaitingSof(const s_eCU_BUStuffCtx* ctx, bool_t* const isWaitingSof)
+s_eCU_BUNSTF_Res BUNSTF_IsWaitingSof(const s_eCU_BUNSTF_Ctx* ctx, bool_t* const isWaitingSof)
 {
 	/* Local variable */
-	e_eCU_dBUStf_Res result;
+	s_eCU_BUNSTF_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == isWaitingSof ) )
 	{
-		result = DBUSTF_RES_BADPOINTER;
+		result = BUNSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBUSTF_RES_NOINITLIB;
+			result = BUNSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBUSStatusStillCoherent(ctx) )
             {
-                result = DBUSTF_RES_CORRUPTCTX;
+                result = BUNSTF_RES_CORRUPTCTX;
             }
             else
             {
-                if( DBUSTF_SM_PRV_NEEDSOF == ctx->unStuffState )
+                if( BUNSTF_SM_PRV_NEEDSOF == ctx->unStuffState )
                 {
                     *isWaitingSof = true;
                 }
@@ -199,7 +199,7 @@ e_eCU_dBUStf_Res bUStufferIsWaitingSof(const s_eCU_BUStuffCtx* ctx, bool_t* cons
                     *isWaitingSof = false;
                 }
 
-                result = DBUSTF_RES_OK;
+                result = BUNSTF_RES_OK;
             }
 		}
 	}
@@ -207,33 +207,33 @@ e_eCU_dBUStf_Res bUStufferIsWaitingSof(const s_eCU_BUStuffCtx* ctx, bool_t* cons
 	return result;
 }
 
-e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(const s_eCU_BUStuffCtx* ctx, bool_t* const isFrameUnstuff)
+s_eCU_BUNSTF_Res BUNSTF_IsAFullFrameUnstuff(const s_eCU_BUNSTF_Ctx* ctx, bool_t* const isFrameUnstuff)
 {
 	/* Local variable */
-	e_eCU_dBUStf_Res result;
+	s_eCU_BUNSTF_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == isFrameUnstuff ) )
 	{
-		result = DBUSTF_RES_BADPOINTER;
+		result = BUNSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBUSTF_RES_NOINITLIB;
+			result = BUNSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBUSStatusStillCoherent(ctx) )
             {
-                result = DBUSTF_RES_CORRUPTCTX;
+                result = BUNSTF_RES_CORRUPTCTX;
             }
             else
             {
-                if( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState )
+                if( BUNSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState )
                 {
                     *isFrameUnstuff = true;
                 }
@@ -241,7 +241,7 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(const s_eCU_BUStuffCtx* ctx, bool_
                 {
                     *isFrameUnstuff = false;
                 }
-                result = DBUSTF_RES_OK;
+                result = BUNSTF_RES_OK;
             }
 		}
 	}
@@ -254,11 +254,11 @@ e_eCU_dBUStf_Res bUStufferIsAFullFrameUnstuff(const s_eCU_BUStuffCtx* ctx, bool_
     /* Suppressed for code clarity */
 #endif
 
-e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_t stuffArea[], const uint32_t stuffLen,
+s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t stuffArea[], const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData, uint32_t* errSofRec)
 {
 	/* Local variable */
-	e_eCU_dBUStf_Res result;
+	s_eCU_BUNSTF_Res result;
     uint32_t nExamByte;
     uint32_t nErrorFound;
     uint8_t currentByte;
@@ -266,27 +266,27 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == stuffArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) )
 	{
-		result = DBUSTF_RES_BADPOINTER;
+		result = BUNSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBUSTF_RES_NOINITLIB;
+			result = BUNSTF_RES_NOINITLIB;
 		}
 		else
 		{
             if( stuffLen <= 0u )
             {
-                result = DBUSTF_RES_BADPARAM;
+                result = BUNSTF_RES_BADPARAM;
             }
             else
             {
                 /* Check internal status validity */
                 if( false == isBUSStatusStillCoherent(ctx) )
                 {
-                    result = DBUSTF_RES_CORRUPTCTX;
+                    result = BUNSTF_RES_CORRUPTCTX;
                 }
                 else
                 {
@@ -295,11 +295,11 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
                     nErrorFound = 0u;
 
                     /* Init result */
-                    result = DBUSTF_RES_OK;
+                    result = BUNSTF_RES_OK;
 
                     /* Elab all data */
-                    while( ( nExamByte < stuffLen ) && ( DBUSTF_RES_OK == result ) &&
-					       ( DBUSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) )
+                    while( ( nExamByte < stuffLen ) && ( BUNSTF_RES_OK == result ) &&
+					       ( BUNSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) )
                     {
                         /* Read current byte */
                         currentByte = stuffArea[nExamByte];
@@ -307,14 +307,14 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
                         /* Decide what to do */
 						switch( ctx->unStuffState )
 						{
-							case DBUSTF_SM_PRV_NEEDSOF:
+							case BUNSTF_SM_PRV_NEEDSOF:
 							{
 								/* Wait SOF, discharge others */
 								if( ECU_SOF == currentByte )
 								{
 									/* Found start */
 									ctx->memAreaCntr = 0u;
-									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+									ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
 								}
 								else
 								{
@@ -326,13 +326,13 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								break;
 							}
 
-							case DBUSTF_SM_PRV_NEEDRAWDATA:
+							case BUNSTF_SM_PRV_NEEDRAWDATA:
 							{
 								if( ECU_SOF == currentByte )
 								{
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
-									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+									ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
 									nErrorFound += 1u;
 									nExamByte++;
 								}
@@ -342,13 +342,13 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									{
 										/* Found end, but no data received..  */
 										ctx->memAreaCntr = 0u;
-										ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
+										ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
 										nErrorFound += 1u;
 									}
 									else
 									{
 										/* Can close the frame, yey */
-										ctx->unStuffState = DBUSTF_SM_PRV_UNSTUFFEND;
+										ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFEND;
 									}
 
 									nExamByte++;
@@ -356,7 +356,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								else if( ECU_ESC == currentByte )
 								{
 									/* Next data will be negated data */
-									ctx->unStuffState = DBUSTF_SM_PRV_NEEDNEGATEDATA;
+									ctx->unStuffState = BUNSTF_SM_PRV_NEEDNEGATEDATA;
 									nExamByte++;
 								}
 								else
@@ -365,7 +365,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									if( ctx->memAreaCntr >= ctx->memAreaSize )
 									{
 										/* No more data avaiable to save that thing */
-										result = DBUSTF_RES_OUTOFMEM;
+										result = BUNSTF_RES_OUTOFMEM;
 									}
 									else
 									{
@@ -378,13 +378,13 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								break;
 							}
 
-							case DBUSTF_SM_PRV_NEEDNEGATEDATA:
+							case BUNSTF_SM_PRV_NEEDNEGATEDATA:
 							{
 								if( ECU_SOF == currentByte )
 								{
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
-									ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+									ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
 									nErrorFound += 1u;
 									nExamByte++;
 								}
@@ -393,7 +393,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 								{
 									/* Found and error, we were expecting raw negated data here.  */
 									ctx->memAreaCntr = 0u;
-									ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
+									ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
 									nErrorFound += 1u;
 									nExamByte++;
 								}
@@ -403,7 +403,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 									if( ctx->memAreaCntr >= ctx->memAreaSize )
 									{
 										/* No more data avaiable to save that thing */
-										result = DBUSTF_RES_OUTOFMEM;
+										result = BUNSTF_RES_OUTOFMEM;
 									}
 									else
 									{
@@ -414,7 +414,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 										{
 											/* current data is neg */
 											ctx->memArea[ctx->memAreaCntr] = ( uint8_t ) ( ~currentByte );
-											ctx->unStuffState = DBUSTF_SM_PRV_NEEDRAWDATA;
+											ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
 											ctx->memAreaCntr++;
 											nExamByte++;
 										}
@@ -422,7 +422,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 										{
 											/* Impossible receive a data after esc that is not SOF EOF or ESC neg */
 											ctx->memAreaCntr = 0u;
-											ctx->unStuffState = DBUSTF_SM_PRV_NEEDSOF;
+											ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
 											nErrorFound += 1u;
 											nExamByte++;
 										}
@@ -434,7 +434,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 							default:
 							{
 								/* Impossible end here, and if so something horrible happened ( memory corruption ) */
-								result = DBUSTF_RES_CORRUPTCTX;
+								result = BUNSTF_RES_CORRUPTCTX;
 								break;
 							}
 						}
@@ -444,11 +444,11 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 					*consumedStuffData = nExamByte;
                     *errSofRec = nErrorFound;
 
-					if( DBUSTF_RES_OK == result )
+					if( BUNSTF_RES_OK == result )
 					{
-						if( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState )
+						if( BUNSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState )
 						{
-							result = DBUSTF_RES_FRAMEENDED;
+							result = BUNSTF_RES_FRAMEENDED;
 						}
 					}
                 }
@@ -462,7 +462,7 @@ e_eCU_dBUStf_Res bUStufferInsStufChunk(s_eCU_BUStuffCtx* const ctx, const uint8_
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
+bool_t isBUSStatusStillCoherent(const s_eCU_BUNSTF_Ctx* ctx)
 {
     bool_t result;
 
@@ -481,14 +481,14 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUStuffCtx* ctx)
         else
         {
             /* Check status coherence */
-            if( ( DBUSTF_SM_PRV_NEEDSOF == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) )
+            if( ( BUNSTF_SM_PRV_NEEDSOF == ctx->unStuffState ) && ( 0u != ctx->memAreaCntr ) )
             {
                 result = false;
             }
             else
             {
                 /* Check status coherence */
-                if( ( DBUSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( ctx->memAreaCntr <= 0u ) )
+                if( ( BUNSTF_SM_PRV_UNSTUFFEND == ctx->unStuffState ) && ( ctx->memAreaCntr <= 0u ) )
                 {
                     result = false;
                 }

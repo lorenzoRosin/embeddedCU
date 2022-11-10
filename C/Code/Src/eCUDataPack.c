@@ -17,18 +17,17 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isPackStatusStillCoherent(const s_eCU_DataPackCtx* ctx);
+static bool_t isPackStatusStillCoherent(const s_eCU_DPK_Ctx* ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], const uint32_t memPKASize,
-					          const bool_t isLEnd)
+e_eCU_DPK_Res DPK_InitCtx(s_eCU_DPK_Ctx* const ctx, uint8_t memPKA[], const uint32_t memPKASize, const bool_t isLEnd)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL ==  memPKA ) )
@@ -57,10 +56,10 @@ e_eCU_dPk_Res dataPackinitCtx(s_eCU_DataPackCtx* const ctx, uint8_t memPKA[], co
 	return result;
 }
 
-e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx)
+e_eCU_DPK_Res DPK_StartNewPack(s_eCU_DPK_Ctx* const ctx)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -93,10 +92,10 @@ e_eCU_dPk_Res dataPackStartNewPack(s_eCU_DataPackCtx* const ctx)
 	return result;
 }
 
-e_eCU_dPk_Res dataPackGetDataReference(s_eCU_DataPackCtx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
+e_eCU_DPK_Res DPK_GetDataReference(s_eCU_DPK_Ctx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == retrivedLen ) )
@@ -129,10 +128,10 @@ e_eCU_dPk_Res dataPackGetDataReference(s_eCU_DataPackCtx* const ctx, uint8_t** d
 	return result;
 }
 
-e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_DPK_Res DPK_GetNPushed(s_eCU_DPK_Ctx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
@@ -164,10 +163,10 @@ e_eCU_dPk_Res dataPackGetNPushed(s_eCU_DataPackCtx* const ctx, uint32_t* const r
 	return result;
 }
 
-e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, uint8_t data[], const uint32_t dataLen)
+e_eCU_DPK_Res DPK_PushArray(s_eCU_DPK_Ctx* const ctx, uint8_t data[], const uint32_t dataLen)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == data ) )
@@ -220,10 +219,10 @@ e_eCU_dPk_Res dataPackPushArray(s_eCU_DataPackCtx* const ctx, uint8_t data[], co
 	return result;
 }
 
-e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToPush)
+e_eCU_DPK_Res DPK_PushU8(s_eCU_DPK_Ctx* const ctx, const uint8_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -269,10 +268,10 @@ e_eCU_dPk_Res dataPackPushU8(s_eCU_DataPackCtx* const ctx, const uint8_t dataToP
 	return result;
 }
 
-e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataToPush)
+e_eCU_DPK_Res DPK_PushU16(s_eCU_DPK_Ctx* const ctx, const uint16_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -329,10 +328,10 @@ e_eCU_dPk_Res dataPackPushU16(s_eCU_DataPackCtx* const ctx, const uint16_t dataT
 	return result;
 }
 
-e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataToPush)
+e_eCU_DPK_Res DPK_PushU32(s_eCU_DPK_Ctx* const ctx, const uint32_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -397,10 +396,10 @@ e_eCU_dPk_Res dataPackPushU32(s_eCU_DataPackCtx* const ctx, const uint32_t dataT
 	return result;
 }
 
-e_eCU_dPk_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataToPush)
+e_eCU_DPK_Res DPK_PushU64(s_eCU_DPK_Ctx* const ctx, const uint64_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_dPk_Res result;
+	e_eCU_DPK_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -486,7 +485,7 @@ e_eCU_dPk_Res dataPackPushU64(s_eCU_DataPackCtx* const ctx, const uint64_t dataT
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isPackStatusStillCoherent(const s_eCU_DataPackCtx* ctx)
+bool_t isPackStatusStillCoherent(const s_eCU_DPK_Ctx* ctx)
 {
     bool_t result;
 

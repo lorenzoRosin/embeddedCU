@@ -17,17 +17,17 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isCrctatusStillCoherent(const s_eCU_CrcDigestCtx* ctx);
+static bool_t isCrctatusStillCoherent(const s_eCU_CRCD_Ctx* ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbCrcP, void* const clbCtx)
+e_eCU_CRCD_Res CRCD_InitCtx(s_eCU_CRCD_Ctx* const ctx, cb_crc32_seed cbCrcP, void* const clbCtx)
 {
 	/* Local variable */
-	e_eCU_CrcD_Res result;
+	e_eCU_CRCD_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx) || ( NULL ==  cbCrcP) || ( NULL ==  clbCtx) )
@@ -50,11 +50,11 @@ e_eCU_CrcD_Res crcDigestInitCtx(s_eCU_CrcDigestCtx* const ctx, cb_crc32_seed cbC
 	return result;
 }
 
-e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
+e_eCU_CRCD_Res CRCD_SeedInitCtx(s_eCU_CRCD_Ctx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
                                     void* const clbCtx)
 {
 	/* Local variable */
-	e_eCU_CrcD_Res result;
+	e_eCU_CRCD_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx) || ( NULL ==  cbCrcP) || ( NULL ==  clbCtx))
@@ -77,10 +77,10 @@ e_eCU_CrcD_Res crcDigestSeedInitCtx(s_eCU_CrcDigestCtx* const ctx, const uint32_
 	return result;
 }
 
-e_eCU_CrcD_Res crcDigestRestart(s_eCU_CrcDigestCtx* const ctx)
+e_eCU_CRCD_Res CRCD_Restart(s_eCU_CRCD_Ctx* const ctx)
 {
 	/* Local variable */
-	e_eCU_CrcD_Res result;
+	e_eCU_CRCD_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -115,10 +115,10 @@ e_eCU_CrcD_Res crcDigestRestart(s_eCU_CrcDigestCtx* const ctx)
     return result;
 }
 
-e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t data[], const uint32_t dataLen)
+e_eCU_CRCD_Res CRCD_Digest(s_eCU_CRCD_Ctx* const ctx, const uint8_t data[], const uint32_t dataLen)
 {
 	/* Local variable */
-	e_eCU_CrcD_Res result;
+	e_eCU_CRCD_Res result;
     uint32_t cR32;
     bool_t crcRes;
 
@@ -199,10 +199,10 @@ e_eCU_CrcD_Res crcDigestDigest(s_eCU_CrcDigestCtx* const ctx, const uint8_t data
 	return result;
 }
 
-e_eCU_CrcD_Res crcDigestGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* const crcCalc)
+e_eCU_CRCD_Res CRCD_GetDigestVal(s_eCU_CRCD_Ctx* const ctx, uint32_t* const crcCalc)
 {
 	/* Local variable */
-	e_eCU_CrcD_Res result;
+	e_eCU_CRCD_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == crcCalc ) )
@@ -252,7 +252,7 @@ e_eCU_CrcD_Res crcDigestGetDigestVal(s_eCU_CrcDigestCtx* const ctx, uint32_t* co
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isCrctatusStillCoherent(const s_eCU_CrcDigestCtx* ctx)
+bool_t isCrctatusStillCoherent(const s_eCU_CRCD_Ctx* ctx)
 {
     bool_t result;
 

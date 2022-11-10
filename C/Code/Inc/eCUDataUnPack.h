@@ -37,7 +37,7 @@ typedef enum
     DUNPK_RES_NODATA,
     DUNPK_RES_NOINITLIB,
     DUNPK_RES_NOINITFRAME,
-}e_eCU_dUnpk_Res;
+}e_eCU_DUNPK_Res;
 
 typedef struct
 {
@@ -47,7 +47,7 @@ typedef struct
 	uint32_t memUPKASize;
     uint32_t memUPKAFrameSize;
 	uint32_t memUPKACntr;
-}s_eCU_DataUnPackCtx;
+}s_eCU_DUNPK_Ctx;
 
 
 
@@ -66,12 +66,12 @@ typedef struct
  *		        DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
  *              DUNPK_RES_OK         - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t memUPKA[], const uint32_t memUPKASize,
-                                  const bool_t isLEnd);
+e_eCU_DUNPK_Res DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const ctx, uint8_t memUPKA[], const uint32_t memUPKASize,
+                              const bool_t isLEnd);
 
 /**
  * @brief       Start to unpack a new frame given the dimension of raw payload it self. This function suppouse that
- *              data payload that need to be unpocked were already copied in memory.( see dataUnPackGetUPkDataLocat
+ *              data payload that need to be unpocked were already copied in memory.( see DUNPK_GetUPkDataLocat
  *              in order to know how get the data pointer )
  *
  * @param[in]   ctx         - Data Unpacker context
@@ -83,7 +83,7 @@ e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t memUPK
  *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
  *              DUNPK_RES_OK         - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackStartNewFrame(s_eCU_DataUnPackCtx* const ctx, const uint32_t frameLen);
+e_eCU_DUNPK_Res DUNPK_StartNewFrame(s_eCU_DUNPK_Ctx* const ctx, const uint32_t frameLen);
 
 /**
  * @brief       Retrive the pointer of the buffer that the user can use to insert data payload that need to be unpacked
@@ -98,7 +98,7 @@ e_eCU_dUnpk_Res dataUnPackStartNewFrame(s_eCU_DataUnPackCtx* const ctx, const ui
  *		        DUNPK_RES_CORRUPTCTX - In case of a corrupted context
  *              DUNPK_RES_OK         - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackGetUPkDataLocat(s_eCU_DataUnPackCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize);
+e_eCU_DUNPK_Res DUNPK_GetUPkDataLocat(s_eCU_DUNPK_Ctx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize);
 
 
 /**
@@ -113,7 +113,7 @@ e_eCU_dUnpk_Res dataUnPackGetUPkDataLocat(s_eCU_DataUnPackCtx* const ctx, uint8_
  *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx);
+e_eCU_DUNPK_Res DUNPK_RestartCurrentUnpack(s_eCU_DUNPK_Ctx* const ctx);
 
 /**
  * @brief       Retrive how many byte we can still pop
@@ -127,7 +127,7 @@ e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx);
  *		        DUNPK_RES_CORRUPTCTX  - In case of a corrupted context
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen);
+e_eCU_DUNPK_Res DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const ctx, uint32_t* const retrivedLen);
 
 /**
  * @brief       Pop some raw data
@@ -144,7 +144,7 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
  *              DUNPK_RES_NODATA      - Not so much data to pop
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataDest[], uint32_t const toRetrivedLen);
+e_eCU_DUNPK_Res DUNPK_PopArray(s_eCU_DUNPK_Ctx* const ctx, uint8_t dataDest[], uint32_t const toRetrivedLen);
 
 /**
  * @brief       Pop one byte from data passed to session
@@ -159,7 +159,7 @@ e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataD
  *              DUNPK_RES_NODATA      - Not so much data to pop
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataP);
+e_eCU_DUNPK_Res DUNPK_PopU8(s_eCU_DUNPK_Ctx* const ctx, uint8_t* dataP);
 
 /**
  * @brief       Pop 2 byte from data passed to session
@@ -174,7 +174,7 @@ e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t* dataP);
  *              DUNPK_RES_NODATA      - Not so much data to pop
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP);
+e_eCU_DUNPK_Res DUNPK_PopU16(s_eCU_DUNPK_Ctx* const ctx, uint16_t* dataP);
 
 /**
  * @brief       Pop 4 byte from data passed to session
@@ -189,7 +189,7 @@ e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP
  *              DUNPK_RES_NODATA      - Not so much data to pop
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP);
+e_eCU_DUNPK_Res DUNPK_PopU32(s_eCU_DUNPK_Ctx* const ctx, uint32_t* dataP);
 
 /**
  * @brief       Pop 8 byte from data passed to session
@@ -204,7 +204,7 @@ e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP
  *              DUNPK_RES_NODATA      - Not so much data to pop
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_dUnpk_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP);
+e_eCU_DUNPK_Res DUNPK_PopU64(s_eCU_DUNPK_Ctx* const ctx, uint64_t* dataP);
 
 
 

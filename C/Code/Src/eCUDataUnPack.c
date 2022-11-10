@@ -17,18 +17,18 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx);
+static bool_t isUnPackStatusStillCoherent(const s_eCU_DUNPK_Ctx* ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t memUPKA[], const uint32_t memUPKASize,
+e_eCU_DUNPK_Res DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const ctx, uint8_t memUPKA[], const uint32_t memUPKASize,
                                   const bool_t isLEnd)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL ==  memUPKA ) )
@@ -58,10 +58,10 @@ e_eCU_dUnpk_Res dataUnPackinitCtx(s_eCU_DataUnPackCtx* const ctx, uint8_t memUPK
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackStartNewFrame(s_eCU_DataUnPackCtx* const ctx, const uint32_t frameLen)
+e_eCU_DUNPK_Res DUNPK_StartNewFrame(s_eCU_DUNPK_Ctx* const ctx, const uint32_t frameLen)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -103,10 +103,10 @@ e_eCU_dUnpk_Res dataUnPackStartNewFrame(s_eCU_DataUnPackCtx* const ctx, const ui
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackGetUPkDataLocat(s_eCU_DataUnPackCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize)
+e_eCU_DUNPK_Res DUNPK_GetUPkDataLocat(s_eCU_DUNPK_Ctx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == maxDataSize ) )
@@ -140,10 +140,10 @@ e_eCU_dUnpk_Res dataUnPackGetUPkDataLocat(s_eCU_DataUnPackCtx* const ctx, uint8_
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx)
+e_eCU_DUNPK_Res DUNPK_RestartCurrentUnpack(s_eCU_DUNPK_Ctx* const ctx)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
@@ -184,10 +184,10 @@ e_eCU_dUnpk_Res dataUnPackRestartCurrentUnpack(s_eCU_DataUnPackCtx* const ctx)
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_DUNPK_Res DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
@@ -228,10 +228,10 @@ e_eCU_dUnpk_Res dataUnPackGetRemToPop(s_eCU_DataUnPackCtx* const ctx, uint32_t* 
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataDest[], uint32_t const toRetrivedLen)
+e_eCU_DUNPK_Res DUNPK_PopArray(s_eCU_DUNPK_Ctx* const ctx, uint8_t dataDest[], uint32_t const toRetrivedLen)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == dataDest ) )
@@ -292,10 +292,10 @@ e_eCU_dUnpk_Res dataUnPackPopArray(s_eCU_DataUnPackCtx* const ctx, uint8_t dataD
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t *dataP)
+e_eCU_DUNPK_Res DUNPK_PopU8(s_eCU_DUNPK_Ctx* const ctx, uint8_t *dataP)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == dataP ) )
@@ -347,10 +347,10 @@ e_eCU_dUnpk_Res dataUnPackPopU8(s_eCU_DataUnPackCtx* const ctx, uint8_t *dataP)
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP)
+e_eCU_DUNPK_Res DUNPK_PopU16(s_eCU_DUNPK_Ctx* const ctx, uint16_t* dataP)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
     uint16_t tempS;
 
 	/* Check pointer validity */
@@ -423,10 +423,10 @@ e_eCU_dUnpk_Res dataUnPackPopU16(s_eCU_DataUnPackCtx* const ctx, uint16_t* dataP
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP)
+e_eCU_DUNPK_Res DUNPK_PopU32(s_eCU_DUNPK_Ctx* const ctx, uint32_t* dataP)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
     uint32_t tempS;
 
 	/* Check pointer validity */
@@ -515,10 +515,10 @@ e_eCU_dUnpk_Res dataUnPackPopU32(s_eCU_DataUnPackCtx* const ctx, uint32_t* dataP
 	return result;
 }
 
-e_eCU_dUnpk_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP)
+e_eCU_DUNPK_Res DUNPK_PopU64(s_eCU_DUNPK_Ctx* const ctx, uint64_t* dataP)
 {
 	/* Local variable */
-	e_eCU_dUnpk_Res result;
+	e_eCU_DUNPK_Res result;
     uint64_t tempS;
 
 	/* Check pointer validity */
@@ -644,7 +644,7 @@ e_eCU_dUnpk_Res dataUnPackPopU64(s_eCU_DataUnPackCtx* const ctx, uint64_t* dataP
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isUnPackStatusStillCoherent(const s_eCU_DataUnPackCtx* ctx)
+bool_t isUnPackStatusStillCoherent(const s_eCU_DUNPK_Ctx* ctx)
 {
     bool_t result;
 

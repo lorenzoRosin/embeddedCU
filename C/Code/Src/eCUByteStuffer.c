@@ -17,29 +17,29 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx);
+static bool_t isBSStatusStillCoherent(const s_eCU_BSTF_Ctx* ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t memArea[], const uint32_t memAreaSize)
+e_eCU_BSTF_Res BSTF_InitCtx(s_eCU_BSTF_Ctx* const ctx, uint8_t memArea[], const uint32_t memAreaSize)
 {
 	/* Local variable */
-	e_eCU_dBStf_Res result;
+	e_eCU_BSTF_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == memArea ) )
 	{
-		result = DBSTF_RES_BADPOINTER;
+		result = BSTF_RES_BADPOINTER;
 	}
 	else
 	{
         /* Check data validity */
         if( memAreaSize <= 0u )
         {
-            result = DBSTF_RES_BADPARAM;
+            result = BSTF_RES_BADPARAM;
         }
         else
         {
@@ -49,54 +49,54 @@ e_eCU_dBStf_Res bStufferInitCtx(s_eCU_BStuffCtx* const ctx, uint8_t memArea[], c
             ctx->memAreaSize = memAreaSize;
             ctx->memAreaFrameSize = 0u;
             ctx->memAreaCntr = 0u;
-            ctx->stuffState = DBSTF_SM_PRV_NEEDSOF;
+            ctx->stuffState = BSTF_SM_PRV_NEEDSOF;
 
-            result = DBSTF_RES_OK;
+            result = BSTF_RES_OK;
         }
 	}
 
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferStartNewFrame(s_eCU_BStuffCtx* const ctx, const uint32_t frameLen)
+e_eCU_BSTF_Res BSTF_StartNewFrame(s_eCU_BSTF_Ctx* const ctx, const uint32_t frameLen)
 {
 	/* Local variable */
-	e_eCU_dBStf_Res result;
+	e_eCU_BSTF_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = DBSTF_RES_BADPOINTER;
+		result = BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBSTF_RES_NOINITLIB;
+			result = BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBSStatusStillCoherent(ctx) )
             {
-                result = DBSTF_RES_CORRUPTCTX;
+                result = BSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check param validity */
                 if( ( frameLen <= 0u ) || ( frameLen > ctx->memAreaSize ) )
                 {
-                    result = DBSTF_RES_BADPARAM;
+                    result = BSTF_RES_BADPARAM;
                 }
                 else
                 {
                     /* Update data */
                     ctx->memAreaFrameSize = frameLen;
                     ctx->memAreaCntr = 0u;
-                    ctx->stuffState = DBSTF_SM_PRV_NEEDSOF;
+                    ctx->stuffState = BSTF_SM_PRV_NEEDSOF;
 
-                    result = DBSTF_RES_OK;
+                    result = BSTF_RES_OK;
                 }
             }
 		}
@@ -105,36 +105,36 @@ e_eCU_dBStf_Res bStufferStartNewFrame(s_eCU_BStuffCtx* const ctx, const uint32_t
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferGetUnStufDataLocation(s_eCU_BStuffCtx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize)
+e_eCU_BSTF_Res BSTF_GetUnStufDataLocation(s_eCU_BSTF_Ctx* const ctx, uint8_t** dataP, uint32_t* const maxDataSize)
 {
 	/* Local variable */
-	e_eCU_dBStf_Res result;
+	e_eCU_BSTF_Res result;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == maxDataSize ) )
 	{
-		result = DBSTF_RES_BADPOINTER;
+		result = BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBSTF_RES_NOINITLIB;
+			result = BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
             if( false == isBSStatusStillCoherent(ctx) )
             {
-                result = DBSTF_RES_CORRUPTCTX;
+                result = BSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* return data */
                 *dataP = ctx->memArea;
                 *maxDataSize = ctx->memAreaSize;
-                result = DBSTF_RES_OK;
+                result = BSTF_RES_OK;
             }
 		}
 	}
@@ -142,44 +142,44 @@ e_eCU_dBStf_Res bStufferGetUnStufDataLocation(s_eCU_BStuffCtx* const ctx, uint8_
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferRestartCurrentFrame(s_eCU_BStuffCtx* const ctx)
+e_eCU_BSTF_Res BSTF_RestartCurrentFrame(s_eCU_BSTF_Ctx* const ctx)
 {
 	/* Local variable */
-	e_eCU_dBStf_Res result;
+	e_eCU_BSTF_Res result;
 
 	/* Check pointer validity */
 	if( NULL == ctx )
 	{
-		result = DBSTF_RES_BADPOINTER;
+		result = BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBSTF_RES_NOINITLIB;
+			result = BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check Init */
             if( ctx->memAreaFrameSize <= 0u )
             {
-                result = DBSTF_RES_NOINITFRAME;
+                result = BSTF_RES_NOINITFRAME;
             }
             else
             {
                 /* Check internal status validity */
                 if( false == isBSStatusStillCoherent(ctx) )
                 {
-                    result = DBSTF_RES_CORRUPTCTX;
+                    result = BSTF_RES_CORRUPTCTX;
                 }
                 else
                 {
                     /* Update index */
                     ctx->memAreaCntr = 0u;
-                    ctx->stuffState = DBSTF_SM_PRV_NEEDSOF;
+                    ctx->stuffState = BSTF_SM_PRV_NEEDSOF;
 
-                    result = DBSTF_RES_OK;
+                    result = BSTF_RES_OK;
                 }
             }
 		}
@@ -188,55 +188,55 @@ e_eCU_dBStf_Res bStufferRestartCurrentFrame(s_eCU_BStuffCtx* const ctx)
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* const retrivedLen)
+e_eCU_BSTF_Res BSTF_GetRemToRetrive(s_eCU_BSTF_Ctx* const ctx, uint32_t* const retrivedLen)
 {
 	/* Local variable */
-	e_eCU_dBStf_Res result;
+	e_eCU_BSTF_Res result;
     uint32_t calLen;
 	uint32_t indx;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
 	{
-		result = DBSTF_RES_BADPOINTER;
+		result = BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBSTF_RES_NOINITLIB;
+			result = BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check Init */
             if( ctx->memAreaFrameSize <= 0u )
             {
-                result = DBSTF_RES_NOINITFRAME;
+                result = BSTF_RES_NOINITFRAME;
             }
             else
             {
                 /* Check internal status validity */
                 if( false == isBSStatusStillCoherent(ctx) )
                 {
-                    result = DBSTF_RES_CORRUPTCTX;
+                    result = BSTF_RES_CORRUPTCTX;
                 }
                 else
                 {
                     /* Analyze the current state of the state machine */
-                    if( DBSTF_SM_PRV_NEEDSOF == ctx->stuffState )
+                    if( BSTF_SM_PRV_NEEDSOF == ctx->stuffState )
                     {
                         /* SOF + Data + EOF */
                         calLen = 2u;
                     }
-                    else if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
+                    else if( BSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
                     {
                         /* If a precedent byte of the payload was an SOF, EOF or ESC character, this means that the
                         * ESC char is already inserted in the unstuffed data, but that we need to add the negation of
                         * the payload + the EOF */
                         calLen = 2u;
                     }
-                    else if( DBSTF_SM_PRV_STUFFEND == ctx->stuffState )
+                    else if( BSTF_SM_PRV_STUFFEND == ctx->stuffState )
                     {
                         /* Stuffend ended, no data to wait */
                         calLen = 0u;
@@ -244,7 +244,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                     else
                     {
                         /* data + EOF. With the current state machine is not possible to have a single call that
-                         * leave the system in the state: DBSTF_SM_PRV_NEEDEOF */
+                         * leave the system in the state: BSTF_SM_PRV_NEEDEOF */
                         calLen = 1u;
                     }
 
@@ -303,7 +303,7 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
                     /* Copy calc value */
                     *retrivedLen = calLen;
 
-                    result = DBSTF_RES_OK;
+                    result = BSTF_RES_OK;
                 }
             }
 		}
@@ -312,74 +312,74 @@ e_eCU_dBStf_Res bStufferGetRemToRetrive(s_eCU_BStuffCtx* const ctx, uint32_t* co
 	return result;
 }
 
-e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuffedDest[], const uint32_t maxDestLen,
+e_eCU_BSTF_Res BSTF_RetriStufChunk(s_eCU_BSTF_Ctx* const ctx, uint8_t stuffedDest[], const uint32_t maxDestLen,
                                        uint32_t* const filledLen)
 {
 	/* Local variable */
-	e_eCU_dBStf_Res result;
+	e_eCU_BSTF_Res result;
     uint32_t nFillByte;
 
 	/* Check pointer validity */
 	if( ( NULL == ctx ) || ( NULL == stuffedDest ) || ( NULL == filledLen ) )
 	{
-		result = DBSTF_RES_BADPOINTER;
+		result = BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
 		if( false == ctx->isInit )
 		{
-			result = DBSTF_RES_NOINITLIB;
+			result = BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check Init */
             if( ctx->memAreaFrameSize <= 0u )
             {
-                result = DBSTF_RES_NOINITFRAME;
+                result = BSTF_RES_NOINITFRAME;
             }
             else
             {
                 if( maxDestLen <= 0u )
                 {
-                    result = DBSTF_RES_BADPARAM;
+                    result = BSTF_RES_BADPARAM;
                 }
                 else
                 {
                     /* Check internal status validity */
                     if( false == isBSStatusStillCoherent(ctx) )
                     {
-                        result = DBSTF_RES_CORRUPTCTX;
+                        result = BSTF_RES_CORRUPTCTX;
                     }
                     else
                     {
                         /* Init counter */
                         nFillByte = 0u;
-						result = DBSTF_RES_OK;
+						result = BSTF_RES_OK;
 
                         /* Execute parsing cycle */
                         while( ( nFillByte < maxDestLen ) &&
-						       ( DBSTF_SM_PRV_STUFFEND != ctx->stuffState ) &&
-							   ( DBSTF_RES_OK == result ) )
+						       ( BSTF_SM_PRV_STUFFEND != ctx->stuffState ) &&
+							   ( BSTF_RES_OK == result ) )
                         {
                             switch( ctx->stuffState )
                             {
-                                case DBSTF_SM_PRV_NEEDSOF :
+                                case BSTF_SM_PRV_NEEDSOF :
                                 {
                                     /* Start of frame */
                                     stuffedDest[nFillByte] = ECU_SOF;
                                     nFillByte++;
-                                    ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
+                                    ctx->stuffState = BSTF_SM_PRV_NEEDRAWDATA;
 
                                     break;
                                 }
 
-                                case DBSTF_SM_PRV_NEEDRAWDATA :
+                                case BSTF_SM_PRV_NEEDRAWDATA :
                                 {
                                     if( ctx->memAreaCntr >= ctx->memAreaFrameSize )
                                     {
                                         /* End of frame needed */
-                                        ctx->stuffState = DBSTF_SM_PRV_NEEDEOF;
+                                        ctx->stuffState = BSTF_SM_PRV_NEEDEOF;
                                     }
                                     else
                                     {
@@ -388,7 +388,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                         {
                                             /* Stuff with escape */
                                             stuffedDest[nFillByte] = ECU_ESC;
-                                            ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
+                                            ctx->stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
                                             nFillByte++;
                                             ctx->memAreaCntr++;
                                         }
@@ -396,7 +396,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                         {
                                             /* Stuff with escape */
                                             stuffedDest[nFillByte] = ECU_ESC;
-                                            ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
+                                            ctx->stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
                                             nFillByte++;
                                             ctx->memAreaCntr++;
                                         }
@@ -404,7 +404,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                         {
                                             /* Stuff with escape */
                                             stuffedDest[nFillByte] = ECU_ESC;
-                                            ctx->stuffState = DBSTF_SM_PRV_NEEDNEGATEPRECDATA;
+                                            ctx->stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
                                             nFillByte++;
                                             ctx->memAreaCntr++;
                                         }
@@ -420,23 +420,23 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                     break;
                                 }
 
-                                case DBSTF_SM_PRV_NEEDNEGATEPRECDATA :
+                                case BSTF_SM_PRV_NEEDNEGATEPRECDATA :
                                 {
                                     /* Something from an old iteration  */
                                     stuffedDest[nFillByte] = ( (uint8_t) ~( ctx->memArea[ctx->memAreaCntr - 1u] ) );
                                     nFillByte++;
 
                                     /* After this we can continue parsing raw data */
-                                    ctx->stuffState = DBSTF_SM_PRV_NEEDRAWDATA;
+                                    ctx->stuffState = BSTF_SM_PRV_NEEDRAWDATA;
 
                                     break;
                                 }
 
-                                case DBSTF_SM_PRV_NEEDEOF :
+                                case BSTF_SM_PRV_NEEDEOF :
                                 {
                                     /* End of frame */
                                     stuffedDest[nFillByte] = ECU_EOF;
-                                    ctx->stuffState = DBSTF_SM_PRV_STUFFEND;
+                                    ctx->stuffState = BSTF_SM_PRV_STUFFEND;
                                     nFillByte++;
 
                                     break;
@@ -445,7 +445,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
                                default:
                                {
                                    /* Impossible end here, and if so something horrible happened (memory corruption) */
-									result = DBSTF_RES_CORRUPTCTX;
+									result = BSTF_RES_CORRUPTCTX;
                                    break;
                                }
                             }
@@ -454,13 +454,13 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
 						/* Save counter */
 						*filledLen = nFillByte;
 
-						if( DBSTF_RES_OK == result )
+						if( BSTF_RES_OK == result )
 						{
 							/* result? */
-							if( DBSTF_SM_PRV_STUFFEND == ctx->stuffState )
+							if( BSTF_SM_PRV_STUFFEND == ctx->stuffState )
 							{
 								/* Nothing more */
-								result = DBSTF_RES_FRAMEENDED;
+								result = BSTF_RES_FRAMEENDED;
 							}
 						}
                     }
@@ -475,7 +475,7 @@ e_eCU_dBStf_Res bStufferRetriStufChunk(s_eCU_BStuffCtx* const ctx, uint8_t stuff
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
+bool_t isBSStatusStillCoherent(const s_eCU_BSTF_Ctx* ctx)
 {
     bool_t result;
     uint8_t preceByte;
@@ -495,29 +495,29 @@ bool_t isBSStatusStillCoherent(const s_eCU_BStuffCtx* ctx)
         else
         {
             /* Check data coherence on SOF */
-            if( ( DBSTF_SM_PRV_NEEDSOF  == ctx->stuffState ) && ( 0u != ctx->memAreaCntr ) )
+            if( ( BSTF_SM_PRV_NEEDSOF  == ctx->stuffState ) && ( 0u != ctx->memAreaCntr ) )
             {
                 result = false;
             }
             else
             {
                 /* Check data coherence on SOF */
-                if( ( 0u == ctx->memAreaCntr ) && ( DBSTF_SM_PRV_NEEDSOF != ctx->stuffState ) &&
-                    ( DBSTF_SM_PRV_NEEDRAWDATA != ctx->stuffState ) )
+                if( ( 0u == ctx->memAreaCntr ) && ( BSTF_SM_PRV_NEEDSOF != ctx->stuffState ) &&
+                    ( BSTF_SM_PRV_NEEDRAWDATA != ctx->stuffState ) )
                 {
                     result = false;
                 }
                 else
                 {
                     /* Check data coherence on EOF */
-                    if( ( DBSTF_SM_PRV_STUFFEND == ctx->stuffState ) && ( ctx->memAreaCntr != ctx->memAreaFrameSize ) )
+                    if( ( BSTF_SM_PRV_STUFFEND == ctx->stuffState ) && ( ctx->memAreaCntr != ctx->memAreaFrameSize ) )
                     {
                         result = false;
                     }
                     else
                     {
                         /* Check data coherence on precedent data */
-                        if( DBSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
+                        if( BSTF_SM_PRV_NEEDNEGATEPRECDATA == ctx->stuffState )
                         {
                             preceByte = ctx->memArea[ctx->memAreaCntr - 1u];
                             if( ( ECU_ESC != preceByte ) && ( ECU_EOF != preceByte ) && ( ECU_SOF != preceByte ) )
