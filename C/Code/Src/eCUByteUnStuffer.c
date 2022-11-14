@@ -255,16 +255,15 @@ s_eCU_BUNSTF_Res BUNSTF_IsAFullFrameUnstuff(const s_eCU_BUNSTF_Ctx* ctx, bool_t*
 #endif
 
 s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t stuffArea[], const uint32_t stuffLen,
-                                       uint32_t* const consumedStuffData, uint32_t* errSofRec)
+                                       uint32_t* const consumedStuffData)
 {
 	/* Local variable */
 	s_eCU_BUNSTF_Res result;
     uint32_t nExamByte;
-    uint32_t nErrorFound;
     uint8_t currentByte;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == stuffArea ) || ( NULL == consumedStuffData )|| ( NULL == errSofRec ) )
+	if( ( NULL == ctx ) || ( NULL == stuffArea ) || ( NULL == consumedStuffData ) )
 	{
 		result = BUNSTF_RES_BADPOINTER;
 	}
@@ -292,14 +291,14 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
                 {
                     /* Init counter */
                     nExamByte = 0u;
-                    nErrorFound = 0u;
 
                     /* Init result */
                     result = BUNSTF_RES_OK;
 
                     /* Elab all data */
                     while( ( nExamByte < stuffLen ) && ( BUNSTF_RES_OK == result ) &&
-					       ( BUNSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) )
+					       ( BUNSTF_SM_PRV_UNSTUFFEND != ctx->unStuffState ) &&
+                           ( BUNSTF_SM_PRV_UNSTUFFFAIL != ctx->unStuffState ) )
                     {
                         /* Read current byte */
                         currentByte = stuffArea[nExamByte];
@@ -319,8 +318,8 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 								else
 								{
 									/* Waiting for start, no other bytes */
-									ctx->memAreaCntr = 0u;
-                                    nErrorFound += 1u;
+                                    ctx->memAreaCntr = 0u;
+                                    ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFFAIL;
 								}
 								nExamByte++;
 								break;
@@ -332,8 +331,8 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 								{
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
-									ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
-									nErrorFound += 1u;
+                                    ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
+                                    result = BUNSTF_RES_FRAMERESTART;
 									nExamByte++;
 								}
 								else if( ECU_EOF == currentByte )
@@ -342,8 +341,7 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 									{
 										/* Found end, but no data received..  */
 										ctx->memAreaCntr = 0u;
-										ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
-										nErrorFound += 1u;
+                                        ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFFAIL;
 									}
 									else
 									{
@@ -384,8 +382,8 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 								{
 									/* Found start, but wasn't expected */
 									ctx->memAreaCntr = 0u;
-									ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
-									nErrorFound += 1u;
+                                    ctx->unStuffState = BUNSTF_SM_PRV_NEEDRAWDATA;
+                                    result = BUNSTF_RES_FRAMERESTART;
 									nExamByte++;
 								}
 								else if( ( ECU_EOF == currentByte ) ||
@@ -393,8 +391,7 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 								{
 									/* Found and error, we were expecting raw negated data here.  */
 									ctx->memAreaCntr = 0u;
-									ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
-									nErrorFound += 1u;
+                                    ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFFAIL;
 									nExamByte++;
 								}
 								else
@@ -422,8 +419,7 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 										{
 											/* Impossible receive a data after esc that is not SOF EOF or ESC neg */
 											ctx->memAreaCntr = 0u;
-											ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
-											nErrorFound += 1u;
+                                            ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFFAIL;
 											nExamByte++;
 										}
 									}
@@ -442,7 +438,6 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 
 					/* Save the result */
 					*consumedStuffData = nExamByte;
-                    *errSofRec = nErrorFound;
 
 					if( BUNSTF_RES_OK == result )
 					{
@@ -450,6 +445,10 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 						{
 							result = BUNSTF_RES_FRAMEENDED;
 						}
+                        else if( BUNSTF_SM_PRV_UNSTUFFFAIL == ctx->unStuffState )
+                        {
+                           result = BUNSTF_RES_BADFRAME;
+                        }
 					}
                 }
             }

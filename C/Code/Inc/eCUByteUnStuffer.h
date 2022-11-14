@@ -36,7 +36,9 @@ typedef enum
     BUNSTF_RES_BADPOINTER,
 	BUNSTF_RES_CORRUPTCTX,
     BUNSTF_RES_OUTOFMEM,
+    BUNSTF_RES_BADFRAME,
 	BUNSTF_RES_FRAMEENDED,
+    BUNSTF_RES_FRAMERESTART,
     BUNSTF_RES_NOINITLIB,
 }s_eCU_BUNSTF_Res;
 
@@ -142,14 +144,11 @@ s_eCU_BUNSTF_Res BUNSTF_IsAFullFrameUnstuff(const s_eCU_BUNSTF_Ctx* ctx, bool_t*
  * @param[in]   stuffArea          - Pointer to the stuffed Data that we will unstuff
  * @param[in]   stuffLen           - Size of the stuffArea
  * @param[out]  consumedStuffData  - Pointer to an uint32_t were we will store how many stuffed data byte has been
- *                                   analized. Keep in mind that unalized data were not unstuffed and will need to be
- *                                   reparsed. Un parsed data happens when the frame ended earlier
- *                                   ( BUNSTF_RES_FRAMEENDED is returned ) or when some error is returned. When the
- *                                   function return BUNSTF_RES_OK consumedStuffData will always be returned has
- *                                   stuffLen.
- * @param[out]  errSofRec          - Pointer to an uint32_t were we will store how many protocol error were detected.
- *                                   Even with some error detected, the protocol will continue parsing data discharging
- *                                   error. When an error is found the algoritms will restart searching for the SOF.
+ *                                   analized. Keep in mind that unalized data were not unstuffed and they will need to
+ *                                   be reparsed. Un parsed data happens when the frame ended earlier
+ *                                   ( BUNSTF_RES_FRAMEENDED, BUNSTF_RES_BADFRAME or BUNSTF_RES_FRAMERESTART is
+ *                                   returned ) or when some other error is returned. When the function return
+ *                                   BUNSTF_RES_OK consumedStuffData will always be returned has stuffLen.
  *
  * @return      BUNSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        BUNSTF_RES_NOINITLIB    - Need to init context before taking some action
@@ -161,12 +160,22 @@ s_eCU_BUNSTF_Res BUNSTF_IsAFullFrameUnstuff(const s_eCU_BUNSTF_Ctx* ctx, bool_t*
  *                                        to this function will not have effect until we call BUNSTF_StartNewFrame.
  *                                        In this situation bear in mind that some data could be left out the parsing,
  *                                        and so we need to reparse that data after calling BUNSTF_StartNewFrame.
+ *              BUNSTF_RES_BADFRAME     - Found an error while parsing, the frame passed is invalid.
+ *                                        Restart context in order to parse a new frame. Every other call
+ *                                        to this function will not have effect until we call BUNSTF_StartNewFrame.
+ *                                        In this situation bear in mind that some data could be left out the parsing,
+ *                                        and so we need to reparse that data after calling BUNSTF_StartNewFrame.
+ *              BUNSTF_RES_FRAMERESTART - During frame receiving another start of frame is received. In this situation
+ *                                        clear old data and restart the frame, witouth the need to call any other
+ *                                        function. In this situation bear in mind that some data could be left out
+ *                                        the parsing and so we need to reparse that data with another call of
+ *                                        BUNSTF_InsStufChunk.
  *              BUNSTF_RES_OK           - Operation ended correctly. The chunk is parsed correclty but the frame is not
  *                                        finished yet. In this situation consumedStuffData is always reported with a
  *                                        value equals to stuffLen.
  */
 s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t stuffArea[], const uint32_t stuffLen,
-                                       uint32_t* const consumedStuffData, uint32_t* errSofRec);
+                                       uint32_t* const consumedStuffData);
 
 
 
