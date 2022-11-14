@@ -77,7 +77,6 @@ void byteUnStuffTestBadPointer(void)
     s_eCU_BUNSTF_Ctx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
-    uint32_t a;
     uint8_t *dataP;
     bool_t frameIsUnstuffed;
     bool_t isWaiting;
@@ -191,7 +190,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 12 -- FAIL \n");
     }
 
-    if( BUNSTF_RES_BADPOINTER == BUNSTF_InsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32, &a ) )
+    if( BUNSTF_RES_BADPOINTER == BUNSTF_InsStufChunk( NULL, memArea, sizeof(memArea), &varTemp32 ) )
     {
         (void)printf("byteUnStuffTestBadPointer 13 -- OK \n");
     }
@@ -200,7 +199,7 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 13 -- FAIL \n");
     }
 
-    if( BUNSTF_RES_BADPOINTER == BUNSTF_InsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32, &a ) )
+    if( BUNSTF_RES_BADPOINTER == BUNSTF_InsStufChunk( &ctx, NULL, sizeof(memArea), &varTemp32 ) )
     {
         (void)printf("byteUnStuffTestBadPointer 14 -- OK \n");
     }
@@ -209,22 +208,13 @@ void byteUnStuffTestBadPointer(void)
         (void)printf("byteUnStuffTestBadPointer 14 -- FAIL \n");
     }
 
-    if( BUNSTF_RES_BADPOINTER == BUNSTF_InsStufChunk( &ctx, memArea, sizeof(memArea), NULL, &a ) )
+    if( BUNSTF_RES_BADPOINTER == BUNSTF_InsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32) )
     {
         (void)printf("byteUnStuffTestBadPointer 15 -- OK \n");
     }
     else
     {
         (void)printf("byteUnStuffTestBadPointer 15 -- FAIL \n");
-    }
-
-    if( BUNSTF_RES_BADPOINTER == BUNSTF_InsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, NULL) )
-    {
-        (void)printf("byteUnStuffTestBadPointer 16 -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteUnStuffTestBadPointer 16 -- FAIL \n");
     }
 }
 
@@ -234,7 +224,6 @@ void byteUnStuffTestBadInit(void)
     s_eCU_BUNSTF_Ctx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
-    uint32_t a;
     uint8_t *dataP;
     bool_t frameIsUnstuffed;
     bool_t isWaiting;
@@ -288,7 +277,7 @@ void byteUnStuffTestBadInit(void)
         (void)printf("byteUnStuffTestBadInit 5  -- FAIL \n");
     }
 
-    if( BUNSTF_RES_NOINITLIB == BUNSTF_InsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32, &a ) )
+    if( BUNSTF_RES_NOINITLIB == BUNSTF_InsStufChunk( &ctx, memArea, sizeof(memArea), &varTemp32 ) )
     {
         (void)printf("byteUnStuffTestBadInit 6  -- OK \n");
     }
@@ -304,7 +293,6 @@ void byteUnStuffTestBadParamEntr(void)
     s_eCU_BUNSTF_Ctx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
-    uint32_t a;
 
     /* Function */
     if( BUNSTF_RES_BADPARAM == BUNSTF_InitCtx(&ctx, memArea, 0u) )
@@ -325,7 +313,7 @@ void byteUnStuffTestBadParamEntr(void)
         (void)printf("byteUnStuffTestBadParamEntr 2  -- FAIL \n");
     }
 
-    if( BUNSTF_RES_BADPARAM == BUNSTF_InsStufChunk( &ctx, memArea, 0u, &varTemp32, &a ) )
+    if( BUNSTF_RES_BADPARAM == BUNSTF_InsStufChunk( &ctx, memArea, 0u, &varTemp32 ) )
     {
         (void)printf("byteUnStuffTestBadParamEntr 3  -- OK \n");
     }
@@ -538,7 +526,7 @@ void byteUnStuffTestCorrupterContext(void)
     }
 
     ctx.memAreaSize = 0u;
-    if( BUNSTF_RES_CORRUPTCTX == BUNSTF_InsStufChunk( &ctx, memArea, 9u, &varTemp32, &varTemp32 ) )
+    if( BUNSTF_RES_CORRUPTCTX == BUNSTF_InsStufChunk( &ctx, memArea, 9u, &varTemp32 ) )
     {
         (void)printf("byteUnStuffTestCorrupterContext 20 -- OK \n");
     }
