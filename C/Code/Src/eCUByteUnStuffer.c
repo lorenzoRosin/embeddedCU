@@ -512,4 +512,3 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUNSTF_Ctx* ctx)
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_restore = "CERT-INT30-C_b"
 #endif
-
