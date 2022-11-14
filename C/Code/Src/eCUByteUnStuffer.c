@@ -449,6 +449,10 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
                         {
                            result = BUNSTF_RES_BADFRAME;
                         }
+                        else
+                        {
+                            /* No error but have other data to unstuff */
+                        }
 					}
                 }
             }
