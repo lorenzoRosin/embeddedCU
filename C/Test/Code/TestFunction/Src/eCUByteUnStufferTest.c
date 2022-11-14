@@ -1560,7 +1560,6 @@ void byteUnStuffTestGeneral(void)
     uint8_t  memArea[50u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
-    uint32_t errSofRec;
     uint8_t* dataP;
 
     /* Function  */
@@ -1576,9 +1575,9 @@ void byteUnStuffTestGeneral(void)
     stuffed[0u] = ECU_SOF;
     stuffed[1u] = ECU_EOF;
 
-    if( BUNSTF_RES_OK == BUNSTF_InsStufChunk( &ctx, stuffed, 2u, &varTemp32, &errSofRec ) )
+    if( BUNSTF_RES_BADFRAME == BUNSTF_InsStufChunk( &ctx, stuffed, 2u, &varTemp32 ) )
     {
-        if( 1u != errSofRec  )
+        if( 2u != varTemp32  )
         {
             (void)printf("byteUnStuffTestGeneral 2  -- FAIL \n");
         }
@@ -1592,14 +1591,30 @@ void byteUnStuffTestGeneral(void)
         (void)printf("byteUnStuffTestGeneral 2  -- FAIL \n");
     }
 
-    /* Function  */
-    if( BUNSTF_RES_OK == BUNSTF_StartNewFrame(&ctx) )
+    if( BUNSTF_RES_BADFRAME == BUNSTF_InsStufChunk( &ctx, stuffed, 1u, &varTemp32 ) )
     {
-        (void)printf("byteUnStuffTestGeneral 3  -- OK \n");
+        if( 0u != varTemp32  )
+        {
+            (void)printf("byteUnStuffTestGeneral 3  -- FAIL \n");
+        }
+        else
+        {
+            (void)printf("byteUnStuffTestGeneral 3  -- OK \n");
+        }
     }
     else
     {
         (void)printf("byteUnStuffTestGeneral 3  -- FAIL \n");
+    }
+
+    /* Function  */
+    if( BUNSTF_RES_OK == BUNSTF_StartNewFrame(&ctx) )
+    {
+        (void)printf("byteUnStuffTestGeneral 4  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
     }
 
     stuffed[0u] = ECU_SOF;
@@ -1608,79 +1623,11 @@ void byteUnStuffTestGeneral(void)
     stuffed[3u] = (uint8_t)(~ECU_SOF);
     stuffed[4u] = ECU_EOF;
 
-    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
+    if( BUNSTF_RES_FRAMERESTART == BUNSTF_InsStufChunk( &ctx, stuffed, 5u, &varTemp32 ) )
     {
-        if( 1u !=  errSofRec )
+        if( 2u !=  varTemp32 )
         {
-            (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
-        }
-        else
-        {
-            if( ( (ECU_SOF == memArea[0u]) ) && ( 5u == varTemp32 ) )
-            {
-                if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctx, &varTemp32) )
-                {
-                    if( 1u == varTemp32 )
-                    {
-                        if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
-                        {
-                            if( ( 1u == varTemp32 ) && ( memArea == dataP) )
-                            {
-                                (void)printf("byteUnStuffTestGeneral 4  -- OK \n");
-                            }
-                            else
-                            {
-                                (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
-                            }
-                        }
-                        else
-                        {
-                            (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
-                        }
-                    }
-                    else
-                    {
-                        (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
-                    }
-                }
-                else
-                {
-                    (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
-                }
-            }
-            else
-            {
-                (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
-            }
-        }
-    }
-    else
-    {
-        (void)printf("byteUnStuffTestGeneral 4  -- FAIL \n");
-    }
-
-
-    /* Function  */
-    if( BUNSTF_RES_OK == BUNSTF_StartNewFrame(&ctx) )
-    {
-        (void)printf("byteUnStuffTestGeneral 5  -- OK \n");
-    }
-    else
-    {
-        (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
-    }
-
-    stuffed[0u] = ECU_SOF;
-    stuffed[1u] = ECU_ESC;
-    stuffed[2u] = 0x02u;
-    stuffed[3u] = 0x02u;
-    stuffed[4u] = ECU_EOF;
-
-    if( BUNSTF_RES_OK == BUNSTF_InsStufChunk( &ctx, stuffed, 5u, &varTemp32, &errSofRec ) )
-    {
-        if( 3u != errSofRec )
-        {
-            (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
+            (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
         }
         else
         {
@@ -1692,7 +1639,58 @@ void byteUnStuffTestGeneral(void)
                     {
                         if( ( 0u == varTemp32 ) && ( memArea == dataP) )
                         {
-                            (void)printf("byteUnStuffTestGeneral 6  -- OK \n");
+                            (void)printf("byteUnStuffTestGeneral 5  -- OK \n");
+                        }
+                        else
+                        {
+                            (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
+                        }
+                    }
+                    else
+                    {
+                        (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
+                    }
+                }
+                else
+                {
+                    (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
+            }
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
+    }
+
+    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, &stuffed[2u], 3u, &varTemp32 ) )
+    {
+        if( 3u !=  varTemp32 )
+        {
+            (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
+        }
+        else
+        {
+            if( ECU_SOF == memArea[0u] )
+            {
+                if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctx, &varTemp32) )
+                {
+                    if( 1u == varTemp32 )
+                    {
+                        if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
+                        {
+                            if( ( 1u == varTemp32 ) && ( memArea == dataP) )
+                            {
+                                (void)printf("byteUnStuffTestGeneral 6  -- OK \n");
+                            }
+                            else
+                            {
+                                (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
+                            }
                         }
                         else
                         {
@@ -1713,7 +1711,6 @@ void byteUnStuffTestGeneral(void)
             {
                 (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
             }
-
         }
     }
     else
@@ -1721,16 +1718,216 @@ void byteUnStuffTestGeneral(void)
         (void)printf("byteUnStuffTestGeneral 6  -- FAIL \n");
     }
 
-
-    if( BUNSTF_RES_OK == BUNSTF_StartNewFrame( &ctx ) )
+    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, 3u, &varTemp32 ) )
     {
-        (void)printf("byteUnStuffTestGeneral 7  -- OK \n");
+        if( 0u !=  varTemp32 )
+        {
+            (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
+        }
+        else
+        {
+            if( ECU_SOF == memArea[0u] )
+            {
+                if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctx, &varTemp32) )
+                {
+                    if( 1u == varTemp32 )
+                    {
+                        if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
+                        {
+                            if( ( 1u == varTemp32 ) && ( memArea == dataP) )
+                            {
+                                (void)printf("byteUnStuffTestGeneral 7  -- OK \n");
+                            }
+                            else
+                            {
+                                (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
+                            }
+                        }
+                        else
+                        {
+                            (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
+                        }
+                    }
+                    else
+                    {
+                        (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
+                    }
+                }
+                else
+                {
+                    (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
+            }
+        }
     }
     else
     {
         (void)printf("byteUnStuffTestGeneral 7  -- FAIL \n");
     }
 
+    /* Function  */
+    if( BUNSTF_RES_OK == BUNSTF_StartNewFrame(&ctx) )
+    {
+        (void)printf("byteUnStuffTestGeneral 8  -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 8  -- FAIL \n");
+    }
+
+    stuffed[0u] = ECU_SOF;
+    stuffed[1u] = ECU_ESC;
+    stuffed[2u] = 0x02u;
+    stuffed[3u] = 0x02u;
+    stuffed[4u] = ECU_EOF;
+
+    if( BUNSTF_RES_BADFRAME == BUNSTF_InsStufChunk( &ctx, stuffed, 5u, &varTemp32 ) )
+    {
+        if( 3u != varTemp32 )
+        {
+            (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
+        }
+        else
+        {
+            if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctx, &varTemp32) )
+            {
+                if( 0u == varTemp32 )
+                {
+                    if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
+                    {
+                        if( ( 0u == varTemp32 ) && ( memArea == dataP) )
+                        {
+                            (void)printf("byteUnStuffTestGeneral 9  -- OK \n");
+                        }
+                        else
+                        {
+                            (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
+                        }
+                    }
+                    else
+                    {
+                        (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
+                    }
+                }
+                else
+                {
+                    (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
+            }
+
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
+    }
+
+    if( BUNSTF_RES_BADFRAME == BUNSTF_InsStufChunk( &ctx, &stuffed[3u], 2u, &varTemp32 ) )
+    {
+        if( 1u != varTemp32 )
+        {
+            (void)printf("byteUnStuffTestGeneral 10 -- FAIL \n");
+        }
+        else
+        {
+            if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctx, &varTemp32) )
+            {
+                if( 0u == varTemp32 )
+                {
+                    if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
+                    {
+                        if( ( 0u == varTemp32 ) && ( memArea == dataP) )
+                        {
+                            (void)printf("byteUnStuffTestGeneral 10 -- OK \n");
+                        }
+                        else
+                        {
+                            (void)printf("byteUnStuffTestGeneral 10 -- FAIL \n");
+                        }
+                    }
+                    else
+                    {
+                        (void)printf("byteUnStuffTestGeneral 10 -- FAIL \n");
+                    }
+                }
+                else
+                {
+                    (void)printf("byteUnStuffTestGeneral 10 -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestGeneral 10 -- FAIL \n");
+            }
+
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 10 -- FAIL \n");
+    }
+
+    if( BUNSTF_RES_BADFRAME == BUNSTF_InsStufChunk( &ctx, &stuffed[4u], 1u, &varTemp32 ) )
+    {
+        if( 1u != varTemp32 )
+        {
+            (void)printf("byteUnStuffTestGeneral 11 -- FAIL \n");
+        }
+        else
+        {
+            if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctx, &varTemp32) )
+            {
+                if( 0u == varTemp32 )
+                {
+                    if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
+                    {
+                        if( ( 0u == varTemp32 ) && ( memArea == dataP) )
+                        {
+                            (void)printf("byteUnStuffTestGeneral 11 -- OK \n");
+                        }
+                        else
+                        {
+                            (void)printf("byteUnStuffTestGeneral 11 -- FAIL \n");
+                        }
+                    }
+                    else
+                    {
+                        (void)printf("byteUnStuffTestGeneral 11 -- FAIL \n");
+                    }
+                }
+                else
+                {
+                    (void)printf("byteUnStuffTestGeneral 11 -- FAIL \n");
+                }
+            }
+            else
+            {
+                (void)printf("byteUnStuffTestGeneral 11 -- FAIL \n");
+            }
+
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 11 -- FAIL \n");
+    }
+
+    if( BUNSTF_RES_OK == BUNSTF_StartNewFrame( &ctx ) )
+    {
+        (void)printf("byteUnStuffTestGeneral 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestGeneral 12 -- FAIL \n");
+    }
 
 }
 
