@@ -1,5 +1,9 @@
 
 
+ << Logging of terminal I/O resumes >> 
+
+
+
 CRC TEST START 
 
 crc32TestBadPointer 1  -- OK 
@@ -722,7 +726,6 @@ byteUnStuffTestBadPointer 12 -- OK
 byteUnStuffTestBadPointer 13 -- OK 
 byteUnStuffTestBadPointer 14 -- OK 
 byteUnStuffTestBadPointer 15 -- OK 
-byteUnStuffTestBadPointer 16 -- OK 
 byteUnStuffTestBadInit 1  -- OK 
 byteUnStuffTestBadInit 2  -- OK 
 byteUnStuffTestBadInit 3  -- OK 
@@ -782,6 +785,13 @@ byteUnStuffTestGeneral 4  -- OK
 byteUnStuffTestGeneral 5  -- OK 
 byteUnStuffTestGeneral 6  -- OK 
 byteUnStuffTestGeneral 7  -- OK 
+byteUnStuffTestGeneral 8  -- OK 
+byteUnStuffTestGeneral 9  -- OK 
+byteUnStuffTestGeneral 10 -- OK 
+byteUnStuffTestGeneral 11 -- OK 
+byteUnStuffTestGeneral 12 -- OK 
+byteUnStuffTestGeneral 13 -- OK 
+byteUnStuffTestGeneral 14 -- OK 
 byteUnStuffTestCornerCase 1  -- OK 
 byteUnStuffTestCornerCase 2  -- OK 
 byteUnStuffTestCornerCase 3  -- OK 
@@ -794,8 +804,22 @@ byteUnStuffTestCornerCase 9  -- OK
 byteUnStuffTestCornerCase 10 -- OK 
 byteUnStuffTestCornerCase 11 -- OK 
 byteUnStuffTestCornerCase 12 -- OK 
+byteUnStuffTestCornerCase 13 -- OK 
+byteUnStuffTestCornerCase 14 -- OK 
+byteUnStuffTestCornerCase 15 -- OK 
+byteUnStuffTestCornerCase 16 -- OK 
+byteUnStuffTestCornerCase 17 -- OK 
+byteUnStuffTestCornerCase 18 -- OK 
+byteUnStuffTestCornerCase 19 -- OK 
+byteUnStuffTestCornerCase 20 -- OK 
+byteUnStuffTestCornerCase 21 -- OK 
+byteUnStuffTestCornerCase 22 -- OK 
+byteUnStuffTestCornerCase 23 -- OK 
+byteUnStuffTestCornerCase 24 -- OK 
+byteUnStuffTestCornerCase 25 -- OK 
 byteUnStuffTestCornerCase2 1  -- OK 
 byteUnStuffTestCornerCase2 2  -- OK 
+byteUnStuffTestCornerCase2 3  -- OK 
 byteUnStuffTestCodeCoverage 1  -- OK 
 byteUnStuffTestCodeCoverage 2  -- OK 
 byteUnStuffTestCodeCoverage 3  -- OK 
