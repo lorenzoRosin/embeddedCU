@@ -70,7 +70,6 @@ void dataStuffUnStuffCommon(void)
     static uint8_t  tempPool[300u];
     uint32_t  temp32;
     uint32_t  temp32sec;
-    uint32_t  errSofRec;
     uint32_t index;
     uint8_t* tempP;
     uint32_t tempPSize;
@@ -162,26 +161,15 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* unstuff */
-        if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec, &errSofRec ) )
+        if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec ) )
         {
-            if( 0u != errSofRec )
+            if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctxUnStuff, &temp32sec) )
             {
-                (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
-            }
-            else
-            {
-                if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctxUnStuff, &temp32sec) )
+                if( testMatrix[index].dataTestSize == temp32sec )
                 {
-                    if( testMatrix[index].dataTestSize == temp32sec )
+                    if( 0 == memcmp(dataUnStuffPool, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
                     {
-                        if( 0 == memcmp(dataUnStuffPool, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
-                        {
-                            (void)printf("dataStuffUnStuffCommon 7[%u]  -- OK \n", index);
-                        }
-                        else
-                        {
-                            (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
-                        }
+                        (void)printf("dataStuffUnStuffCommon 7[%u]  -- OK \n", index);
                     }
                     else
                     {
@@ -192,6 +180,10 @@ void dataStuffUnStuffCommon(void)
                 {
                     (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
                 }
+            }
+            else
+            {
+                (void)printf("dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
             }
         }
         else

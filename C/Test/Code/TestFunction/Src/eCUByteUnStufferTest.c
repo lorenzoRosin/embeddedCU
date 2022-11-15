@@ -2868,7 +2868,6 @@ void byteUnStuffTestCodeCoverage(void)
     uint8_t  memArea[50u];
     uint8_t  stuffed[10u];
     uint32_t varTemp32;
-    uint32_t errSofRec;
 
     /* Function  */
     if( BUNSTF_RES_OK == BUNSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
@@ -2895,22 +2894,15 @@ void byteUnStuffTestCodeCoverage(void)
     stuffed[2u] = (uint8_t)(~ECU_SOF);
     stuffed[3u] = ECU_EOF;
 
-    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, sizeof(stuffed), &varTemp32, &errSofRec ) )
+    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, sizeof(stuffed), &varTemp32 ) )
     {
-        if( 0u !=  errSofRec )
+        if( ( (ECU_SOF == memArea[0u]) ) && ( 4u == varTemp32 ) )
         {
-            (void)printf("byteUnStuffTestCodeCoverage 3  -- FAIL \n");
+            (void)printf("byteUnStuffTestCodeCoverage 3  -- OK \n");
         }
         else
         {
-            if( ( (ECU_SOF == memArea[0u]) ) && ( 4u == varTemp32 ) )
-            {
-                (void)printf("byteUnStuffTestCodeCoverage 3  -- OK \n");
-            }
-            else
-            {
-                (void)printf("byteUnStuffTestCodeCoverage 3  -- FAIL \n");
-            }
+            (void)printf("byteUnStuffTestCodeCoverage 3  -- FAIL \n");
         }
     }
     else
@@ -2933,22 +2925,15 @@ void byteUnStuffTestCodeCoverage(void)
     stuffed[2u] = (uint8_t)(~ECU_ESC);
     stuffed[3u] = ECU_EOF;
 
-    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, sizeof(stuffed), &varTemp32, &errSofRec ) )
+    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, sizeof(stuffed), &varTemp32 ) )
     {
-        if( 0u !=  errSofRec )
+        if( ( (ECU_ESC == memArea[0u]) ) && ( 4u == varTemp32 ) )
         {
-            (void)printf("byteUnStuffTestCodeCoverage 5  -- FAIL \n");
+            (void)printf("byteUnStuffTestCodeCoverage 5  -- OK \n");
         }
         else
         {
-            if( ( (ECU_ESC == memArea[0u]) ) && ( 4u == varTemp32 ) )
-            {
-                (void)printf("byteUnStuffTestCodeCoverage 5  -- OK \n");
-            }
-            else
-            {
-                (void)printf("byteUnStuffTestCodeCoverage 5  -- FAIL \n");
-            }
+            (void)printf("byteUnStuffTestCodeCoverage 5  -- FAIL \n");
         }
     }
     else
@@ -2971,22 +2956,15 @@ void byteUnStuffTestCodeCoverage(void)
     stuffed[2u] = (uint8_t)(~ECU_EOF);
     stuffed[3u] = ECU_EOF;
 
-    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, sizeof(stuffed), &varTemp32, &errSofRec ) )
+    if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctx, stuffed, sizeof(stuffed), &varTemp32 ) )
     {
-        if( 0u !=  errSofRec )
+        if( ( (ECU_EOF == memArea[0u]) ) && ( 4u == varTemp32 ) )
         {
-            (void)printf("byteUnStuffTestCodeCoverage 7  -- FAIL \n");
+            (void)printf("byteUnStuffTestCodeCoverage 7  -- OK \n");
         }
         else
         {
-            if( ( (ECU_EOF == memArea[0u]) ) && ( 4u == varTemp32 ) )
-            {
-                (void)printf("byteUnStuffTestCodeCoverage 7  -- OK \n");
-            }
-            else
-            {
-                (void)printf("byteUnStuffTestCodeCoverage 7  -- FAIL \n");
-            }
+            (void)printf("byteUnStuffTestCodeCoverage 7  -- FAIL \n");
         }
     }
     else
