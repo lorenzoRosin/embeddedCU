@@ -726,12 +726,15 @@ byteUnStuffTestBadPointer 12 -- OK
 byteUnStuffTestBadPointer 13 -- OK 
 byteUnStuffTestBadPointer 14 -- OK 
 byteUnStuffTestBadPointer 15 -- OK 
+byteUnStuffTestBadPointer 16 -- OK 
+byteUnStuffTestBadPointer 17 -- OK 
 byteUnStuffTestBadInit 1  -- OK 
 byteUnStuffTestBadInit 2  -- OK 
 byteUnStuffTestBadInit 3  -- OK 
 byteUnStuffTestBadInit 4  -- OK 
 byteUnStuffTestBadInit 5  -- OK 
 byteUnStuffTestBadInit 6  -- OK 
+byteUnStuffTestBadInit 7  -- OK 
 byteUnStuffTestBadParamEntr 1  -- OK 
 byteUnStuffTestBadParamEntr 2  -- OK 
 byteUnStuffTestBadParamEntr 3  -- OK 
@@ -755,6 +758,8 @@ byteUnStuffTestCorrupterContext 17 -- OK
 byteUnStuffTestCorrupterContext 18 -- OK 
 byteUnStuffTestCorrupterContext 19 -- OK 
 byteUnStuffTestCorrupterContext 20 -- OK 
+byteUnStuffTestCorrupterContext 21 -- OK 
+byteUnStuffTestCorrupterContext 22 -- OK 
 byteUnStuffTestOutOfMem 1  -- OK 
 byteUnStuffTestOutOfMem 2  -- OK 
 byteUnStuffTestOutOfMem 3  -- OK 
@@ -768,6 +773,7 @@ byteUnStuffTestOutOfMem 10 -- OK
 byteUnStuffTestOutOfMem 11 -- OK 
 byteUnStuffTestOutOfMem 12 -- OK 
 byteUnStuffTestOutOfMem 13 -- OK 
+byteUnStuffTestOutOfMem 14 -- OK 
 byteUnStuffTestFrameEnd 1  -- OK 
 byteUnStuffTestFrameEnd 2  -- OK 
 byteUnStuffTestFrameEnd 3  -- OK 
@@ -791,6 +797,7 @@ byteUnStuffTestGeneral 10 -- OK
 byteUnStuffTestGeneral 11 -- OK 
 byteUnStuffTestGeneral 12 -- OK 
 byteUnStuffTestGeneral 13 -- OK 
+byteUnStuffTestGeneral 14 -- OK 
 byteUnStuffTestGeneral 14 -- OK 
 byteUnStuffTestCornerCase 1  -- OK 
 byteUnStuffTestCornerCase 2  -- OK 
