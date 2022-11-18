@@ -249,6 +249,48 @@ s_eCU_BUNSTF_Res BUNSTF_IsAFullFrameUnstuff(const s_eCU_BUNSTF_Ctx* ctx, bool_t*
 	return result;
 }
 
+s_eCU_BUNSTF_Res BUNSTF_IsCurrentFrameBad(const s_eCU_BUNSTF_Ctx* ctx, bool_t* const isFrameBad)
+{
+	/* Local variable */
+	s_eCU_BUNSTF_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isFrameBad ) )
+	{
+		result = BUNSTF_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == ctx->isInit )
+		{
+			result = BUNSTF_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == isBUSStatusStillCoherent(ctx) )
+            {
+                result = BUNSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                if( BUNSTF_SM_PRV_UNSTUFFFAIL == ctx->unStuffState )
+                {
+                    *isFrameBad = true;
+                }
+                else
+                {
+                    *isFrameBad = false;
+                }
+                result = BUNSTF_RES_OK;
+            }
+		}
+	}
+
+	return result;
+}
+
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_disable = "CERT-INT30-C_b"
     /* Suppressed for code clarity */

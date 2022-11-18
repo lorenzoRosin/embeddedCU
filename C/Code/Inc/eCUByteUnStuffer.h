@@ -125,7 +125,8 @@ s_eCU_BUNSTF_Res BUNSTF_GetUnstufLen(s_eCU_BUNSTF_Ctx* const ctx, uint32_t* cons
 s_eCU_BUNSTF_Res BUNSTF_IsWaitingSof(const s_eCU_BUNSTF_Ctx* ctx, bool_t* const isWaitingSof);
 
 /**
- * @brief       Check if the current frame is finished or if we need to unstuff some more data to have the full frame
+ * @brief       Check if the current frame is finished or if we need to unstuff some more data to have the full frame.
+ *              If a frame is received with a bad format this function return that the frame is not fully unstuffed.
  *
  * @param[in]   ctx            - Byte unStuffer context
  * @param[out]  isFrameUnstuff - Pointer to a bool_t variable where we will store if the frame parsing is ongoing
@@ -136,6 +137,20 @@ s_eCU_BUNSTF_Res BUNSTF_IsWaitingSof(const s_eCU_BUNSTF_Ctx* ctx, bool_t* const 
  *              BUNSTF_RES_OK           - Operation ended correctly
  */
 s_eCU_BUNSTF_Res BUNSTF_IsAFullFrameUnstuff(const s_eCU_BUNSTF_Ctx* ctx, bool_t* const isFrameUnstuff);
+
+/**
+ * @brief       Check if the current received data compose a bad frame. If a bad frame is detected we can only
+ *              call BUNSTF_StartNewFrame before parsing new data.
+ *
+ * @param[in]   ctx            - Byte unStuffer context
+ * @param[out]  isFrameBad     - Pointer to a bool_t variable where we will store if the frame is bad formed
+ *
+ * @return      BUNSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
+ *		        BUNSTF_RES_NOINITLIB    - Need to init context before taking some action
+ *		        BUNSTF_RES_CORRUPTCTX   - In case of an corrupted context
+ *              BUNSTF_RES_OK           - Operation ended correctly
+ */
+s_eCU_BUNSTF_Res BUNSTF_IsCurrentFrameBad(const s_eCU_BUNSTF_Ctx* ctx, bool_t* const isFrameBad);
 
 /**
  * @brief       Insert the stuffed data chunk that the alg will unstuff byte per byte
