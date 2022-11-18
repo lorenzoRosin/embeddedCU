@@ -798,7 +798,7 @@ byteUnStuffTestGeneral 11 -- OK
 byteUnStuffTestGeneral 12 -- OK 
 byteUnStuffTestGeneral 13 -- OK 
 byteUnStuffTestGeneral 14 -- OK 
-byteUnStuffTestGeneral 14 -- OK 
+byteUnStuffTestGeneral 15 -- OK 
 byteUnStuffTestCornerCase 1  -- OK 
 byteUnStuffTestCornerCase 2  -- OK 
 byteUnStuffTestCornerCase 3  -- OK 
