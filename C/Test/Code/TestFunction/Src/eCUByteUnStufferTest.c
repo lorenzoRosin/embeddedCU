@@ -1751,16 +1751,16 @@ void byteUnStuffTestGeneral(void)
                             {
                                 if( false == isBad)
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 5  -- OK \n");
+                                    (void)printf("byteUnStuffTestGeneral 5  -- OK \n");
                                 }
                                 else
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 5  -- FAIL \n");
+                                    (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
                                 }
                             }
                             else
                             {
-                                (void)printf("byteUnStuffTestFrameEnd 5  -- FAIL \n");
+                                (void)printf("byteUnStuffTestGeneral 5  -- FAIL \n");
                             }
                         }
                         else
@@ -1927,16 +1927,16 @@ void byteUnStuffTestGeneral(void)
                             {
                                 if( true == isBad)
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 9  -- OK \n");
+                                    (void)printf("byteUnStuffTestGeneral 9  -- OK \n");
                                 }
                                 else
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 9  -- FAIL \n");
+                                    (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
                                 }
                             }
                             else
                             {
-                                (void)printf("byteUnStuffTestFrameEnd 9  -- FAIL \n");
+                                (void)printf("byteUnStuffTestGeneral 9  -- FAIL \n");
                             }
                         }
                         else
@@ -2033,16 +2033,16 @@ void byteUnStuffTestGeneral(void)
     {
         if( false == isBad)
         {
-            (void)printf("byteUnStuffTestFrameEnd 13 -- OK \n");
+            (void)printf("byteUnStuffTestGeneral 13 -- OK \n");
         }
         else
         {
-            (void)printf("byteUnStuffTestFrameEnd 13 -- FAIL \n");
+            (void)printf("byteUnStuffTestGeneral 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteUnStuffTestFrameEnd 13 -- FAIL \n");
+        (void)printf("byteUnStuffTestGeneral 13 -- FAIL \n");
     }
 
     if( BUNSTF_RES_BADFRAME == BUNSTF_InsStufChunk( &ctx, &stuffed[4u], 1u, &varTemp32 ) )
@@ -2065,16 +2065,16 @@ void byteUnStuffTestGeneral(void)
                             {
                                 if( true == isBad)
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 14 -- OK \n");
+                                    (void)printf("byteUnStuffTestGeneral 14 -- OK \n");
                                 }
                                 else
                                 {
-                                    (void)printf("byteUnStuffTestFrameEnd 14 -- FAIL \n");
+                                    (void)printf("byteUnStuffTestGeneral 14 -- FAIL \n");
                                 }
                             }
                             else
                             {
-                                (void)printf("byteUnStuffTestFrameEnd 14 -- FAIL \n");
+                                (void)printf("byteUnStuffTestGeneral 14 -- FAIL \n");
                             }
                         }
                         else
