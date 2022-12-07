@@ -2511,7 +2511,7 @@ void byteUnStuffTestCornerCase(void)
         {
             if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctx, &varTemp32) )
             {
-                if( 0u == varTemp32 )
+                if( 1u == varTemp32 )
                 {
                     if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
                     {
