@@ -75,6 +75,17 @@ typedef struct
 e_eCU_CRCD_Res CRCD_InitCtx(s_eCU_CRCD_Ctx* const ctx, cb_crc32_seed cbCrcP, void* const clbCtx);
 
 /**
+ * @brief       Check if the lib is initialized
+ *
+ * @param[in]   ctx         - Crc digester context
+ * @param[out]  isInit      - Pointer to a bool_t variable that will be filled with true if the lib is initialized
+ *
+ * @return      CRCD_RES_BADPOINTER    - In case of bad pointer passed to the function
+ *              CRCD_RES_OK            - Operation ended correctly
+ */
+e_eCU_CRCD_Res CRCD_IsInit(s_eCU_CRCD_Ctx* const ctx, bool_t* isInit);
+
+/**
  * @brief       Initialize the CRC32 digester context using a selected seed
  *
  * @param[in]   ctx         - Crc digester context

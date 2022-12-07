@@ -69,6 +69,17 @@ typedef struct
 e_eCU_BSTF_Res BSTF_InitCtx(s_eCU_BSTF_Ctx* const ctx, uint8_t memArea[], const uint32_t memAreaSize);
 
 /**
+ * @brief       Check if the lib is initialized
+ *
+ * @param[in]   ctx         - Byte stuffer context
+ * @param[out]  isInit      - Pointer to a bool_t variable that will be filled with true if the lib is initialized
+ *
+ * @return      BSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
+ *              BSTF_RES_OK            - Operation ended correctly
+ */
+e_eCU_BSTF_Res BSTF_IsInit(s_eCU_BSTF_Ctx* const ctx, bool_t* isInit);
+
+/**
  * @brief       Start to stuff a new frame given the dimension of raw payload it self. This function suppouse that
  *              data payload that need to be stuffed were already copied in memory.( see BSTF_GetUnStufDataLocation
  *              in order to know how get the data pointer )

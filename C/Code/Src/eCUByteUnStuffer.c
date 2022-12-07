@@ -56,6 +56,25 @@ s_eCU_BUNSTF_Res BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const ctx, uint8_t memArea[], 
 	return result;
 }
 
+s_eCU_BUNSTF_Res BUNSTF_IsInit(s_eCU_BUNSTF_Ctx* const ctx, bool_t* isInit)
+{
+	/* Local variable */
+	s_eCU_BUNSTF_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	{
+		result = BUNSTF_RES_BADPOINTER;
+	}
+	else
+	{
+        *isInit = ctx->isInit;
+        result = BUNSTF_RES_OK;
+	}
+
+	return result;
+}
+
 s_eCU_BUNSTF_Res BUNSTF_StartNewFrame(s_eCU_BUNSTF_Ctx* const ctx)
 {
 	/* Local variable */

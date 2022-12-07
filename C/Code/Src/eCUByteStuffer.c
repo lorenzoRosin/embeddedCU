@@ -58,6 +58,25 @@ e_eCU_BSTF_Res BSTF_InitCtx(s_eCU_BSTF_Ctx* const ctx, uint8_t memArea[], const 
 	return result;
 }
 
+e_eCU_BSTF_Res BSTF_IsInit(s_eCU_BSTF_Ctx* const ctx, bool_t* isInit)
+{
+	/* Local variable */
+	e_eCU_BSTF_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	{
+		result = BSTF_RES_BADPOINTER;
+	}
+	else
+	{
+        *isInit = ctx->isInit;
+        result = BSTF_RES_OK;
+	}
+
+	return result;
+}
+
 e_eCU_BSTF_Res BSTF_StartNewFrame(s_eCU_BSTF_Ctx* const ctx, const uint32_t frameLen)
 {
 	/* Local variable */

@@ -50,6 +50,25 @@ e_eCU_CRCD_Res CRCD_InitCtx(s_eCU_CRCD_Ctx* const ctx, cb_crc32_seed cbCrcP, voi
 	return result;
 }
 
+e_eCU_CRCD_Res CRCD_IsInit(s_eCU_CRCD_Ctx* const ctx, bool_t* isInit)
+{
+	/* Local variable */
+	e_eCU_CRCD_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	{
+		result = CRCD_RES_BADPOINTER;
+	}
+	else
+	{
+        *isInit = ctx->isInit;
+        result = CRCD_RES_OK;
+	}
+
+	return result;
+}
+
 e_eCU_CRCD_Res CRCD_SeedInitCtx(s_eCU_CRCD_Ctx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
                                     void* const clbCtx)
 {

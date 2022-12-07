@@ -67,6 +67,17 @@ typedef struct
 e_eCU_CIRQ_Res CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const ctx, uint8_t memP[], const uint32_t memPSize);
 
 /**
+ * @brief       Check if the lib is initialized
+ *
+ * @param[in]   ctx         - Circular queue context
+ * @param[out]  isInit      - Pointer to a bool_t variable that will be filled with true if the lib is initialized
+ *
+ * @return      CIRQ_RES_BADPOINTER    - In case of bad pointer passed to the function
+ *              CIRQ_RES_OK            - Operation ended correctly
+ */
+e_eCU_CIRQ_Res CIRQ_IsInit(s_eCU_CIRQ_Ctx* const ctx, bool_t* isInit);
+
+/**
  * @brief       Reset the state of the circular queue and discharge all saved data
  *
  * @param[in]   ctx         - Circular queue context

@@ -70,6 +70,17 @@ typedef struct
 s_eCU_BUNSTF_Res BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const ctx, uint8_t memArea[], const uint32_t memAreaSize);
 
 /**
+ * @brief       Check if the lib is initialized
+ *
+ * @param[in]   ctx         - Byte unStuffer context
+ * @param[out]  isInit      - Pointer to a bool_t variable that will be filled with true if the lib is initialized
+ *
+ * @return      BUNSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
+ *              BUNSTF_RES_OK            - Operation ended correctly
+ */
+s_eCU_BUNSTF_Res BUNSTF_IsInit(s_eCU_BUNSTF_Ctx* const ctx, bool_t* isInit);
+
+/**
  * @brief       Start receiving a new frame, loosing the previous stored unstuffed frame
  *
  * @param[in]   ctx         - Byte unStuffer context

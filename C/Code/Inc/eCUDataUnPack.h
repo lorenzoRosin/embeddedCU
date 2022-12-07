@@ -70,6 +70,17 @@ e_eCU_DUNPK_Res DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const ctx, uint8_t memUPKA[], con
                               const bool_t isLEnd);
 
 /**
+ * @brief       Check if the lib is initialized
+ *
+ * @param[in]   ctx         - Data Unpacker context
+ * @param[out]  isInit      - Pointer to a bool_t variable that will be filled with true if the lib is initialized
+ *
+ * @return      DUNPK_RES_BADPOINTER    - In case of bad pointer passed to the function
+ *              DUNPK_RES_OK            - Operation ended correctly
+ */
+e_eCU_DUNPK_Res DUNPK_IsInit(s_eCU_DUNPK_Ctx* const ctx, bool_t* isInit);
+
+/**
  * @brief       Start to unpack a new frame given the dimension of raw payload it self. This function suppouse that
  *              data payload that need to be unpocked were already copied in memory.( see DUNPK_GetUPkDataLocat
  *              in order to know how get the data pointer )

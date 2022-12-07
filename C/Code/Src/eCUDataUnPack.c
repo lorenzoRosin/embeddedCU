@@ -58,6 +58,25 @@ e_eCU_DUNPK_Res DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const ctx, uint8_t memUPKA[], con
 	return result;
 }
 
+e_eCU_DUNPK_Res DUNPK_IsInit(s_eCU_DUNPK_Ctx* const ctx, bool_t* isInit)
+{
+	/* Local variable */
+	e_eCU_DUNPK_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	{
+		result = DUNPK_RES_BADPOINTER;
+	}
+	else
+	{
+        *isInit = ctx->isInit;
+        result = DUNPK_RES_OK;
+	}
+
+	return result;
+}
+
 e_eCU_DUNPK_Res DUNPK_StartNewFrame(s_eCU_DUNPK_Ctx* const ctx, const uint32_t frameLen)
 {
 	/* Local variable */

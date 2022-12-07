@@ -58,6 +58,25 @@ e_eCU_CIRQ_Res CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const ctx, uint8_t memP[], const uin
 	return result;
 }
 
+e_eCU_CIRQ_Res CIRQ_IsInit(s_eCU_CIRQ_Ctx* const ctx, bool_t* isInit)
+{
+	/* Local variable */
+	e_eCU_CIRQ_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	{
+		result = CIRQ_RES_BADPOINTER;
+	}
+	else
+	{
+        *isInit = ctx->isInit;
+        result = CIRQ_RES_OK;
+	}
+
+	return result;
+}
+
 e_eCU_CIRQ_Res CIRQ_Reset(s_eCU_CIRQ_Ctx* const ctx)
 {
 	/* Local variable */

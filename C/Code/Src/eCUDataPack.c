@@ -56,6 +56,25 @@ e_eCU_DPK_Res DPK_InitCtx(s_eCU_DPK_Ctx* const ctx, uint8_t memPKA[], const uint
 	return result;
 }
 
+e_eCU_DPK_Res DPK_IsInit(s_eCU_DPK_Ctx* const ctx, bool_t* isInit)
+{
+	/* Local variable */
+	e_eCU_DPK_Res result;
+
+	/* Check pointer validity */
+	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	{
+		result = DPK_RES_BADPOINTER;
+	}
+	else
+	{
+        *isInit = ctx->isInit;
+        result = DPK_RES_OK;
+	}
+
+	return result;
+}
+
 e_eCU_DPK_Res DPK_StartNewPack(s_eCU_DPK_Ctx* const ctx)
 {
 	/* Local variable */

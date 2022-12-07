@@ -67,6 +67,17 @@ typedef struct
 e_eCU_DPK_Res DPK_InitCtx(s_eCU_DPK_Ctx* const ctx, uint8_t memPKA[], const uint32_t memPKASize, const bool_t isLEnd);
 
 /**
+ * @brief       Check if the lib is initialized
+ *
+ * @param[in]   ctx         - Data packer context
+ * @param[out]  isInit      - Pointer to a bool_t variable that will be filled with true if the lib is initialized
+ *
+ * @return      DPK_RES_BADPOINTER    - In case of bad pointer passed to the function
+ *              DPK_RES_OK            - Operation ended correctly
+ */
+e_eCU_DPK_Res DPK_IsInit(s_eCU_DPK_Ctx* const ctx, bool_t* isInit);
+
+/**
  * @brief       Reset data packer and restart packing data from start, discharging old data present, if any
  *
  * @param[in]   ctx         - Data packer context
