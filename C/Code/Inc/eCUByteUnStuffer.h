@@ -83,8 +83,7 @@ s_eCU_BUNSTF_Res BUNSTF_StartNewFrame(s_eCU_BUNSTF_Ctx* const ctx);
 
 /**
  * @brief       Retrive the pointer to the stored unstuffed data, and the data size of the frame. Keep in mind that
- *              the frame parsing could be ongoing, and if an error in the frame occour the retrivedLen could be
- *              setted to 0 again.
+ *              the frame parsing could be ongoing, and that value could change.
  *
  * @param[in]   ctx         - Byte unStuffer context
  * @param[out]  dataP       - Pointer to a Pointer pointing to the unstuffed data frame
@@ -99,7 +98,7 @@ s_eCU_BUNSTF_Res BUNSTF_GetUnstufData(s_eCU_BUNSTF_Ctx* const ctx, uint8_t** dat
 
 /**
  * @brief       Retrive the current numbers of unstuffed data received. Keep in mind that the frame parsing could be
- *              ongoing, and if an error in the frame occour the retrivedLen could be setted to 0 again.
+ *              ongoing, and that value could change.
  *
  * @param[in]   ctx         - Byte unStuffer context
  * @param[out]  retrivedLen - Pointer to a uint32_t variable where the size of the unstuffed data will be placed

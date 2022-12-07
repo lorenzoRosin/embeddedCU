@@ -382,7 +382,6 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 									if( ctx->memAreaCntr <= 0u )
 									{
 										/* Found end, but no data received..  */
-										ctx->memAreaCntr = 0u;
                                         ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFFAIL;
 									}
 									else
@@ -432,7 +431,6 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 								         ( ECU_ESC == currentByte ) )
 								{
 									/* Found and error, we were expecting raw negated data here.  */
-									ctx->memAreaCntr = 0u;
                                     ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFFAIL;
 									nExamByte++;
 								}
@@ -460,7 +458,6 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 										else
 										{
 											/* Impossible receive a data after esc that is not SOF EOF or ESC neg */
-											ctx->memAreaCntr = 0u;
                                             ctx->unStuffState = BUNSTF_SM_PRV_UNSTUFFFAIL;
 											nExamByte++;
 										}
