@@ -811,7 +811,7 @@ byteUnStuffTestCornerCase 9  -- OK
 byteUnStuffTestCornerCase 10 -- OK 
 byteUnStuffTestCornerCase 11 -- OK 
 byteUnStuffTestCornerCase 12 -- OK 
-byteUnStuffTestCornerCase 13 -- OK 
+byteUnStuffTestCornerCase 13 -- FAIL 
 byteUnStuffTestCornerCase 14 -- OK 
 byteUnStuffTestCornerCase 15 -- OK 
 byteUnStuffTestCornerCase 16 -- OK 

@@ -2515,7 +2515,7 @@ void byteUnStuffTestCornerCase(void)
                 {
                     if( BUNSTF_RES_OK == BUNSTF_GetUnstufData(&ctx, &dataP, &varTemp32) )
                     {
-                        if( ( 0u == varTemp32 ) && ( memArea == dataP) )
+                        if( ( 1u == varTemp32 ) && ( memArea == dataP) )
                         {
                             (void)printf("byteUnStuffTestCornerCase 13 -- OK \n");
                         }
