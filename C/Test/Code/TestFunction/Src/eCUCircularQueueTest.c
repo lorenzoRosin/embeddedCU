@@ -76,6 +76,7 @@ void circularqueueTestBadPointer(void)
     s_eCU_CIRQ_Ctx ctx;
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
+    bool_t isInit;
 
     /* Function */
     if( CIRQ_RES_BADPOINTER == CIRQ_InitCtx(NULL, badPointerMempool, sizeof(badPointerMempool)) )
@@ -193,6 +194,24 @@ void circularqueueTestBadPointer(void)
     else
     {
         (void)printf("circularqueueTestBadPointer 13 -- FAIL \n");
+    }
+
+    if( CIRQ_RES_BADPOINTER == CIRQ_IsInit( NULL, &isInit ) )
+    {
+        (void)printf("circularqueueTestBadPointer 14 -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestBadPointer 14 -- FAIL \n");
+    }
+
+    if( CIRQ_RES_BADPOINTER == CIRQ_IsInit( &ctx, NULL ) )
+    {
+        (void)printf("circularqueueTestBadPointer 15 -- OK \n");
+    }
+    else
+    {
+        (void)printf("circularqueueTestBadPointer 15 -- FAIL \n");
     }
 }
 

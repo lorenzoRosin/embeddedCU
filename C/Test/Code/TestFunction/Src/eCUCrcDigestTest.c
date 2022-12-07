@@ -148,6 +148,7 @@ void cUCrcDigestTestBadPointer(void)
 
     uint8_t  varBuff[5u];
     uint32_t varTemp;
+    bool_t isInit;
 
     /* Function */
     if( CRCD_RES_BADPOINTER == CRCD_InitCtx(NULL, cbCrcPTest, &ctxAdapterCrc) )
@@ -248,6 +249,24 @@ void cUCrcDigestTestBadPointer(void)
     else
     {
         (void)printf("cUCrcDigestTestBadPointer 11 -- FAIL \n");
+    }
+
+    if( CRCD_RES_BADPOINTER == CRCD_IsInit( NULL, &isInit ) )
+    {
+        (void)printf("cUCrcDigestTestBadPointer 12 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadPointer 12 -- FAIL \n");
+    }
+
+    if( CRCD_RES_BADPOINTER == CRCD_IsInit( &ctx, NULL ) )
+    {
+        (void)printf("cUCrcDigestTestBadPointer 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadPointer 13 -- FAIL \n");
     }
 }
 

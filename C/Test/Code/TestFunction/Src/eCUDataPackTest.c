@@ -70,6 +70,7 @@ void dataPackTestBadPointer(void)
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
     uint8_t* dataP;
+    bool_t isInit;
 
     /* Function */
     if( DPK_RES_BADPOINTER == DPK_InitCtx(NULL, badPointerMempool, sizeof(badPointerMempool), true) )
@@ -196,6 +197,24 @@ void dataPackTestBadPointer(void)
     else
     {
         (void)printf("dataPackTestBadPointer 14 -- FAIL \n");
+    }
+
+    if( DPK_RES_BADPOINTER == DPK_IsInit( NULL, &isInit ) )
+    {
+        (void)printf("dataPackTestBadPointer 15 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadPointer 15 -- FAIL \n");
+    }
+
+    if( DPK_RES_BADPOINTER == DPK_IsInit( &ctx, NULL ) )
+    {
+        (void)printf("dataPackTestBadPointer 16 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataPackTestBadPointer 16 -- FAIL \n");
     }
 }
 

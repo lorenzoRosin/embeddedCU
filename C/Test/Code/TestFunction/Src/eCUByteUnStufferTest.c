@@ -80,6 +80,7 @@ void byteUnStuffTestBadPointer(void)
     uint8_t *dataP;
     bool_t frameIsUnstuffed;
     bool_t isWaiting;
+    bool_t isInit;
 
     /* Function */
     if( BUNSTF_RES_BADPOINTER == BUNSTF_InitCtx(NULL, memArea, sizeof(memArea)) )
@@ -233,6 +234,24 @@ void byteUnStuffTestBadPointer(void)
     else
     {
         (void)printf("byteUnStuffTestBadPointer 17 -- FAIL \n");
+    }
+
+    if( BUNSTF_RES_BADPOINTER == BUNSTF_IsInit( NULL, &isInit ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 18 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 18 -- FAIL \n");
+    }
+
+    if( BUNSTF_RES_BADPOINTER == BUNSTF_IsInit( &ctx, NULL ) )
+    {
+        (void)printf("byteUnStuffTestBadPointer 19 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadPointer 19 -- FAIL \n");
     }
 }
 

@@ -76,6 +76,7 @@ void dataUnPackTestBadPointer(void)
     uint32_t varTemp32;
     uint16_t varTemp16;
     uint8_t  varTemp8;
+    bool_t isInit;
 
     /* Function */
     if( DUNPK_RES_BADPOINTER == DUNPK_InitCtx(NULL, badPointerMempool, sizeof(badPointerMempool), true) )
@@ -247,6 +248,24 @@ void dataUnPackTestBadPointer(void)
     else
     {
         (void)printf("dataUnPackTestBadPointer 19 -- FAIL \n");
+    }
+
+    if( DUNPK_RES_BADPOINTER == DUNPK_IsInit( NULL, &isInit ) )
+    {
+        (void)printf("dataUnPackTestBadPointer 20 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadPointer 20 -- FAIL \n");
+    }
+
+    if( DUNPK_RES_BADPOINTER == DUNPK_IsInit( &ctx, NULL ) )
+    {
+        (void)printf("dataUnPackTestBadPointer 21 -- OK \n");
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadPointer 21 -- FAIL \n");
     }
 }
 

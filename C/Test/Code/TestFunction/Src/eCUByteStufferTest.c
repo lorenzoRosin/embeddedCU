@@ -79,6 +79,7 @@ void byteStuffTestBadPointer(void)
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint8_t* pointer;
+    bool_t isInit;
 
 
     /* Function */
@@ -190,6 +191,23 @@ void byteStuffTestBadPointer(void)
         (void)printf("byteStuffTestBadPointer 12 -- FAIL \n");
     }
 
+    if( BSTF_RES_BADPOINTER == BSTF_IsInit( NULL, &isInit ) )
+    {
+        (void)printf("byteStuffTestBadPointer 13 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadPointer 13 -- FAIL \n");
+    }
+
+    if( BSTF_RES_BADPOINTER == BSTF_IsInit( &ctx, NULL ) )
+    {
+        (void)printf("byteStuffTestBadPointer 14 -- OK \n");
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadPointer 14 -- FAIL \n");
+    }
 }
 
 void byteStuffTestBadInit(void)
