@@ -207,17 +207,17 @@ e_eCU_CIRQ_Res CIRQ_InsertData(s_eCU_CIRQ_Ctx* const ctx, const uint8_t data[], 
 		}
 		else
 		{
-			/* Check data validity */
-			if( datalen <= 0u )
-			{
-				result = CIRQ_RES_BADPARAM;
-			}
+            /* Check data coherence */
+            if( false == isQueueStatusStillCoherent(ctx) )
+            {
+                result = CIRQ_RES_CORRUPTCTX;
+            }
 			else
 			{
-                /* Check data coherence */
-                if( false == isQueueStatusStillCoherent(ctx) )
+                /* Check data validity */
+                if( datalen <= 0u )
                 {
-                    result = CIRQ_RES_CORRUPTCTX;
+                    result = CIRQ_RES_BADPARAM;
                 }
                 else
                 {
@@ -290,17 +290,17 @@ e_eCU_CIRQ_Res CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const ctx, uint8_t data[], const
 		}
 		else
 		{
-			/* Check data validity an queue integrity */
-			if( datalen <= 0u )
-			{
-				result = CIRQ_RES_BADPARAM;
-			}
+            /* Check data coherence */
+            if( false == isQueueStatusStillCoherent(ctx) )
+            {
+                result = CIRQ_RES_CORRUPTCTX;
+            }
 			else
 			{
-                /* Check data coherence */
-                if( false == isQueueStatusStillCoherent(ctx) )
+                /* Check data validity an queue integrity */
+                if( datalen <= 0u )
                 {
-                    result = CIRQ_RES_CORRUPTCTX;
+                    result = CIRQ_RES_BADPARAM;
                 }
                 else
                 {
@@ -367,17 +367,17 @@ e_eCU_CIRQ_Res CIRQ_PeekData(s_eCU_CIRQ_Ctx* const ctx, uint8_t data[], const ui
 		}
 		else
 		{
-			/* Check data validity an queue integrity */
-			if( datalen <= 0u )
-			{
-				result = CIRQ_RES_BADPARAM;
-			}
+            /* Check data coherence */
+            if( false == isQueueStatusStillCoherent(ctx) )
+            {
+                result = CIRQ_RES_CORRUPTCTX;
+            }
 			else
 			{
-                /* Check data coherence */
-                if( false == isQueueStatusStillCoherent(ctx) )
+                /* Check data validity an queue integrity */
+                if( datalen <= 0u )
                 {
-                    result = CIRQ_RES_CORRUPTCTX;
+                    result = CIRQ_RES_BADPARAM;
                 }
                 else
                 {

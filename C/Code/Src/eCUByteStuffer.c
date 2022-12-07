@@ -180,17 +180,17 @@ e_eCU_BSTF_Res BSTF_RestartCurrentFrame(s_eCU_BSTF_Ctx* const ctx)
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memAreaFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isBSStatusStillCoherent(ctx) )
             {
-                result = BSTF_RES_NOINITFRAME;
+                result = BSTF_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isBSStatusStillCoherent(ctx) )
+                /* Param */
+                if( ctx->memAreaFrameSize <= 0u )
                 {
-                    result = BSTF_RES_CORRUPTCTX;
+                    result = BSTF_RES_NOINITFRAME;
                 }
                 else
                 {
@@ -228,17 +228,17 @@ e_eCU_BSTF_Res BSTF_GetRemToRetrive(s_eCU_BSTF_Ctx* const ctx, uint32_t* const r
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memAreaFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isBSStatusStillCoherent(ctx) )
             {
-                result = BSTF_RES_NOINITFRAME;
+                result = BSTF_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isBSStatusStillCoherent(ctx) )
+                /* Check param */
+                if( ctx->memAreaFrameSize <= 0u )
                 {
-                    result = BSTF_RES_CORRUPTCTX;
+                    result = BSTF_RES_NOINITFRAME;
                 }
                 else
                 {
@@ -352,23 +352,24 @@ e_eCU_BSTF_Res BSTF_RetriStufChunk(s_eCU_BSTF_Ctx* const ctx, uint8_t stuffedDes
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memAreaFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isBSStatusStillCoherent(ctx) )
             {
-                result = BSTF_RES_NOINITFRAME;
+                result = BSTF_RES_CORRUPTCTX;
             }
             else
             {
-                if( maxDestLen <= 0u )
+                /* Check param */
+                if( ctx->memAreaFrameSize <= 0u )
                 {
-                    result = BSTF_RES_BADPARAM;
+                    result = BSTF_RES_NOINITFRAME;
                 }
                 else
                 {
-                    /* Check internal status validity */
-                    if( false == isBSStatusStillCoherent(ctx) )
+                    /* Check param */
+                    if( maxDestLen <= 0u )
                     {
-                        result = BSTF_RES_CORRUPTCTX;
+                        result = BSTF_RES_BADPARAM;
                     }
                     else
                     {

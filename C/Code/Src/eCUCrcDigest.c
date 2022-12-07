@@ -155,17 +155,17 @@ e_eCU_CRCD_Res CRCD_Digest(s_eCU_CRCD_Ctx* const ctx, const uint8_t data[], cons
 		}
 		else
 		{
-			/* Check data validity */
-			if( dataLen <= 0u )
-			{
-				result = CRCD_RES_BADPARAM;
-			}
+            /* Check internal status validity */
+            if( false == isCrctatusStillCoherent(ctx) )
+            {
+                result = CRCD_RES_CORRUPTCTX;
+            }
 			else
 			{
-                /* Check internal status validity */
-                if( false == isCrctatusStillCoherent(ctx) )
+                /* Check data validity */
+                if( dataLen <= 0u )
                 {
-                    result = CRCD_RES_CORRUPTCTX;
+                    result = CRCD_RES_BADPARAM;
                 }
                 else
                 {

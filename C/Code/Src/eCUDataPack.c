@@ -201,17 +201,17 @@ e_eCU_DPK_Res DPK_PushArray(s_eCU_DPK_Ctx* const ctx, uint8_t data[], const uint
 		}
 		else
 		{
-			/* Check data validity */
-			if( dataLen <= 0u )
-			{
-				result = DPK_RES_BADPARAM;
-			}
+            /* Check internal status validity */
+            if( false == isPackStatusStillCoherent(ctx) )
+            {
+                result = DPK_RES_CORRUPTCTX;
+            }
 			else
 			{
-                /* Check internal status validity */
-                if( false == isPackStatusStillCoherent(ctx) )
+                /* Check data validity */
+                if( dataLen <= 0u )
                 {
-                    result = DPK_RES_CORRUPTCTX;
+                    result = DPK_RES_BADPARAM;
                 }
                 else
                 {

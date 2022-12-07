@@ -337,16 +337,17 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
 		}
 		else
 		{
-            if( stuffLen <= 0u )
+            /* Check internal status validity */
+            if( false == isBUSStatusStillCoherent(ctx) )
             {
-                result = BUNSTF_RES_BADPARAM;
+                result = BUNSTF_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isBUSStatusStillCoherent(ctx) )
+                /* Check param */
+                if( stuffLen <= 0u )
                 {
-                    result = BUNSTF_RES_CORRUPTCTX;
+                    result = BUNSTF_RES_BADPARAM;
                 }
                 else
                 {

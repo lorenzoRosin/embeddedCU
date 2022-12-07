@@ -178,17 +178,17 @@ e_eCU_DUNPK_Res DUNPK_RestartCurrentUnpack(s_eCU_DUNPK_Ctx* const ctx)
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memUPKAFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
             {
-                result = DUNPK_RES_NOINITFRAME;
+                result = DUNPK_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isUnPackStatusStillCoherent(ctx) )
+                /* Check Init */
+                if( ctx->memUPKAFrameSize <= 0u )
                 {
-                    result = DUNPK_RES_CORRUPTCTX;
+                    result = DUNPK_RES_NOINITFRAME;
                 }
                 else
                 {
@@ -222,18 +222,18 @@ e_eCU_DUNPK_Res DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const ctx, uint32_t* const re
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memUPKAFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
             {
-                result = DUNPK_RES_NOINITFRAME;
+                /* We have removed more data that we had */
+                result = DUNPK_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isUnPackStatusStillCoherent(ctx) )
+                /* Check Init */
+                if( ctx->memUPKAFrameSize <= 0u )
                 {
-                    /* We have removed more data that we had */
-                    result = DUNPK_RES_CORRUPTCTX;
+                    result = DUNPK_RES_NOINITFRAME;
                 }
                 else
                 {
@@ -266,25 +266,25 @@ e_eCU_DUNPK_Res DUNPK_PopArray(s_eCU_DUNPK_Ctx* const ctx, uint8_t dataDest[], u
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memUPKAFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
             {
-                result = DUNPK_RES_NOINITFRAME;
+                result = DUNPK_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check data validity */
-                if( toRetrivedLen <= 0u )
+                /* Check Init */
+                if( ctx->memUPKAFrameSize <= 0u )
                 {
-                    /* We have removed more data that we had */
-                    result = DUNPK_RES_BADPARAM;
+                    result = DUNPK_RES_NOINITFRAME;
                 }
                 else
                 {
-                    /* Check internal status validity */
-                    if( false == isUnPackStatusStillCoherent(ctx) )
+                    /* Check data validity */
+                    if( toRetrivedLen <= 0u )
                     {
-                        result = DUNPK_RES_CORRUPTCTX;
+                        /* We have removed more data that we had */
+                        result = DUNPK_RES_BADPARAM;
                     }
                     else
                     {
@@ -330,17 +330,17 @@ e_eCU_DUNPK_Res DUNPK_PopU8(s_eCU_DUNPK_Ctx* const ctx, uint8_t *dataP)
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memUPKAFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
             {
-                result = DUNPK_RES_NOINITFRAME;
+                result = DUNPK_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isUnPackStatusStillCoherent(ctx) )
+                /* Check Init */
+                if( ctx->memUPKAFrameSize <= 0u )
                 {
-                    result = DUNPK_RES_CORRUPTCTX;
+                    result = DUNPK_RES_NOINITFRAME;
                 }
                 else
                 {
@@ -386,17 +386,17 @@ e_eCU_DUNPK_Res DUNPK_PopU16(s_eCU_DUNPK_Ctx* const ctx, uint16_t* dataP)
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memUPKAFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
             {
-                result = DUNPK_RES_NOINITFRAME;
+                result = DUNPK_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isUnPackStatusStillCoherent(ctx) )
+                /* Check Init */
+                if( ctx->memUPKAFrameSize <= 0u )
                 {
-                    result = DUNPK_RES_CORRUPTCTX;
+                    result = DUNPK_RES_NOINITFRAME;
                 }
                 else
                 {
@@ -462,17 +462,17 @@ e_eCU_DUNPK_Res DUNPK_PopU32(s_eCU_DUNPK_Ctx* const ctx, uint32_t* dataP)
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memUPKAFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
             {
-                result = DUNPK_RES_NOINITFRAME;
+                result = DUNPK_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isUnPackStatusStillCoherent(ctx) )
+                /* Check Init */
+                if( ctx->memUPKAFrameSize <= 0u )
                 {
-                    result = DUNPK_RES_CORRUPTCTX;
+                    result = DUNPK_RES_NOINITFRAME;
                 }
                 else
                 {
@@ -554,17 +554,17 @@ e_eCU_DUNPK_Res DUNPK_PopU64(s_eCU_DUNPK_Ctx* const ctx, uint64_t* dataP)
 		}
 		else
 		{
-            /* Check Init */
-            if( ctx->memUPKAFrameSize <= 0u )
+            /* Check internal status validity */
+            if( false == isUnPackStatusStillCoherent(ctx) )
             {
-                result = DUNPK_RES_NOINITFRAME;
+                result = DUNPK_RES_CORRUPTCTX;
             }
             else
             {
-                /* Check internal status validity */
-                if( false == isUnPackStatusStillCoherent(ctx) )
+                /* Check Init */
+                if( ctx->memUPKAFrameSize <= 0u )
                 {
-                    result = DUNPK_RES_CORRUPTCTX;
+                    result = DUNPK_RES_NOINITFRAME;
                 }
                 else
                 {
