@@ -221,6 +221,7 @@ void circularqueueTestBadInit(void)
     s_eCU_CIRQ_Ctx ctx;
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = true;
@@ -291,6 +292,22 @@ void circularqueueTestBadInit(void)
     {
         (void)printf("circularqueueTestBadInit 7  -- FAIL \n");
     }
+
+    if( CIRQ_RES_OK == CIRQ_IsInit( &ctx, &isInit ) )
+    {
+        if( false == isInit )
+        {
+            (void)printf("circularqueueTestBadInit 8  -- OK \n");
+        }
+        else
+        {
+            (void)printf("circularqueueTestBadInit 8  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("circularqueueTestBadInit 8  -- FAIL \n");
+    }
 }
 
 void circularqueueTestBadParamEntr(void)
@@ -298,6 +315,7 @@ void circularqueueTestBadParamEntr(void)
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
     uint8_t  badPointerMempool[5u];
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = false;
@@ -347,6 +365,22 @@ void circularqueueTestBadParamEntr(void)
     else
     {
         (void)printf("circularqueueTestBadParamEntr 5  -- FAIL \n");
+    }
+
+    if( CIRQ_RES_OK == CIRQ_IsInit( &ctx, &isInit ) )
+    {
+        if( true == isInit )
+        {
+            (void)printf("circularqueueTestBadParamEntr 6  -- OK \n");
+        }
+        else
+        {
+            (void)printf("circularqueueTestBadParamEntr 6  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("circularqueueTestBadParamEntr 6  -- FAIL \n");
     }
 }
 

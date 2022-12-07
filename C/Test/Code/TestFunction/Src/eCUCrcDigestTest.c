@@ -276,6 +276,7 @@ void cUCrcDigestTestBadInit(void)
     s_eCU_CRCD_Ctx ctx;
     uint8_t  varBuff[5u];
     uint32_t varTemp;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = false;
@@ -307,6 +308,22 @@ void cUCrcDigestTestBadInit(void)
     {
         (void)printf("cUCrcDigestTestBadInit 3  -- FAIL \n");
     }
+
+    if( CRCD_RES_OK == CRCD_IsInit( &ctx, &isInit ) )
+    {
+        if( false == isInit )
+        {
+            (void)printf("cUCrcDigestTestBadInit 4  -- OK \n");
+        }
+        else
+        {
+            (void)printf("cUCrcDigestTestBadInit 4  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadInit 4  -- FAIL \n");
+    }
 }
 
 void cUCrcDigestTestBadParamEntr(void)
@@ -315,6 +332,7 @@ void cUCrcDigestTestBadParamEntr(void)
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
     s_eCU_crcAdapterCtx ctxAdapterCrc;
+    bool_t isInit;
     uint8_t  varBuff[5u];
     varBuff[0] = 0u;
 
@@ -338,6 +356,22 @@ void cUCrcDigestTestBadParamEntr(void)
     else
     {
         (void)printf("cUCrcDigestTestBadParamEntr 2  -- FAIL \n");
+    }
+
+    if( CRCD_RES_OK == CRCD_IsInit( &ctx, &isInit ) )
+    {
+        if( true == isInit )
+        {
+            (void)printf("cUCrcDigestTestBadParamEntr 3  -- OK \n");
+        }
+        else
+        {
+            (void)printf("cUCrcDigestTestBadParamEntr 3  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("cUCrcDigestTestBadParamEntr 3  -- FAIL \n");
     }
 }
 

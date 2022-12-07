@@ -279,6 +279,7 @@ void dataUnPackTestBadInit(void)
     uint32_t varTemp32;
     uint16_t varTemp16;
     uint8_t  varTemp8;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = true;
@@ -376,6 +377,22 @@ void dataUnPackTestBadInit(void)
     {
         (void)printf("dataUnPackTestBadInit 10 -- FAIL \n");
     }
+
+    if( DUNPK_RES_OK == DUNPK_IsInit( &ctx, &isInit ) )
+    {
+        if( false == isInit )
+        {
+            (void)printf("dataUnPackTestBadInit 11 -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestBadInit 11 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadInit 11 -- FAIL \n");
+    }
 }
 
 void dataUnPackTestBadInitSession(void)
@@ -387,6 +404,7 @@ void dataUnPackTestBadInitSession(void)
     uint32_t varTemp32;
     uint16_t varTemp16;
     uint8_t  varTemp8;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = true;
@@ -462,6 +480,22 @@ void dataUnPackTestBadInitSession(void)
     else
     {
         (void)printf("dataUnPackTestBadInitSession 8  -- FAIL \n");
+    }
+
+    if( DUNPK_RES_OK == DUNPK_IsInit( &ctx, &isInit ) )
+    {
+        if( true == isInit )
+        {
+            (void)printf("dataUnPackTestBadInitSession 9  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataUnPackTestBadInitSession 9  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataUnPackTestBadInitSession 9  -- FAIL \n");
     }
 }
 

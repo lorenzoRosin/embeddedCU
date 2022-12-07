@@ -217,6 +217,7 @@ void byteStuffTestBadInit(void)
     uint8_t  memArea[5u];
     uint32_t varTemp32;
     uint8_t* pointer;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = false;
@@ -266,6 +267,23 @@ void byteStuffTestBadInit(void)
     {
         (void)printf("byteStuffTestBadInit 5  -- FAIL \n");
     }
+
+    if( BSTF_RES_OK == BSTF_IsInit( &ctx, &isInit ) )
+    {
+        if( false == isInit )
+        {
+            (void)printf("byteStuffTestBadInit 6  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestBadInit 6  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadInit 6  -- FAIL \n");
+    }
+
 }
 
 void byteStuffTestBadIniFrame(void)
@@ -274,6 +292,7 @@ void byteStuffTestBadIniFrame(void)
     s_eCU_BSTF_Ctx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = false;
@@ -332,6 +351,22 @@ void byteStuffTestBadIniFrame(void)
     else
     {
         (void)printf("byteStuffTestBadIniFrame 6  -- FAIL \n");
+    }
+
+    if( BSTF_RES_OK == BSTF_IsInit( &ctx, &isInit ) )
+    {
+        if( true == isInit )
+        {
+            (void)printf("byteStuffTestBadIniFrame 7  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteStuffTestBadIniFrame 7  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteStuffTestBadIniFrame 7  -- FAIL \n");
     }
 }
 

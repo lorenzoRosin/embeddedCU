@@ -264,6 +264,7 @@ void byteUnStuffTestBadInit(void)
     uint8_t *dataP;
     bool_t frameIsUnstuffed;
     bool_t isWaiting;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = false;
@@ -331,6 +332,22 @@ void byteUnStuffTestBadInit(void)
     {
         (void)printf("byteUnStuffTestBadInit 7  -- FAIL \n");
     }
+
+    if( BUNSTF_RES_OK == BUNSTF_IsInit( &ctx, &isInit ) )
+    {
+        if( false == isInit )
+        {
+            (void)printf("byteUnStuffTestBadInit 8  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteUnStuffTestBadInit 8  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadInit 8  -- FAIL \n");
+    }
 }
 
 void byteUnStuffTestBadParamEntr(void)
@@ -339,6 +356,7 @@ void byteUnStuffTestBadParamEntr(void)
     s_eCU_BUNSTF_Ctx ctx;
     uint8_t  memArea[5u];
     uint32_t varTemp32;
+    bool_t isInit;
 
     /* Function */
     if( BUNSTF_RES_BADPARAM == BUNSTF_InitCtx(&ctx, memArea, 0u) )
@@ -366,6 +384,22 @@ void byteUnStuffTestBadParamEntr(void)
     else
     {
         (void)printf("byteUnStuffTestBadParamEntr 3  -- FAIL \n");
+    }
+
+    if( BUNSTF_RES_OK == BUNSTF_IsInit( &ctx, &isInit ) )
+    {
+        if( true == isInit )
+        {
+            (void)printf("byteUnStuffTestBadParamEntr 4  -- OK \n");
+        }
+        else
+        {
+            (void)printf("byteUnStuffTestBadParamEntr 4  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("byteUnStuffTestBadParamEntr 4  -- FAIL \n");
     }
 }
 

@@ -225,6 +225,7 @@ void dataPackTestBadInit(void)
     uint8_t  badPointerMempool[5u];
     uint32_t varTemp;
     uint8_t* dataP;
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = false;
@@ -313,6 +314,22 @@ void dataPackTestBadInit(void)
     {
         (void)printf("dataPackTestBadInit 9  -- FAIL \n");
     }
+
+    if( DPK_RES_OK == DPK_IsInit( &ctx, &isInit ) )
+    {
+        if( false == isInit )
+        {
+            (void)printf("dataPackTestBadInit 10 -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataPackTestBadInit 10 -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataPackTestBadInit 10 -- FAIL \n");
+    }
 }
 
 void dataPackTestBadParamEntr(void)
@@ -320,6 +337,7 @@ void dataPackTestBadParamEntr(void)
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
     uint8_t  badPointerMempool[5u];
+    bool_t isInit;
 
     /* Init variable */
     ctx.isInit = false;
@@ -367,6 +385,22 @@ void dataPackTestBadParamEntr(void)
     else
     {
         (void)printf("dataPackTestBadParamEntr 4  -- FAIL \n");
+    }
+
+    if( DPK_RES_OK == DPK_IsInit( &ctx, &isInit ) )
+    {
+        if( true == isInit )
+        {
+            (void)printf("dataPackTestBadParamEntr 5  -- OK \n");
+        }
+        else
+        {
+            (void)printf("dataPackTestBadParamEntr 5  -- FAIL \n");
+        }
+    }
+    else
+    {
+        (void)printf("dataPackTestBadParamEntr 5  -- FAIL \n");
     }
 }
 
