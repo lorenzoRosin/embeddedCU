@@ -4,10 +4,6 @@
 
 
 
- << Logging of terminal I/O resumes >> 
-
-
-
 CRC TEST START 
 
 crc32TestBadPointer 1  -- OK 
@@ -42,11 +38,15 @@ cUCrcDigestTestBadPointer 8  -- OK
 cUCrcDigestTestBadPointer 9  -- OK 
 cUCrcDigestTestBadPointer 10 -- OK 
 cUCrcDigestTestBadPointer 11 -- OK 
+cUCrcDigestTestBadPointer 12 -- OK 
+cUCrcDigestTestBadPointer 13 -- OK 
 cUCrcDigestTestBadInit 1  -- OK 
 cUCrcDigestTestBadInit 2  -- OK 
 cUCrcDigestTestBadInit 3  -- OK 
+cUCrcDigestTestBadInit 4  -- OK 
 cUCrcDigestTestBadParamEntr 1  -- OK 
 cUCrcDigestTestBadParamEntr 2  -- OK 
+cUCrcDigestTestBadParamEntr 3  -- OK 
 cUCrcDigestTestContextStatus 1  -- OK 
 cUCrcDigestTestContextStatus 2  -- OK 
 cUCrcDigestTestContextStatus 3  -- OK 
@@ -110,6 +110,8 @@ circularqueueTestBadPointer 10 -- OK
 circularqueueTestBadPointer 11 -- OK 
 circularqueueTestBadPointer 12 -- OK 
 circularqueueTestBadPointer 13 -- OK 
+circularqueueTestBadPointer 14 -- OK 
+circularqueueTestBadPointer 15 -- OK 
 circularqueueTestBadInit 1  -- OK 
 circularqueueTestBadInit 2  -- OK 
 circularqueueTestBadInit 3  -- OK 
@@ -117,11 +119,13 @@ circularqueueTestBadInit 4  -- OK
 circularqueueTestBadInit 5  -- OK 
 circularqueueTestBadInit 6  -- OK 
 circularqueueTestBadInit 7  -- OK 
+circularqueueTestBadInit 8  -- OK 
 circularqueueTestBadParamEntr 1  -- OK 
 circularqueueTestBadParamEntr 2  -- OK 
 circularqueueTestBadParamEntr 3  -- OK 
 circularqueueTestBadParamEntr 4  -- OK 
 circularqueueTestBadParamEntr 5  -- OK 
+circularqueueTestBadParamEntr 6  -- OK 
 circularqueueTestCorruptedContext 1  -- OK 
 circularqueueTestCorruptedContext 2  -- OK 
 circularqueueTestCorruptedContext 3  -- OK 
@@ -209,6 +213,8 @@ dataPackTestBadPointer 11 -- OK
 dataPackTestBadPointer 12 -- OK 
 dataPackTestBadPointer 13 -- OK 
 dataPackTestBadPointer 14 -- OK 
+dataPackTestBadPointer 15 -- OK 
+dataPackTestBadPointer 16 -- OK 
 dataPackTestBadInit 1  -- OK 
 dataPackTestBadInit 2  -- OK 
 dataPackTestBadInit 3  -- OK 
@@ -218,10 +224,12 @@ dataPackTestBadInit 6  -- OK
 dataPackTestBadInit 7  -- OK 
 dataPackTestBadInit 8  -- OK 
 dataPackTestBadInit 9  -- OK 
+dataPackTestBadInit 10 -- OK 
 dataPackTestBadParamEntr 1  -- OK 
 dataPackTestBadParamEntr 2  -- OK 
 dataPackTestBadParamEntr 3  -- OK 
 dataPackTestBadParamEntr 4  -- OK 
+dataPackTestBadParamEntr 5  -- OK 
 dataPackTestCorruptContext 1  -- OK 
 dataPackTestCorruptContext 2  -- OK 
 dataPackTestCorruptContext 3  -- OK 
@@ -332,6 +340,8 @@ dataUnPackTestBadPointer 16 -- OK
 dataUnPackTestBadPointer 17 -- OK 
 dataUnPackTestBadPointer 18 -- OK 
 dataUnPackTestBadPointer 19 -- OK 
+dataUnPackTestBadPointer 20 -- OK 
+dataUnPackTestBadPointer 21 -- OK 
 dataUnPackTestBadInit 1  -- OK 
 dataUnPackTestBadInit 2  -- OK 
 dataUnPackTestBadInit 3  -- OK 
@@ -342,6 +352,7 @@ dataUnPackTestBadInit 7  -- OK
 dataUnPackTestBadInit 8  -- OK 
 dataUnPackTestBadInit 9  -- OK 
 dataUnPackTestBadInit 10 -- OK 
+dataUnPackTestBadInit 11 -- OK 
 dataUnPackTestBadInitSession 1  -- OK 
 dataUnPackTestBadInitSession 2  -- OK 
 dataUnPackTestBadInitSession 3  -- OK 
@@ -350,6 +361,7 @@ dataUnPackTestBadInitSession 5  -- OK
 dataUnPackTestBadInitSession 6  -- OK 
 dataUnPackTestBadInitSession 7  -- OK 
 dataUnPackTestBadInitSession 8  -- OK 
+dataUnPackTestBadInitSession 9  -- OK 
 dataUnPackTestBadParamEntr 1  -- OK 
 dataUnPackTestBadParamEntr 2  -- OK 
 dataUnPackTestBadParamEntr 3  -- OK 
@@ -524,17 +536,21 @@ byteStuffTestBadPointer 9  -- OK
 byteStuffTestBadPointer 10 -- OK 
 byteStuffTestBadPointer 11 -- OK 
 byteStuffTestBadPointer 12 -- OK 
+byteStuffTestBadPointer 13 -- OK 
+byteStuffTestBadPointer 14 -- OK 
 byteStuffTestBadInit 1  -- OK 
 byteStuffTestBadInit 2  -- OK 
 byteStuffTestBadInit 3  -- OK 
 byteStuffTestBadInit 4  -- OK 
 byteStuffTestBadInit 5  -- OK 
+byteStuffTestBadInit 6  -- OK 
 byteStuffTestBadIniFrame 1  -- OK 
 byteStuffTestBadIniFrame 2  -- OK 
 byteStuffTestBadIniFrame 3  -- OK 
 byteStuffTestBadIniFrame 4  -- OK 
 byteStuffTestBadIniFrame 5  -- OK 
 byteStuffTestBadIniFrame 6  -- OK 
+byteStuffTestBadIniFrame 7  -- OK 
 byteStuffTestBadParamEntr 1  -- OK 
 byteStuffTestBadParamEntr 2  -- OK 
 byteStuffTestBadParamEntr 3  -- OK 
@@ -732,6 +748,8 @@ byteUnStuffTestBadPointer 14 -- OK
 byteUnStuffTestBadPointer 15 -- OK 
 byteUnStuffTestBadPointer 16 -- OK 
 byteUnStuffTestBadPointer 17 -- OK 
+byteUnStuffTestBadPointer 18 -- OK 
+byteUnStuffTestBadPointer 19 -- OK 
 byteUnStuffTestBadInit 1  -- OK 
 byteUnStuffTestBadInit 2  -- OK 
 byteUnStuffTestBadInit 3  -- OK 
@@ -739,9 +757,11 @@ byteUnStuffTestBadInit 4  -- OK
 byteUnStuffTestBadInit 5  -- OK 
 byteUnStuffTestBadInit 6  -- OK 
 byteUnStuffTestBadInit 7  -- OK 
+byteUnStuffTestBadInit 8  -- OK 
 byteUnStuffTestBadParamEntr 1  -- OK 
 byteUnStuffTestBadParamEntr 2  -- OK 
 byteUnStuffTestBadParamEntr 3  -- OK 
+byteUnStuffTestBadParamEntr 4  -- OK 
 byteUnStuffTestCorrupterContext 1  -- OK 
 byteUnStuffTestCorrupterContext 2  -- OK 
 byteUnStuffTestCorrupterContext 3  -- OK 
