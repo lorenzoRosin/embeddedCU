@@ -17,486 +17,487 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isPackStatusStillCoherent(const s_eCU_DPK_Ctx* ctx);
+static bool_t eCU_DPK_isStatusStillCoherent(const s_eCU_DPK_Ctx* p_ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_DPK_Res DPK_InitCtx(s_eCU_DPK_Ctx* const ctx, uint8_t memPKA[], const uint32_t memPKASize, const bool_t isLEnd)
+e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t a_memPKA[], const uint32_t memPKASize,
+                              const bool_t isLEnd)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL ==  memPKA ) )
+	if( ( NULL == p_ctx ) || ( NULL ==  a_memPKA ) )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check data validity */
 		if( memPKASize <= 0u )
 		{
-			result = DPK_RES_BADPARAM;
+			l_result = DPK_RES_BADPARAM;
 		}
 		else
 		{
-            ctx->isInit = true;
-            ctx->isLE = isLEnd;
-            ctx->memPKA = memPKA;
-            ctx->memPKASize = memPKASize;
-            ctx->memPKACntr = 0u;
+            p_ctx->isInit = true;
+            p_ctx->isLE = isLEnd;
+            p_ctx->p_memPKA = a_memPKA;
+            p_ctx->memPKASize = memPKASize;
+            p_ctx->memPKACntr = 0u;
 
-            result = DPK_RES_OK;
+            l_result = DPK_RES_OK;
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_IsInit(s_eCU_DPK_Ctx* const ctx, bool_t* isInit)
+e_eCU_DPK_Res eCU_DPK_IsInit(s_eCU_DPK_Ctx* const p_ctx, bool_t* p_isInit)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_isInit ) )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
-        *isInit = ctx->isInit;
-        result = DPK_RES_OK;
+        *p_isInit = p_ctx->isInit;
+        l_result = DPK_RES_OK;
 	}
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_StartNewPack(s_eCU_DPK_Ctx* const ctx)
+e_eCU_DPK_Res eCU_DPK_StartNewPack(s_eCU_DPK_Ctx* const p_ctx)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( NULL == ctx )
+	if( NULL == p_ctx )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
             else
             {
                 /* Update index */
-                ctx->memPKACntr = 0u;
-                result = DPK_RES_OK;
+                p_ctx->memPKACntr = 0u;
+                l_result = DPK_RES_OK;
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_GetDataReference(s_eCU_DPK_Ctx* const ctx, uint8_t** dataP, uint32_t* const retrivedLen)
+e_eCU_DPK_Res eCU_DPK_GetDataReference(s_eCU_DPK_Ctx* const p_ctx, uint8_t** dataP, uint32_t* const p_retrivedLen)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == dataP ) || ( NULL == retrivedLen ) )
+	if( ( NULL == p_ctx ) || ( NULL == dataP ) || ( NULL == p_retrivedLen ) )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
             else
             {
-                *dataP = ctx->memPKA;
-                *retrivedLen = ctx->memPKACntr;
-                result = DPK_RES_OK;
+                *dataP = p_ctx->p_memPKA;
+                *p_retrivedLen = p_ctx->memPKACntr;
+                l_result = DPK_RES_OK;
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_GetNPushed(s_eCU_DPK_Ctx* const ctx, uint32_t* const retrivedLen)
+e_eCU_DPK_Res eCU_DPK_GetNPushed(s_eCU_DPK_Ctx* const p_ctx, uint32_t* const p_retrivedLen)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == retrivedLen ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_retrivedLen ) )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
             else
             {
-                *retrivedLen = ctx->memPKACntr;
-                result = DPK_RES_OK;
+                *p_retrivedLen = p_ctx->memPKACntr;
+                l_result = DPK_RES_OK;
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_PushArray(s_eCU_DPK_Ctx* const ctx, uint8_t data[], const uint32_t dataLen)
+e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t a_data[], const uint32_t dataLen)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == data ) )
+	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity */
                 if( dataLen <= 0u )
                 {
-                    result = DPK_RES_BADPARAM;
+                    l_result = DPK_RES_BADPARAM;
                 }
                 else
                 {
                     /* Check if we have memory for this */
-                    if( ( ctx->memPKACntr + dataLen ) > ctx->memPKASize )
+                    if( ( p_ctx->memPKACntr + dataLen ) > p_ctx->memPKASize )
                     {
-                        result = DPK_RES_OUTOFMEM;
+                        l_result = DPK_RES_OUTOFMEM;
                     }
                     else
                     {
                         /* Copy data */
-                        (void)memcpy(&ctx->memPKA[ctx->memPKACntr], data, dataLen);
+                        (void)memcpy(&p_ctx->p_memPKA[p_ctx->memPKACntr], a_data, dataLen);
 
                         /* Update index */
-                        ctx->memPKACntr += dataLen;
+                        p_ctx->memPKACntr += dataLen;
 
-                        result = DPK_RES_OK;
+                        l_result = DPK_RES_OK;
                     }
                 }
 			}
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_PushU8(s_eCU_DPK_Ctx* const ctx, const uint8_t dataToPush)
+e_eCU_DPK_Res eCU_DPK_PushU8(s_eCU_DPK_Ctx* const p_ctx, const uint8_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( NULL == ctx )
+	if( NULL == p_ctx )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check if we have memory for this */
-                if( ( ctx->memPKACntr + sizeof(uint8_t) ) > ctx->memPKASize )
+                if( ( p_ctx->memPKACntr + sizeof(uint8_t) ) > p_ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = DPK_RES_OUTOFMEM;
+                    l_result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
                     /* Copy data */
-                    ctx->memPKA[ctx->memPKACntr] = dataToPush;
+                    p_ctx->p_memPKA[p_ctx->memPKACntr] = dataToPush;
 
                     /* Update index */
-                    ctx->memPKACntr++;
+                    p_ctx->memPKACntr++;
 
-                    result = DPK_RES_OK;
+                    l_result = DPK_RES_OK;
                 }
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_PushU16(s_eCU_DPK_Ctx* const ctx, const uint16_t dataToPush)
+e_eCU_DPK_Res eCU_DPK_PushU16(s_eCU_DPK_Ctx* const p_ctx, const uint16_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( NULL == ctx )
+	if( NULL == p_ctx )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check if we have memory for this */
-                if( ( ctx->memPKACntr + sizeof(uint16_t) ) > ctx->memPKASize )
+                if( ( p_ctx->memPKACntr + sizeof(uint16_t) ) > p_ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = DPK_RES_OUTOFMEM;
+                    l_result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
-                    if( true == ctx->isLE)
+                    if( true == p_ctx->isLE)
                     {
                         /* Copy data Little endian */
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00FFu );
-                        ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00FFu );
+                        p_ctx->memPKACntr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00FFu );
-                        ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00FFu );
+                        p_ctx->memPKACntr++;
                     }
 
-                    result = DPK_RES_OK;
+                    l_result = DPK_RES_OK;
                 }
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_PushU32(s_eCU_DPK_Ctx* const ctx, const uint32_t dataToPush)
+e_eCU_DPK_Res eCU_DPK_PushU32(s_eCU_DPK_Ctx* const p_ctx, const uint32_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( NULL == ctx )
+	if( NULL == p_ctx )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check if we have memory for this */
-                if( ( ctx->memPKACntr + sizeof(uint32_t) ) > ctx->memPKASize )
+                if( ( p_ctx->memPKACntr + sizeof(uint32_t) ) > p_ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = DPK_RES_OUTOFMEM;
+                    l_result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
-                    if( true == ctx->isLE)
+                    if( true == p_ctx->isLE)
                     {
                         /* Copy data Little endian */
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x000000FFu );
-                        ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x000000FFu );
-                        ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x000000FFu );
+                        p_ctx->memPKACntr++;
                     }
 
-                    result = DPK_RES_OK;
+                    l_result = DPK_RES_OK;
                 }
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_DPK_Res DPK_PushU64(s_eCU_DPK_Ctx* const ctx, const uint64_t dataToPush)
+e_eCU_DPK_Res eCU_DPK_PushU64(s_eCU_DPK_Ctx* const p_ctx, const uint64_t dataToPush)
 {
 	/* Local variable */
-	e_eCU_DPK_Res result;
+	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( NULL == ctx )
+	if( NULL == p_ctx )
 	{
-		result = DPK_RES_BADPOINTER;
+		l_result = DPK_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = DPK_RES_NOINITLIB;
+			l_result = DPK_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isPackStatusStillCoherent(ctx) )
+            if( false == eCU_DPK_isStatusStillCoherent(p_ctx) )
             {
-                result = DPK_RES_CORRUPTCTX;
+                l_result = DPK_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check if we have memory for this */
-                if( ( ctx->memPKACntr + sizeof(uint64_t) ) > ctx->memPKASize )
+                if( ( p_ctx->memPKACntr + sizeof(uint64_t) ) > p_ctx->memPKASize )
                 {
                     /* no free memory */
-                    result = DPK_RES_OUTOFMEM;
+                    l_result = DPK_RES_OUTOFMEM;
                 }
                 else
                 {
-                    if( true == ctx->isLE)
+                    if( true == p_ctx->isLE)
                     {
                         /* Copy data Little endian */
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 32u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 40u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 48u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 56u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 32u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 40u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 48u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 56u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 56u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 48u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 40u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 32u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
-                        ctx->memPKA[ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00000000000000FFu );
-                        ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 56u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 48u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 40u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 32u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 24u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 16u ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush >> 8u  ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
+                        p_ctx->p_memPKA[p_ctx->memPKACntr] = (uint8_t) ( ( dataToPush        ) & 0x00000000000000FFu );
+                        p_ctx->memPKACntr++;
                     }
 
-                    result = DPK_RES_OK;
+                    l_result = DPK_RES_OK;
                 }
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
 
@@ -504,27 +505,27 @@ e_eCU_DPK_Res DPK_PushU64(s_eCU_DPK_Ctx* const ctx, const uint64_t dataToPush)
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isPackStatusStillCoherent(const s_eCU_DPK_Ctx* ctx)
+static bool_t eCU_DPK_isStatusStillCoherent(const s_eCU_DPK_Ctx* p_ctx)
 {
-    bool_t result;
+    bool_t l_result;
 
 	/* Check context validity */
-	if( ( ctx->memPKASize <= 0u ) || ( NULL == ctx->memPKA ) )
+	if( ( p_ctx->memPKASize <= 0u ) || ( NULL == p_ctx->p_memPKA ) )
 	{
-		result = false;
+		l_result = false;
 	}
 	else
 	{
 		/* Check queue data coherence */
-		if( ctx->memPKACntr > ctx->memPKASize )
+		if( p_ctx->memPKACntr > p_ctx->memPKASize )
 		{
-			result = false;
+			l_result = false;
 		}
 		else
 		{
-            result = true;
+            l_result = true;
 		}
 	}
 
-    return result;
+    return l_result;
 }
