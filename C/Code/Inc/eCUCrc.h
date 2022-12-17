@@ -49,28 +49,28 @@ typedef enum
 /**
  * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using as seed the default value of 0xFFFFFFFFu
  *
- * @param[in]   data        - Pointer to the data buffer used to calculate CRC 32
- * @param[in]   dataLen     - How many byte will be used to calculate the CRC 32
- * @param[out]  crc32Val    - Pointer to an uint32_t were we will store the calculated CRC 32
+ * @param[in]   a_data      - Pointer to the data buffer used to calculate CRC 32
+ * @param[in]   dataL       - How many byte will be used to calculate the CRC 32
+ * @param[out]  p_crc       - Pointer to an uint32_t were we will store the calculated CRC 32
  *
  * @return      CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
  *              CRC_RES_OK              - Crc 32 calculated successfully
  */
-e_eCU_CRC_Res CRC_32(const uint8_t data[], const uint32_t dataLen, uint32_t* const crc32Val);
+e_eCU_CRC_Res eCU_CRC_32(const uint8_t a_data[], const uint32_t dataL, uint32_t* const p_crc);
 
 
 /**
  * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using a custom seed
  *
  * @param[in]   seed        - Seed that will be used to calculate the CRC 32
- * @param[in]   data        - Pointer to the data buffer used to calculate CRC 32
- * @param[in]   dataLen     - How many byte will be used to calculate the CRC 32
- * @param[out]  crc32Val    - Pointer to an uint32_t were we will store the calculated CRC 32
+ * @param[in]   a_data      - Pointer to the data buffer used to calculate CRC 32
+ * @param[in]   dataL       - How many byte will be used to calculate the CRC 32
+ * @param[out]  p_crc       - Pointer to an uint32_t were we will store the calculated CRC 32
  *
  * @return      CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
  *              CRC_RES_OK              - Crc 32 calculated successfully
  */
-e_eCU_CRC_Res CRC_32Seed(const uint32_t seed, const uint8_t dataS[], const uint32_t dataSLen, uint32_t* const crc32SVal);
+e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t a_data[], const uint32_t dataL, uint32_t* const p_crc);
 
 
 

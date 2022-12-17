@@ -58,7 +58,7 @@ void crc32TestBadPointer(void)
     uint8_t  crc8SValTest[1u];
 
     /* Function */
-    if( CRC_RES_BADPOINTER == CRC_32Seed(0u, NULL, 1u, &crc32SValTest) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32Seed(0u, NULL, 1u, &crc32SValTest) )
     {
         (void)printf("crc32TestBadPointer 1  -- OK \n");
     }
@@ -67,7 +67,7 @@ void crc32TestBadPointer(void)
         (void)printf("crc32TestBadPointer 1  -- FAIL \n");
     }
 
-    if( CRC_RES_BADPOINTER == CRC_32Seed(0u, crc8SValTest, 1u, NULL) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32Seed(0u, crc8SValTest, 1u, NULL) )
     {
         (void)printf("crc32TestBadPointer 2  -- OK \n");
     }
@@ -76,7 +76,7 @@ void crc32TestBadPointer(void)
         (void)printf("crc32TestBadPointer 2  -- FAIL \n");
     }
 
-    if( CRC_RES_BADPOINTER == CRC_32(NULL, 1u, &crc32SValTest) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32(NULL, 1u, &crc32SValTest) )
     {
         (void)printf("crc32TestBadPointer 3  -- OK \n");
     }
@@ -85,7 +85,7 @@ void crc32TestBadPointer(void)
         (void)printf("crc32TestBadPointer 3  -- FAIL \n");
     }
 
-    if( CRC_RES_BADPOINTER == CRC_32(crc8SValTest, 1u, NULL) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32(crc8SValTest, 1u, NULL) )
     {
         (void)printf("crc32TestBadPointer 4  -- OK \n");
     }
@@ -104,7 +104,7 @@ void crc32TestValue(void)
 
     /* Function */
     crcTestValSeed = 0xFFFFFFFFu;
-    if( CRC_RES_OK == CRC_32Seed(crcTestValSeed, crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
     {
         if( 0x6CFF87B2u == crcTestValRet)
         {
@@ -121,7 +121,7 @@ void crc32TestValue(void)
     }
 
     crcTestValSeed = 0x0u;
-    if( CRC_RES_OK == CRC_32Seed(crcTestValSeed, crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
     {
         if( 0xDB9BFAB2u == crcTestValRet)
         {
@@ -137,7 +137,7 @@ void crc32TestValue(void)
         (void)printf("crc32TestValue 2  -- FAIL \n");
     }
 
-    if( CRC_RES_OK == CRC_32(crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32(crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
     {
         if( 0x6CFF87B2u == crcTestValRet)
         {
@@ -158,7 +158,7 @@ void crc32TestValue(void)
                               0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0xFF, 0xF1, 0xF5};
 
     crcTestValSeed = 0xFFFFFFFFu;
-    if( CRC_RES_OK == CRC_32Seed(crcTestValSeed, crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
     {
         if( 0x4DBE0510u == crcTestValRet)
         {
@@ -175,7 +175,7 @@ void crc32TestValue(void)
     }
 
     crcTestValSeed = 0x0u;
-    if( CRC_RES_OK == CRC_32Seed(crcTestValSeed, crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
     {
         if( 0xB612792Au == crcTestValRet)
         {
@@ -191,7 +191,7 @@ void crc32TestValue(void)
         (void)printf("crc32TestValue 5  -- FAIL \n");
     }
 
-    if( CRC_RES_OK == CRC_32(crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32(crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
     {
         if( 0x4DBE0510u == crcTestValRet)
         {
@@ -218,7 +218,7 @@ void crc32TestCombined(void)
 
     /* Function */
     crcTestValSeedC = 0xFFFFFFFFu;
-    if( CRC_RES_OK == CRC_32Seed(crcTestValSeedC, crcTestDataC, sizeof(crcTestDataC), &crcTestValRetC) )
+    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeedC, crcTestDataC, sizeof(crcTestDataC), &crcTestValRetC) )
     {
         if( 0x9FE54C6Du == crcTestValRetC)
         {
@@ -235,7 +235,7 @@ void crc32TestCombined(void)
     }
 
     crcTestValSeedC = 0xFFFFFFFFu;
-    if( CRC_RES_OK == CRC_32Seed(crcTestValSeedC, crcTestDataC, 0x03u, &crcTestValRetC) )
+    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeedC, crcTestDataC, 0x03u, &crcTestValRetC) )
     {
         if( 0x6CFF87B2u == crcTestValRetC)
         {
@@ -252,7 +252,7 @@ void crc32TestCombined(void)
     }
 
     crcTestValSeedC = crcTestValRetC;
-    if( CRC_RES_OK == CRC_32Seed(crcTestValSeedC, crcTestDataC2, 0x03u, &crcTestValRetC) )
+    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeedC, crcTestDataC2, 0x03u, &crcTestValRetC) )
     {
         if( 0x9FE54C6Du == crcTestValRetC)
         {
