@@ -24,7 +24,7 @@ static bool_t eCU_CRCD_isStatusStillCoherent(const s_eCU_CRCD_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CRCD_Res eCU_CRCD_InitCtx(s_eCU_CRCD_Ctx* const p_ctx, cb_crc32_seed f_Crc, void* const p_clbCtx)
+e_eCU_CRCD_Res eCU_CRCD_InitCtx(s_eCU_CRCD_Ctx* const p_ctx, cb_crc32_seed f_Crc, cb_crc32_seed_ctx* const p_clbCtx)
 {
 	/* Local variable */
 	e_eCU_CRCD_Res l_result;
@@ -70,7 +70,7 @@ e_eCU_CRCD_Res eCU_CRCD_IsInit(s_eCU_CRCD_Ctx* const p_ctx, bool_t* p_isInit)
 }
 
 e_eCU_CRCD_Res eCU_CRCD_SeedInitCtx(s_eCU_CRCD_Ctx* const p_ctx, const uint32_t seed, cb_crc32_seed f_Crc,
-                                    void* const p_clbCtx)
+                                    cb_crc32_seed_ctx* const p_clbCtx)
 {
 	/* Local variable */
 	e_eCU_CRCD_Res l_result;

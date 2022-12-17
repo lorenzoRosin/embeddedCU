@@ -28,12 +28,14 @@ extern "C" {
 /***********************************************************************************************************************
  *      TYPEDEFS
  **********************************************************************************************************************/
+/* Define a generic crc callback context that must be implemented by the user */
+typedef struct cb_crc32_seed_ctx_user cb_crc32_seed_ctx;
 
 /* Call back of a function that will calculate the CRC for this modules.
  * the p_ctx parameter is a custom pointer that can be used by the creator of this CRC callback, and will not be used
  * by the CRCdigest module */
-typedef bool_t (*cb_crc32_seed) ( void* p_ctx, const uint32_t seed, const uint8_t a_data[], const uint32_t dataSLen,
-                                  uint32_t* const p_crc32Val );
+typedef bool_t (*cb_crc32_seed) ( cb_crc32_seed_ctx* p_ctx, const uint32_t seed, const uint8_t a_data[],
+                                  const uint32_t dataSLen, uint32_t* const p_crc32Val );
 
 typedef enum
 {
@@ -54,7 +56,7 @@ typedef struct
 	uint32_t digestedTimes;
     uint32_t lastDigVal;
     cb_crc32_seed f_Crc;
-    void* p_crcCtx;
+    cb_crc32_seed_ctx* p_crcCtx;
 }s_eCU_CRCD_Ctx;
 
 
@@ -72,7 +74,7 @@ typedef struct
  * @return      CRCD_RES_BADPOINTER     - In case of bad pointer passed to the function
  *              CRCD_RES_OK             - Crc digester initialized successfully
  */
-e_eCU_CRCD_Res eCU_CRCD_InitCtx(s_eCU_CRCD_Ctx* const p_ctx, cb_crc32_seed f_Crc, void* const p_clbCtx);
+e_eCU_CRCD_Res eCU_CRCD_InitCtx(s_eCU_CRCD_Ctx* const p_ctx, cb_crc32_seed f_Crc, cb_crc32_seed_ctx* const p_clbCtx);
 
 /**
  * @brief       Check if the lib is initialized
@@ -97,7 +99,7 @@ e_eCU_CRCD_Res eCU_CRCD_IsInit(s_eCU_CRCD_Ctx* const p_ctx, bool_t* p_isInit);
  *              CRCD_RES_OK             - Crc digester initialized successfully
  */
 e_eCU_CRCD_Res eCU_CRCD_SeedInitCtx(s_eCU_CRCD_Ctx* const p_ctx, const uint32_t seed, cb_crc32_seed f_Crc,
-                                    void* const p_clbCtx);
+                                    cb_crc32_seed_ctx* const p_clbCtx);
 
 /**
  * @brief       Restart the digester and disharge all old value
