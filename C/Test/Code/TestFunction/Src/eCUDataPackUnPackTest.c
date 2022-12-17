@@ -18,22 +18,22 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void dataPackUnPackLE(void);
-static void dataPackUnPackBE(void);
-static void dataPackUnPackGeneral(void);
+static void eCU_TEST_dataPackUnPackLE(void);
+static void eCU_TEST_dataPackUnPackBE(void);
+static void eCU_TEST_dataPackUnPackGeneral(void);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void dataPackUnPackTest(void)
+void eCU_TEST_dataPackUnPack(void)
 {
 	(void)printf("\n\nDATA PACK UNPACK TEST START \n\n");
 
-    dataPackUnPackLE();
-    dataPackUnPackBE();
-    dataPackUnPackGeneral();
+    eCU_TEST_dataPackUnPackLE();
+    eCU_TEST_dataPackUnPackBE();
+    eCU_TEST_dataPackUnPackGeneral();
 
     (void)printf("\n\nDATA PACK UNPACK END \n\n");
 }
@@ -43,7 +43,7 @@ void dataPackUnPackTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void dataPackUnPackLE(void)
+static void eCU_TEST_dataPackUnPackLE(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctxPack;
@@ -266,7 +266,7 @@ void dataPackUnPackLE(void)
     }
 }
 
-void dataPackUnPackBE(void)
+static void eCU_TEST_dataPackUnPackBE(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctxPack;
@@ -480,9 +480,7 @@ void dataPackUnPackBE(void)
     }
 }
 
-
-
-void dataPackUnPackGeneral(void)
+static void eCU_TEST_dataPackUnPackGeneral(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctxPack;

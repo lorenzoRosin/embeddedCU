@@ -24,34 +24,34 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void byteUnStuffTestBadPointer(void);
-static void byteUnStuffTestBadInit(void);
-static void byteUnStuffTestBadParamEntr(void);
-static void byteUnStuffTestCorrupterContext(void);
-static void byteUnStuffTestOutOfMem(void);
-static void byteUnStuffTestFrameEnd(void);
-static void byteUnStuffTestGeneral(void);
-static void byteUnStuffTestCornerCase(void);
-static void byteUnStuffTestCornerCase2(void);
-static void byteUnStuffTestCodeCoverage(void);
+static void eCU_TEST_byteUnStuffBadPointer(void);
+static void eCU_TEST_byteUnStuffBadInit(void);
+static void eCU_TEST_byteUnStuffBadParamEntr(void);
+static void eCU_TEST_byteUnStuffCorrupterContext(void);
+static void eCU_TEST_byteUnStuffOutOfMem(void);
+static void eCU_TEST_byteUnStuffFrameEnd(void);
+static void eCU_TEST_byteUnStuffGeneral(void);
+static void eCU_TEST_byteUnStuffCornerCase(void);
+static void eCU_TEST_byteUnStuffCornerCase2(void);
+static void eCU_TEST_byteUnStuffCodeCoverage(void);
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void byteUnStufferTest(void)
+void eCU_TEST_byteUnStuffer(void)
 {
 	(void)printf("\n\nBYTE UNSTUFFER TEST START \n\n");
 
-    byteUnStuffTestBadPointer();
-    byteUnStuffTestBadInit();
-    byteUnStuffTestBadParamEntr();
-    byteUnStuffTestCorrupterContext();
-    byteUnStuffTestOutOfMem();
-    byteUnStuffTestFrameEnd();
-    byteUnStuffTestGeneral();
-    byteUnStuffTestCornerCase();
-    byteUnStuffTestCornerCase2();
-    byteUnStuffTestCodeCoverage();
+    eCU_TEST_byteUnStuffBadPointer();
+    eCU_TEST_byteUnStuffBadInit();
+    eCU_TEST_byteUnStuffBadParamEntr();
+    eCU_TEST_byteUnStuffCorrupterContext();
+    eCU_TEST_byteUnStuffOutOfMem();
+    eCU_TEST_byteUnStuffFrameEnd();
+    eCU_TEST_byteUnStuffGeneral();
+    eCU_TEST_byteUnStuffCornerCase();
+    eCU_TEST_byteUnStuffCornerCase2();
+    eCU_TEST_byteUnStuffCodeCoverage();
 
     (void)printf("\n\nBYTE UNSTUFFER TEST END \n\n");
 }
@@ -63,7 +63,7 @@ void byteUnStufferTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void byteUnStuffTestBadPointer(void)
+static void eCU_TEST_byteUnStuffBadPointer(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -247,7 +247,7 @@ void byteUnStuffTestBadPointer(void)
     }
 }
 
-void byteUnStuffTestBadInit(void)
+static void eCU_TEST_byteUnStuffBadInit(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -342,7 +342,7 @@ void byteUnStuffTestBadInit(void)
     }
 }
 
-void byteUnStuffTestBadParamEntr(void)
+static void eCU_TEST_byteUnStuffBadParamEntr(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -395,7 +395,7 @@ void byteUnStuffTestBadParamEntr(void)
     }
 }
 
-void byteUnStuffTestCorrupterContext(void)
+static void eCU_TEST_byteUnStuffCorrupterContext(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -628,7 +628,7 @@ void byteUnStuffTestCorrupterContext(void)
     }
 }
 
-void byteUnStuffTestOutOfMem(void)
+static void eCU_TEST_byteUnStuffOutOfMem(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -1227,7 +1227,7 @@ void byteUnStuffTestOutOfMem(void)
     }
 }
 
-void byteUnStuffTestFrameEnd(void)
+static void eCU_TEST_byteUnStuffFrameEnd(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -1705,7 +1705,7 @@ void byteUnStuffTestFrameEnd(void)
     }
 }
 
-void byteUnStuffTestGeneral(void)
+static void eCU_TEST_byteUnStuffGeneral(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -2160,7 +2160,7 @@ void byteUnStuffTestGeneral(void)
 
 }
 
-void byteUnStuffTestCornerCase(void)
+static void eCU_TEST_byteUnStuffCornerCase(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -2948,7 +2948,7 @@ void byteUnStuffTestCornerCase(void)
     }
 }
 
-void byteUnStuffTestCornerCase2(void)
+static void eCU_TEST_byteUnStuffCornerCase2(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;
@@ -3072,7 +3072,7 @@ void byteUnStuffTestCornerCase2(void)
 
 }
 
-void byteUnStuffTestCodeCoverage(void)
+static void eCU_TEST_byteUnStuffCodeCoverage(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctx;

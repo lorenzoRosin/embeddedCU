@@ -18,32 +18,32 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void dataPackTestBadPointer(void);
-static void dataPackTestBadInit(void);
-static void dataPackTestBadParamEntr(void);
-static void dataPackTestCorruptContext(void);
-static void dataPackTestOutOfMem(void);
-static void dataPackTestEndianLe(void);
-static void dataPackTestEndianBe(void);
-static void dataPackTestCycle(void);
+static void eCU_TEST_dataPackBadPointer(void);
+static void eCU_TEST_dataPackBadInit(void);
+static void eCU_TEST_dataPackBadParamEntr(void);
+static void eCU_TEST_dataPackCorruptContext(void);
+static void eCU_TEST_dataPackOutOfMem(void);
+static void eCU_TEST_dataPackEndianLe(void);
+static void eCU_TEST_dataPackEndianBe(void);
+static void eCU_TEST_dataPackCycle(void);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void dataPackTest(void)
+void eCU_TEST_dataPack(void)
 {
 	(void)printf("\n\nDATA PACK TEST START \n\n");
 
-    dataPackTestBadPointer();
-    dataPackTestBadInit();
-    dataPackTestBadParamEntr();
-    dataPackTestCorruptContext();
-    dataPackTestOutOfMem();
-    dataPackTestEndianLe();
-    dataPackTestEndianBe();
-    dataPackTestCycle();
+    eCU_TEST_dataPackBadPointer();
+    eCU_TEST_dataPackBadInit();
+    eCU_TEST_dataPackBadParamEntr();
+    eCU_TEST_dataPackCorruptContext();
+    eCU_TEST_dataPackOutOfMem();
+    eCU_TEST_dataPackEndianLe();
+    eCU_TEST_dataPackEndianBe();
+    eCU_TEST_dataPackCycle();
 
     (void)printf("\n\nDATA PACK END \n\n");
 }
@@ -53,7 +53,7 @@ void dataPackTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void dataPackTestBadPointer(void)
+static void eCU_TEST_dataPackBadPointer(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
@@ -208,7 +208,7 @@ void dataPackTestBadPointer(void)
     }
 }
 
-void dataPackTestBadInit(void)
+static void eCU_TEST_dataPackBadInit(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
@@ -322,7 +322,7 @@ void dataPackTestBadInit(void)
     }
 }
 
-void dataPackTestBadParamEntr(void)
+static void eCU_TEST_dataPackBadParamEntr(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
@@ -394,7 +394,7 @@ void dataPackTestBadParamEntr(void)
     }
 }
 
-void dataPackTestCorruptContext(void)
+static void eCU_TEST_dataPackCorruptContext(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
@@ -657,7 +657,7 @@ void dataPackTestCorruptContext(void)
     }
 }
 
-void dataPackTestOutOfMem(void)
+static void eCU_TEST_dataPackOutOfMem(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
@@ -943,7 +943,7 @@ void dataPackTestOutOfMem(void)
     }
 }
 
-void dataPackTestEndianLe(void)
+static void eCU_TEST_dataPackEndianLe(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
@@ -1133,7 +1133,7 @@ void dataPackTestEndianLe(void)
     }
 }
 
-void dataPackTestEndianBe(void)
+static void eCU_TEST_dataPackEndianBe(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;
@@ -1323,7 +1323,7 @@ void dataPackTestEndianBe(void)
     }
 }
 
-void dataPackTestCycle(void)
+static void eCU_TEST_dataPackCycle(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx ctx;

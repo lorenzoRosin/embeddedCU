@@ -23,36 +23,36 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void byteStuffTestBadPointer(void);
-static void byteStuffTestBadInit(void);
-static void byteStuffTestBadIniFrame(void);
-static void byteStuffTestBadParamEntr(void);
-static void byteStuffTestCorrupterContext(void);
-static void byteStuffTestOutOfMem(void);
-static void byteStuffTestStartRestart(void);
-static void byteStuffTestGetRemainings(void);
-static void byteStuffTestGeneral(void);
-static void byteStuffTestGeneralAnother(void);
-static void byteStuffTestCorrecteness(void);
+static void eCU_TEST_byteStuffBadPointer(void);
+static void eCU_TEST_byteStuffBadInit(void);
+static void eCU_TEST_byteStuffBadIniFrame(void);
+static void eCU_TEST_byteStuffBadParamEntr(void);
+static void eCU_TEST_byteStuffCorrupterContext(void);
+static void eCU_TEST_byteStuffOutOfMem(void);
+static void eCU_TEST_byteStuffStartRestart(void);
+static void eCU_TEST_byteStuffGetRemainings(void);
+static void eCU_TEST_byteStuffGeneral(void);
+static void eCU_TEST_byteStuffGeneralAnother(void);
+static void eCU_TEST_byteStuffCorrecteness(void);
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void byteStufferTest(void)
+void eCU_TEST_byteStuffer(void)
 {
 	(void)printf("\n\nBYTE STUFFER TEST START \n\n");
 
-    byteStuffTestBadPointer();
-    byteStuffTestBadInit();
-    byteStuffTestBadIniFrame();
-    byteStuffTestBadParamEntr();
-    byteStuffTestCorrupterContext();
-    byteStuffTestOutOfMem();
-    byteStuffTestStartRestart();
-    byteStuffTestGetRemainings();
-    byteStuffTestGeneral();
-    byteStuffTestGeneralAnother();
-    byteStuffTestCorrecteness();
+    eCU_TEST_byteStuffBadPointer();
+    eCU_TEST_byteStuffBadInit();
+    eCU_TEST_byteStuffBadIniFrame();
+    eCU_TEST_byteStuffBadParamEntr();
+    eCU_TEST_byteStuffCorrupterContext();
+    eCU_TEST_byteStuffOutOfMem();
+    eCU_TEST_byteStuffStartRestart();
+    eCU_TEST_byteStuffGetRemainings();
+    eCU_TEST_byteStuffGeneral();
+    eCU_TEST_byteStuffGeneralAnother();
+    eCU_TEST_byteStuffCorrecteness();
 
     (void)printf("\n\nBYTE STUFFER TEST END \n\n");
 }
@@ -64,7 +64,7 @@ void byteStufferTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void byteStuffTestBadPointer(void)
+static void eCU_TEST_byteStuffBadPointer(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -202,7 +202,7 @@ void byteStuffTestBadPointer(void)
     }
 }
 
-void byteStuffTestBadInit(void)
+static void eCU_TEST_byteStuffBadInit(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -278,7 +278,7 @@ void byteStuffTestBadInit(void)
 
 }
 
-void byteStuffTestBadIniFrame(void)
+static void eCU_TEST_byteStuffBadIniFrame(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -362,7 +362,7 @@ void byteStuffTestBadIniFrame(void)
     }
 }
 
-void byteStuffTestBadParamEntr(void)
+static void eCU_TEST_byteStuffBadParamEntr(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -429,7 +429,7 @@ void byteStuffTestBadParamEntr(void)
     }
 }
 
-void byteStuffTestCorrupterContext(void)
+static void eCU_TEST_byteStuffCorrupterContext(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -746,7 +746,7 @@ void byteStuffTestCorrupterContext(void)
     }
 }
 
-void byteStuffTestOutOfMem(void)
+static void eCU_TEST_byteStuffOutOfMem(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -1012,7 +1012,7 @@ void byteStuffTestOutOfMem(void)
     }
 }
 
-void byteStuffTestStartRestart(void)
+static void eCU_TEST_byteStuffStartRestart(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -1342,7 +1342,7 @@ void byteStuffTestStartRestart(void)
     }
 }
 
-void byteStuffTestGetRemainings(void)
+static void eCU_TEST_byteStuffGetRemainings(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -1692,7 +1692,7 @@ void byteStuffTestGetRemainings(void)
     }
 }
 
-void byteStuffTestGeneral(void)
+static void eCU_TEST_byteStuffGeneral(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -2388,7 +2388,7 @@ void byteStuffTestGeneral(void)
     }
 }
 
-void byteStuffTestGeneralAnother(void)
+static void eCU_TEST_byteStuffGeneralAnother(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;
@@ -2948,7 +2948,7 @@ void byteStuffTestGeneralAnother(void)
     }
 }
 
-void byteStuffTestCorrecteness(void)
+static void eCU_TEST_byteStuffCorrecteness(void)
 {
     /* Local variable */
     s_eCU_BSTF_Ctx ctx;

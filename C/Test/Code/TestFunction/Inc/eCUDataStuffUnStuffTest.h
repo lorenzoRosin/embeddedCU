@@ -37,7 +37,7 @@ extern "C" {
  *
  * @return      none
  */
-void dataStuffUnStuffTest(void);
+void eCU_TEST_dataStuffUnStuff(void);
 
 
 

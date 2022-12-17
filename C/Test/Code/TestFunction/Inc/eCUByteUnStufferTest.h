@@ -36,7 +36,7 @@ extern "C" {
  *
  * @return      none
  */
-void byteUnStufferTest(void);
+void eCU_TEST_byteUnStuffer(void);
 
 
 

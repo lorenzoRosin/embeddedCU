@@ -23,32 +23,32 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void circularqueueTestBadPointer(void);
-static void circularqueueTestBadInit(void);
-static void circularqueueTestBadParamEntr(void);
-static void circularqueueTestCorruptedContext(void);
-static void circularqueueTestEmptyMem(void);
-static void circularqueueTestFullMem(void);
-static void circularqueueTestGeneric(void);
-static void circularqueueTestCycle1(void);
-static void circularqueueTestCycle2(void);
+static void eCU_TEST_circularqueueBadPointer(void);
+static void eCU_TEST_circularqueueBadInit(void);
+static void eCU_TEST_circularqueueBadParamEntr(void);
+static void eCU_TEST_circularqueueCorruptedContext(void);
+static void eCU_TEST_circularqueueEmptyMem(void);
+static void eCU_TEST_circularqueueFullMem(void);
+static void eCU_TEST_circularqueueGeneric(void);
+static void eCU_TEST_circularqueueCycle1(void);
+static void eCU_TEST_circularqueueCycle2(void);
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void circularQueueTest(void)
+void eCU_TEST_circularQueue(void)
 {
 	(void)printf("\n\nCIRCULAR QUEUE TEST START \n\n");
 
-    circularqueueTestBadPointer();
-    circularqueueTestBadInit();
-    circularqueueTestBadParamEntr();
-    circularqueueTestCorruptedContext();
-    circularqueueTestEmptyMem();
-    circularqueueTestFullMem();
-    circularqueueTestGeneric();
-    circularqueueTestCycle1();
-    circularqueueTestCycle2();
+    eCU_TEST_circularqueueBadPointer();
+    eCU_TEST_circularqueueBadInit();
+    eCU_TEST_circularqueueBadParamEntr();
+    eCU_TEST_circularqueueCorruptedContext();
+    eCU_TEST_circularqueueEmptyMem();
+    eCU_TEST_circularqueueFullMem();
+    eCU_TEST_circularqueueGeneric();
+    eCU_TEST_circularqueueCycle1();
+    eCU_TEST_circularqueueCycle2();
 
     (void)printf("\n\nCIRCULAR QUEUE TEST END \n\n");
 }
@@ -60,7 +60,7 @@ void circularQueueTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void circularqueueTestBadPointer(void)
+static void eCU_TEST_circularqueueBadPointer(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -205,7 +205,7 @@ void circularqueueTestBadPointer(void)
     }
 }
 
-void circularqueueTestBadInit(void)
+static void eCU_TEST_circularqueueBadInit(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -300,7 +300,7 @@ void circularqueueTestBadInit(void)
     }
 }
 
-void circularqueueTestBadParamEntr(void)
+static void eCU_TEST_circularqueueBadParamEntr(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -374,7 +374,7 @@ void circularqueueTestBadParamEntr(void)
     }
 }
 
-static void circularqueueTestCorruptedContext(void)
+static void eCU_TEST_circularqueueCorruptedContext(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -593,7 +593,7 @@ static void circularqueueTestCorruptedContext(void)
 
 }
 
-void circularqueueTestEmptyMem(void)
+static void eCU_TEST_circularqueueEmptyMem(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -759,7 +759,7 @@ void circularqueueTestEmptyMem(void)
     }
 }
 
-void circularqueueTestFullMem(void)
+static void eCU_TEST_circularqueueFullMem(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -861,7 +861,7 @@ void circularqueueTestFullMem(void)
     }
 }
 
-static void circularqueueTestGeneric(void)
+static void eCU_TEST_circularqueueGeneric(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -1100,7 +1100,7 @@ static void circularqueueTestGeneric(void)
 
 }
 
-static void circularqueueTestCycle1(void)
+static void eCU_TEST_circularqueueCycle1(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;
@@ -1165,7 +1165,7 @@ static void circularqueueTestCycle1(void)
     }
 }
 
-static void circularqueueTestCycle2(void)
+static void eCU_TEST_circularqueueCycle2(void)
 {
     /* Local variable */
     s_eCU_CIRQ_Ctx ctx;

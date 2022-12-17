@@ -13,15 +13,15 @@ int main(void);
 int main(void)
 {
     /* Start testing */
-    crc32Test();
-    cUCrcDigestTest();
-    circularQueueTest();
-    dataPackTest();
-    dataUnPackTest();
-	dataPackUnPackTest();
-    byteStufferTest();
-    byteUnStufferTest();
-    dataStuffUnStuffTest();
+    eCU_TEST_crc32();
+    eCU_TEST_cUCrcDigest();
+    eCU_TEST_circularQueue();
+    eCU_TEST_dataPack();
+    eCU_TEST_dataUnPack();
+	eCU_TEST_dataPackUnPack();
+    eCU_TEST_byteStuffer();
+    eCU_TEST_byteUnStuffer();
+    eCU_TEST_dataStuffUnStuff();
 
     return 0;
 }

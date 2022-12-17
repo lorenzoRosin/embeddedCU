@@ -29,42 +29,42 @@ struct cb_crc32_seed_ctx_user
     e_eCU_CRC_Res lastError;
 };
 
-static bool_t c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
-static bool_t c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
+static bool_t eCU_TEST_c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
+static bool_t eCU_TEST_c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
 
 
 
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void cUCrcDigestTestBadPointer(void);
-static void cUCrcDigestTestBadInit(void);
-static void cUCrcDigestTestBadParamEntr(void);
-static void cUCrcDigestTestContextStatus(void);
-static void cUCrcDigestTestToManyOperation(void);
-static void cUCrcDigestTestNoOperation(void);
-static void cUCrcDigestTestClbErr(void);
-static void cUCrcDigestTestMono(void);
-static void cUCrcDigestTestCombined(void);
+static void eCU_TEST_cUCrcDigestBadPointer(void);
+static void eCU_TEST_cUCrcDigestBadInit(void);
+static void eCU_TEST_cUCrcDigestBadParamEntr(void);
+static void eCU_TEST_cUCrcDigestContextStatus(void);
+static void eCU_TEST_cUCrcDigestToManyOperation(void);
+static void eCU_TEST_cUCrcDigestNoOperation(void);
+static void eCU_TEST_cUCrcDigestClbErr(void);
+static void eCU_TEST_cUCrcDigestMono(void);
+static void eCU_TEST_cUCrcDigestCombined(void);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void cUCrcDigestTest(void)
+void eCU_TEST_cUCrcDigest(void)
 {
 	(void)printf("\n\nCRC DIGEST TEST START \n\n");
 
-    cUCrcDigestTestBadPointer();
-    cUCrcDigestTestBadInit();
-    cUCrcDigestTestBadParamEntr();
-    cUCrcDigestTestContextStatus();
-    cUCrcDigestTestToManyOperation();
-    cUCrcDigestTestNoOperation();
-    cUCrcDigestTestClbErr();
-    cUCrcDigestTestMono();
-    cUCrcDigestTestCombined();
+    eCU_TEST_cUCrcDigestBadPointer();
+    eCU_TEST_cUCrcDigestBadInit();
+    eCU_TEST_cUCrcDigestBadParamEntr();
+    eCU_TEST_cUCrcDigestContextStatus();
+    eCU_TEST_cUCrcDigestToManyOperation();
+    eCU_TEST_cUCrcDigestNoOperation();
+    eCU_TEST_cUCrcDigestClbErr();
+    eCU_TEST_cUCrcDigestMono();
+    eCU_TEST_cUCrcDigestCombined();
 
     (void)printf("\n\nCRC DIGEST END \n\n");
 }
@@ -74,7 +74,7 @@ void cUCrcDigestTest(void)
 /***********************************************************************************************************************
  *   PRIVATE TEST FUNCTION DECLARATION
  **********************************************************************************************************************/
-bool_t c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
+static bool_t eCU_TEST_c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
 {
     bool_t result;
 
@@ -98,7 +98,7 @@ bool_t c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], c
     return result;
 }
 
-bool_t c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
+static bool_t eCU_TEST_c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
 {
     bool_t result;
 
@@ -125,11 +125,11 @@ bool_t c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[],
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void cUCrcDigestTestBadPointer(void)
+static void eCU_TEST_cUCrcDigestBadPointer(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
 
     uint8_t  varBuff[5u];
@@ -256,7 +256,7 @@ void cUCrcDigestTestBadPointer(void)
     }
 }
 
-void cUCrcDigestTestBadInit(void)
+static void eCU_TEST_cUCrcDigestBadInit(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
@@ -312,11 +312,11 @@ void cUCrcDigestTestBadInit(void)
     }
 }
 
-void cUCrcDigestTestBadParamEntr(void)
+static void eCU_TEST_cUCrcDigestBadParamEntr(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
     bool_t isInit;
     uint8_t  varBuff[5u];
@@ -361,11 +361,11 @@ void cUCrcDigestTestBadParamEntr(void)
     }
 }
 
-void cUCrcDigestTestContextStatus(void)
+static void eCU_TEST_cUCrcDigestContextStatus(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
     uint8_t  varBuff[5u];
     uint32_t varTemp;
@@ -438,11 +438,11 @@ void cUCrcDigestTestContextStatus(void)
     }
 }
 
-void cUCrcDigestTestToManyOperation(void)
+static void eCU_TEST_cUCrcDigestToManyOperation(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
     uint8_t  varBuff[5u];
 
@@ -471,11 +471,11 @@ void cUCrcDigestTestToManyOperation(void)
     }
 }
 
-void cUCrcDigestTestNoOperation(void)
+static void eCU_TEST_cUCrcDigestNoOperation(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
     uint32_t  varCarc;
 
@@ -503,13 +503,12 @@ void cUCrcDigestTestNoOperation(void)
     }
 }
 
-
-void cUCrcDigestTestClbErr(void)
+static void eCU_TEST_cUCrcDigestClbErr(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTestErr = &c32SAdaptEr;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTestErr = &eCU_TEST_c32SAdaptEr;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
     uint8_t  varBuff[5u];
 
@@ -586,11 +585,11 @@ void cUCrcDigestTestClbErr(void)
     }
 }
 
-void cUCrcDigestTestMono(void)
+static void eCU_TEST_cUCrcDigestMono(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
 
     /* Test value */
@@ -759,11 +758,11 @@ void cUCrcDigestTestMono(void)
     }
 }
 
-void cUCrcDigestTestCombined(void)
+static void eCU_TEST_cUCrcDigestCombined(void)
 {
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
-    cb_crc32_seed cbCrcPTest = &c32SAdapt;
+    cb_crc32_seed cbCrcPTest = &eCU_TEST_c32SAdapt;
     cb_crc32_seed_ctx ctxAdapterCrc;
 
     /* Test value */

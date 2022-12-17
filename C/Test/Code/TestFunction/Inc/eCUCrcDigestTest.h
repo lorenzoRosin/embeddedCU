@@ -36,7 +36,7 @@ extern "C" {
  *
  * @return      none
  */
-void cUCrcDigestTest(void);
+void eCU_TEST_cUCrcDigest(void);
 
 
 

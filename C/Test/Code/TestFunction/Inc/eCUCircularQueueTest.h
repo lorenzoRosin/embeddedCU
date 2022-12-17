@@ -36,7 +36,7 @@ extern "C" {
  *
  * @return      none
  */
-void circularQueueTest(void);
+void eCU_TEST_circularQueue(void);
 
 
 

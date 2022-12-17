@@ -18,22 +18,22 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void crc32TestBadPointer(void);
-static void crc32TestValue(void);
-static void crc32TestCombined(void);
+static void eCU_TEST_crc32BadPointer(void);
+static void eCU_TEST_crc32Value(void);
+static void eCU_TEST_crc32Combined(void);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void crc32Test(void)
+void eCU_TEST_crc32(void)
 {
 	(void)printf("\n\nCRC TEST START \n\n");
 
-    crc32TestBadPointer();
-    crc32TestValue();
-    crc32TestCombined();
+    eCU_TEST_crc32BadPointer();
+    eCU_TEST_crc32Value();
+    eCU_TEST_crc32Combined();
 
     (void)printf("\n\nCRC TEST END \n\n");
 }
@@ -43,7 +43,7 @@ void crc32Test(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void crc32TestBadPointer(void)
+static void eCU_TEST_crc32BadPointer(void)
 {
     /* Local variable */
     uint32_t crc32SValTest;
@@ -87,7 +87,7 @@ void crc32TestBadPointer(void)
     }
 }
 
-void crc32TestValue(void)
+static void eCU_TEST_crc32Value(void)
 {
     /* Local variable */
     uint32_t crcTestValSeed;
@@ -200,7 +200,7 @@ void crc32TestValue(void)
     }
 }
 
-void crc32TestCombined(void)
+static void eCU_TEST_crc32Combined(void)
 {
     /* Local variable */
     uint32_t crcTestValSeedC;

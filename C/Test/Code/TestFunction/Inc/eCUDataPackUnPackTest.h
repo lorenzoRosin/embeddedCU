@@ -37,7 +37,7 @@ extern "C" {
  *
  * @return      none
  */
-void dataPackUnPackTest(void);
+void eCU_TEST_dataPackUnPack(void);
 
 
 

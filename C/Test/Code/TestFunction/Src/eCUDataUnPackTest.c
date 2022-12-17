@@ -18,34 +18,34 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void dataUnPackTestBadPointer(void);
-static void dataUnPackTestBadInit(void);
-static void dataUnPackTestBadInitSession(void);
-static void dataUnPackTestBadParamEntr(void);
-static void dataUnPackTestCorruptContext(void);
-static void dataUnPackTestOutOfMem(void);
-static void dataUnPackTestEndianLe(void);
-static void dataUnPackTestEndianBe(void);
-static void dataUnPackTestCycle(void);
+static void eCU_TEST_dataUnPackBadPointer(void);
+static void eCU_TEST_dataUnPackBadInit(void);
+static void eCU_TEST_dataUnPackBadInitSession(void);
+static void eCU_TEST_dataUnPackBadParamEntr(void);
+static void eCU_TEST_dataUnPackCorruptContext(void);
+static void eCU_TEST_dataUnPackOutOfMem(void);
+static void eCU_TEST_dataUnPackEndianLe(void);
+static void eCU_TEST_dataUnPackEndianBe(void);
+static void eCU_TEST_dataUnPackCycle(void);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void dataUnPackTest(void)
+void eCU_TEST_dataUnPack(void)
 {
 	(void)printf("\n\nDATA UNPACK TEST START \n\n");
 
-    dataUnPackTestBadPointer();
-    dataUnPackTestBadInit();
-    dataUnPackTestBadInitSession();
-    dataUnPackTestBadParamEntr();
-    dataUnPackTestCorruptContext();
-    dataUnPackTestOutOfMem();
-    dataUnPackTestEndianLe();
-    dataUnPackTestEndianBe();
-    dataUnPackTestCycle();
+    eCU_TEST_dataUnPackBadPointer();
+    eCU_TEST_dataUnPackBadInit();
+    eCU_TEST_dataUnPackBadInitSession();
+    eCU_TEST_dataUnPackBadParamEntr();
+    eCU_TEST_dataUnPackCorruptContext();
+    eCU_TEST_dataUnPackOutOfMem();
+    eCU_TEST_dataUnPackEndianLe();
+    eCU_TEST_dataUnPackEndianBe();
+    eCU_TEST_dataUnPackCycle();
 
     (void)printf("\n\nDATA UNPACK END \n\n");
 }
@@ -55,7 +55,7 @@ void dataUnPackTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-void dataUnPackTestBadPointer(void)
+static void eCU_TEST_dataUnPackBadPointer(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -258,7 +258,7 @@ void dataUnPackTestBadPointer(void)
     }
 }
 
-void dataUnPackTestBadInit(void)
+static void eCU_TEST_dataUnPackBadInit(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -384,7 +384,7 @@ void dataUnPackTestBadInit(void)
     }
 }
 
-void dataUnPackTestBadInitSession(void)
+static void eCU_TEST_dataUnPackBadInitSession(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -488,7 +488,7 @@ void dataUnPackTestBadInitSession(void)
     }
 }
 
-void dataUnPackTestBadParamEntr(void)
+static void eCU_TEST_dataUnPackBadParamEntr(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -554,7 +554,7 @@ void dataUnPackTestBadParamEntr(void)
     }
 }
 
-void dataUnPackTestCorruptContext(void)
+static void eCU_TEST_dataUnPackCorruptContext(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -876,7 +876,7 @@ void dataUnPackTestCorruptContext(void)
     }
 }
 
-void dataUnPackTestOutOfMem(void)
+static void eCU_TEST_dataUnPackOutOfMem(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -1264,7 +1264,7 @@ void dataUnPackTestOutOfMem(void)
     }
 }
 
-void dataUnPackTestEndianLe(void)
+static void eCU_TEST_dataUnPackEndianLe(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -1464,7 +1464,7 @@ void dataUnPackTestEndianLe(void)
     }
 }
 
-void dataUnPackTestEndianBe(void)
+static void eCU_TEST_dataUnPackEndianBe(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;
@@ -1664,7 +1664,7 @@ void dataUnPackTestEndianBe(void)
     }
 }
 
-void dataUnPackTestCycle(void)
+static void eCU_TEST_dataUnPackCycle(void)
 {
     /* Local variable */
     s_eCU_DUNPK_Ctx ctx;

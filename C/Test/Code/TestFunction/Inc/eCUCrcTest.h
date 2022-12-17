@@ -36,7 +36,7 @@ extern "C" {
  *
  * @return      none
  */
-void crc32Test(void);
+void eCU_TEST_crc32(void);
 
 
 

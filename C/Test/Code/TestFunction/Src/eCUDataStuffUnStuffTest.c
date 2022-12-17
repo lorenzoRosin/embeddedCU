@@ -23,18 +23,18 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void dataStuffUnStuffCommon(void);
+static void eCU_TEST_dataStuffUnStuffCommon(void);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void dataStuffUnStuffTest(void)
+void eCU_TEST_dataStuffUnStuff(void)
 {
 	(void)printf("\n\nDATA STUFF UNSTUFF TEST START \n\n");
 
-    dataStuffUnStuffCommon();
+    eCU_TEST_dataStuffUnStuffCommon();
 
     (void)printf("\n\nDATA STUFF UNSTUFF END \n\n");
 }
@@ -50,7 +50,7 @@ typedef struct
     uint8_t  *dataTest;
 }s_priv_test_stuffUnstuffMatrix;
 
-void dataStuffUnStuffCommon(void)
+static void eCU_TEST_dataStuffUnStuffCommon(void)
 {
     /* Local variable */
     s_eCU_BUNSTF_Ctx ctxUnStuff;
