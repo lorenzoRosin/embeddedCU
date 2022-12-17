@@ -78,20 +78,27 @@ static bool_t eCU_TEST_c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, cons
 {
     bool_t result;
 
-    if( ( NULL == cntx ) || ( NULL == c32Val ) )
+    if( ( NULL == cntx ) || ( NULL == d ) || ( NULL == c32Val ) )
     {
         result = false;
     }
     else
     {
-        cntx->lastError = eCU_CRC_32Seed(s, d, dLen, c32Val);
-        if( CRC_RES_OK == cntx->lastError )
+        if( 0u == dLen )
         {
-            result = true;
+            result = false;
         }
         else
         {
-            result = false;
+            cntx->lastError = eCU_CRC_32Seed(s, d, dLen, c32Val);
+            if( CRC_RES_OK == cntx->lastError )
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
         }
     }
 
@@ -106,15 +113,22 @@ static bool_t eCU_TEST_c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, co
     (void)d;
     (void)dLen;
 
-    if( ( NULL == cntx ) || ( NULL == c32Val ) )
+    if( ( NULL == cntx ) || ( NULL == d ) || ( NULL == c32Val ) )
     {
         result = false;
     }
     else
     {
-        cntx->lastError = CRC_RES_BADPOINTER;
-        result = false;
-        *c32Val = 0u;
+        if( 0u == dLen )
+        {
+            result = false;
+        }
+        else
+        {
+            cntx->lastError = CRC_RES_BADPOINTER;
+            result = false;
+            *c32Val = 0u;
+        }
     }
 
     return result;
