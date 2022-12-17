@@ -80,6 +80,21 @@ e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t a_memArea[]
 e_eCU_BSTF_Res eCU_BSTF_IsInit(s_eCU_BSTF_Ctx* const p_ctx, bool_t* p_isInit);
 
 /**
+ * @brief       Retrive the pointer of the buffer that the user can use to insert data payload that need to be stuffed
+ *
+ * @param[in]   p_ctx           - Byte stuffer context
+ * @param[out]  pp_data         - Pointer to a Pointer where the raw data needs to be copied before starting a frame
+ * @param[out]  p_maxDataSize   - Pointer to a uint32_t variable where the max number of data that can be copied in
+ *                                pp_data will be placed
+ *
+ * @return      BSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
+ *		        BSTF_RES_NOINITLIB     - Need to init the data stuffer context before taking some action
+ *		        BSTF_RES_CORRUPTCTX    - In case of an corrupted context
+ *              BSTF_RES_OK            - Operation ended correctly
+ */
+e_eCU_BSTF_Res eCU_BSTF_GetWherePutData(s_eCU_BSTF_Ctx* const p_ctx, uint8_t** pp_data, uint32_t* const p_maxDataSize);
+
+/**
  * @brief       Start to stuff a new frame given the dimension of raw payload it self. This function suppouse that
  *              data payload that need to be stuffed were already copied in memory.( see eCU_BSTF_GetWherePutData
  *              in order to know how get the data pointer )
@@ -94,21 +109,6 @@ e_eCU_BSTF_Res eCU_BSTF_IsInit(s_eCU_BSTF_Ctx* const p_ctx, bool_t* p_isInit);
  *              BSTF_RES_OK            - Operation ended correctly
  */
 e_eCU_BSTF_Res eCU_BSTF_NewFrame(s_eCU_BSTF_Ctx* const p_ctx, const uint32_t frameLen);
-
-/**
- * @brief       Retrive the pointer of the buffer that the user can use to insert data payload that need to be stuffed
- *
- * @param[in]   p_ctx           - Byte stuffer context
- * @param[out]  pp_data         - Pointer to a Pointer where the raw data needs to be copied before starting a frame
- * @param[out]  p_maxDataSize   - Pointer to a uint32_t variable where the max number of data that can be copied in
- *                                pp_data will be placed
- *
- * @return      BSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
- *		        BSTF_RES_NOINITLIB     - Need to init the data stuffer context before taking some action
- *		        BSTF_RES_CORRUPTCTX    - In case of an corrupted context
- *              BSTF_RES_OK            - Operation ended correctly
- */
-e_eCU_BSTF_Res eCU_BSTF_GetWherePutData(s_eCU_BSTF_Ctx* const p_ctx, uint8_t** pp_data, uint32_t* const p_maxDataSize);
 
 /**
  * @brief       Restart to stuff the already passed data/the current frame

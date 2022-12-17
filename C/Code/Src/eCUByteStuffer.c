@@ -77,6 +77,43 @@ e_eCU_BSTF_Res eCU_BSTF_IsInit(s_eCU_BSTF_Ctx* const p_ctx, bool_t* p_isInit)
 	return l_result;
 }
 
+e_eCU_BSTF_Res eCU_BSTF_GetWherePutData(s_eCU_BSTF_Ctx* const p_ctx, uint8_t** pp_data, uint32_t* const p_maxDataSize)
+{
+	/* Local variable */
+	e_eCU_BSTF_Res l_result;
+
+	/* Check pointer validity */
+	if( ( NULL == p_ctx ) || ( NULL == pp_data ) || ( NULL == p_maxDataSize ) )
+	{
+		l_result = BSTF_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == p_ctx->isInit )
+		{
+			l_result = BSTF_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == eCU_BSTF_isStatusStillCoherent(p_ctx) )
+            {
+                l_result = BSTF_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* return data */
+                *pp_data = p_ctx->p_memA;
+                *p_maxDataSize = p_ctx->memASize;
+                l_result = BSTF_RES_OK;
+            }
+		}
+	}
+
+	return l_result;
+}
+
 e_eCU_BSTF_Res eCU_BSTF_NewFrame(s_eCU_BSTF_Ctx* const p_ctx, const uint32_t frameLen)
 {
 	/* Local variable */
@@ -117,43 +154,6 @@ e_eCU_BSTF_Res eCU_BSTF_NewFrame(s_eCU_BSTF_Ctx* const p_ctx, const uint32_t fra
 
                     l_result = BSTF_RES_OK;
                 }
-            }
-		}
-	}
-
-	return l_result;
-}
-
-e_eCU_BSTF_Res eCU_BSTF_GetWherePutData(s_eCU_BSTF_Ctx* const p_ctx, uint8_t** pp_data, uint32_t* const p_maxDataSize)
-{
-	/* Local variable */
-	e_eCU_BSTF_Res l_result;
-
-	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == pp_data ) || ( NULL == p_maxDataSize ) )
-	{
-		l_result = BSTF_RES_BADPOINTER;
-	}
-	else
-	{
-		/* Check Init */
-		if( false == p_ctx->isInit )
-		{
-			l_result = BSTF_RES_NOINITLIB;
-		}
-		else
-		{
-            /* Check internal status validity */
-            if( false == eCU_BSTF_isStatusStillCoherent(p_ctx) )
-            {
-                l_result = BSTF_RES_CORRUPTCTX;
-            }
-            else
-            {
-                /* return data */
-                *pp_data = p_ctx->p_memA;
-                *p_maxDataSize = p_ctx->memASize;
-                l_result = BSTF_RES_OK;
             }
 		}
 	}
