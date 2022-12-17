@@ -94,7 +94,7 @@ e_eCU_DPK_Res eCU_DPK_StartNewPack(s_eCU_DPK_Ctx* const p_ctx);
  * @brief       Retrive the pointer to the stored packed data, and the data size of the packed data.
  *
  * @param[in]   p_ctx           - Data packer context
- * @param[out]  dataP           - Pointer to a Pointer pointing to the packed data buffer
+ * @param[out]  pp_data         - Pointer to a Pointer pointing to the packed data buffer
  * @param[out]  p_retrivedLen   - Pointer to a uint32_t variable where the size of the packed data buffer will be placed
  *
  * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
@@ -102,7 +102,7 @@ e_eCU_DPK_Res eCU_DPK_StartNewPack(s_eCU_DPK_Ctx* const p_ctx);
  *		        DPK_RES_CORRUPTCTX   - In case of a corrupted context
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_DPK_Res eCU_DPK_GetDataReference(s_eCU_DPK_Ctx* const p_ctx, uint8_t** dataP, uint32_t* const p_retrivedLen);
+e_eCU_DPK_Res eCU_DPK_GetDataReference(s_eCU_DPK_Ctx* const p_ctx, uint8_t** pp_data, uint32_t* const p_retrivedLen);
 
 /**
  * @brief       Retrive how many byte we have packed

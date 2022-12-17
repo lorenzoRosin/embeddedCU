@@ -112,13 +112,13 @@ e_eCU_DPK_Res eCU_DPK_StartNewPack(s_eCU_DPK_Ctx* const p_ctx)
 	return l_result;
 }
 
-e_eCU_DPK_Res eCU_DPK_GetDataReference(s_eCU_DPK_Ctx* const p_ctx, uint8_t** dataP, uint32_t* const p_retrivedLen)
+e_eCU_DPK_Res eCU_DPK_GetDataReference(s_eCU_DPK_Ctx* const p_ctx, uint8_t** pp_data, uint32_t* const p_retrivedLen)
 {
 	/* Local variable */
 	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == dataP ) || ( NULL == p_retrivedLen ) )
+	if( ( NULL == p_ctx ) || ( NULL == pp_data ) || ( NULL == p_retrivedLen ) )
 	{
 		l_result = DPK_RES_BADPOINTER;
 	}
@@ -138,7 +138,7 @@ e_eCU_DPK_Res eCU_DPK_GetDataReference(s_eCU_DPK_Ctx* const p_ctx, uint8_t** dat
             }
             else
             {
-                *dataP = p_ctx->p_memPKA;
+                *pp_data = p_ctx->p_memPKA;
                 *p_retrivedLen = p_ctx->memPKACntr;
                 l_result = DPK_RES_OK;
             }
