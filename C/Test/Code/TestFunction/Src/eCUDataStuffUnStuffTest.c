@@ -103,7 +103,7 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 1[%u]  -- FAIL \n", index);
         }
 
-        if( BUNSTF_RES_OK == BUNSTF_InitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
+        if( BUNSTF_RES_OK == eCU_BUNSTF_InitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
         {
             (void)printf("dataStuffUnStuffCommon 2[%u]  -- OK \n", index);
         }
@@ -141,7 +141,7 @@ void dataStuffUnStuffCommon(void)
             (void)printf("dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
         }
 
-        if( BUNSTF_RES_OK == BUNSTF_StartNewFrame(&ctxUnStuff) )
+        if( BUNSTF_RES_OK == eCU_BUNSTF_NewFrame(&ctxUnStuff) )
         {
             (void)printf("dataStuffUnStuffCommon 5[%u]  -- OK \n", index);
         }
@@ -161,9 +161,9 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* unstuff */
-        if( BUNSTF_RES_FRAMEENDED == BUNSTF_InsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec ) )
+        if( BUNSTF_RES_FRAMEENDED == eCU_BUNSTF_InsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec ) )
         {
-            if( BUNSTF_RES_OK == BUNSTF_GetUnstufLen(&ctxUnStuff, &temp32sec) )
+            if( BUNSTF_RES_OK == eCU_BUNSTF_GetUnstufLen(&ctxUnStuff, &temp32sec) )
             {
                 if( testMatrix[index].dataTestSize == temp32sec )
                 {
