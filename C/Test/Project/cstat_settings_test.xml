@@ -713,7 +713,7 @@
                     <check name="MISRAC2004-17.6_d" enabled="true" />
                 </group>
                 <group name="MISRAC2004-18" enabled="true">
-                    <check name="MISRAC2004-18.1" enabled="true" />
+                    <check name="MISRAC2004-18.1" enabled="false" />
                     <check name="MISRAC2004-18.2" enabled="true" />
                     <check name="MISRAC2004-18.4" enabled="true" />
                 </group>

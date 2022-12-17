@@ -24,13 +24,13 @@
 /***********************************************************************************************************************
  *   PRIVATE TEST FUNCTION DECLARATION
  **********************************************************************************************************************/
-typedef struct
+struct cb_crc32_seed_ctx_user
 {
     e_eCU_CRC_Res lastError;
-}s_eCU_crcAdapterCtx;
+};
 
-static bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
-static bool_t c32SAdaptEr(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
+static bool_t c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
+static bool_t c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val);
 
 
 
@@ -74,10 +74,9 @@ void cUCrcDigestTest(void)
 /***********************************************************************************************************************
  *   PRIVATE TEST FUNCTION DECLARATION
  **********************************************************************************************************************/
-bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
+bool_t c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
 {
     bool_t result;
-    s_eCU_crcAdapterCtx* ctxCur;
 
     if( ( NULL == cntx ) || ( NULL == c32Val ) )
     {
@@ -85,10 +84,8 @@ bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t
     }
     else
     {
-        ctxCur = (s_eCU_crcAdapterCtx*)cntx;
-
-        ctxCur->lastError = eCU_CRC_32Seed(s, d, dLen, c32Val);
-        if( CRC_RES_OK == ctxCur->lastError )
+        cntx->lastError = eCU_CRC_32Seed(s, d, dLen, c32Val);
+        if( CRC_RES_OK == cntx->lastError )
         {
             result = true;
         }
@@ -101,10 +98,9 @@ bool_t c32SAdapt(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t
     return result;
 }
 
-bool_t c32SAdaptEr(void* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
+bool_t c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t d[], const uint32_t dLen, uint32_t* const c32Val)
 {
     bool_t result;
-    s_eCU_crcAdapterCtx* ctxCur;
 
     (void)s;
     (void)d;
@@ -116,9 +112,7 @@ bool_t c32SAdaptEr(void* cntx, const uint32_t s, const uint8_t d[], const uint32
     }
     else
     {
-        ctxCur = (s_eCU_crcAdapterCtx*)cntx;
-
-        ctxCur->lastError = CRC_RES_BADPOINTER;
+        cntx->lastError = CRC_RES_BADPOINTER;
         result = false;
         *c32Val = 0u;
     }
@@ -136,7 +130,7 @@ void cUCrcDigestTestBadPointer(void)
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
 
     uint8_t  varBuff[5u];
     uint32_t varTemp;
@@ -323,7 +317,7 @@ void cUCrcDigestTestBadParamEntr(void)
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
     bool_t isInit;
     uint8_t  varBuff[5u];
     varBuff[0] = 0u;
@@ -372,7 +366,7 @@ void cUCrcDigestTestContextStatus(void)
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
     uint8_t  varBuff[5u];
     uint32_t varTemp;
 
@@ -449,7 +443,7 @@ void cUCrcDigestTestToManyOperation(void)
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
     uint8_t  varBuff[5u];
 
     /* Init variable */
@@ -482,7 +476,7 @@ void cUCrcDigestTestNoOperation(void)
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
     uint32_t  varCarc;
 
     /* Init variable */
@@ -516,7 +510,7 @@ void cUCrcDigestTestClbErr(void)
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTestErr = &c32SAdaptEr;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
     uint8_t  varBuff[5u];
 
     /* Init variable */
@@ -597,7 +591,7 @@ void cUCrcDigestTestMono(void)
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
 
     /* Test value */
     uint8_t crcTestData[] = {0xA1u, 0xB3u, 0xFFu, 0xFFu, 0x00u, 0xCFu, 0xD9u, 0x56u};
@@ -770,7 +764,7 @@ void cUCrcDigestTestCombined(void)
     /* Local variable */
     s_eCU_CRCD_Ctx ctx;
     cb_crc32_seed cbCrcPTest = &c32SAdapt;
-    s_eCU_crcAdapterCtx ctxAdapterCrc;
+    cb_crc32_seed_ctx ctxAdapterCrc;
 
     /* Test value */
     uint8_t crcTestDataC[] = {0x00u, 0x01u, 0x02u, 0x03u, 0x04u, 0x05u, 0xA1u, 0xB3u, 0xFFu, 0xFFu, 0x00u, 0xCFu, 0xD9u,
