@@ -94,7 +94,7 @@ void dataStuffUnStuffCommon(void)
     for(index = 0u; index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); index++)
     {
         /* Function Init */
-        if( BSTF_RES_OK == BSTF_InitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
+        if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
         {
             (void)printf("dataStuffUnStuffCommon 1[%u]  -- OK \n", index);
         }
@@ -113,7 +113,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* Copy data in byte stuffer */
-        if( BSTF_RES_OK == BSTF_GetUnStufDataLocation(&ctxStuff, &tempP, &tempPSize) )
+        if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctxStuff, &tempP, &tempPSize) )
         {
             if( tempPSize == sizeof(dataStuffPool) )
             {
@@ -132,7 +132,7 @@ void dataStuffUnStuffCommon(void)
 
 
         /* Function Init part two */
-        if( BSTF_RES_OK == BSTF_StartNewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
+        if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
         {
             (void)printf("dataStuffUnStuffCommon 4[%u]  -- OK \n", index);
         }
@@ -151,7 +151,7 @@ void dataStuffUnStuffCommon(void)
         }
 
         /* Stuff */
-        if( BSTF_RES_FRAMEENDED == BSTF_RetriStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
         {
             (void)printf("dataStuffUnStuffCommon 6[%u]  -- OK \n", index);
         }
