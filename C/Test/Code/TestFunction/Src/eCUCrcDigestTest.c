@@ -151,7 +151,7 @@ void cUCrcDigestTestBadPointer(void)
     bool_t isInit;
 
     /* Function */
-    if( CRCD_RES_BADPOINTER == CRCD_InitCtx(NULL, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_InitCtx(NULL, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestBadPointer 1  -- OK \n");
     }
@@ -160,7 +160,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 1  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_InitCtx(&ctx, NULL, &ctxAdapterCrc) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_InitCtx(&ctx, NULL, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestBadPointer 2  -- OK \n");
     }
@@ -170,7 +170,7 @@ void cUCrcDigestTestBadPointer(void)
     }
 
 
-    if( CRCD_RES_BADPOINTER == CRCD_InitCtx(&ctx, cbCrcPTest, NULL) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, NULL) )
     {
         (void)printf("cUCrcDigestTestBadPointer 2  -- OK \n");
     }
@@ -179,7 +179,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 2  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_SeedInitCtx(NULL, 0x123456u, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_SeedInitCtx(NULL, 0x123456u, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestBadPointer 4  -- OK \n");
     }
@@ -188,7 +188,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 4  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_SeedInitCtx(&ctx, 0x123456u, NULL, &ctxAdapterCrc) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_SeedInitCtx(&ctx, 0x123456u, NULL, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestBadPointer 5  -- OK \n");
     }
@@ -197,7 +197,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 5  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_SeedInitCtx(&ctx, 0x123456u, cbCrcPTest, NULL) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_SeedInitCtx(&ctx, 0x123456u, cbCrcPTest, NULL) )
     {
         (void)printf("cUCrcDigestTestBadPointer 6  -- OK \n");
     }
@@ -206,7 +206,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 6  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_Restart( NULL ) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_Restart( NULL ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 7  -- OK \n");
     }
@@ -215,7 +215,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 7  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_Digest( NULL, varBuff, sizeof(varBuff) ) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_Digest( NULL, varBuff, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 8  -- OK \n");
     }
@@ -224,7 +224,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 8  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_Digest( &ctx, NULL, sizeof(varBuff) ) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_Digest( &ctx, NULL, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 9  -- OK \n");
     }
@@ -233,7 +233,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 9  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_GetDigestVal( NULL, &varTemp) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_GetDigestVal( NULL, &varTemp) )
     {
         (void)printf("cUCrcDigestTestBadPointer 10 -- OK \n");
     }
@@ -242,7 +242,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 10 -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_GetDigestVal( &ctx, NULL) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_GetDigestVal( &ctx, NULL) )
     {
         (void)printf("cUCrcDigestTestBadPointer 11 -- OK \n");
     }
@@ -251,7 +251,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 11 -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_IsInit( NULL, &isInit ) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_IsInit( NULL, &isInit ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 12 -- OK \n");
     }
@@ -260,7 +260,7 @@ void cUCrcDigestTestBadPointer(void)
         (void)printf("cUCrcDigestTestBadPointer 12 -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPOINTER == CRCD_IsInit( &ctx, NULL ) )
+    if( CRCD_RES_BADPOINTER == eCU_CRCD_IsInit( &ctx, NULL ) )
     {
         (void)printf("cUCrcDigestTestBadPointer 13 -- OK \n");
     }
@@ -282,7 +282,7 @@ void cUCrcDigestTestBadInit(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_NOINITLIB == CRCD_Restart( &ctx ) )
+    if( CRCD_RES_NOINITLIB == eCU_CRCD_Restart( &ctx ) )
     {
         (void)printf("cUCrcDigestTestBadInit 1  -- OK \n");
     }
@@ -291,7 +291,7 @@ void cUCrcDigestTestBadInit(void)
         (void)printf("cUCrcDigestTestBadInit 1  -- FAIL \n");
     }
 
-    if( CRCD_RES_NOINITLIB == CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
+    if( CRCD_RES_NOINITLIB == eCU_CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestBadInit 2  -- OK \n");
     }
@@ -300,7 +300,7 @@ void cUCrcDigestTestBadInit(void)
         (void)printf("cUCrcDigestTestBadInit 2  -- FAIL \n");
     }
 
-    if( CRCD_RES_NOINITLIB == CRCD_GetDigestVal( &ctx, &varTemp) )
+    if( CRCD_RES_NOINITLIB == eCU_CRCD_GetDigestVal( &ctx, &varTemp) )
     {
         (void)printf("cUCrcDigestTestBadInit 3  -- OK \n");
     }
@@ -309,7 +309,7 @@ void cUCrcDigestTestBadInit(void)
         (void)printf("cUCrcDigestTestBadInit 3  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_IsInit( &ctx, &isInit ) )
+    if( CRCD_RES_OK == eCU_CRCD_IsInit( &ctx, &isInit ) )
     {
         if( false == isInit )
         {
@@ -340,7 +340,7 @@ void cUCrcDigestTestBadParamEntr(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestBadParamEntr 1  -- OK \n");
     }
@@ -349,7 +349,7 @@ void cUCrcDigestTestBadParamEntr(void)
         (void)printf("cUCrcDigestTestBadParamEntr 1  -- FAIL \n");
     }
 
-    if( CRCD_RES_BADPARAM == CRCD_Digest( &ctx, varBuff, 0u ) )
+    if( CRCD_RES_BADPARAM == eCU_CRCD_Digest( &ctx, varBuff, 0u ) )
     {
         (void)printf("cUCrcDigestTestBadParamEntr 2  -- OK \n");
     }
@@ -358,7 +358,7 @@ void cUCrcDigestTestBadParamEntr(void)
         (void)printf("cUCrcDigestTestBadParamEntr 2  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_IsInit( &ctx, &isInit ) )
+    if( CRCD_RES_OK == eCU_CRCD_IsInit( &ctx, &isInit ) )
     {
         if( true == isInit )
         {
@@ -388,7 +388,7 @@ void cUCrcDigestTestContextStatus(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestContextStatus 1  -- OK \n");
     }
@@ -398,8 +398,8 @@ void cUCrcDigestTestContextStatus(void)
     }
 
     /* Init variable */
-    ctx.cbCrcPointer = NULL;
-    if( CRCD_RES_CORRUPTCTX == CRCD_Restart( &ctx ) )
+    ctx.f_Crc = NULL;
+    if( CRCD_RES_CORRUPTCTX == eCU_CRCD_Restart( &ctx ) )
     {
         (void)printf("cUCrcDigestTestContextStatus 2  -- OK \n");
     }
@@ -410,7 +410,7 @@ void cUCrcDigestTestContextStatus(void)
 
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestContextStatus 3  -- OK \n");
     }
@@ -420,8 +420,8 @@ void cUCrcDigestTestContextStatus(void)
     }
 
     /* Init variable */
-    ctx.cbCrcPointer = NULL;
-    if( CRCD_RES_CORRUPTCTX == CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
+    ctx.f_Crc = NULL;
+    if( CRCD_RES_CORRUPTCTX == eCU_CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestContextStatus 4  -- OK \n");
     }
@@ -431,7 +431,7 @@ void cUCrcDigestTestContextStatus(void)
     }
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestContextStatus 5  -- OK \n");
     }
@@ -441,8 +441,8 @@ void cUCrcDigestTestContextStatus(void)
     }
 
     /* Init variable */
-    ctx.cbCrcCtx = NULL;
-    if( CRCD_RES_CORRUPTCTX == CRCD_GetDigestVal( &ctx, &varTemp ) )
+    ctx.p_crcCtx = NULL;
+    if( CRCD_RES_CORRUPTCTX == eCU_CRCD_GetDigestVal( &ctx, &varTemp ) )
     {
         (void)printf("cUCrcDigestTestContextStatus 6  -- OK \n");
     }
@@ -464,7 +464,7 @@ void cUCrcDigestTestToManyOperation(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestToManyOperation 1  -- OK \n");
     }
@@ -475,7 +475,7 @@ void cUCrcDigestTestToManyOperation(void)
 
     /* Init variable */
     ctx.digestedTimes = 0xFFFFFFFFu;
-    if( CRCD_RES_TOOMANYDIGEST == CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
+    if( CRCD_RES_TOOMANYDIGEST == eCU_CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
     {
         (void)printf("cUCrcDigestTestToManyOperation 2  -- OK \n");
     }
@@ -497,7 +497,7 @@ void cUCrcDigestTestNoOperation(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestNoOperation 1  -- OK \n");
     }
@@ -507,7 +507,7 @@ void cUCrcDigestTestNoOperation(void)
     }
 
     /* Init variable */
-    if( CRCD_RES_NODIGESTDONE == CRCD_GetDigestVal( &ctx, &varCarc ) )
+    if( CRCD_RES_NODIGESTDONE == eCU_CRCD_GetDigestVal( &ctx, &varCarc ) )
     {
         (void)printf("cUCrcDigestTestNoOperation 2  -- OK \n");
     }
@@ -532,7 +532,7 @@ void cUCrcDigestTestClbErr(void)
 
     /* Function */
     ctxAdapterCrc.lastError = CRC_RES_OK;
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTestErr, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTestErr, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestClbErr 1  -- OK \n");
     }
@@ -542,7 +542,7 @@ void cUCrcDigestTestClbErr(void)
     }
 
     /* Init variable */
-    if( CRCD_RES_CLBCKREPORTERROR == CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
+    if( CRCD_RES_CLBCKREPORTERROR == eCU_CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
     {
         if( CRC_RES_BADPOINTER == ctxAdapterCrc.lastError )
         {
@@ -563,7 +563,7 @@ void cUCrcDigestTestClbErr(void)
 
     /* Function */
     ctxAdapterCrc.lastError = CRC_RES_OK;
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestClbErr 3  -- OK \n");
     }
@@ -573,7 +573,7 @@ void cUCrcDigestTestClbErr(void)
     }
 
     /* Init variable */
-    if( CRCD_RES_OK== CRCD_Digest( &ctx, varBuff, 1u ) )
+    if( CRCD_RES_OK== eCU_CRCD_Digest( &ctx, varBuff, 1u ) )
     {
         (void)printf("cUCrcDigestTestClbErr 4  -- OK \n");
     }
@@ -582,8 +582,8 @@ void cUCrcDigestTestClbErr(void)
         (void)printf("cUCrcDigestTestClbErr 4  -- FAIL \n");
     }
 
-    ctx.cbCrcPointer = cbCrcPTestErr;
-    if( CRCD_RES_CLBCKREPORTERROR == CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
+    ctx.f_Crc = cbCrcPTestErr;
+    if( CRCD_RES_CLBCKREPORTERROR == eCU_CRCD_Digest( &ctx, varBuff, sizeof(varBuff) ) )
     {
         if( CRC_RES_BADPOINTER == ctxAdapterCrc.lastError )
         {
@@ -615,7 +615,7 @@ void cUCrcDigestTestMono(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestMono 1  -- OK \n");
     }
@@ -624,7 +624,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 1  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
     {
         (void)printf("cUCrcDigestTestMono 2  -- OK \n");
     }
@@ -633,7 +633,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 2  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
+    if( CRCD_RES_OK == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
     {
         if( 0xBCF43C51u == crcTestValRet)
         {
@@ -650,7 +650,7 @@ void cUCrcDigestTestMono(void)
     }
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_SeedInitCtx(&ctx, 0x0u, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_SeedInitCtx(&ctx, 0x0u, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestMono 4  -- OK \n");
     }
@@ -659,7 +659,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 4  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
     {
         (void)printf("cUCrcDigestTestMono 5  -- OK \n");
     }
@@ -668,7 +668,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 5  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
+    if( CRCD_RES_OK == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
     {
         if( 0xD5F08708u == crcTestValRet)
         {
@@ -685,7 +685,7 @@ void cUCrcDigestTestMono(void)
     }
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_Restart(&ctx) )
+    if( CRCD_RES_OK == eCU_CRCD_Restart(&ctx) )
     {
         (void)printf("cUCrcDigestTestMono 7  -- OK \n");
     }
@@ -694,7 +694,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 7  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
     {
         (void)printf("cUCrcDigestTestMono 8  -- OK \n");
     }
@@ -703,7 +703,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 8  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
+    if( CRCD_RES_OK == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
     {
         if( 0xD5F08708u == crcTestValRet)
         {
@@ -720,7 +720,7 @@ void cUCrcDigestTestMono(void)
     }
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_Restart(&ctx) )
+    if( CRCD_RES_OK == eCU_CRCD_Restart(&ctx) )
     {
         (void)printf("cUCrcDigestTestMono 10 -- OK \n");
     }
@@ -729,7 +729,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 10 -- FAIL \n");
     }
 
-    if( CRCD_RES_NODIGESTDONE == CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
+    if( CRCD_RES_NODIGESTDONE == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
     {
         (void)printf("cUCrcDigestTestMono 11 -- OK \n");
     }
@@ -738,7 +738,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 11 -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, crcTestData, sizeof(crcTestData) ) )
     {
         (void)printf("cUCrcDigestTestMono 12 -- OK \n");
     }
@@ -747,7 +747,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 12 -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
+    if( CRCD_RES_OK == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
     {
         if( 0xD5F08708u == crcTestValRet)
         {
@@ -763,7 +763,7 @@ void cUCrcDigestTestMono(void)
         (void)printf("cUCrcDigestTestMono 13 -- FAIL \n");
     }
 
-    if( CRCD_RES_NODIGESTDONE == CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
+    if( CRCD_RES_NODIGESTDONE == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRet ) )
     {
         (void)printf("cUCrcDigestTestMono 14 -- OK \n");
     }
@@ -790,7 +790,7 @@ void cUCrcDigestTestCombined(void)
     ctx.isInit = false;
 
     /* Function */
-    if( CRCD_RES_OK == CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_InitCtx(&ctx, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestCombined 1  -- OK \n");
     }
@@ -799,7 +799,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 1  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, crcTestDataC, 0x02u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, crcTestDataC, 0x02u ) )
     {
         (void)printf("cUCrcDigestTestCombined 2  -- OK \n");
     }
@@ -808,7 +808,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 2  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, &crcTestDataC[2u], 0x04u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, &crcTestDataC[2u], 0x04u ) )
     {
         (void)printf("cUCrcDigestTestCombined 3  -- OK \n");
     }
@@ -817,7 +817,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 3  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, &crcTestDataC[6u], 0x04u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, &crcTestDataC[6u], 0x04u ) )
     {
         (void)printf("cUCrcDigestTestCombined 4  -- OK \n");
     }
@@ -827,7 +827,7 @@ void cUCrcDigestTestCombined(void)
     }
 
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, &crcTestDataC[10u], 0x12u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, &crcTestDataC[10u], 0x12u ) )
     {
         (void)printf("cUCrcDigestTestCombined 5  -- OK \n");
     }
@@ -836,7 +836,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 5  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_GetDigestVal( &ctx, &crcTestValRetC ) )
+    if( CRCD_RES_OK == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRetC ) )
     {
         if( 0x1CE847A8u == crcTestValRetC)
         {
@@ -853,7 +853,7 @@ void cUCrcDigestTestCombined(void)
     }
 
      /* Function */
-    if( CRCD_RES_OK == CRCD_SeedInitCtx(&ctx, 0x00u, cbCrcPTest, &ctxAdapterCrc) )
+    if( CRCD_RES_OK == eCU_CRCD_SeedInitCtx(&ctx, 0x00u, cbCrcPTest, &ctxAdapterCrc) )
     {
         (void)printf("cUCrcDigestTestCombined 7  -- OK \n");
     }
@@ -862,7 +862,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 7  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, crcTestDataC, 0x02u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, crcTestDataC, 0x02u ) )
     {
         (void)printf("cUCrcDigestTestCombined 8  -- OK \n");
     }
@@ -871,7 +871,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 8  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, &crcTestDataC[2u], 0x04u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, &crcTestDataC[2u], 0x04u ) )
     {
         (void)printf("cUCrcDigestTestCombined 9  -- OK \n");
     }
@@ -880,7 +880,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 9  -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, &crcTestDataC[6u], 0x04u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, &crcTestDataC[6u], 0x04u ) )
     {
         (void)printf("cUCrcDigestTestCombined 10 -- OK \n");
     }
@@ -890,7 +890,7 @@ void cUCrcDigestTestCombined(void)
     }
 
 
-    if( CRCD_RES_OK == CRCD_Digest( &ctx, &crcTestDataC[10u], 0x12u ) )
+    if( CRCD_RES_OK == eCU_CRCD_Digest( &ctx, &crcTestDataC[10u], 0x12u ) )
     {
         (void)printf("cUCrcDigestTestCombined 11 -- OK \n");
     }
@@ -899,7 +899,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 11 -- FAIL \n");
     }
 
-    if( CRCD_RES_OK == CRCD_GetDigestVal( &ctx, &crcTestValRetC ) )
+    if( CRCD_RES_OK == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRetC ) )
     {
         if( 0x74F9B656u == crcTestValRetC)
         {
@@ -915,7 +915,7 @@ void cUCrcDigestTestCombined(void)
         (void)printf("cUCrcDigestTestCombined 12 -- FAIL \n");
     }
 
-    if( CRCD_RES_NODIGESTDONE == CRCD_GetDigestVal( &ctx, &crcTestValRetC ) )
+    if( CRCD_RES_NODIGESTDONE == eCU_CRCD_GetDigestVal( &ctx, &crcTestValRetC ) )
     {
         (void)printf("cUCrcDigestTestCombined 13 -- OK \n");
     }

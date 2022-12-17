@@ -17,196 +17,196 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isCrctatusStillCoherent(const s_eCU_CRCD_Ctx* ctx);
+static bool_t eCU_CRCD_isStatusStillCoherent(const s_eCU_CRCD_Ctx* p_ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CRCD_Res CRCD_InitCtx(s_eCU_CRCD_Ctx* const ctx, cb_crc32_seed cbCrcP, void* const clbCtx)
+e_eCU_CRCD_Res eCU_CRCD_InitCtx(s_eCU_CRCD_Ctx* const p_ctx, cb_crc32_seed f_Crc, void* const p_clbCtx)
 {
 	/* Local variable */
-	e_eCU_CRCD_Res result;
+	e_eCU_CRCD_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx) || ( NULL ==  cbCrcP) || ( NULL ==  clbCtx) )
+	if( ( NULL == p_ctx) || ( NULL ==  f_Crc) || ( NULL ==  p_clbCtx) )
 	{
-		result = CRCD_RES_BADPOINTER;
+		l_result = CRCD_RES_BADPOINTER;
 	}
 	else
 	{
         /* Init context */
-		ctx->isInit = true;
-		ctx->baseSeed = ECU_CRC_BASE_SEED;
-		ctx->digestedTimes = 0u;
-		ctx->lastDigVal = 0u;
-		ctx->cbCrcPointer = cbCrcP;
-        ctx->cbCrcCtx = clbCtx;
+		p_ctx->isInit = true;
+		p_ctx->baseSeed = ECU_CRC_BASE_SEED;
+		p_ctx->digestedTimes = 0u;
+		p_ctx->lastDigVal = 0u;
+		p_ctx->f_Crc = f_Crc;
+        p_ctx->p_crcCtx = p_clbCtx;
 
-		result = CRCD_RES_OK;
+		l_result = CRCD_RES_OK;
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CRCD_Res CRCD_IsInit(s_eCU_CRCD_Ctx* const ctx, bool_t* isInit)
+e_eCU_CRCD_Res eCU_CRCD_IsInit(s_eCU_CRCD_Ctx* const p_ctx, bool_t* p_isInit)
 {
 	/* Local variable */
-	e_eCU_CRCD_Res result;
+	e_eCU_CRCD_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_isInit ) )
 	{
-		result = CRCD_RES_BADPOINTER;
+		l_result = CRCD_RES_BADPOINTER;
 	}
 	else
 	{
-        *isInit = ctx->isInit;
-        result = CRCD_RES_OK;
+        *p_isInit = p_ctx->isInit;
+        l_result = CRCD_RES_OK;
 	}
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CRCD_Res CRCD_SeedInitCtx(s_eCU_CRCD_Ctx* const ctx, const uint32_t seed, cb_crc32_seed cbCrcP,
-                                    void* const clbCtx)
+e_eCU_CRCD_Res eCU_CRCD_SeedInitCtx(s_eCU_CRCD_Ctx* const p_ctx, const uint32_t seed, cb_crc32_seed f_Crc,
+                                    void* const p_clbCtx)
 {
 	/* Local variable */
-	e_eCU_CRCD_Res result;
+	e_eCU_CRCD_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx) || ( NULL ==  cbCrcP) || ( NULL ==  clbCtx))
+	if( ( NULL == p_ctx) || ( NULL ==  f_Crc) || ( NULL ==  p_clbCtx))
 	{
-		result = CRCD_RES_BADPOINTER;
+		l_result = CRCD_RES_BADPOINTER;
 	}
 	else
 	{
         /* Init context */
-		ctx->isInit = true;
-		ctx->baseSeed = seed;
-		ctx->digestedTimes = 0u;
-		ctx->lastDigVal = 0u;
-		ctx->cbCrcPointer = cbCrcP;
-        ctx->cbCrcCtx = clbCtx;
+		p_ctx->isInit = true;
+		p_ctx->baseSeed = seed;
+		p_ctx->digestedTimes = 0u;
+		p_ctx->lastDigVal = 0u;
+		p_ctx->f_Crc = f_Crc;
+        p_ctx->p_crcCtx = p_clbCtx;
 
-		result = CRCD_RES_OK;
+		l_result = CRCD_RES_OK;
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CRCD_Res CRCD_Restart(s_eCU_CRCD_Ctx* const ctx)
+e_eCU_CRCD_Res eCU_CRCD_Restart(s_eCU_CRCD_Ctx* const p_ctx)
 {
 	/* Local variable */
-	e_eCU_CRCD_Res result;
+	e_eCU_CRCD_Res l_result;
 
 	/* Check pointer validity */
-	if( NULL == ctx )
+	if( NULL == p_ctx )
 	{
-		result = CRCD_RES_BADPOINTER;
+		l_result = CRCD_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CRCD_RES_NOINITLIB;
+			l_result = CRCD_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isCrctatusStillCoherent(ctx) )
+            if( false == eCU_CRCD_isStatusStillCoherent(p_ctx) )
             {
-                result = CRCD_RES_CORRUPTCTX;
+                l_result = CRCD_RES_CORRUPTCTX;
             }
             else
             {
                 /* Init context */
-                ctx->digestedTimes = 0u;
-                ctx->lastDigVal = 0u;
+                p_ctx->digestedTimes = 0u;
+                p_ctx->lastDigVal = 0u;
 
-                result = CRCD_RES_OK;
+                l_result = CRCD_RES_OK;
             }
         }
     }
 
-    return result;
+    return l_result;
 }
 
-e_eCU_CRCD_Res CRCD_Digest(s_eCU_CRCD_Ctx* const ctx, const uint8_t data[], const uint32_t dataLen)
+e_eCU_CRCD_Res eCU_CRCD_Digest(s_eCU_CRCD_Ctx* const p_ctx, const uint8_t a_data[], const uint32_t dataLen)
 {
 	/* Local variable */
-	e_eCU_CRCD_Res result;
-    uint32_t cR32;
-    bool_t crcRes;
+	e_eCU_CRCD_Res l_result;
+    uint32_t l_cR32;
+    bool_t l_cRes;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == data ) )
+	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
 	{
-		result = CRCD_RES_BADPOINTER;
+		l_result = CRCD_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CRCD_RES_NOINITLIB;
+			l_result = CRCD_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isCrctatusStillCoherent(ctx) )
+            if( false == eCU_CRCD_isStatusStillCoherent(p_ctx) )
             {
-                result = CRCD_RES_CORRUPTCTX;
+                l_result = CRCD_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity */
                 if( dataLen <= 0u )
                 {
-                    result = CRCD_RES_BADPARAM;
+                    l_result = CRCD_RES_BADPARAM;
                 }
                 else
                 {
                     /* Check if we have memory for this */
-                    if( ctx->digestedTimes >= MAX_UINT32VAL )
+                    if( p_ctx->digestedTimes >= MAX_UINT32VAL )
                     {
-                        result = CRCD_RES_TOOMANYDIGEST;
+                        l_result = CRCD_RES_TOOMANYDIGEST;
                     }
                     else
                     {
                         /* First time? */
-                        if( 0u >= ctx->digestedTimes )
+                        if( 0u >= p_ctx->digestedTimes )
                         {
                             /* Use base seed for the first time */
-                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->baseSeed, data, dataLen, &cR32 );
+                            l_cRes = (*(p_ctx->f_Crc))( p_ctx->p_crcCtx, p_ctx->baseSeed, a_data, dataLen, &l_cR32 );
 
-                            if( true == crcRes )
+                            if( true == l_cRes )
                             {
-                                ctx->digestedTimes++;
-                                ctx->lastDigVal = cR32;
-								result = CRCD_RES_OK;
+                                p_ctx->digestedTimes++;
+                                p_ctx->lastDigVal = l_cR32;
+								l_result = CRCD_RES_OK;
                             }
 							else
 							{
-								result = CRCD_RES_CLBCKREPORTERROR;
+								l_result = CRCD_RES_CLBCKREPORTERROR;
 							}
                         }
                         else
                         {
                             /* Continue calc using old digested value for seed */
-                            crcRes = (*(ctx->cbCrcPointer))( ctx->cbCrcCtx, ctx->lastDigVal, data, dataLen, &cR32 );
+                            l_cRes = (*(p_ctx->f_Crc))( p_ctx->p_crcCtx, p_ctx->lastDigVal, a_data, dataLen, &l_cR32 );
 
-                            if( true == crcRes )
+                            if( true == l_cRes )
                             {
-                                ctx->digestedTimes++;
-                                ctx->lastDigVal = cR32;
-								result = CRCD_RES_OK;
+                                p_ctx->digestedTimes++;
+                                p_ctx->lastDigVal = l_cR32;
+								l_result = CRCD_RES_OK;
                             }
 							else
 							{
-								result = CRCD_RES_CLBCKREPORTERROR;
+								l_result = CRCD_RES_CLBCKREPORTERROR;
 							}
                         }
                     }
@@ -215,75 +215,77 @@ e_eCU_CRCD_Res CRCD_Digest(s_eCU_CRCD_Ctx* const ctx, const uint8_t data[], cons
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CRCD_Res CRCD_GetDigestVal(s_eCU_CRCD_Ctx* const ctx, uint32_t* const crcCalc)
+e_eCU_CRCD_Res eCU_CRCD_GetDigestVal(s_eCU_CRCD_Ctx* const p_ctx, uint32_t* const p_crcCalc)
 {
 	/* Local variable */
-	e_eCU_CRCD_Res result;
+	e_eCU_CRCD_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == crcCalc ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_crcCalc ) )
 	{
-		result = CRCD_RES_BADPOINTER;
+		l_result = CRCD_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CRCD_RES_NOINITLIB;
+			l_result = CRCD_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == isCrctatusStillCoherent(ctx) )
+            if( false == eCU_CRCD_isStatusStillCoherent(p_ctx) )
             {
-                result = CRCD_RES_CORRUPTCTX;
+                l_result = CRCD_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity */
-                if( ctx->digestedTimes <= 0u )
+                if( p_ctx->digestedTimes <= 0u )
                 {
                     /* Cannot retrive undigested value */
-                    result = CRCD_RES_NODIGESTDONE;
+                    l_result = CRCD_RES_NODIGESTDONE;
                 }
                 else
                 {
                     /* Return digested value */
-                    *crcCalc = ctx->lastDigVal;
+                    *p_crcCalc = p_ctx->lastDigVal;
 
                     /* Restart */
-                    ctx->digestedTimes = 0u;
-                    ctx->lastDigVal = 0u;
+                    p_ctx->digestedTimes = 0u;
+                    p_ctx->lastDigVal = 0u;
 
-                    result = CRCD_RES_OK;
+                    l_result = CRCD_RES_OK;
                 }
 			}
 		}
     }
 
-	return result;
+	return l_result;
 }
+
+
 
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isCrctatusStillCoherent(const s_eCU_CRCD_Ctx* ctx)
+static bool_t eCU_CRCD_isStatusStillCoherent(const s_eCU_CRCD_Ctx* p_ctx)
 {
-    bool_t result;
+    bool_t l_result;
 
 	/* Check context validity */
-	if( ( NULL == ctx->cbCrcPointer ) || ( NULL == ctx->cbCrcCtx ) )
+	if( ( NULL == p_ctx->f_Crc ) || ( NULL == p_ctx->p_crcCtx ) )
 	{
-		result = false;
+		l_result = false;
 	}
 	else
 	{
-        result = true;
+        l_result = true;
 	}
 
-    return result;
+    return l_result;
 }
