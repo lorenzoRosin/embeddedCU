@@ -310,10 +310,7 @@ s_eCU_BUNSTF_Res BUNSTF_IsCurrentFrameBad(const s_eCU_BUNSTF_Ctx* ctx, bool_t* c
 	return result;
 }
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "CERT-INT30-C_b"
-    /* Suppressed for code clarity */
-#endif
+
 
 s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t stuffArea[], const uint32_t stuffLen,
                                        uint32_t* const consumedStuffData)
@@ -521,6 +518,8 @@ s_eCU_BUNSTF_Res BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const ctx, const uint8_t 
     return result;
 }
 
+
+
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
@@ -565,9 +564,3 @@ bool_t isBUSStatusStillCoherent(const s_eCU_BUNSTF_Ctx* ctx)
 
     return result;
 }
-
-
-
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "CERT-INT30-C_b"
-#endif
