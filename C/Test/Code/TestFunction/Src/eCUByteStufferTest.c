@@ -77,128 +77,128 @@ static void eCU_TEST_byteStuffBadPointer(void)
     /* Function */
     if( BSTF_RES_BADPOINTER == eCU_BSTF_InitCtx(NULL, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestBadPointer 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 1  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_InitCtx(&ctx, NULL, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestBadPointer 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 2  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_NewFrame(NULL, 2u) )
     {
-        (void)printf("byteStuffTestBadPointer 3  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 3  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetWherePutData(NULL, &pointer, &varTemp32) )
     {
-        (void)printf("byteStuffTestBadPointer 4  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 4  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetWherePutData(&ctx, NULL, &varTemp32) )
     {
-        (void)printf("byteStuffTestBadPointer 5  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 5  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetWherePutData(&ctx, &pointer, NULL) )
     {
-        (void)printf("byteStuffTestBadPointer 6  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 6  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_RestartFrame(NULL) )
     {
-        (void)printf("byteStuffTestBadPointer 7  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 7  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 7  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetRemByteToGet(NULL, &varTemp32) )
     {
-        (void)printf("byteStuffTestBadPointer 8  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 8  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 8  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 8  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetRemByteToGet(&ctx, NULL) )
     {
-        (void)printf("byteStuffTestBadPointer 9  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 9  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 9  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetStufChunk(NULL, memArea, sizeof(memArea), &varTemp32 ) )
     {
-        (void)printf("byteStuffTestBadPointer 10 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 10 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 10 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 10 -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetStufChunk(&ctx, NULL, sizeof(memArea), &varTemp32) )
     {
-        (void)printf("byteStuffTestBadPointer 11 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 11 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 11 -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_GetStufChunk(&ctx, memArea, sizeof(memArea), NULL) )
     {
-        (void)printf("byteStuffTestBadPointer 12 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 12 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 12 -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_IsInit( NULL, &isInit ) )
     {
-        (void)printf("byteStuffTestBadPointer 13 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 13 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 13 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 13 -- FAIL \n");
     }
 
     if( BSTF_RES_BADPOINTER == eCU_BSTF_IsInit( &ctx, NULL ) )
     {
-        (void)printf("byteStuffTestBadPointer 14 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 14 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadPointer 14 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadPointer 14 -- FAIL \n");
     }
 }
 
@@ -217,63 +217,63 @@ static void eCU_TEST_byteStuffBadInit(void)
     /* Function */
     if( BSTF_RES_NOINITLIB == eCU_BSTF_NewFrame(&ctx, 2u) )
     {
-        (void)printf("byteStuffTestBadInit 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadInit 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 1  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITLIB == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
     {
-        (void)printf("byteStuffTestBadInit 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadInit 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 2  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITLIB == eCU_BSTF_RestartFrame(&ctx) )
     {
-        (void)printf("byteStuffTestBadInit 3  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadInit 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 3  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITLIB == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
-        (void)printf("byteStuffTestBadInit 4  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadInit 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 4  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITLIB == eCU_BSTF_GetStufChunk(&ctx, memArea, sizeof(memArea), &varTemp32) )
     {
-        (void)printf("byteStuffTestBadInit 5  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadInit 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 5  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_IsInit( &ctx, &isInit ) )
     {
         if( false == isInit )
         {
-            (void)printf("byteStuffTestBadInit 6  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffBadInit 6  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestBadInit 6  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffBadInit 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestBadInit 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadInit 6  -- FAIL \n");
     }
 
 }
@@ -293,72 +293,72 @@ static void eCU_TEST_byteStuffBadIniFrame(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestBadIniFrame 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadIniFrame 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 1  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITFRAME == eCU_BSTF_RestartFrame(&ctx) )
     {
-        (void)printf("byteStuffTestBadIniFrame 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadIniFrame 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 2  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITFRAME == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
-        (void)printf("byteStuffTestBadIniFrame 3  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadIniFrame 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 3  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITFRAME == eCU_BSTF_GetStufChunk(&ctx, memArea, sizeof(memArea), &varTemp32) )
     {
-        (void)printf("byteStuffTestBadIniFrame 4  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadIniFrame 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 4  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, 2u) )
     {
-        (void)printf("byteStuffTestBadIniFrame 5  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadIniFrame 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 5  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_RestartFrame(&ctx) )
     {
-        (void)printf("byteStuffTestBadIniFrame 6  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadIniFrame 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 6  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_IsInit( &ctx, &isInit ) )
     {
         if( true == isInit )
         {
-            (void)printf("byteStuffTestBadIniFrame 7  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffBadIniFrame 7  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestBadIniFrame 7  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffBadIniFrame 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestBadIniFrame 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadIniFrame 7  -- FAIL \n");
     }
 }
 
@@ -376,56 +376,56 @@ static void eCU_TEST_byteStuffBadParamEntr(void)
     /* Function */
     if( BSTF_RES_BADPARAM == eCU_BSTF_InitCtx(&ctx, memArea, 0u) )
     {
-        (void)printf("byteStuffTestBadParamEntr 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadParamEntr 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 1  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestBadParamEntr 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadParamEntr 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 2  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPARAM == eCU_BSTF_NewFrame(&ctx, 0u) )
     {
-        (void)printf("byteStuffTestBadParamEntr 3  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadParamEntr 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 3  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPARAM == eCU_BSTF_NewFrame(&ctx, (sizeof(memArea) +1u) ) )
     {
-        (void)printf("byteStuffTestBadParamEntr 4  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadParamEntr 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 4  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestBadParamEntr 5  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadParamEntr 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 5  -- FAIL \n");
     }
 
     if( BSTF_RES_BADPARAM == eCU_BSTF_GetStufChunk(&ctx, memArea, 0u, &varTemp32) )
     {
-        (void)printf("byteStuffTestBadParamEntr 6  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestBadParamEntr 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffBadParamEntr 6  -- FAIL \n");
     }
 }
 
@@ -443,93 +443,93 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 1  -- FAIL \n");
     }
 
     ctx.memASize = 0u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 2  -- FAIL \n");
     }
 
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 3  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 3  -- FAIL \n");
     }
 
     ctx.p_memA = NULL;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 4  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 4  -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 5  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 5  -- FAIL \n");
     }
 
     ctx.memAFrameSize = 2u;
     ctx.memACtr = ctx.memAFrameSize + 1u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 6  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 6  -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 7  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 7  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 7  -- FAIL \n");
     }
 
     ctx.memAFrameSize = ctx.memASize + 1u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 8  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 8  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 8  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 8  -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 9  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 9  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 9  -- FAIL \n");
     }
 
     ctx.memAFrameSize = BSTF_SM_PRV_NEEDSOF;
@@ -537,84 +537,84 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
     ctx.memACtr = 1u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 10 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 10 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 10 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 10 -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 11 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 11 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 11 -- FAIL \n");
     }
 
     ctx.memACtr = 0u;
     ctx.stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 12 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 12 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 12 -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 13 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 13 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 13 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 13 -- FAIL \n");
     }
 
     ctx.memACtr = 0u;
     ctx.stuffState = BSTF_SM_PRV_NEEDEOF;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 14 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 14 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 14 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 14 -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 15 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 15 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 15 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 15 -- FAIL \n");
     }
 
     ctx.memACtr = 0u;
     ctx.stuffState = BSTF_SM_PRV_STUFFEND;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 16 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 16 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 16 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 16 -- FAIL \n");
     }
 
      /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 17 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 17 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 17 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 17 -- FAIL \n");
     }
 
     ctx.stuffState = BSTF_SM_PRV_STUFFEND;
@@ -623,30 +623,30 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
     ctx.memASize = 3u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 18 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 18 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 18 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 18 -- FAIL \n");
     }
 
      /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 19 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 19 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 19 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 19 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 20 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 20 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 20 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 20 -- FAIL \n");
     }
 
     ctx.stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
@@ -654,95 +654,95 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
     memArea[ctx.memACtr - 1u] = 0xFFu;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
     {
-        (void)printf("byteStuffTestCorrupterContext 21 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 21 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 21 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 21 -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 22 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 22 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 22 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 22 -- FAIL \n");
     }
 
     ctx.memASize = 0u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_GetWherePutData(&ctx, &dataP, &varTemp32) )
     {
-        (void)printf("byteStuffTestCorrupterContext 23 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 23 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 23 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 23 -- FAIL \n");
     }
 
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 24 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 24 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 24 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 24 -- FAIL \n");
     }
 
     ctx.memASize = 0u;
     ctx.memAFrameSize = 1u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_RestartFrame(&ctx) )
     {
-        (void)printf("byteStuffTestCorrupterContext 25 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 25 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 25 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 25 -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 26 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 26 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 26 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 26 -- FAIL \n");
     }
 
     ctx.memASize = 0u;
     ctx.memAFrameSize = 1u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
-        (void)printf("byteStuffTestCorrupterContext 27 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 27 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 27 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 27 -- FAIL \n");
     }
 
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrupterContext 28 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 28 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 28 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 28 -- FAIL \n");
     }
 
     ctx.memASize = 0u;
     ctx.memAFrameSize = 1u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_GetStufChunk(&ctx, memArea, 1u, &varTemp32) )
     {
-        (void)printf("byteStuffTestCorrupterContext 29 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 29 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrupterContext 29 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrupterContext 29 -- FAIL \n");
     }
 }
 
@@ -766,20 +766,20 @@ static void eCU_TEST_byteStuffOutOfMem(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestOutOfMem 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 1  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITFRAME == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
-        (void)printf("byteStuffTestOutOfMem 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 2  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -788,46 +788,46 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestOutOfMem 3  -- OK \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestOutOfMem 3  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 3  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestOutOfMem 4  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 4  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
         if( 10u == reman )
         {
-            (void)printf("byteStuffTestOutOfMem 5  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 5  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 5  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 5  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -836,69 +836,69 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestOutOfMem 6  -- OK \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestOutOfMem 6  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 6  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestOutOfMem 7  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 7  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 7  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 7  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[1], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestOutOfMem 8  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 8  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 8  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 8  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 8  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
         if( 8u == reman )
         {
-            (void)printf("byteStuffTestOutOfMem 9  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 9  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 9  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 9  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -907,85 +907,85 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestOutOfMem 10 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestOutOfMem 10 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 10 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 10 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestOutOfMem 11 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 11 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 11 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 11 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[3], 7u, &varTemp32) )
     {
         if( 7u == varTemp32 )
         {
-            (void)printf("byteStuffTestOutOfMem 12 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 12 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 12 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 12 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[10], 1u, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestOutOfMem 13 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 13 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 13 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 13 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 13 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
         if( 0u == reman )
         {
-            (void)printf("byteStuffTestOutOfMem 14 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 14 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 14 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 14 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 14 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -994,21 +994,21 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestOutOfMem 15 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestOutOfMem 15 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestOutOfMem 15 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestOutOfMem 15 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- FAIL \n");
     }
 }
 
@@ -1032,20 +1032,20 @@ static void eCU_TEST_byteStuffStartRestart(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestStartRestart 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 1  -- FAIL \n");
     }
 
     if( BSTF_RES_NOINITFRAME == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
-        (void)printf("byteStuffTestStartRestart 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 2  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -1054,46 +1054,46 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestStartRestart 3  -- OK \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 3  -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestStartRestart 3  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 3  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 3  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 3  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestStartRestart 4  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 4  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 4  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
         if( 10u == reman )
         {
-            (void)printf("byteStuffTestStartRestart 5  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 5  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 5  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 5  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -1102,62 +1102,62 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestStartRestart 6  -- OK \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 6  -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestStartRestart 6  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 6  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 6  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 6  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestStartRestart 7  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 7  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 7  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 7  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_RestartFrame(&ctx) )
     {
-        (void)printf("byteStuffTestStartRestart 8  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 8  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 8  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 8  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
         if( 10u == reman )
         {
-            (void)printf("byteStuffTestStartRestart 9  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 9  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 9  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 9  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -1166,69 +1166,69 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestStartRestart 10 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 10 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestStartRestart 10 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 10 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 10 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 10 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 10 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestStartRestart 11 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 11 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 11 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 11 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[1], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestStartRestart 12 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 12 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 12 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 12 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
         if( 8u == reman )
         {
-            (void)printf("byteStuffTestStartRestart 13 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 13 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 13 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 13 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 13 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -1237,85 +1237,85 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestStartRestart 14 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 14 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestStartRestart 14 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 14 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 14 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 14 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 14 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestStartRestart 15 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 15 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 15 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 15 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 15 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 15 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[3], 7u, &varTemp32) )
     {
         if( 7u == varTemp32 )
         {
-            (void)printf("byteStuffTestStartRestart 16 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 16 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 16 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 16 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 16 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[10], 1u, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestStartRestart 17 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 17 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 17 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 17 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 17 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 17 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &reman) )
     {
         if( 0u == reman )
         {
-            (void)printf("byteStuffTestStartRestart 18 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 18 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 18 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 18 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 18 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 18 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
@@ -1324,21 +1324,21 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(memArea) == varTemp32 )
             {
-                (void)printf("byteStuffTestStartRestart 19 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 19 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestStartRestart 19 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffStartRestart 19 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestStartRestart 19 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffStartRestart 19 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestStartRestart 19 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffStartRestart 19 -- FAIL \n");
     }
 }
 
@@ -1361,31 +1361,31 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGetRemainings 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 1  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGetRemainings 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 2  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 10u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 3  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 3  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 3  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 3  -- FAIL \n");
         }
     }
 
@@ -1393,27 +1393,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 4  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 4  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 4  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 4  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 9u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 5  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 5  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 5  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 5  -- FAIL \n");
         }
     }
 
@@ -1421,43 +1421,43 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 6  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 6  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 6  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 6  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 7  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 7  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 7  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 7  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 7u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 8  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 8  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 8  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 8  -- FAIL \n");
         }
     }
 
@@ -1465,27 +1465,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 7u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 9  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 9  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 9  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 9  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 10 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 10 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 10 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 10 -- FAIL \n");
         }
     }
 
@@ -1493,36 +1493,36 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( ( sizeof(memArea) == varTemp32 ) && ( memArea == pointer))
         {
-            (void)printf("byteStuffTestGetRemainings 11 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 11 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 11 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 11 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_RestartFrame(&ctx) )
     {
-        (void)printf("byteStuffTestGetRemainings 12 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 12 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 12 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 10u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 13 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 13 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 3 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 3 -- FAIL \n");
         }
     }
 
@@ -1530,27 +1530,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 14 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 14 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 14 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 14 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 14 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 9u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 15 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 15 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 15 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 15 -- FAIL \n");
         }
     }
 
@@ -1558,43 +1558,43 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 16 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 16 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 16 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 16 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 16 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[2], 1u, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 17 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 17 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 17 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 17 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 17 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 17 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 7u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 18 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 18 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 18 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 18 -- FAIL \n");
         }
     }
 
@@ -1602,27 +1602,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 6u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 19 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 19 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 19 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 19 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 19 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 19 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 20 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 20 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 20 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 20 -- FAIL \n");
         }
     }
 
@@ -1630,27 +1630,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 21 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 21 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 21 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 21 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 21 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 21 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 22 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 22 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 22 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 22 -- FAIL \n");
         }
     }
 
@@ -1658,36 +1658,36 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( ( sizeof(memArea) == varTemp32 ) && ( memArea == pointer))
         {
-            (void)printf("byteStuffTestGetRemainings 23 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 23 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 23 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 23 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 23 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 23 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, 1u) )
     {
-        (void)printf("byteStuffTestGetRemainings 24 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 24 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGetRemainings 24 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGetRemainings 24 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 4u == varTemp32 )
         {
-            (void)printf("byteStuffTestGetRemainings 25 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 25 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGetRemainings 25 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGetRemainings 25 -- FAIL \n");
         }
     }
 }
@@ -1725,20 +1725,20 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 1  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 2  -- FAIL \n");
     }
 
     e_eCU_BSTF_Res result = BSTF_RES_OK;
@@ -1763,27 +1763,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 3  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 3  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 3  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 4  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 4  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 4  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 4  -- FAIL \n");
     }
 
     /* Init variable */
@@ -1796,11 +1796,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 5  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 5  -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -1818,27 +1818,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 6  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 6  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 7  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 7  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 7  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 7  -- FAIL \n");
     }
 
     /* Init variable */
@@ -1851,11 +1851,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 8  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 8  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 8  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 8  -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -1873,27 +1873,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 9  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 9  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 9  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 10 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 10 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 10 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 10 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 10 -- FAIL \n");
     }
 
 
@@ -1907,11 +1907,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 11 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 11 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 11 -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -1929,27 +1929,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 12 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 12 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 12 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 13 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 13 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 13 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 13 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 13 -- FAIL \n");
     }
 
 
@@ -1964,11 +1964,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 14 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 14 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 14 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 14 -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -1986,27 +1986,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 15 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 15 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 15 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 15 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 16 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 16 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 16 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 16 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 16 -- FAIL \n");
     }
 
 
@@ -2020,11 +2020,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 17 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 17 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 17 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 17 -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -2042,27 +2042,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 18 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 18 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 18 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 18 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 19 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 19 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 19 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 19 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 19 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 19 -- FAIL \n");
     }
 
 
@@ -2077,11 +2077,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 20 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 20 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 20 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 20 -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -2099,27 +2099,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 21 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 21 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 21 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 21 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 22 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 22 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 22 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 22 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 22 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 22 -- FAIL \n");
     }
 
 
@@ -2135,11 +2135,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 23 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 23 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 23 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 23 -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -2157,27 +2157,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 24 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 24 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 24 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 24 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 25 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 25 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 25 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 25 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 25 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 25 -- FAIL \n");
     }
 
 
@@ -2191,11 +2191,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 26 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 26 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 26 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 26 -- FAIL \n");
     }
 
     result = BSTF_RES_OK;
@@ -2213,27 +2213,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_FRAMEENDED == result )
     {
-        (void)printf("byteStuffTestGeneral 27 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 27 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 27 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 27 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 28 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 28 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 28 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 28 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 28 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 28 -- FAIL \n");
     }
 
 
@@ -2248,11 +2248,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 29 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 29 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 29 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 29 -- FAIL \n");
     }
 
     varTemp32 = 0u;
@@ -2264,16 +2264,16 @@ static void eCU_TEST_byteStuffGeneral(void)
     {
         if( 9u == remaining )
         {
-            (void)printf("byteStuffTestGeneral 30 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 30 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 30 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 30 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 30 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 30 -- FAIL \n");
     }
 
 
@@ -2291,27 +2291,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_OK == result )
     {
-        (void)printf("byteStuffTestGeneral 31 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 31 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 31 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 31 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneral 32 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 32 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 32 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 32 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 32 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 32 -- FAIL \n");
     }
 
     /* Init variable */
@@ -2324,11 +2324,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneral 33 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 33 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 33 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 33 -- FAIL \n");
     }
 
     varTemp32 = 0u;
@@ -2338,53 +2338,53 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[counter], 2u, &varTemp32) )
     {
-        (void)printf("byteStuffTestGeneral 34 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 34 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 34 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 34 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &remaining) )
     {
         if( 7u == remaining )
         {
-            (void)printf("byteStuffTestGeneral 35 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 35 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 35 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 35 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 35 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 35 -- FAIL \n");
     }
 
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, 1u) )
     {
-        (void)printf("byteStuffTestGeneral 36 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 36 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 36 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 36 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctx, &pointer, &varTemp32) )
     {
         if( ( sizeof(memArea) == varTemp32 ) && ( memArea == pointer))
         {
-            (void)printf("byteStuffTestGeneral 37 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 37 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneral 37 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneral 37 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneral 37 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneral 37 -- FAIL \n");
     }
 }
 
@@ -2420,36 +2420,36 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneralAnother 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 1  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneralAnother 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 2  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 9u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 3  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[counter], 1u, &varTemp32) )
@@ -2461,26 +2461,26 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
             {
                 if( 8u == varTemp32 )
                 {
-                    (void)printf("byteStuffTestGeneralAnother 4  -- OK \n");
+                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- OK \n");
                 }
                 else
                 {
-                    (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
                 }
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[counter], 7u, &varTemp32) )
@@ -2492,26 +2492,26 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
             {
                 if( 1u == varTemp32 )
                 {
-                    (void)printf("byteStuffTestGeneralAnother 3  -- OK \n");
+                    (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- OK \n");
                 }
                 else
                 {
-                    (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+                    (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
                 }
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[counter], 7u, &varTemp32) )
@@ -2523,42 +2523,42 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
             {
                 if( 0u == varTemp32 )
                 {
-                    (void)printf("byteStuffTestGeneralAnother 4  -- OK \n");
+                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- OK \n");
                 }
                 else
                 {
-                    (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
                 }
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 4  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, counter) )
     {
         if( sizeof(memAreaExpected) == counter )
         {
-            (void)printf("byteStuffTestGeneralAnother 5  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 5  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother   -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother   -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 5  -- FAIL \n");
     }
 
     /* Init variable */
@@ -2569,36 +2569,36 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneralAnother 6  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 6  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, 1u) )
     {
-        (void)printf("byteStuffTestGeneralAnother 7  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 7  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 7  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 4u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 8  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 8  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 8  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 8  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 8  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
@@ -2607,37 +2607,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_SOF == memAreaFinalChunk[0u] )
             {
-                (void)printf("byteStuffTestGeneralAnother 9  -- OK \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 9  -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 9  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 3u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 10 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 10 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 10 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 10 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 10 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
@@ -2646,37 +2646,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_ESC == memAreaFinalChunk[0u] )
             {
-                (void)printf("byteStuffTestGeneralAnother 11 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 11 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 11 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 2u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 12 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 12 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 12 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 12 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
@@ -2685,37 +2685,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ((uint8_t)~ECU_SOF) == memAreaFinalChunk[0u] )
             {
-                (void)printf("byteStuffTestGeneralAnother 13 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 13 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 13 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 13 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 14 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 14 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 14 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 14 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 14 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
@@ -2724,53 +2724,53 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_EOF == memAreaFinalChunk[0u] )
             {
-                (void)printf("byteStuffTestGeneralAnother 15 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 15 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 15 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 15 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 16 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 16 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 16 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 16 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 16 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 17 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 17 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 17 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 17 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 17 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 17 -- FAIL \n");
     }
 
     /* Init variable */
@@ -2781,36 +2781,36 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestGeneralAnother 18 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 18 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 18 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 18 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, 1u) )
     {
-        (void)printf("byteStuffTestGeneralAnother 19 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 19 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 19 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 19 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 3u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 20 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 20 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 20 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 20 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 20 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 20 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
@@ -2819,37 +2819,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_SOF == memAreaFinalChunk[0u] )
             {
-                (void)printf("byteStuffTestGeneralAnother 21 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 21 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 21 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 21 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 2u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 22 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 22 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 22 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 22 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 22 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 22 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
@@ -2858,37 +2858,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( 0x12u == memAreaFinalChunk[0u] )
             {
-                (void)printf("byteStuffTestGeneralAnother 23 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 23 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 23 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 23 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 1u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 24 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 24 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 24 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 24 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 24 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 24 -- FAIL \n");
     }
 
 
@@ -2898,53 +2898,53 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_EOF == memAreaFinalChunk[0u] )
             {
-                (void)printf("byteStuffTestGeneralAnother 25 -- OK \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- OK \n");
             }
             else
             {
-                (void)printf("byteStuffTestGeneralAnother 25 -- FAIL \n");
+                (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 25 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 25 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&ctx, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 26 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 26 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 26 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 26 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 26 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 26 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0u], 1u, &varTemp32) )
     {
         if( 0u == varTemp32 )
         {
-            (void)printf("byteStuffTestGeneralAnother 27 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 27 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestGeneralAnother 27 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffGeneralAnother 27 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestGeneralAnother 27 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffGeneralAnother 27 -- FAIL \n");
     }
 }
 
@@ -2978,45 +2978,45 @@ static void eCU_TEST_byteStuffCorrecteness(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrecteness 1  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 1  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 1  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 1  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrecteness 2  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 2  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 2  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 2  -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0], sizeof(memAreaFinalChunk), &varTemp32) )
     {
         if( 9u == varTemp32 )
         {
-            (void)printf("byteStuffTestCorrecteness 3  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffCorrecteness 3  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestCorrecteness 3  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffCorrecteness 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 3  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 3  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, 9u) )
     {
-        (void)printf("byteStuffTestCorrecteness 5  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 5  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 5  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 5  -- FAIL \n");
     }
 
     /* Init variable */
@@ -3037,45 +3037,45 @@ static void eCU_TEST_byteStuffCorrecteness(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrecteness 6  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 6  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 6  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 6  -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrecteness 7  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 7  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 7  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 7  -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0], sizeof(memAreaFinalChunk), &varTemp32) )
     {
         if( 6u == varTemp32 )
         {
-            (void)printf("byteStuffTestCorrecteness 8  -- OK \n");
+            (void)printf("eCU_TEST_byteStuffCorrecteness 8  -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestCorrecteness 8  -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffCorrecteness 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 8  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 8  -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, 6u) )
     {
-        (void)printf("byteStuffTestCorrecteness 9  -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 9  -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 9  -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 9  -- FAIL \n");
     }
 
     /* Init variable */
@@ -3097,45 +3097,45 @@ static void eCU_TEST_byteStuffCorrecteness(void)
     /* Function */
     if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctx, memArea, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrecteness 10 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 10 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 10 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 10 -- FAIL \n");
     }
 
     if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctx, sizeof(memArea)) )
     {
-        (void)printf("byteStuffTestCorrecteness 11 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 11 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 11 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 11 -- FAIL \n");
     }
 
     if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctx, &memAreaFinalChunk[0], sizeof(memAreaFinalChunk), &varTemp32) )
     {
         if( 7u == varTemp32 )
         {
-            (void)printf("byteStuffTestCorrecteness 12 -- OK \n");
+            (void)printf("eCU_TEST_byteStuffCorrecteness 12 -- OK \n");
         }
         else
         {
-            (void)printf("byteStuffTestCorrecteness 12 -- FAIL \n");
+            (void)printf("eCU_TEST_byteStuffCorrecteness 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 12 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 12 -- FAIL \n");
     }
 
     if( 0 == memcmp(memAreaExpected, memAreaFinalChunk, 7u) )
     {
-        (void)printf("byteStuffTestCorrecteness 13 -- OK \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 13 -- OK \n");
     }
     else
     {
-        (void)printf("byteStuffTestCorrecteness 13 -- FAIL \n");
+        (void)printf("eCU_TEST_byteStuffCorrecteness 13 -- FAIL \n");
     }
 
 
