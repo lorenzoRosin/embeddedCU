@@ -17,229 +17,229 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t isQueueStatusStillCoherent(const s_eCU_CIRQ_Ctx* ctx);
-static uint32_t getoccupiedIndex(const s_eCU_CIRQ_Ctx* ctx);
+static bool_t eCU_CIRQ_isStatusStillCoherent(const s_eCU_CIRQ_Ctx* p_ctx);
+static uint32_t eCU_CIRQ_getoccupiedIndex(const s_eCU_CIRQ_Ctx* p_ctx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CIRQ_Res CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const ctx, uint8_t memP[], const uint32_t memPSize)
+e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_memP[], const uint32_t memPSize)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
+	e_eCU_CIRQ_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL ==  memP ) )
+	if( ( NULL == p_ctx ) || ( NULL ==  a_memP ) )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check data validity */
 		if( memPSize <= 0u )
 		{
-			result = CIRQ_RES_BADPARAM;
+			l_result = CIRQ_RES_BADPARAM;
 		}
 		else
 		{
 			/* Check Init */
-			ctx->isInit = true;
-			ctx->memP = memP;
-			ctx->memPSize = memPSize;
-			ctx->memPUsedSize = 0u;
-			ctx->memPFreeIdx = 0u;
+			p_ctx->isInit = true;
+			p_ctx->p_memP = a_memP;
+			p_ctx->memPSize = memPSize;
+			p_ctx->memPUsedSize = 0u;
+			p_ctx->memPFreeIdx = 0u;
 
-			result = CIRQ_RES_OK;
+			l_result = CIRQ_RES_OK;
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CIRQ_Res CIRQ_IsInit(s_eCU_CIRQ_Ctx* const ctx, bool_t* isInit)
+e_eCU_CIRQ_Res eCU_CIRQ_IsInit(s_eCU_CIRQ_Ctx* const p_ctx, bool_t* p_isInit)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
+	e_eCU_CIRQ_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == isInit ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_isInit ) )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
-        *isInit = ctx->isInit;
-        result = CIRQ_RES_OK;
+        *p_isInit = p_ctx->isInit;
+        l_result = CIRQ_RES_OK;
 	}
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CIRQ_Res CIRQ_Reset(s_eCU_CIRQ_Ctx* const ctx)
+e_eCU_CIRQ_Res eCU_CIRQ_Reset(s_eCU_CIRQ_Ctx* const p_ctx)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
+	e_eCU_CIRQ_Res l_result;
 
 	/* Check pointer validity */
-	if( NULL == ctx )
+	if( NULL == p_ctx )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CIRQ_RES_NOINITLIB;
+			l_result = CIRQ_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
-            if( false == isQueueStatusStillCoherent(ctx) )
+            if( false == eCU_CIRQ_isStatusStillCoherent(p_ctx) )
             {
-                result = CIRQ_RES_CORRUPTCTX;
+                l_result = CIRQ_RES_CORRUPTCTX;
             }
             else
             {
                 /* Update index in order to discharge all saved data */
-                ctx->memPUsedSize = 0u;
-                ctx->memPFreeIdx = 0u;
+                p_ctx->memPUsedSize = 0u;
+                p_ctx->memPFreeIdx = 0u;
 
-                result = CIRQ_RES_OK;
+                l_result = CIRQ_RES_OK;
             }
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CIRQ_Res CIRQ_GetFreeSapce(s_eCU_CIRQ_Ctx* const ctx, uint32_t* const freeSpace)
+e_eCU_CIRQ_Res eCU_CIRQ_GetFreeSapce(s_eCU_CIRQ_Ctx* const p_ctx, uint32_t* const p_freeSpace)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
+	e_eCU_CIRQ_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == freeSpace ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_freeSpace ) )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CIRQ_RES_NOINITLIB;
+			l_result = CIRQ_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
-            if( false == isQueueStatusStillCoherent(ctx) )
+            if( false == eCU_CIRQ_isStatusStillCoherent(p_ctx) )
             {
-                result = CIRQ_RES_CORRUPTCTX;
+                l_result = CIRQ_RES_CORRUPTCTX;
             }
 			else
 			{
-				*freeSpace = ctx->memPSize - ctx->memPUsedSize;
-				result = CIRQ_RES_OK;
+				*p_freeSpace = p_ctx->memPSize - p_ctx->memPUsedSize;
+				l_result = CIRQ_RES_OK;
 			}
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CIRQ_Res CIRQ_GetOccupiedSapce(s_eCU_CIRQ_Ctx* const ctx, uint32_t* const usedSpace)
+e_eCU_CIRQ_Res eCU_CIRQ_GetOccupiedSapce(s_eCU_CIRQ_Ctx* const p_ctx, uint32_t* const p_usedSpace)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
+	e_eCU_CIRQ_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == usedSpace ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_usedSpace ) )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CIRQ_RES_NOINITLIB;
+			l_result = CIRQ_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
-            if( false == isQueueStatusStillCoherent(ctx) )
+            if( false == eCU_CIRQ_isStatusStillCoherent(p_ctx) )
             {
-                result = CIRQ_RES_CORRUPTCTX;
+                l_result = CIRQ_RES_CORRUPTCTX;
             }
 			else
 			{
-				*usedSpace = ctx->memPUsedSize;
-				result = CIRQ_RES_OK;
+				*p_usedSpace = p_ctx->memPUsedSize;
+				l_result = CIRQ_RES_OK;
 			}
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CIRQ_Res CIRQ_InsertData(s_eCU_CIRQ_Ctx* const ctx, const uint8_t data[], const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t a_data[], const uint32_t datalen)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
-	uint32_t freeSpace;
-	uint32_t firstTranshLen;
-	uint32_t secondTranshLen;
+	e_eCU_CIRQ_Res l_result;
+	uint32_t l_freeSpace;
+	uint32_t l_firstLen;
+	uint32_t l_secondLen;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == data ) )
+	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CIRQ_RES_NOINITLIB;
+			l_result = CIRQ_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
-            if( false == isQueueStatusStillCoherent(ctx) )
+            if( false == eCU_CIRQ_isStatusStillCoherent(p_ctx) )
             {
-                result = CIRQ_RES_CORRUPTCTX;
+                l_result = CIRQ_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity */
                 if( datalen <= 0u )
                 {
-                    result = CIRQ_RES_BADPARAM;
+                    l_result = CIRQ_RES_BADPARAM;
                 }
                 else
                 {
-                    freeSpace = ctx->memPSize - ctx->memPUsedSize;
-                    if( datalen > freeSpace )
+                    l_freeSpace = p_ctx->memPSize - p_ctx->memPUsedSize;
+                    if( datalen > l_freeSpace )
                     {
                         /* No memory avaiable */
-                        result = CIRQ_RES_FULL;
+                        l_result = CIRQ_RES_FULL;
                     }
                     else
                     {
                         /* Can insert data */
-                        if( ( datalen + ctx->memPFreeIdx ) <= ctx->memPSize )
+                        if( ( datalen + p_ctx->memPFreeIdx ) <= p_ctx->memPSize )
                         {
                             /* Direct copy */
-                            (void)memcpy(&ctx->memP[ctx->memPFreeIdx], data, datalen);
+                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], a_data, datalen);
 
                             /* Update free index */
-                            ctx->memPFreeIdx += datalen;
-                            if( ctx->memPFreeIdx >= ctx->memPSize )
+                            p_ctx->memPFreeIdx += datalen;
+                            if( p_ctx->memPFreeIdx >= p_ctx->memPSize )
                             {
-                                ctx->memPFreeIdx = 0u;
+                                p_ctx->memPFreeIdx = 0u;
                             }
                         }
                         else
@@ -247,178 +247,178 @@ e_eCU_CIRQ_Res CIRQ_InsertData(s_eCU_CIRQ_Ctx* const ctx, const uint8_t data[], 
                             /* Multicopy */
 
                             /* First round */
-                            firstTranshLen = ctx->memPSize - ctx->memPFreeIdx;
-                            (void)memcpy(&ctx->memP[ctx->memPFreeIdx], data, firstTranshLen);
-                            ctx->memPFreeIdx = 0u;
+                            l_firstLen = p_ctx->memPSize - p_ctx->memPFreeIdx;
+                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], a_data, l_firstLen);
+                            p_ctx->memPFreeIdx = 0u;
 
                             /* Second round */
-                            secondTranshLen = datalen - firstTranshLen;
-                            (void)memcpy(&ctx->memP[ctx->memPFreeIdx], &data[firstTranshLen], secondTranshLen);
-                            ctx->memPFreeIdx += secondTranshLen;
+                            l_secondLen = datalen - l_firstLen;
+                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], &a_data[l_firstLen], l_secondLen);
+                            p_ctx->memPFreeIdx += l_secondLen;
                         }
 
-                        ctx->memPUsedSize += datalen;
-                        result = CIRQ_RES_OK;
+                        p_ctx->memPUsedSize += datalen;
+                        l_result = CIRQ_RES_OK;
                     }
                 }
 			}
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CIRQ_Res CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const ctx, uint8_t data[], const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[], const uint32_t datalen)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
-	uint32_t firstTranshLen;
-	uint32_t secondTranshLen;
-    uint32_t memPOccIdx;
+	e_eCU_CIRQ_Res l_result;
+	uint32_t l_firstLen;
+	uint32_t l_secondLen;
+    uint32_t l_memPOccIdx;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == data ) )
+	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CIRQ_RES_NOINITLIB;
+			l_result = CIRQ_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
-            if( false == isQueueStatusStillCoherent(ctx) )
+            if( false == eCU_CIRQ_isStatusStillCoherent(p_ctx) )
             {
-                result = CIRQ_RES_CORRUPTCTX;
+                l_result = CIRQ_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity an queue integrity */
                 if( datalen <= 0u )
                 {
-                    result = CIRQ_RES_BADPARAM;
+                    l_result = CIRQ_RES_BADPARAM;
                 }
                 else
                 {
-                    if( datalen > ctx->memPUsedSize )
+                    if( datalen > p_ctx->memPUsedSize )
                     {
                         /* No enoght data in the queue */
-                        result = CIRQ_RES_EMPTY;
+                        l_result = CIRQ_RES_EMPTY;
                     }
                     else
                     {
                         /* Retrive occupied index */
-                        memPOccIdx = getoccupiedIndex(ctx);
+                        l_memPOccIdx = eCU_CIRQ_getoccupiedIndex(p_ctx);
 
                         /* Can retrive data */
-                        if( ( datalen +  memPOccIdx ) <= ctx->memPSize )
+                        if( ( datalen +  l_memPOccIdx ) <= p_ctx->memPSize )
                         {
                             /* Direct copy */
-                            (void)memcpy(data, &ctx->memP[memPOccIdx], datalen);
+                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], datalen);
                         }
                         else
                         {
                             /* Multicopy */
 
                             /* First round */
-                            firstTranshLen = ctx->memPSize - memPOccIdx;
-                            (void)memcpy(data, &ctx->memP[memPOccIdx], firstTranshLen);
-                            memPOccIdx = 0u;
+                            l_firstLen = p_ctx->memPSize - l_memPOccIdx;
+                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], l_firstLen);
+                            l_memPOccIdx = 0u;
 
                             /* Second round */
-                            secondTranshLen = datalen - firstTranshLen;
-                            (void)memcpy(&data[firstTranshLen], &ctx->memP[memPOccIdx], secondTranshLen);
+                            l_secondLen = datalen - l_firstLen;
+                            (void)memcpy(&a_data[l_firstLen], &p_ctx->p_memP[l_memPOccIdx], l_secondLen);
                         }
 
-                        ctx->memPUsedSize -= datalen;
-                        result = CIRQ_RES_OK;
+                        p_ctx->memPUsedSize -= datalen;
+                        l_result = CIRQ_RES_OK;
                     }
                 }
 			}
 		}
     }
 
-	return result;
+	return l_result;
 }
 
-e_eCU_CIRQ_Res CIRQ_PeekData(s_eCU_CIRQ_Ctx* const ctx, uint8_t data[], const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[], const uint32_t datalen)
 {
 	/* Local variable */
-	e_eCU_CIRQ_Res result;
-	uint32_t firstTranshLen;
-	uint32_t secondTranshLen;
-    uint32_t memPOccIdx;
+	e_eCU_CIRQ_Res l_result;
+	uint32_t l_firstLen;
+	uint32_t l_secondLen;
+    uint32_t l_memPOccIdx;
 
 	/* Check pointer validity */
-	if( ( NULL == ctx ) || ( NULL == data ) )
+	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
 	{
-		result = CIRQ_RES_BADPOINTER;
+		l_result = CIRQ_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == ctx->isInit )
+		if( false == p_ctx->isInit )
 		{
-			result = CIRQ_RES_NOINITLIB;
+			l_result = CIRQ_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check data coherence */
-            if( false == isQueueStatusStillCoherent(ctx) )
+            if( false == eCU_CIRQ_isStatusStillCoherent(p_ctx) )
             {
-                result = CIRQ_RES_CORRUPTCTX;
+                l_result = CIRQ_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity an queue integrity */
                 if( datalen <= 0u )
                 {
-                    result = CIRQ_RES_BADPARAM;
+                    l_result = CIRQ_RES_BADPARAM;
                 }
                 else
                 {
-                    if( datalen > ctx->memPUsedSize )
+                    if( datalen > p_ctx->memPUsedSize )
                     {
                         /* No enoght data in the queue */
-                        result = CIRQ_RES_EMPTY;
+                        l_result = CIRQ_RES_EMPTY;
                     }
                     else
                     {
                         /* Retrive occupied index */
-                        memPOccIdx = getoccupiedIndex(ctx);
+                        l_memPOccIdx = eCU_CIRQ_getoccupiedIndex(p_ctx);
 
                         /* Can retrive data */
-                        if( ( datalen +  memPOccIdx ) <= ctx->memPSize )
+                        if( ( datalen +  l_memPOccIdx ) <= p_ctx->memPSize )
                         {
                             /* Direct copy */
-                            (void)memcpy(data, &ctx->memP[memPOccIdx], datalen);
+                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], datalen);
                         }
                         else
                         {
                             /* Multicopy */
 
                             /* First round */
-                            firstTranshLen = ctx->memPSize - memPOccIdx;
-                            (void)memcpy(data, &ctx->memP[memPOccIdx], firstTranshLen);
-                            memPOccIdx = 0u;
+                            l_firstLen = p_ctx->memPSize - l_memPOccIdx;
+                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], l_firstLen);
+                            l_memPOccIdx = 0u;
 
                             /* Second round */
-                            secondTranshLen = datalen - firstTranshLen;
-                            (void)memcpy(&data[firstTranshLen], &ctx->memP[memPOccIdx], secondTranshLen);
+                            l_secondLen = datalen - l_firstLen;
+                            (void)memcpy(&a_data[l_firstLen], &p_ctx->p_memP[l_memPOccIdx], l_secondLen);
                         }
 
-                        result = CIRQ_RES_OK;
+                        l_result = CIRQ_RES_OK;
                     }
                 }
 			}
 		}
     }
 
-	return result;
+	return l_result;
 }
 
 
@@ -426,51 +426,51 @@ e_eCU_CIRQ_Res CIRQ_PeekData(s_eCU_CIRQ_Ctx* const ctx, uint8_t data[], const ui
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-bool_t isQueueStatusStillCoherent(const s_eCU_CIRQ_Ctx* ctx)
+static bool_t eCU_CIRQ_isStatusStillCoherent(const s_eCU_CIRQ_Ctx* p_ctx)
 {
-    bool_t result;
+    bool_t l_result;
 
 	/* Check context validity */
-	if( ( ctx->memPSize <= 0u ) || ( NULL == ctx->memP ) )
+	if( ( p_ctx->memPSize <= 0u ) || ( NULL == p_ctx->p_memP ) )
 	{
-		result = false;
+		l_result = false;
 	}
 	else
 	{
 		/* we cannot have more data than data size */
-		if( ctx->memPUsedSize > ctx->memPSize )
+		if( p_ctx->memPUsedSize > p_ctx->memPSize )
 		{
-			result = false;
+			l_result = false;
 		}
 		else
 		{
             /* Cannot go beyond limits */
-            if( ctx->memPFreeIdx >= ctx->memPSize )
+            if( p_ctx->memPFreeIdx >= p_ctx->memPSize )
             {
-                result = false;
+                l_result = false;
             }
             else
             {
-                result = true;
+                l_result = true;
             }
 		}
 	}
 
-    return result;
+    return l_result;
 }
 
-uint32_t getoccupiedIndex(const s_eCU_CIRQ_Ctx* ctx)
+static uint32_t eCU_CIRQ_getoccupiedIndex(const s_eCU_CIRQ_Ctx* p_ctx)
 {
-    uint32_t occIndx;
+    uint32_t l_occIndx;
 
-    if( ctx->memPUsedSize <= ctx->memPFreeIdx )
+    if( p_ctx->memPUsedSize <= p_ctx->memPFreeIdx )
     {
-        occIndx = ctx->memPFreeIdx - ctx->memPUsedSize;
+        l_occIndx = p_ctx->memPFreeIdx - p_ctx->memPUsedSize;
     }
     else
     {
-        occIndx = ctx->memPSize - ( ctx->memPUsedSize - ctx->memPFreeIdx );
+        l_occIndx = p_ctx->memPSize - ( p_ctx->memPUsedSize - p_ctx->memPFreeIdx );
     }
 
-    return occIndx;
+    return l_occIndx;
 }
