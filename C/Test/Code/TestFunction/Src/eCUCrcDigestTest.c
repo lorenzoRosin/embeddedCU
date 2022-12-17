@@ -12,23 +12,15 @@
  **********************************************************************************************************************/
 #include "eCUCrcDigestTest.h"
 #include "eCUCrc.h"
-
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
-    /* Suppressed for code clarity in test execution*/
-#endif
-
 #include <stdio.h>
-
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2004-20.9", "MISRAC2012-Rule-21.6"
-#endif
-
 
 #ifdef __IAR_SYSTEMS_ICC__
     #pragma cstat_disable = "MISRAC2012-Rule-10.3", "MISRAC2012-Rule-11.5", "CERT-EXP36-C_b"
     /* Suppressed for code clarity in test execution*/
 #endif
+
+
+
 /***********************************************************************************************************************
  *   PRIVATE TEST FUNCTION DECLARATION
  **********************************************************************************************************************/
