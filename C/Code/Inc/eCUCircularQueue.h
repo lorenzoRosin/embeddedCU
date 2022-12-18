@@ -64,7 +64,7 @@ typedef struct
  *              CIRQ_RES_BADPARAM     - In case of bad parameter passed to the function
  *              CIRQ_RES_OK           - Circular queue initialized successfully
  */
-e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_memP[], const uint32_t memPSize);
+e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_memP, const uint32_t memPSize);
 
 /**
  * @brief       Check if the lib is initialized
@@ -129,7 +129,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_GetOccupiedSapce(s_eCU_CIRQ_Ctx* const p_ctx, uint32_t* 
  *		        CIRQ_RES_CORRUPTCTX   - In case of an corrupted context
  *              CIRQ_RES_OK           - Operation ended successfully
  */
-e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t a_data[], const uint32_t datalen);
+e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* a_data, const uint32_t datalen);
 
 /**
  * @brief       Retrive data from the queue if avaiable
@@ -145,7 +145,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t a_
  *		        CIRQ_RES_CORRUPTCTX   - In case of an corrupted context
  *              CIRQ_RES_OK           - Operation ended successfully
  */
-e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[], const uint32_t datalen);
+e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, const uint32_t datalen);
 
 /**
  * @brief       Peek data from the queue if avaiable
@@ -161,7 +161,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[
  *		        CIRQ_RES_CORRUPTCTX   - In case of an corrupted context
  *              CIRQ_RES_OK           - Operation ended successfully
  */
-e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[], const uint32_t datalen);
+e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, const uint32_t datalen);
 
 
 

@@ -24,7 +24,7 @@ static bool_t eCU_BUNSTF_isStatusStillCoherent(const s_eCU_BUNSTF_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t a_memArea[], const uint32_t memAreaSize)
+s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	s_eCU_BUNSTF_Res l_result;
@@ -312,7 +312,7 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_IsFrameBad(const s_eCU_BUNSTF_Ctx* p_ctx, bool_t* co
 
 
 
-s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t a_stuffArea[],
+s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t* a_stuffArea,
                                          const uint32_t stuffLen, uint32_t* const p_consumedStuffData)
 {
 	/* Local variable */

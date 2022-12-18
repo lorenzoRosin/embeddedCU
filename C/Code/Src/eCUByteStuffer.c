@@ -24,7 +24,7 @@ static bool_t eCU_BSTF_isStatusStillCoherent(const s_eCU_BSTF_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t a_memArea[], const uint32_t memAreaSize)
+e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_BSTF_Res l_result;
@@ -331,7 +331,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetRemByteToGet(s_eCU_BSTF_Ctx* const p_ctx, uint32_t* c
 	return l_result;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t a_stuffedDest[], const uint32_t maxDestLen,
+e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stuffedDest, const uint32_t maxDestLen,
                                      uint32_t* const p_filledLen)
 {
 	/* Local variable */

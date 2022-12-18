@@ -24,7 +24,7 @@ static bool_t eCU_DPK_isStatusStillCoherent(const s_eCU_DPK_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t a_memPKA[], const uint32_t memPKASize,
+e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_memPKA, const uint32_t memPKASize,
                               const bool_t isLEnd)
 {
 	/* Local variable */
@@ -183,7 +183,7 @@ e_eCU_DPK_Res eCU_DPK_GetNPushed(s_eCU_DPK_Ctx* const p_ctx, uint32_t* const p_r
 	return l_result;
 }
 
-e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t a_data[], const uint32_t dataLen)
+e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_data, const uint32_t dataLen)
 {
 	/* Local variable */
 	e_eCU_DPK_Res l_result;

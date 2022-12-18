@@ -34,7 +34,7 @@ typedef struct cb_crc32_seed_ctx_user cb_crc32_seed_ctx;
 /* Call back of a function that will calculate the CRC for this modules.
  * the p_ctx parameter is a custom pointer that can be used by the creator of this CRC callback, and will not be used
  * by the CRCdigest module */
-typedef bool_t (*cb_crc32_seed) ( cb_crc32_seed_ctx* p_ctx, const uint32_t seed, const uint8_t a_data[],
+typedef bool_t (*cb_crc32_seed) ( cb_crc32_seed_ctx* p_ctx, const uint32_t seed, const uint8_t* a_data,
                                   const uint32_t dataSLen, uint32_t* const p_crc32Val );
 
 typedef enum
@@ -128,7 +128,7 @@ e_eCU_CRCD_Res eCU_CRCD_Restart(s_eCU_CRCD_Ctx* const p_ctx);
  *              CRCD_RES_TOOMANYDIGEST      - Too many digest operation
  *              CRCD_RES_CLBCKREPORTERROR   - The callback function reported an error
  */
-e_eCU_CRCD_Res eCU_CRCD_Digest(s_eCU_CRCD_Ctx* const p_ctx, const uint8_t a_data[], const uint32_t dataLen);
+e_eCU_CRCD_Res eCU_CRCD_Digest(s_eCU_CRCD_Ctx* const p_ctx, const uint8_t* a_data, const uint32_t dataLen);
 
 /**
  * @brief       Retrive the CRC32 of all the chunk digested using eCU_CRCD_Digest. After this function is used the

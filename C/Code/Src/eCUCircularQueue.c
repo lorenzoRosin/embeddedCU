@@ -25,7 +25,7 @@ static uint32_t eCU_CIRQ_getoccupiedIndex(const s_eCU_CIRQ_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_memP[], const uint32_t memPSize)
+e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_memP, const uint32_t memPSize)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;
@@ -185,7 +185,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_GetOccupiedSapce(s_eCU_CIRQ_Ctx* const p_ctx, uint32_t* 
 	return l_result;
 }
 
-e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t a_data[], const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* a_data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;
@@ -268,7 +268,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t a_
 	return l_result;
 }
 
-e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[], const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;
@@ -345,7 +345,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[
 	return l_result;
 }
 
-e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t a_data[], const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;

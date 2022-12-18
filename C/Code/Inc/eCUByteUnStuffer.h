@@ -67,7 +67,7 @@ typedef struct
  *		        BUNSTF_RES_BADPARAM     - In case of an invalid parameter passed to the function
  *              BUNSTF_RES_OK           - Operation ended correctly
  */
-s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t a_memArea[], const uint32_t memAreaSize);
+s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize);
 
 /**
  * @brief       Check if the lib is initialized
@@ -199,7 +199,7 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_IsFrameBad(const s_eCU_BUNSTF_Ctx* p_ctx, bool_t* co
  *                                        finished yet. In this situation p_consumedStuffData is always reported with a
  *                                        value equals to stuffLen.
  */
-s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t a_stuffArea[],
+s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t* a_stuffArea,
                                          const uint32_t stuffLen, uint32_t* const p_consumedStuffData);
 
 

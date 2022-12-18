@@ -56,7 +56,7 @@ typedef enum
  * @return      CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
  *              CRC_RES_OK              - Crc 32 calculated successfully
  */
-e_eCU_CRC_Res eCU_CRC_32(const uint8_t a_data[], const uint32_t dataL, uint32_t* const p_crc);
+e_eCU_CRC_Res eCU_CRC_32(const uint8_t* a_data, const uint32_t dataL, uint32_t* const p_crc);
 
 
 /**
@@ -70,7 +70,7 @@ e_eCU_CRC_Res eCU_CRC_32(const uint8_t a_data[], const uint32_t dataL, uint32_t*
  * @return      CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
  *              CRC_RES_OK              - Crc 32 calculated successfully
  */
-e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t a_data[], const uint32_t dataL, uint32_t* const p_crc);
+e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* a_data, const uint32_t dataL, uint32_t* const p_crc);
 
 
 

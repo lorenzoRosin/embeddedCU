@@ -134,7 +134,7 @@ e_eCU_CRCD_Res eCU_CRCD_Restart(s_eCU_CRCD_Ctx* const p_ctx)
     return l_result;
 }
 
-e_eCU_CRCD_Res eCU_CRCD_Digest(s_eCU_CRCD_Ctx* const p_ctx, const uint8_t a_data[], const uint32_t dataLen)
+e_eCU_CRCD_Res eCU_CRCD_Digest(s_eCU_CRCD_Ctx* const p_ctx, const uint8_t* a_data, const uint32_t dataLen)
 {
 	/* Local variable */
 	e_eCU_CRCD_Res l_result;

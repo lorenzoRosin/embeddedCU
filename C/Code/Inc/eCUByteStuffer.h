@@ -66,7 +66,7 @@ typedef struct
  *		        BSTF_RES_BADPARAM      - In case of an invalid parameter passed to the function
  *              BSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t a_memArea[], const uint32_t memAreaSize);
+e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize);
 
 /**
  * @brief       Check if the lib is initialized
@@ -162,7 +162,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetRemByteToGet(s_eCU_BSTF_Ctx* const p_ctx, uint32_t* c
  *                                       completed, but we can be sure that filledLen will have the same value of
  *                                       maxDestLen
  */
-e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t a_stuffedDest[], const uint32_t maxDestLen,
+e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stuffedDest, const uint32_t maxDestLen,
                                      uint32_t* const p_filledLen);
 
 

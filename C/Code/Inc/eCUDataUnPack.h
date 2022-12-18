@@ -66,7 +66,7 @@ typedef struct
  *		        DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
  *              DUNPK_RES_OK         - Operation ended correctly
  */
-e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t a_memUPKA[], const uint32_t memUPKASize,
+e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_memUPKA, const uint32_t memUPKASize,
                                   const bool_t isLEnd);
 
 /**
@@ -156,7 +156,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* co
  *              DUNPK_RES_NODATA      - Not so much data to pop
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t a_dataDest[], uint32_t const p_toRetrivedLen);
+e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_dataDest, uint32_t const p_toRetrivedLen);
 
 /**
  * @brief       Pop one byte from data passed to session

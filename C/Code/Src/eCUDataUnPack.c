@@ -24,7 +24,7 @@ static bool_t eCU_DUNPK_isStatusStillCoherent(const s_eCU_DUNPK_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t a_memUPKA[], const uint32_t memUPKASize,
+e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_memUPKA, const uint32_t memUPKASize,
                                   const bool_t isLEnd)
 {
 	/* Local variable */
@@ -248,7 +248,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* co
 	return result;
 }
 
-e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t a_dataDest[], uint32_t const p_toRetrivedLen)
+e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_dataDest, uint32_t const p_toRetrivedLen)
 {
 	/* Local variable */
 	e_eCU_DUNPK_Res result;
