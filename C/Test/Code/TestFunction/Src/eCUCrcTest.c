@@ -48,6 +48,7 @@ static void eCU_TEST_crc32BadPointer(void)
     /* Local variable */
     uint32_t crc32SValTest;
     uint8_t  crc8SValTest[1u];
+    crc8SValTest[0u] = 0x00u;
 
     /* Function */
     if( CRC_RES_BADPOINTER == eCU_CRC_32Seed(0u, NULL, 1u, &crc32SValTest) )
