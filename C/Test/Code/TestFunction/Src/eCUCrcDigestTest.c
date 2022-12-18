@@ -14,11 +14,6 @@
 #include "eCUCrc.h"
 #include <stdio.h>
 
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2012-Rule-10.3"
-    /* Suppressed for code clarity in test execution*/
-#endif
-
 
 
 /***********************************************************************************************************************
@@ -923,7 +918,3 @@ static void eCU_TEST_cUCrcDigestCombined(void)
         (void)printf("eCU_TEST_cUCrcDigestCombined 13 -- FAIL \n");
     }
 }
-
-#ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2012-Rule-10.3"
-#endif

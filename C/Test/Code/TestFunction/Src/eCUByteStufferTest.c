@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_disable = "MISRAC2012-Rule-10.3", "CERT-STR32-C"
+    #pragma cstat_disable = "CERT-STR32-C"
     /* Suppressed for code clarity in test execution*/
 #endif
 
@@ -532,7 +532,6 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
         (void)printf("eCU_TEST_byteStuffCorrupterContext 9  -- FAIL \n");
     }
 
-    ctx.memAFrameSize = BSTF_SM_PRV_NEEDSOF;
     ctx.memAFrameSize = 2u;
     ctx.memACtr = 1u;
     if( BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&ctx, 4u) )
@@ -3142,5 +3141,5 @@ static void eCU_TEST_byteStuffCorrecteness(void)
 }
 
 #ifdef __IAR_SYSTEMS_ICC__
-    #pragma cstat_restore = "MISRAC2012-Rule-10.3", "CERT-STR32-C"
+    #pragma cstat_restore = "CERT-STR32-C"
 #endif
