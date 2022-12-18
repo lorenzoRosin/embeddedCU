@@ -24,13 +24,13 @@ static bool_t eCU_BUNSTF_isStatusStillCoherent(const s_eCU_BUNSTF_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize)
+s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t* p_memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	s_eCU_BUNSTF_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_memArea ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_memArea ) )
 	{
 		l_result = BUNSTF_RES_BADPOINTER;
 	}
@@ -45,7 +45,7 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t* a_me
         {
             /* Initialize internal status */
             p_ctx->isInit = true;
-            p_ctx->p_memA = a_memArea;
+            p_ctx->p_memA = p_memArea;
             p_ctx->memASize = memAreaSize;
             p_ctx->memACntr = 0u;
             p_ctx->unStuffState = BUNSTF_SM_PRV_NEEDSOF;
@@ -312,7 +312,7 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_IsFrameBad(const s_eCU_BUNSTF_Ctx* p_ctx, bool_t* co
 
 
 
-s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t* a_stuffArea,
+s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t* p_stuffArea,
                                          const uint32_t stuffLen, uint32_t* const p_consumedStuffData)
 {
 	/* Local variable */
@@ -321,7 +321,7 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const ui
     uint8_t l_currentByte;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_stuffArea ) || ( NULL == p_consumedStuffData ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_stuffArea ) || ( NULL == p_consumedStuffData ) )
 	{
 		l_result = BUNSTF_RES_BADPOINTER;
 	}
@@ -360,7 +360,7 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const ui
                            ( BUNSTF_SM_PRV_UNSTUFFFAIL != p_ctx->unStuffState ) )
                     {
                         /* Read current byte */
-                        l_currentByte = a_stuffArea[l_nExamByte];
+                        l_currentByte = p_stuffArea[l_nExamByte];
 
                         /* Decide what to do */
 						switch( p_ctx->unStuffState )

@@ -24,14 +24,14 @@ static bool_t eCU_DUNPK_isStatusStillCoherent(const s_eCU_DUNPK_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_memUPKA, const uint32_t memUPKASize,
+e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* p_memUPKA, const uint32_t memUPKASize,
                                   const bool_t isLEnd)
 {
 	/* Local variable */
 	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL ==  a_memUPKA ) )
+	if( ( NULL == p_ctx ) || ( NULL ==  p_memUPKA ) )
 	{
 		result = DUNPK_RES_BADPOINTER;
 	}
@@ -46,7 +46,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_memUP
 		{
             p_ctx->isInit = true;
             p_ctx->isLE = isLEnd;
-            p_ctx->p_memUPKA = a_memUPKA;
+            p_ctx->p_memUPKA = p_memUPKA;
             p_ctx->memUPKASize = memUPKASize;
             p_ctx->memUPKAFrameSize = 0u;
             p_ctx->memUPKACntr = 0u;
@@ -248,13 +248,13 @@ e_eCU_DUNPK_Res eCU_DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* co
 	return result;
 }
 
-e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_dataDest, uint32_t const p_toRetrivedLen)
+e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* p_dataDest, uint32_t const p_toRetrivedLen)
 {
 	/* Local variable */
 	e_eCU_DUNPK_Res result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_dataDest ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_dataDest ) )
 	{
 		result = DUNPK_RES_BADPOINTER;
 	}
@@ -297,7 +297,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_data
                         else
                         {
                             /* Copy data */
-                            (void)memcpy(a_dataDest, &p_ctx->p_memUPKA[p_ctx->memUPKACntr], p_toRetrivedLen);
+                            (void)memcpy(p_dataDest, &p_ctx->p_memUPKA[p_ctx->memUPKACntr], p_toRetrivedLen);
 
                             /* Update index */
                             p_ctx->memUPKACntr += p_toRetrivedLen;

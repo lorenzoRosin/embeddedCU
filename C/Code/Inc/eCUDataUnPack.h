@@ -58,7 +58,7 @@ typedef struct
  * @brief       Initialize the data unpacker context
  *
  * @param[in]   p_ctx           - Data Unpacker context
- * @param[in]   a_memUPKA       - Pointer to a memory area that we will use to store data that needs to be unpacked
+ * @param[in]   p_memUPKA       - Pointer to a memory area that we will use to store data that needs to be unpacked
  * @param[in]   memUPKASize     - Dimension in byte of the data unpacker area
  * @param[in]   isLEnd          - Select if data unpacker must work in Little Endian or Big Endian
  *
@@ -66,7 +66,7 @@ typedef struct
  *		        DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
  *              DUNPK_RES_OK         - Operation ended correctly
  */
-e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_memUPKA, const uint32_t memUPKASize,
+e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* p_memUPKA, const uint32_t memUPKASize,
                                   const bool_t isLEnd);
 
 /**
@@ -145,8 +145,8 @@ e_eCU_DUNPK_Res eCU_DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* co
  * @brief       Pop some raw data
  *
  * @param[in]   p_ctx         - Data Unpacker context
- * @param[out]  a_dataDest    - Pointer to a memory area where popped data will be copied
- * @param[in]   p_retrivedLen - The amount of data that need to be copied in a_dataDest
+ * @param[out]  p_dataDest    - Pointer to a memory area where popped data will be copied
+ * @param[in]   p_retrivedLen - The amount of data that need to be copied in p_dataDest
  *
  * @return      DUNPK_RES_BADPOINTER  - In case of bad pointer passed to the function
  *		        DUNPK_RES_NOINITLIB   - Need to init the data unpacker before taking some action
@@ -156,7 +156,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* co
  *              DUNPK_RES_NODATA      - Not so much data to pop
  *              DUNPK_RES_OK          - Operation ended correctly
  */
-e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* a_dataDest, uint32_t const p_toRetrivedLen);
+e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* p_dataDest, uint32_t const p_toRetrivedLen);
 
 /**
  * @brief       Pop one byte from data passed to session

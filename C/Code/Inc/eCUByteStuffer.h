@@ -59,14 +59,14 @@ typedef struct
  * @brief       Initialize the byte stuffer context
  *
  * @param[in]   p_ctx       - Byte stuffer context
- * @param[in]   a_memArea   - Pointer to a memory area that we will use to store data that needs to be stuffed
+ * @param[in]   p_memArea   - Pointer to a memory area that we will use to store data that needs to be stuffed
  * @param[in]   memAreaSize - Dimension in byte of the memory area
  *
  * @return      BSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
  *		        BSTF_RES_BADPARAM      - In case of an invalid parameter passed to the function
  *              BSTF_RES_OK            - Operation ended correctly
  */
-e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize);
+e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_memArea, const uint32_t memAreaSize);
 
 /**
  * @brief       Check if the lib is initialized
@@ -144,10 +144,10 @@ e_eCU_BSTF_Res eCU_BSTF_GetRemByteToGet(s_eCU_BSTF_Ctx* const p_ctx, uint32_t* c
  *              eCU_BSTF_GetWherePutData will be stuffed and retrived by this function.
  *
  * @param[in]   p_ctx         - Byte stuffer context
- * @param[in]   a_stuffedDest - Pointer to the destination area where stuffed data will be placed by this function
+ * @param[in]   p_stuffedDest - Pointer to the destination area where stuffed data will be placed by this function
  * @param[in]   maxDestLen    - Max fillable size of the destination area
  * @param[out]  p_filledLen   - Pointer to an uint32_t were we will store the number stuffed data inserted in
- *                              a_stuffedDest. Note that if the function return BSTF_RES_OK the value of filledLen will
+ *                              p_stuffedDest. Note that if the function return BSTF_RES_OK the value of filledLen will
  *                              be equals to maxDestLen. The value filledLen infact could be lower than max dest size
  *                              only if some error is returned or if the frame is ended ( BSTF_RES_FRAMEENDED )
  * @return      BSTF_RES_BADPOINTER    - In case of bad pointer passed to the function
@@ -162,7 +162,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetRemByteToGet(s_eCU_BSTF_Ctx* const p_ctx, uint32_t* c
  *                                       completed, but we can be sure that filledLen will have the same value of
  *                                       maxDestLen
  */
-e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stuffedDest, const uint32_t maxDestLen,
+e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stuffedDest, const uint32_t maxDestLen,
                                      uint32_t* const p_filledLen);
 
 

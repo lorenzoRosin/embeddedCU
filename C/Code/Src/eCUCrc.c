@@ -17,15 +17,15 @@
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CRC_Res eCU_CRC_32(const uint8_t* a_data, const uint32_t dataL, uint32_t* const p_crc)
+e_eCU_CRC_Res eCU_CRC_32(const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
 {
-	return eCU_CRC_32Seed(ECU_CRC_BASE_SEED, a_data, dataL, p_crc);
+	return eCU_CRC_32Seed(ECU_CRC_BASE_SEED, p_data, dataL, p_crc);
 }
 
-e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* a_data, const uint32_t dataL, uint32_t* const p_crc)
+e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
 {
     /* lookup table */
-    static const uint32_t la_crctable[256u] = {
+    static const uint32_t lp_crctable[256u] = {
     0x00000000u, 0x04c11db7u, 0x09823b6eu, 0x0d4326d9u, 0x130476dcu, 0x17c56b6bu,
     0x1a864db2u, 0x1e475005u, 0x2608edb8u, 0x22c9f00fu, 0x2f8ad6d6u, 0x2b4bcb61u,
     0x350c9b64u, 0x31cd86d3u, 0x3c8ea00au, 0x384fbdbdu, 0x4c11db70u, 0x48d0c6c7u,
@@ -80,7 +80,7 @@ e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* a_data, const u
 	uint32_t l_middleShift;
 
 	/* Check pointer validity */
-	if( ( NULL == a_data) || ( NULL == p_crc) )
+	if( ( NULL == p_data) || ( NULL == p_crc) )
 	{
 		l_result = CRC_RES_BADPOINTER;
 	}
@@ -99,11 +99,11 @@ e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* a_data, const u
 
 			/* Calc crc table index */
 			l_middleShift = ( l_seedCalc >> 24u );
-			l_indexCalc = ( l_middleShift ) ^ ( a_data[l_lenStart - (l_len + 1u) ] );
+			l_indexCalc = ( l_middleShift ) ^ ( p_data[l_lenStart - (l_len + 1u) ] );
 
 			/* Calc new crc */
 			l_middleShift = ( l_seedCalc << 8u );
-			l_seedCalc = la_crctable[l_indexCalc] ^ ( l_middleShift );
+			l_seedCalc = lp_crctable[l_indexCalc] ^ ( l_middleShift );
 		}
 
 		l_result = CRC_RES_OK;

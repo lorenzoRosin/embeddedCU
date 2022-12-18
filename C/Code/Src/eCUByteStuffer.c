@@ -24,13 +24,13 @@ static bool_t eCU_BSTF_isStatusStillCoherent(const s_eCU_BSTF_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize)
+e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_memArea, const uint32_t memAreaSize)
 {
 	/* Local variable */
 	e_eCU_BSTF_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_memArea ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_memArea ) )
 	{
 		l_result = BSTF_RES_BADPOINTER;
 	}
@@ -45,7 +45,7 @@ e_eCU_BSTF_Res eCU_BSTF_InitCtx(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_memArea,
         {
             /* Initialize internal status */
             p_ctx->isInit = true;
-            p_ctx->p_memA = a_memArea;
+            p_ctx->p_memA = p_memArea;
             p_ctx->memASize = memAreaSize;
             p_ctx->memAFrameSize = 0u;
             p_ctx->memACtr = 0u;
@@ -331,7 +331,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetRemByteToGet(s_eCU_BSTF_Ctx* const p_ctx, uint32_t* c
 	return l_result;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stuffedDest, const uint32_t maxDestLen,
+e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stuffedDest, const uint32_t maxDestLen,
                                      uint32_t* const p_filledLen)
 {
 	/* Local variable */
@@ -339,7 +339,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
     uint32_t l_nFillByte;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_stuffedDest ) || ( NULL == p_filledLen ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_stuffedDest ) || ( NULL == p_filledLen ) )
 	{
 		l_result = BSTF_RES_BADPOINTER;
 	}
@@ -387,7 +387,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
                                 case BSTF_SM_PRV_NEEDSOF :
                                 {
                                     /* Start of frame */
-                                    a_stuffedDest[l_nFillByte] = ECU_SOF;
+                                    p_stuffedDest[l_nFillByte] = ECU_SOF;
                                     l_nFillByte++;
                                     p_ctx->stuffState = BSTF_SM_PRV_NEEDRAWDATA;
 
@@ -407,7 +407,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
                                         if( ECU_SOF == p_ctx->p_memA[p_ctx->memACtr] )
                                         {
                                             /* Stuff with escape */
-                                            a_stuffedDest[l_nFillByte] = ECU_ESC;
+                                            p_stuffedDest[l_nFillByte] = ECU_ESC;
                                             p_ctx->stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
                                             l_nFillByte++;
                                             p_ctx->memACtr++;
@@ -415,7 +415,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
                                         else if( ECU_EOF == p_ctx->p_memA[p_ctx->memACtr] )
                                         {
                                             /* Stuff with escape */
-                                            a_stuffedDest[l_nFillByte] = ECU_ESC;
+                                            p_stuffedDest[l_nFillByte] = ECU_ESC;
                                             p_ctx->stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
                                             l_nFillByte++;
                                             p_ctx->memACtr++;
@@ -423,7 +423,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
                                         else if( ECU_ESC == p_ctx->p_memA[p_ctx->memACtr] )
                                         {
                                             /* Stuff with escape */
-                                            a_stuffedDest[l_nFillByte] = ECU_ESC;
+                                            p_stuffedDest[l_nFillByte] = ECU_ESC;
                                             p_ctx->stuffState = BSTF_SM_PRV_NEEDNEGATEPRECDATA;
                                             l_nFillByte++;
                                             p_ctx->memACtr++;
@@ -431,7 +431,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
                                         else
                                         {
                                             /* Can insert data and continue parsing other raw data */
-                                            a_stuffedDest[l_nFillByte] = p_ctx->p_memA[p_ctx->memACtr];
+                                            p_stuffedDest[l_nFillByte] = p_ctx->p_memA[p_ctx->memACtr];
                                             l_nFillByte++;
                                             p_ctx->memACtr++;
                                         }
@@ -443,7 +443,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
                                 case BSTF_SM_PRV_NEEDNEGATEPRECDATA :
                                 {
                                     /* Something from an old iteration  */
-                                    a_stuffedDest[l_nFillByte] = ( (uint8_t) ~( p_ctx->p_memA[p_ctx->memACtr - 1u] ) );
+                                    p_stuffedDest[l_nFillByte] = ( (uint8_t) ~( p_ctx->p_memA[p_ctx->memACtr - 1u] ) );
                                     l_nFillByte++;
 
                                     /* After this we can continue parsing raw data */
@@ -455,7 +455,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(s_eCU_BSTF_Ctx* const p_ctx, uint8_t* a_stu
                                 case BSTF_SM_PRV_NEEDEOF :
                                 {
                                     /* End of frame */
-                                    a_stuffedDest[l_nFillByte] = ECU_EOF;
+                                    p_stuffedDest[l_nFillByte] = ECU_EOF;
                                     p_ctx->stuffState = BSTF_SM_PRV_STUFFEND;
                                     l_nFillByte++;
 

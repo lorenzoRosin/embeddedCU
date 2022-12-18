@@ -25,13 +25,13 @@ static uint32_t eCU_CIRQ_getoccupiedIndex(const s_eCU_CIRQ_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_memP, const uint32_t memPSize)
+e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* p_memP, const uint32_t memPSize)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL ==  a_memP ) )
+	if( ( NULL == p_ctx ) || ( NULL ==  p_memP ) )
 	{
 		l_result = CIRQ_RES_BADPOINTER;
 	}
@@ -46,7 +46,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_InitCtx(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_memP, co
 		{
 			/* Check Init */
 			p_ctx->isInit = true;
-			p_ctx->p_memP = a_memP;
+			p_ctx->p_memP = p_memP;
 			p_ctx->memPSize = memPSize;
 			p_ctx->memPUsedSize = 0u;
 			p_ctx->memPFreeIdx = 0u;
@@ -185,7 +185,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_GetOccupiedSapce(s_eCU_CIRQ_Ctx* const p_ctx, uint32_t* 
 	return l_result;
 }
 
-e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* a_data, const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* p_data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;
@@ -194,7 +194,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* a
 	uint32_t l_secondLen;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_data ) )
 	{
 		l_result = CIRQ_RES_BADPOINTER;
 	}
@@ -233,7 +233,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* a
                         if( ( datalen + p_ctx->memPFreeIdx ) <= p_ctx->memPSize )
                         {
                             /* Direct copy */
-                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], a_data, datalen);
+                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], p_data, datalen);
 
                             /* Update free index */
                             p_ctx->memPFreeIdx += datalen;
@@ -248,12 +248,12 @@ e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* a
 
                             /* First round */
                             l_firstLen = p_ctx->memPSize - p_ctx->memPFreeIdx;
-                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], a_data, l_firstLen);
+                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], p_data, l_firstLen);
                             p_ctx->memPFreeIdx = 0u;
 
                             /* Second round */
                             l_secondLen = datalen - l_firstLen;
-                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], &a_data[l_firstLen], l_secondLen);
+                            (void)memcpy(&p_ctx->p_memP[p_ctx->memPFreeIdx], &p_data[l_firstLen], l_secondLen);
                             p_ctx->memPFreeIdx += l_secondLen;
                         }
 
@@ -268,7 +268,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_InsertData(s_eCU_CIRQ_Ctx* const p_ctx, const uint8_t* a
 	return l_result;
 }
 
-e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* p_data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;
@@ -277,7 +277,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data
     uint32_t l_memPOccIdx;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_data ) )
 	{
 		l_result = CIRQ_RES_BADPOINTER;
 	}
@@ -318,7 +318,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data
                         if( ( datalen +  l_memPOccIdx ) <= p_ctx->memPSize )
                         {
                             /* Direct copy */
-                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], datalen);
+                            (void)memcpy(p_data, &p_ctx->p_memP[l_memPOccIdx], datalen);
                         }
                         else
                         {
@@ -326,12 +326,12 @@ e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data
 
                             /* First round */
                             l_firstLen = p_ctx->memPSize - l_memPOccIdx;
-                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], l_firstLen);
+                            (void)memcpy(p_data, &p_ctx->p_memP[l_memPOccIdx], l_firstLen);
                             l_memPOccIdx = 0u;
 
                             /* Second round */
                             l_secondLen = datalen - l_firstLen;
-                            (void)memcpy(&a_data[l_firstLen], &p_ctx->p_memP[l_memPOccIdx], l_secondLen);
+                            (void)memcpy(&p_data[l_firstLen], &p_ctx->p_memP[l_memPOccIdx], l_secondLen);
                         }
 
                         p_ctx->memPUsedSize -= datalen;
@@ -345,7 +345,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_RetriveData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data
 	return l_result;
 }
 
-e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, const uint32_t datalen)
+e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* p_data, const uint32_t datalen)
 {
 	/* Local variable */
 	e_eCU_CIRQ_Res l_result;
@@ -354,7 +354,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, c
     uint32_t l_memPOccIdx;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_data ) )
 	{
 		l_result = CIRQ_RES_BADPOINTER;
 	}
@@ -395,7 +395,7 @@ e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, c
                         if( ( datalen +  l_memPOccIdx ) <= p_ctx->memPSize )
                         {
                             /* Direct copy */
-                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], datalen);
+                            (void)memcpy(p_data, &p_ctx->p_memP[l_memPOccIdx], datalen);
                         }
                         else
                         {
@@ -403,12 +403,12 @@ e_eCU_CIRQ_Res eCU_CIRQ_PeekData(s_eCU_CIRQ_Ctx* const p_ctx, uint8_t* a_data, c
 
                             /* First round */
                             l_firstLen = p_ctx->memPSize - l_memPOccIdx;
-                            (void)memcpy(a_data, &p_ctx->p_memP[l_memPOccIdx], l_firstLen);
+                            (void)memcpy(p_data, &p_ctx->p_memP[l_memPOccIdx], l_firstLen);
                             l_memPOccIdx = 0u;
 
                             /* Second round */
                             l_secondLen = datalen - l_firstLen;
-                            (void)memcpy(&a_data[l_firstLen], &p_ctx->p_memP[l_memPOccIdx], l_secondLen);
+                            (void)memcpy(&p_data[l_firstLen], &p_ctx->p_memP[l_memPOccIdx], l_secondLen);
                         }
 
                         l_result = CIRQ_RES_OK;

@@ -56,7 +56,7 @@ typedef struct
  * @brief       Initialize the data packer context
  *
  * @param[in]   p_ctx           - Data packer context
- * @param[in]   a_memPKA        - Pointer to a memory area that we will fill with packet data
+ * @param[in]   p_memPKA        - Pointer to a memory area that we will fill with packet data
  * @param[in]   memPKASize      - Dimension in byte of the data packer area
  * @param[in]   isLEnd          - Select if data packer must work in Little Endian or Big Endian
  *
@@ -64,7 +64,7 @@ typedef struct
  *		        DPK_RES_BADPARAM     - In case of an invalid parameter passed to the function
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_memPKA, const uint32_t memPKASize,
+e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t* p_memPKA, const uint32_t memPKASize,
                               const bool_t isLEnd);
 
 /**
@@ -121,7 +121,7 @@ e_eCU_DPK_Res eCU_DPK_GetNPushed(s_eCU_DPK_Ctx* const p_ctx, uint32_t* const p_r
  * @brief       Push an array in data packer
  *
  * @param[in]   p_ctx           - Data packer context
- * @param[in]   a_data          - Pointer to a memory area containing the data that we want to push
+ * @param[in]   p_data          - Pointer to a memory area containing the data that we want to push
  * @param[in]   dataLen         - Data size of the data that we want to push
  *
  * @return      DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
@@ -131,7 +131,7 @@ e_eCU_DPK_Res eCU_DPK_GetNPushed(s_eCU_DPK_Ctx* const p_ctx, uint32_t* const p_r
  *              DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_data, const uint32_t dataLen);
+e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t* p_data, const uint32_t dataLen);
 
 /**
  * @brief       Push one byte in data packer

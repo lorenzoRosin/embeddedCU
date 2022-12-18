@@ -24,14 +24,14 @@ static bool_t eCU_DPK_isStatusStillCoherent(const s_eCU_DPK_Ctx* p_ctx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_memPKA, const uint32_t memPKASize,
+e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t* p_memPKA, const uint32_t memPKASize,
                               const bool_t isLEnd)
 {
 	/* Local variable */
 	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL ==  a_memPKA ) )
+	if( ( NULL == p_ctx ) || ( NULL ==  p_memPKA ) )
 	{
 		l_result = DPK_RES_BADPOINTER;
 	}
@@ -46,7 +46,7 @@ e_eCU_DPK_Res eCU_DPK_InitCtx(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_memPKA, con
 		{
             p_ctx->isInit = true;
             p_ctx->isLE = isLEnd;
-            p_ctx->p_memPKA = a_memPKA;
+            p_ctx->p_memPKA = p_memPKA;
             p_ctx->memPKASize = memPKASize;
             p_ctx->memPKACntr = 0u;
 
@@ -183,13 +183,13 @@ e_eCU_DPK_Res eCU_DPK_GetNPushed(s_eCU_DPK_Ctx* const p_ctx, uint32_t* const p_r
 	return l_result;
 }
 
-e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_data, const uint32_t dataLen)
+e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t* p_data, const uint32_t dataLen)
 {
 	/* Local variable */
 	e_eCU_DPK_Res l_result;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == a_data ) )
+	if( ( NULL == p_ctx ) || ( NULL == p_data ) )
 	{
 		l_result = DPK_RES_BADPOINTER;
 	}
@@ -224,7 +224,7 @@ e_eCU_DPK_Res eCU_DPK_PushArray(s_eCU_DPK_Ctx* const p_ctx, uint8_t* a_data, con
                     else
                     {
                         /* Copy data */
-                        (void)memcpy(&p_ctx->p_memPKA[p_ctx->memPKACntr], a_data, dataLen);
+                        (void)memcpy(&p_ctx->p_memPKA[p_ctx->memPKACntr], p_data, dataLen);
 
                         /* Update index */
                         p_ctx->memPKACntr += dataLen;

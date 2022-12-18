@@ -60,14 +60,14 @@ typedef struct
  * @brief       Initialize the byte unStuffer context
  *
  * @param[in]   p_ctx         - Byte unStuffer context
- * @param[in]   a_memArea     - Pointer to a memory area that we will use to store the unstuffed data
+ * @param[in]   p_memArea     - Pointer to a memory area that we will use to store the unstuffed data
  * @param[in]   memAreaSize   - Dimension in byte of the memory area
  *
  * @return      BUNSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        BUNSTF_RES_BADPARAM     - In case of an invalid parameter passed to the function
  *              BUNSTF_RES_OK           - Operation ended correctly
  */
-s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t* a_memArea, const uint32_t memAreaSize);
+s_eCU_BUNSTF_Res eCU_BUNSTF_InitCtx(s_eCU_BUNSTF_Ctx* const p_ctx, uint8_t* p_memArea, const uint32_t memAreaSize);
 
 /**
  * @brief       Check if the lib is initialized
@@ -166,8 +166,8 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_IsFrameBad(const s_eCU_BUNSTF_Ctx* p_ctx, bool_t* co
  * @brief       Insert the stuffed data chunk that the alg will unstuff byte per byte
  *
  * @param[in]   p_ctx                - Byte unStuffer context
- * @param[in]   a_stuffArea          - Pointer to the stuffed Data that we will unstuff
- * @param[in]   stuffLen             - Size of the a_stuffArea
+ * @param[in]   p_stuffArea          - Pointer to the stuffed Data that we will unstuff
+ * @param[in]   stuffLen             - Size of the p_stuffArea
  * @param[out]  p_consumedStuffData  - Pointer to an uint32_t were we will store how many stuffed data byte has been
  *                                     analized. Keep in mind that unalized data were not unstuffed and they will need
  *                                     to be reparsed. Un parsed data happens when the frame ended earlier
@@ -199,7 +199,7 @@ s_eCU_BUNSTF_Res eCU_BUNSTF_IsFrameBad(const s_eCU_BUNSTF_Ctx* p_ctx, bool_t* co
  *                                        finished yet. In this situation p_consumedStuffData is always reported with a
  *                                        value equals to stuffLen.
  */
-s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t* a_stuffArea,
+s_eCU_BUNSTF_Res eCU_BUNSTF_InsStufChunk(s_eCU_BUNSTF_Ctx* const p_ctx, const uint8_t* p_stuffArea,
                                          const uint32_t stuffLen, uint32_t* const p_consumedStuffData);
 
 
