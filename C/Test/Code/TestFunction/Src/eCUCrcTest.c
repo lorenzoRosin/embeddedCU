@@ -46,12 +46,12 @@ void eCU_TEST_crc32(void)
 static void eCU_TEST_crc32BadPointer(void)
 {
     /* Local variable */
-    uint32_t crc32SValTest;
-    uint8_t  crc8SValTest[1u];
-    crc8SValTest[0u] = 0x00u;
+    uint32_t l_crc32SValTest;
+    uint8_t  la_crc8SValTest[1u];
+    la_crc8SValTest[0u] = 0x00u;
 
     /* Function */
-    if( CRC_RES_BADPOINTER == eCU_CRC_32Seed(0u, NULL, 1u, &crc32SValTest) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32Seed(0u, NULL, 1u, &l_crc32SValTest) )
     {
         (void)printf("eCU_TEST_crc32BadPointer 1  -- OK \n");
     }
@@ -60,7 +60,7 @@ static void eCU_TEST_crc32BadPointer(void)
         (void)printf("eCU_TEST_crc32BadPointer 1  -- FAIL \n");
     }
 
-    if( CRC_RES_BADPOINTER == eCU_CRC_32Seed(0u, crc8SValTest, 1u, NULL) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32Seed(0u, la_crc8SValTest, 1u, NULL) )
     {
         (void)printf("eCU_TEST_crc32BadPointer 2  -- OK \n");
     }
@@ -69,7 +69,7 @@ static void eCU_TEST_crc32BadPointer(void)
         (void)printf("eCU_TEST_crc32BadPointer 2  -- FAIL \n");
     }
 
-    if( CRC_RES_BADPOINTER == eCU_CRC_32(NULL, 1u, &crc32SValTest) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32(NULL, 1u, &l_crc32SValTest) )
     {
         (void)printf("eCU_TEST_crc32BadPointer 3  -- OK \n");
     }
@@ -78,7 +78,7 @@ static void eCU_TEST_crc32BadPointer(void)
         (void)printf("eCU_TEST_crc32BadPointer 3  -- FAIL \n");
     }
 
-    if( CRC_RES_BADPOINTER == eCU_CRC_32(crc8SValTest, 1u, NULL) )
+    if( CRC_RES_BADPOINTER == eCU_CRC_32(la_crc8SValTest, 1u, NULL) )
     {
         (void)printf("eCU_TEST_crc32BadPointer 4  -- OK \n");
     }
@@ -91,15 +91,15 @@ static void eCU_TEST_crc32BadPointer(void)
 static void eCU_TEST_crc32Value(void)
 {
     /* Local variable */
-    uint32_t crcTestValSeed;
-    uint8_t crcTestData1[] = {0x00u, 0x01u, 0x02u};
-    uint32_t crcTestValRet;
+    uint32_t l_crcTestValSeed;
+    uint8_t la_crcTestData1[] = {0x00u, 0x01u, 0x02u};
+    uint32_t l_crcTestValRet;
 
     /* Function */
-    crcTestValSeed = 0xFFFFFFFFu;
-    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
+    l_crcTestValSeed = 0xFFFFFFFFu;
+    if( CRC_RES_OK == eCU_CRC_32Seed(l_crcTestValSeed, la_crcTestData1, sizeof(la_crcTestData1), &l_crcTestValRet) )
     {
-        if( 0x6CFF87B2u == crcTestValRet)
+        if( 0x6CFF87B2u == l_crcTestValRet)
         {
             (void)printf("eCU_TEST_crc32Value 1  -- OK \n");
         }
@@ -113,10 +113,10 @@ static void eCU_TEST_crc32Value(void)
         (void)printf("eCU_TEST_crc32Value 1  -- FAIL \n");
     }
 
-    crcTestValSeed = 0x0u;
-    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
+    l_crcTestValSeed = 0x0u;
+    if( CRC_RES_OK == eCU_CRC_32Seed(l_crcTestValSeed, la_crcTestData1, sizeof(la_crcTestData1), &l_crcTestValRet) )
     {
-        if( 0xDB9BFAB2u == crcTestValRet)
+        if( 0xDB9BFAB2u == l_crcTestValRet)
         {
             (void)printf("eCU_TEST_crc32Value 2  -- OK \n");
         }
@@ -130,9 +130,9 @@ static void eCU_TEST_crc32Value(void)
         (void)printf("eCU_TEST_crc32Value 2  -- FAIL \n");
     }
 
-    if( CRC_RES_OK == eCU_CRC_32(crcTestData1, sizeof(crcTestData1), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32(la_crcTestData1, sizeof(la_crcTestData1), &l_crcTestValRet) )
     {
-        if( 0x6CFF87B2u == crcTestValRet)
+        if( 0x6CFF87B2u == l_crcTestValRet)
         {
             (void)printf("eCU_TEST_crc32Value 3  -- OK \n");
         }
@@ -150,10 +150,10 @@ static void eCU_TEST_crc32Value(void)
     uint8_t crcTestData2[] = {0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0xFF, 0xF1, 0xF5, 0x31, 0x32, 0x33,
                               0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0xFF, 0xF1, 0xF5};
 
-    crcTestValSeed = 0xFFFFFFFFu;
-    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
+    l_crcTestValSeed = 0xFFFFFFFFu;
+    if( CRC_RES_OK == eCU_CRC_32Seed(l_crcTestValSeed, crcTestData2, sizeof(crcTestData2), &l_crcTestValRet) )
     {
-        if( 0x4DBE0510u == crcTestValRet)
+        if( 0x4DBE0510u == l_crcTestValRet)
         {
             (void)printf("eCU_TEST_crc32Value 4  -- OK \n");
         }
@@ -167,10 +167,10 @@ static void eCU_TEST_crc32Value(void)
         (void)printf("eCU_TEST_crc32Value 4  -- FAIL \n");
     }
 
-    crcTestValSeed = 0x0u;
-    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeed, crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
+    l_crcTestValSeed = 0x0u;
+    if( CRC_RES_OK == eCU_CRC_32Seed(l_crcTestValSeed, crcTestData2, sizeof(crcTestData2), &l_crcTestValRet) )
     {
-        if( 0xB612792Au == crcTestValRet)
+        if( 0xB612792Au == l_crcTestValRet)
         {
             (void)printf("eCU_TEST_crc32Value 5  -- OK \n");
         }
@@ -184,9 +184,9 @@ static void eCU_TEST_crc32Value(void)
         (void)printf("eCU_TEST_crc32Value 5  -- FAIL \n");
     }
 
-    if( CRC_RES_OK == eCU_CRC_32(crcTestData2, sizeof(crcTestData2), &crcTestValRet) )
+    if( CRC_RES_OK == eCU_CRC_32(crcTestData2, sizeof(crcTestData2), &l_crcTestValRet) )
     {
-        if( 0x4DBE0510u == crcTestValRet)
+        if( 0x4DBE0510u == l_crcTestValRet)
         {
             (void)printf("eCU_TEST_crc32Value 6  -- OK \n");
         }
@@ -204,16 +204,16 @@ static void eCU_TEST_crc32Value(void)
 static void eCU_TEST_crc32Combined(void)
 {
     /* Local variable */
-    uint32_t crcTestValSeedC;
-    uint8_t crcTestDataC[] = {0x00u, 0x01u, 0x02u, 0x03u, 0x04u, 0x05u};
-    uint8_t crcTestDataC2[] = {0x03u, 0x04u, 0x05u};
-    uint32_t crcTestValRetC;
+    uint32_t l_crcTestValSeedC;
+    uint8_t la_crcTestDataC[] = {0x00u, 0x01u, 0x02u, 0x03u, 0x04u, 0x05u};
+    uint8_t la_crcTestDataC2[] = {0x03u, 0x04u, 0x05u};
+    uint32_t l_crcTestValRetC;
 
     /* Function */
-    crcTestValSeedC = 0xFFFFFFFFu;
-    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeedC, crcTestDataC, sizeof(crcTestDataC), &crcTestValRetC) )
+    l_crcTestValSeedC = 0xFFFFFFFFu;
+    if( CRC_RES_OK == eCU_CRC_32Seed(l_crcTestValSeedC, la_crcTestDataC, sizeof(la_crcTestDataC), &l_crcTestValRetC) )
     {
-        if( 0x9FE54C6Du == crcTestValRetC)
+        if( 0x9FE54C6Du == l_crcTestValRetC)
         {
             (void)printf("eCU_TEST_crc32Combined 1  -- OK \n");
         }
@@ -227,10 +227,10 @@ static void eCU_TEST_crc32Combined(void)
         (void)printf("eCU_TEST_crc32Combined 1  -- FAIL \n");
     }
 
-    crcTestValSeedC = 0xFFFFFFFFu;
-    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeedC, crcTestDataC, 0x03u, &crcTestValRetC) )
+    l_crcTestValSeedC = 0xFFFFFFFFu;
+    if( CRC_RES_OK == eCU_CRC_32Seed(l_crcTestValSeedC, la_crcTestDataC, 0x03u, &l_crcTestValRetC) )
     {
-        if( 0x6CFF87B2u == crcTestValRetC)
+        if( 0x6CFF87B2u == l_crcTestValRetC)
         {
             (void)printf("eCU_TEST_crc32Combined 2  -- OK \n");
         }
@@ -244,10 +244,10 @@ static void eCU_TEST_crc32Combined(void)
         (void)printf("eCU_TEST_crc32Combined 2  -- FAIL \n");
     }
 
-    crcTestValSeedC = crcTestValRetC;
-    if( CRC_RES_OK == eCU_CRC_32Seed(crcTestValSeedC, crcTestDataC2, 0x03u, &crcTestValRetC) )
+    l_crcTestValSeedC = l_crcTestValRetC;
+    if( CRC_RES_OK == eCU_CRC_32Seed(l_crcTestValSeedC, la_crcTestDataC2, 0x03u, &l_crcTestValRetC) )
     {
-        if( 0x9FE54C6Du == crcTestValRetC)
+        if( 0x9FE54C6Du == l_crcTestValRetC)
         {
             (void)printf("eCU_TEST_crc32Combined 3  -- OK \n");
         }

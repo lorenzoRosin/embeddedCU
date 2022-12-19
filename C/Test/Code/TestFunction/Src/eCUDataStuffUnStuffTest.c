@@ -53,16 +53,16 @@ typedef struct
 static void eCU_TEST_dataStuffUnStuffCommon(void)
 {
     /* Local variable */
-    s_eCU_BUNSTF_Ctx ctxUnStuff;
-    s_eCU_BSTF_Ctx ctxStuff;
-    static uint8_t  dataUnStuffPool[300];
-    static uint8_t  dataStuffPool[300];
-    static uint8_t  tempPool[300u];
-    uint32_t  temp32;
-    uint32_t  temp32sec;
-    uint32_t index;
-    uint8_t* tempP;
-    uint32_t tempPSize;
+    s_eCU_BUNSTF_Ctx l_ctxUnStuff;
+    s_eCU_BSTF_Ctx l_ctxStuff;
+    static uint8_t  la_dataUnStuffPool[300];
+    static uint8_t  la_dataStuffPool[300];
+    static uint8_t  la_tempPool[300u];
+    uint32_t  l_temp32;
+    uint32_t  l_temp32sec;
+    uint32_t l_index;
+    uint8_t* lp_tempPo;
+    uint32_t l_tempPSize;
 
     /* Test data */
     static uint8_t test1[5u]   = {0x01u, ECU_SOF, ECU_EOF, ECU_ESC, 0x21u};
@@ -81,104 +81,104 @@ static void eCU_TEST_dataStuffUnStuffCommon(void)
         { .dataTestSize = sizeof(test5), .dataTest = test5 }
     };
 
-    for(index = 0u; index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); index++)
+    for(l_index = 0u; l_index < (uint32_t)( ( sizeof(testMatrix) ) / ( sizeof(s_priv_test_stuffUnstuffMatrix) ) ); l_index++)
     {
         /* Function Init */
-        if( BSTF_RES_OK == eCU_BSTF_InitCtx(&ctxStuff, dataStuffPool, sizeof(dataStuffPool)) )
+        if( BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctxStuff, la_dataStuffPool, sizeof(la_dataStuffPool)) )
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 1[%u]  -- OK \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 1[%u]  -- OK \n", l_index);
         }
         else
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 1[%u]  -- FAIL \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 1[%u]  -- FAIL \n", l_index);
         }
 
-        if( BUNSTF_RES_OK == eCU_BUNSTF_InitCtx(&ctxUnStuff, dataUnStuffPool, sizeof(dataUnStuffPool)) )
+        if( BUNSTF_RES_OK == eCU_BUNSTF_InitCtx(&l_ctxUnStuff, la_dataUnStuffPool, sizeof(la_dataUnStuffPool)) )
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 2[%u]  -- OK \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 2[%u]  -- OK \n", l_index);
         }
         else
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 2[%u]  -- FAIL \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 2[%u]  -- FAIL \n", l_index);
         }
 
         /* Copy data in byte stuffer */
-        if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&ctxStuff, &tempP, &tempPSize) )
+        if( BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctxStuff, &lp_tempPo, &l_tempPSize) )
         {
-            if( tempPSize == sizeof(dataStuffPool) )
+            if( l_tempPSize == sizeof(la_dataStuffPool) )
             {
-                (void)memcpy(tempP, testMatrix[index].dataTest, testMatrix[index].dataTestSize);
-                (void)printf("eCU_TEST_dataStuffUnStuffCommon 3[%u]  -- OK \n", index);
+                (void)memcpy(lp_tempPo, testMatrix[l_index].dataTest, testMatrix[l_index].dataTestSize);
+                (void)printf("eCU_TEST_dataStuffUnStuffCommon 3[%u]  -- OK \n", l_index);
             }
             else
             {
-                (void)printf("eCU_TEST_dataStuffUnStuffCommon 3[%u]  -- FAIL \n", index);
+                (void)printf("eCU_TEST_dataStuffUnStuffCommon 3[%u]  -- FAIL \n", l_index);
             }
         }
         else
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 3[%u]  -- FAIL \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 3[%u]  -- FAIL \n", l_index);
         }
 
 
         /* Function Init part two */
-        if( BSTF_RES_OK == eCU_BSTF_NewFrame(&ctxStuff, testMatrix[index].dataTestSize) )
+        if( BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctxStuff, testMatrix[l_index].dataTestSize) )
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 4[%u]  -- OK \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 4[%u]  -- OK \n", l_index);
         }
         else
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 4[%u]  -- FAIL \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 4[%u]  -- FAIL \n", l_index);
         }
 
-        if( BUNSTF_RES_OK == eCU_BUNSTF_NewFrame(&ctxUnStuff) )
+        if( BUNSTF_RES_OK == eCU_BUNSTF_NewFrame(&l_ctxUnStuff) )
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 5[%u]  -- OK \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 5[%u]  -- OK \n", l_index);
         }
         else
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 5[%u]  -- FAIL \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 5[%u]  -- FAIL \n", l_index);
         }
 
         /* Stuff */
-        if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&ctxStuff, tempPool, sizeof(tempPool), &temp32) )
+        if( BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctxStuff, la_tempPool, sizeof(la_tempPool), &l_temp32) )
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 6[%u]  -- OK \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 6[%u]  -- OK \n", l_index);
         }
         else
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 6[%u]  -- FAIL \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 6[%u]  -- FAIL \n", l_index);
         }
 
         /* unstuff */
-        if( BUNSTF_RES_FRAMEENDED == eCU_BUNSTF_InsStufChunk( &ctxUnStuff, tempPool, temp32, &temp32sec ) )
+        if( BUNSTF_RES_FRAMEENDED == eCU_BUNSTF_InsStufChunk( &l_ctxUnStuff, la_tempPool, l_temp32, &l_temp32sec ) )
         {
-            if( BUNSTF_RES_OK == eCU_BUNSTF_GetUnstufLen(&ctxUnStuff, &temp32sec) )
+            if( BUNSTF_RES_OK == eCU_BUNSTF_GetUnstufLen(&l_ctxUnStuff, &l_temp32sec) )
             {
-                if( testMatrix[index].dataTestSize == temp32sec )
+                if( testMatrix[l_index].dataTestSize == l_temp32sec )
                 {
-                    if( 0 == memcmp(dataUnStuffPool, testMatrix[index].dataTest, testMatrix[index].dataTestSize) )
+                    if( 0 == memcmp(la_dataUnStuffPool, testMatrix[l_index].dataTest, testMatrix[l_index].dataTestSize) )
                     {
-                        (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- OK \n", index);
+                        (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- OK \n", l_index);
                     }
                     else
                     {
-                        (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
+                        (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", l_index);
                     }
                 }
                 else
                 {
-                    (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
+                    (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", l_index);
                 }
             }
             else
             {
-                (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
+                (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", l_index);
             }
         }
         else
         {
-            (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", index);
+            (void)printf("eCU_TEST_dataStuffUnStuffCommon 7[%u]  -- FAIL \n", l_index);
         }
     }
 }
