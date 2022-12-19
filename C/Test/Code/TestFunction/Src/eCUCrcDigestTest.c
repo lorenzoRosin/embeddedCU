@@ -122,7 +122,7 @@ static bool_t eCU_TEST_c32SAdaptEr(cb_crc32_seed_ctx* p_ctx, const uint32_t s, c
         {
             p_ctx->lastError = CRC_RES_BADPOINTER;
             result = false;
-            *c32Val = 0u;
+            *p_c32Val = 0u;
         }
     }
 
