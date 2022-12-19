@@ -24,8 +24,8 @@ struct cb_crc32_seed_ctx_user
     e_eCU_CRC_Res lastError;
 };
 
-static bool_t eCU_TEST_c32SAdapt(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t* d, const uint32_t dLen, uint32_t* const c32Val);
-static bool_t eCU_TEST_c32SAdaptEr(cb_crc32_seed_ctx* cntx, const uint32_t s, const uint8_t* d, const uint32_t dLen, uint32_t* const c32Val);
+static bool_t eCU_TEST_c32SAdapt(cb_crc32_seed_ctx* const cntx, const uint32_t s, const uint8_t* d, const uint32_t dLen, uint32_t* const c32Val);
+static bool_t eCU_TEST_c32SAdaptEr(cb_crc32_seed_ctx* const cntx, const uint32_t s, const uint8_t* d, const uint32_t dLen, uint32_t* const c32Val);
 
 
 
