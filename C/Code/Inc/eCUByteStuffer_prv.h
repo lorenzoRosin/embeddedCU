@@ -23,12 +23,12 @@ extern "C" {
  **********************************************************************************************************************/
 typedef enum
 {
-    BSTF_SM_PRV_NEEDSOF = 0,
-    BSTF_SM_PRV_NEEDRAWDATA,
-    BSTF_SM_PRV_NEEDNEGATEPRECDATA,
-	BSTF_SM_PRV_NEEDEOF,
-    BSTF_SM_PRV_STUFFEND,
-}e_eCU_BSTF_sm_prv;
+    e_eCU_BSTFPRV_SM_NEEDSOF = 0,
+    e_eCU_BSTFPRV_SM_NEEDRAWDATA,
+    e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA,
+	e_eCU_BSTFPRV_SM_NEEDEOF,
+    e_eCU_BSTFPRV_SM_STUFFEND
+}e_eCU_BSTFPRV_SM;
 
 
 

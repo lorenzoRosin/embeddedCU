@@ -37,9 +37,9 @@ extern "C" {
  **********************************************************************************************************************/
 typedef enum
 {
-    CRC_RES_OK = 0,
-    CRC_RES_BADPOINTER
-}e_eCU_CRC_Res;
+    e_eCU_CRC_RES_OK = 0,
+    e_eCU_CRC_RES_BADPOINTER
+}e_eCU_CRC_RES;
 
 
 
@@ -47,30 +47,31 @@ typedef enum
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using as seed the default value of 0xFFFFFFFFu
+ * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using as p_uSeed the default value of 0xFFFFFFFFu
  *
- * @param[in]   p_data      - Pointer to the data buffer used to calculate CRC 32
- * @param[in]   dataL       - How many byte will be used to calculate the CRC 32
- * @param[out]  p_crc       - Pointer to an uint32_t were we will store the calculated CRC 32
+ * @param[in]   p_puData      - Pointer to the data buffer used to calculate CRC 32
+ * @param[in]   p_uDataL      - How many byte will be used to calculate the CRC 32
+ * @param[out]  p_puCrc       - Pointer to an uint32_t were we will store the calculated CRC 32
  *
- * @return      CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
- *              CRC_RES_OK              - Crc 32 calculated successfully
+ * @return      e_eCU_CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
+ *              e_eCU_CRC_RES_OK              - Crc 32 calculated successfully
  */
-e_eCU_CRC_Res eCU_CRC_32(const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc);
+e_eCU_CRC_RES eCU_CRC_32(const uint8_t* p_puData, const uint32_t p_uDataL, uint32_t* const p_puCrc);
 
 
 /**
- * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using a custom seed
+ * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using a custom p_uSeed
  *
- * @param[in]   seed        - Seed that will be used to calculate the CRC 32
- * @param[in]   p_data      - Pointer to the data buffer used to calculate CRC 32
- * @param[in]   dataL       - How many byte will be used to calculate the CRC 32
- * @param[out]  p_crc       - Pointer to an uint32_t were we will store the calculated CRC 32
+ * @param[in]   p_uSeed     - Seed that will be used to calculate the CRC 32
+ * @param[in]   p_puData    - Pointer to the data buffer used to calculate CRC 32
+ * @param[in]   p_uDataL    - How many byte will be used to calculate the CRC 32
+ * @param[out]  p_puCrc     - Pointer to an uint32_t were we will store the calculated CRC 32
  *
- * @return      CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
- *              CRC_RES_OK              - Crc 32 calculated successfully
+ * @return      e_eCU_CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
+ *              e_eCU_CRC_RES_OK              - Crc 32 calculated successfully
  */
-e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc);
+e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t p_uSeed, const uint8_t* p_puData, const uint32_t p_uDataL, 
+                             uint32_t* const p_puCrc);
 
 
 

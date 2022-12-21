@@ -41,8 +41,8 @@ typedef enum
 
 typedef struct
 {
-    bool_t isInit;
-	bool_t isLE;
+    bool_t bIsInit;
+	bool_t bIsLE;
 	uint8_t* p_memUPKA;
 	uint32_t memUPKASize;
     uint32_t memUPKAFrameSize;

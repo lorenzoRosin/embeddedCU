@@ -17,12 +17,12 @@
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CRC_Res eCU_CRC_32(const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
+e_eCU_CRC_RES eCU_CRC_32(const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
 {
-	return eCU_CRC_32Seed(ECU_CRC_BASE_SEED, p_data, dataL, p_crc);
+	return eCU_CRC_32Seed(eCU_CRC_BASE_SEED, p_data, dataL, p_crc);
 }
 
-e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
+e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
 {
     /* lookup table */
     static const uint32_t lp_crctable[256u] = {
@@ -72,7 +72,7 @@ e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const u
     };
 
 	/* Local variable */
-	e_eCU_CRC_Res l_result;
+	e_eCU_CRC_RES l_result;
 	uint32_t l_len;
     uint32_t l_lenStart;
 	uint32_t l_seedCalc;
@@ -82,7 +82,7 @@ e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const u
 	/* Check pointer validity */
 	if( ( NULL == p_data) || ( NULL == p_crc) )
 	{
-		l_result = CRC_RES_BADPOINTER;
+		l_result = e_eCU_CRC_RES_BADPOINTER;
 	}
 	else
 	{
@@ -106,7 +106,7 @@ e_eCU_CRC_Res eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const u
 			l_seedCalc = lp_crctable[l_indexCalc] ^ ( l_middleShift );
 		}
 
-		l_result = CRC_RES_OK;
+		l_result = e_eCU_CRC_RES_OK;
 		*p_crc = l_seedCalc;
 	}
 

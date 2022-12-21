@@ -44,8 +44,8 @@ e_eCU_DUNPK_Res eCU_DUNPK_InitCtx(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* p_memUP
 		}
 		else
 		{
-            p_ctx->isInit = true;
-            p_ctx->isLE = isLEnd;
+            p_ctx->bIsInit = true;
+            p_ctx->bIsLE = isLEnd;
             p_ctx->p_memUPKA = p_memUPKA;
             p_ctx->memUPKASize = memUPKASize;
             p_ctx->memUPKAFrameSize = 0u;
@@ -70,7 +70,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_IsInit(s_eCU_DUNPK_Ctx* const p_ctx, bool_t* p_isInit)
 	}
 	else
 	{
-        *p_isInit = p_ctx->isInit;
+        *p_isInit = p_ctx->bIsInit;
         result = DUNPK_RES_OK;
 	}
 
@@ -90,7 +90,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_StartNewFrame(s_eCU_DUNPK_Ctx* const p_ctx, const uint
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -136,7 +136,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_GetUPkDataLocat(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t*
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -173,7 +173,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_RestartCurrentUnpack(s_eCU_DUNPK_Ctx* const p_ctx)
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -217,7 +217,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_GetRemToPop(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* co
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -261,7 +261,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopArray(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t* p_data
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -325,7 +325,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopU8(s_eCU_DUNPK_Ctx* const p_ctx, uint8_t *p_dataP)
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -381,7 +381,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopU16(s_eCU_DUNPK_Ctx* const p_ctx, uint16_t* p_dataP
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -410,7 +410,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopU16(s_eCU_DUNPK_Ctx* const p_ctx, uint16_t* p_dataP
                     {
                         *p_dataP = 0u;
 
-                        if( true == p_ctx->isLE)
+                        if( true == p_ctx->bIsLE)
                         {
                             /* Copy data Little endian */
                             tempS = (uint16_t) p_ctx->p_memUPKA[p_ctx->memUPKACntr];
@@ -457,7 +457,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopU32(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* p_dataP
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -486,7 +486,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopU32(s_eCU_DUNPK_Ctx* const p_ctx, uint32_t* p_dataP
                     {
                         *p_dataP = 0u;
 
-                        if( true == p_ctx->isLE)
+                        if( true == p_ctx->bIsLE)
                         {
                             /* Copy data Little endian */
                             tempS = (uint32_t) p_ctx->p_memUPKA[p_ctx->memUPKACntr];
@@ -549,7 +549,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopU64(s_eCU_DUNPK_Ctx* const p_ctx, uint64_t* p_dataP
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->isInit )
+		if( false == p_ctx->bIsInit )
 		{
 			result = DUNPK_RES_NOINITLIB;
 		}
@@ -578,7 +578,7 @@ e_eCU_DUNPK_Res eCU_DUNPK_PopU64(s_eCU_DUNPK_Ctx* const p_ctx, uint64_t* p_dataP
                     {
                         *p_dataP = 0u;
 
-                        if( true == p_ctx->isLE)
+                        if( true == p_ctx->bIsLE)
                         {
                             /* Copy data Little endian */
                             tempS = (uint64_t) p_ctx->p_memUPKA[p_ctx->memUPKACntr];
