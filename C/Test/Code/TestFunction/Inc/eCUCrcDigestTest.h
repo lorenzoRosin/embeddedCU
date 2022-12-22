@@ -1,5 +1,5 @@
 /**
- * @file       eCUCrcDigestTest.h
+ * @file       eCU_CRCDTST.h
  *
  * @brief      CRC digest test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUCRCDIGESTTEST_H
-#define ECUCRCDIGESTTEST_H
+#ifndef ECU_CRCDTST_H
+#define ECU_CRCDTST_H
 
 
 
@@ -22,7 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCU_CRCD.h"
 
 
 
@@ -36,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_cUCrcDigest(void);
+void eCU_CRCDTST_ExeTest(void);
 
 
 
@@ -46,4 +45,4 @@ void eCU_TEST_cUCrcDigest(void);
 
 
 
-#endif /* ECUCRCDIGESTTEST_H */
+#endif /* ECU_CRCDTST_H */

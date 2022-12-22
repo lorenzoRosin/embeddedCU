@@ -11,6 +11,7 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUCrcDigestTest.h"
+#include "eCU_CRCD.h"
 #include "eCU_CRC.h"
 #include <stdio.h>
 
@@ -47,7 +48,7 @@ static void eCU_TEST_cUCrcDigestCombined(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_cUCrcDigest(void)
+void eCU_CRCDTST_ExeTest(void)
 {
 	(void)printf("\n\nCRC DIGEST TEST START \n\n");
 

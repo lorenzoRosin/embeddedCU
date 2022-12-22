@@ -11,6 +11,7 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUCircularQueueTest.h"
+#include "eCU_CIRQ.h"
 #include <stdio.h>
 
 #ifdef __IAR_SYSTEMS_ICC__
@@ -36,7 +37,7 @@ static void eCU_TEST_circularqueueCycle2(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_circularQueue(void)
+void eCU_CIRQTST_ExeTest(void)
 {
 	(void)printf("\n\nCIRCULAR QUEUE TEST START \n\n");
 

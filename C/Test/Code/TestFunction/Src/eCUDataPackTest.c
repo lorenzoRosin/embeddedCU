@@ -11,6 +11,7 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUDataPackTest.h"
+#include "eCU_DPK.h"
 #include <stdio.h>
 
 
@@ -32,7 +33,7 @@ static void eCU_TEST_dataPackCycle(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_dataPack(void)
+void eCU_DPKTST_ExeTest(void)
 {
 	(void)printf("\n\nDATA PACK TEST START \n\n");
 

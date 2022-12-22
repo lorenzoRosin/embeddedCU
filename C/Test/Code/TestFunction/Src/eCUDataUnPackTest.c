@@ -11,6 +11,7 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUDataUnPackTest.h"
+#include "eCU_DUNPK.h"
 #include <stdio.h>
 
 
@@ -33,7 +34,7 @@ static void eCU_TEST_dataUnPackCycle(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_dataUnPack(void)
+void eCU_DUNPKTST_ExeTest(void)
 {
 	(void)printf("\n\nDATA UNPACK TEST START \n\n");
 

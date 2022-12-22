@@ -1,5 +1,5 @@
 /**
- * @file       eCUDataPackUnPackTest.h
+ * @file       eCU_DPKDUNPKTST.h
  *
  * @brief      Data pack and unpack test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUDATAPACKUNPACKTEST_H
-#define ECUDATAPACKUNPACKTEST_H
+#ifndef ECU_DPKDUNPKTST_H
+#define ECU_DPKDUNPKTST_H
 
 
 
@@ -22,8 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCU_DPK.h"
-#include "eCU_DUNPK.h"
 
 
 
@@ -37,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_dataPackUnPack(void);
+void eCU_DPKDUNPKTST_ExeTest(void);
 
 
 
@@ -47,4 +45,4 @@ void eCU_TEST_dataPackUnPack(void);
 
 
 
-#endif /* ECUDATAPACKUNPACKTEST_H */
+#endif /* ECU_DPKDUNPKTST_H */

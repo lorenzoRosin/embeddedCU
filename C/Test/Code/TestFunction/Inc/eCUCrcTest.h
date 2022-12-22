@@ -1,5 +1,5 @@
 /**
- * @file       eCUCrcTest.h
+ * @file       eCU_CRCTST.h
  *
  * @brief      CRC test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUCRCTEST_H
-#define ECUCRCTEST_H
+#ifndef ECU_CRCTST_H
+#define ECU_CRCTST_H
 
 
 
@@ -22,7 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCU_CRC.h"
 
 
 
@@ -36,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_crc32(void);
+void eCU_CRCTST_ExeTest(void);
 
 
 
@@ -46,4 +45,4 @@ void eCU_TEST_crc32(void);
 
 
 
-#endif /* ECUCRCTEST_H */
+#endif /* ECU_CRCTST_H */

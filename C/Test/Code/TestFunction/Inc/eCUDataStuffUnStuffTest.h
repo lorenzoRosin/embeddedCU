@@ -1,5 +1,5 @@
 /**
- * @file       eCUDataStuffUnStuffTest.h
+ * @file       eCU_BSTFBUNSTFTST.h
  *
  * @brief      Data stuffer and unstuffer test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUDATASTUFFUNSTUFFTEST_H
-#define ECUDATASTUFFUNSTUFFTEST_H
+#ifndef ECU_BSTFBUNSTFTST_H
+#define ECU_BSTFBUNSTFTST_H
 
 
 
@@ -22,8 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCUByteUnStufferTest.h"
-#include "eCU_BSTF.h"
 
 
 
@@ -37,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_dataStuffUnStuff(void);
+void eCU_BSTFBUNSTFTST_ExeTest(void);
 
 
 
@@ -47,4 +45,4 @@ void eCU_TEST_dataStuffUnStuff(void);
 
 
 
-#endif /* ECUDATASTUFFUNSTUFFTEST_H */
+#endif /* ECU_BSTFBUNSTFTST_H */

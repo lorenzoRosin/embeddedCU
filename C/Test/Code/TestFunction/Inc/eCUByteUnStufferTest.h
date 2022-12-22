@@ -1,5 +1,5 @@
 /**
- * @file       eCUByteUnStufferTest.h
+ * @file       eCU_BUSTFTST.h
  *
  * @brief      Byte unstuffer test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUBYTEUNSTUFFERTEST_H
-#define ECUBYTEUNSTUFFERTEST_H
+#ifndef ECU_BUSTFTST_H
+#define ECU_BUSTFTST_H
 
 
 
@@ -22,7 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCU_BUNSTF.h"
 
 
 
@@ -36,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_byteUnStuffer(void);
+void eCU_BUSTFTST_ExeTest(void);
 
 
 
@@ -46,4 +45,4 @@ void eCU_TEST_byteUnStuffer(void);
 
 
 
-#endif /* ECUBYTEUNSTUFFERTEST_H */
+#endif /* ECU_BUSTFTST_H */

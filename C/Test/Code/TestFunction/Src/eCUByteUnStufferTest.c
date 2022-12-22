@@ -12,6 +12,7 @@
  **********************************************************************************************************************/
 #include "eCUByteUnStufferTest.h"
 #include "eCU_BSTF.h"
+#include "eCU_BUNSTF.h"
 #include <stdio.h>
 
 
@@ -33,7 +34,7 @@ static void eCU_TEST_byteUnStuffCodeCoverage(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_byteUnStuffer(void)
+void eCU_BUSTFTST_ExeTest(void)
 {
 	(void)printf("\n\nBYTE UNSTUFFER TEST START \n\n");
 

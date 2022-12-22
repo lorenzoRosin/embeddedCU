@@ -11,6 +11,7 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUByteStufferTest.h"
+#include "eCU_BSTF.h"
 #include <stdio.h>
 
 #ifdef __IAR_SYSTEMS_ICC__
@@ -38,7 +39,7 @@ static void eCU_TEST_byteStuffCorrecteness(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_byteStuffer(void)
+void eCU_BSTFTST_ExeTest(void)
 {
 	(void)printf("\n\nBYTE STUFFER TEST START \n\n");
 

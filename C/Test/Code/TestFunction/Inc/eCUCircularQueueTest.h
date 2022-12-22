@@ -1,5 +1,5 @@
 /**
- * @file       eCUCircularQueueTest.h
+ * @file       eCU_CIRQTST.h
  *
  * @brief      Circular queue test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUCIRCULARQUEUETEST_H
-#define ECUCIRCULARQUEUETEST_H
+#ifndef ECU_CIRQTST_H
+#define ECU_CIRQTST_H
 
 
 
@@ -22,7 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCU_CIRQ.h"
 
 
 
@@ -36,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_circularQueue(void);
+void eCU_CIRQTST_ExeTest(void);
 
 
 
@@ -46,4 +45,4 @@ void eCU_TEST_circularQueue(void);
 
 
 
-#endif /* ECUCIRCULARQUEUETEST_H */
+#endif /* ECU_CIRQTST_H */

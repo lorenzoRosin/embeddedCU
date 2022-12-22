@@ -11,6 +11,8 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUDataPackUnPackTest.h"
+#include "eCU_DPK.h"
+#include "eCU_DUNPK.h"
 #include <stdio.h>
 
 
@@ -27,7 +29,7 @@ static void eCU_TEST_dataPackUnPackGeneral(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_dataPackUnPack(void)
+void eCU_DPKDUNPKTST_ExeTest(void)
 {
 	(void)printf("\n\nDATA PACK UNPACK TEST START \n\n");
 

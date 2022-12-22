@@ -1,5 +1,5 @@
 /**
- * @file       eCUByteStufferTest.h
+ * @file       eCU_BSTFTST.h
  *
  * @brief      Byte stuffer test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUBYTESTUFFERTEST_H
-#define ECUBYTESTUFFERTEST_H
+#ifndef ECU_BSTFTST_H
+#define ECU_BSTFTST_H
 
 
 
@@ -22,7 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCU_BSTF.h"
 
 
 
@@ -36,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_byteStuffer(void);
+void eCU_BSTFTST_ExeTest(void);
 
 
 
@@ -46,4 +45,4 @@ void eCU_TEST_byteStuffer(void);
 
 
 
-#endif /* ECUBYTESTUFFERTEST_H */
+#endif /* ECU_BSTFTST_H */

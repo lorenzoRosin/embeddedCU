@@ -11,6 +11,8 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUDataStuffUnStuffTest.h"
+#include "eCU_BSTF.h"
+#include "eCU_BUNSTF.h"
 #include <stdio.h>
 
 #ifdef __IAR_SYSTEMS_ICC__
@@ -30,7 +32,7 @@ static void eCU_TEST_dataStuffUnStuffCommon(void);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-void eCU_TEST_dataStuffUnStuff(void)
+void eCU_BSTFBUNSTFTST_ExeTest(void)
 {
 	(void)printf("\n\nDATA STUFF UNSTUFF TEST START \n\n");
 

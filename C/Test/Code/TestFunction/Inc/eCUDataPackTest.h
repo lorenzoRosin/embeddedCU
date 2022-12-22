@@ -1,5 +1,5 @@
 /**
- * @file       eCUDataPackTest.h
+ * @file       eCU_DPKTST.h
  *
  * @brief      Data pack test
  *
@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUDATAPACKTEST_H
-#define ECUDATAPACKTEST_H
+#ifndef ECU_DPKTST
+#define ECU_DPKTST
 
 
 
@@ -22,7 +22,6 @@ extern "C" {
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCU_TYPE.h"
-#include "eCU_DPK.h"
 
 
 
@@ -36,7 +35,7 @@ extern "C" {
  *
  * @return      none
  */
-void eCU_TEST_dataPack(void);
+void eCU_DPKTST_ExeTest(void);
 
 
 
@@ -46,4 +45,4 @@ void eCU_TEST_dataPack(void);
 
 
 
-#endif /* ECUDATAPACKTEST_H */
+#endif /* ECU_DPKTST */
