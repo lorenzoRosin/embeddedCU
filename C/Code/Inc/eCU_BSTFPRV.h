@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUBYTESTUFFER_PRV_H
-#define ECUBYTESTUFFER_PRV_H
+#ifndef ECU_BSTFPRV_H
+#define ECU_BSTFPRV_H
 
 
 
@@ -38,4 +38,4 @@ typedef enum
 
 
 
-#endif /* ECUBYTESTUFFER_PRV_H */
+#endif /* ECU_BSTFPRV_H */

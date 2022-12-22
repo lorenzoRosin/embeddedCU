@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUCIRCULARQUEUE_H
-#define ECUCIRCULARQUEUE_H
+#ifndef ECU_CIRQ_H
+#define ECU_CIRQ_H
 
 
 
@@ -171,4 +171,4 @@ e_eCU_CIRQ_RES eCU_CIRQ_PeekData(t_eCU_CIRQ_Ctx* const p_ptCtx, uint8_t* p_puDat
 
 
 
-#endif /* ECUCIRCULARQUEUE_H */
+#endif /* ECU_CIRQ_H */

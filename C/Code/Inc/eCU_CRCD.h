@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUCRCDIGEST_H
-#define ECUCRCDIGEST_H
+#ifndef ECU_CRCD_H
+#define ECU_CRCD_H
 
 
 
@@ -154,4 +154,4 @@ e_eCU_CRCD_RES eCU_CRCD_GetDigestVal(t_eCU_CRCD_Ctx* const p_ptCtx, uint32_t* co
 
 
 
-#endif /* ECUCRCDIGEST_H */
+#endif /* ECU_CRCD_H */

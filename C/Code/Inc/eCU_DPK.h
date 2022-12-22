@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUDATAPACK_H
-#define ECUDATAPACK_H
+#ifndef ECU_DPK_H
+#define ECU_DPK_H
 
 
 
@@ -197,4 +197,4 @@ e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uDa
 
 
 
-#endif /* ECUDATAPACK_H */
+#endif /* ECU_DPK_H */

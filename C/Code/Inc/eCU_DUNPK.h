@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUDATAUNPACK_H
-#define ECUDATAUNPACK_H
+#ifndef ECU_DUNPK_H
+#define ECU_DUNPK_H
 
 
 
@@ -226,4 +226,4 @@ e_eCU_DUNPK_RES eCU_DUNPK_PopU64(t_eCU_DUNPK_Ctx* const p_ptCtx, uint64_t* p_puD
 
 
 
-#endif /* ECUDATAUNPACK_H */
+#endif /* ECU_DUNPK_H */

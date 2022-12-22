@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUBYTEUNSTUFFER_PRV_H
-#define ECUBYTEUNSTUFFER_PRV_H
+#ifndef ECU_BUNSTFPRV_H
+#define ECU_BUNSTFPRV_H
 
 
 
@@ -38,4 +38,4 @@ typedef enum
 
 
 
-#endif /* ECUBYTEUNSTUFFER_PRV_H */
+#endif /* ECU_BUNSTFPRV_H */

@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUBYTEUNSTUFFER_H
-#define ECUBYTEUNSTUFFER_H
+#ifndef ECU_BUNSTF_H
+#define ECU_BUNSTF_H
 
 
 
@@ -171,9 +171,9 @@ e_eCU_BUNSTF_RES eCU_BUNSTF_IsFrameBad(const t_eCU_BUNSTF_Ctx* p_ptCtx, bool_t* 
  * @param[out]  p_puConsumedBufL  - Pointer to an uint32_t were we will store how many stuffed data byte has been
  *                                  analized. Keep in mind that unalized data were not unstuffed and they will need
  *                                  to be reparsed. Un parsed data happens when the frame ended earlier
- *                                  ( e_eCU_BUNSTF_RES_FRAMEENDED, e_eCU_BUNSTF_RES_BADFRAME or 
- *                                  e_eCU_BUNSTF_RES_FRAMERESTART is returned ) or when some other error is returned. 
- *                                  When the function return e_eCU_BUNSTF_RES_OK p_puConsumedBufL will always be 
+ *                                  ( e_eCU_BUNSTF_RES_FRAMEENDED, e_eCU_BUNSTF_RES_BADFRAME or
+ *                                  e_eCU_BUNSTF_RES_FRAMERESTART is returned ) or when some other error is returned.
+ *                                  When the function return e_eCU_BUNSTF_RES_OK p_puConsumedBufL will always be
  *                                  returned has p_uStuffBufL.
  *
  * @return      e_eCU_BUNSTF_RES_BADPOINTER   - In case of bad pointer passed to the function
@@ -181,26 +181,26 @@ e_eCU_BUNSTF_RES eCU_BUNSTF_IsFrameBad(const t_eCU_BUNSTF_Ctx* p_ptCtx, bool_t* 
  *		        e_eCU_BUNSTF_RES_BADPARAM     - In case of an invalid parameter passed to the function
  *		        e_eCU_BUNSTF_RES_CORRUPTCTX   - In case of an corrupted context
  *              e_eCU_BUNSTF_RES_OUTOFMEM     - Can not unstuff data, initial mem pointer was too small. The only way to
- *                                              resolve the issue is increasing the size of the memory area passed to 
+ *                                              resolve the issue is increasing the size of the memory area passed to
  *                                              init.
- *		        e_eCU_BUNSTF_RES_FRAMEENDED   - Frame ended, restart context in order to parse a new frame. Every other 
- *                                              call to this function will not have effect until we call 
- *                                              BUNSTF_StartNewFrame. In this situation bear in mind that some data 
- *                                              could be left out the parsing, and so we need to reparse that data after 
+ *		        e_eCU_BUNSTF_RES_FRAMEENDED   - Frame ended, restart context in order to parse a new frame. Every other
+ *                                              call to this function will not have effect until we call
+ *                                              BUNSTF_StartNewFrame. In this situation bear in mind that some data
+ *                                              could be left out the parsing, and so we need to reparse that data after
  *                                              calling BUNSTF_StartNewFrame.
  *              e_eCU_BUNSTF_RES_BADFRAME     - Found an error while parsing, the frame passed is invalid.
  *                                              Restart context in order to parse a new frame. Every other call
- *                                              to this function will not have effect until we call 
- *                                              BUNSTF_StartNewFrame. In this situation bear in mind that some data 
+ *                                              to this function will not have effect until we call
+ *                                              BUNSTF_StartNewFrame. In this situation bear in mind that some data
  *                                              could be left out the parsing, and so we need to reparse that data after
  *                                              calling BUNSTF_StartNewFrame.
- *              e_eCU_BUNSTF_RES_FRAMERESTART - During frame receiving another start of frame is received. In this 
- *                                              situation clear old data and restart the frame, witouth the need to call 
- *                                              any other function. In this situation bear in mind that some data could 
- *                                              be left out the parsing and so we need to reparse that data with another 
+ *              e_eCU_BUNSTF_RES_FRAMERESTART - During frame receiving another start of frame is received. In this
+ *                                              situation clear old data and restart the frame, witouth the need to call
+ *                                              any other function. In this situation bear in mind that some data could
+ *                                              be left out the parsing and so we need to reparse that data with another
  *                                              call of BUNSTF_InsStufChunk.
- *              e_eCU_BUNSTF_RES_OK           - Operation ended correctly. The chunk is parsed correclty but the frame 
- *                                              is not finished yet. In this situation p_puConsumedBufL is always 
+ *              e_eCU_BUNSTF_RES_OK           - Operation ended correctly. The chunk is parsed correclty but the frame
+ *                                              is not finished yet. In this situation p_puConsumedBufL is always
  *                                              reported with a value equals to p_uStuffBufL.
  */
 e_eCU_BUNSTF_RES eCU_BUNSTF_InsStufChunk(t_eCU_BUNSTF_Ctx* const p_ptCtx, const uint8_t* p_puStuffBuf,
@@ -214,4 +214,4 @@ e_eCU_BUNSTF_RES eCU_BUNSTF_InsStufChunk(t_eCU_BUNSTF_Ctx* const p_ptCtx, const 
 
 
 
-#endif /* ECUBYTEUNSTUFFER_H */
+#endif /* ECU_BUNSTF_H */

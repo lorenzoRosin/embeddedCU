@@ -7,8 +7,8 @@
  *
  **********************************************************************************************************************/
 
-#ifndef ECUCRC_H
-#define ECUCRC_H
+#ifndef ECU_CRC_H
+#define ECU_CRC_H
 
 
 
@@ -81,4 +81,4 @@ e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t p_uSeed, const uint8_t* p_puData, co
 
 
 
-#endif /* ECUCRC_H */
+#endif /* ECU_CRC_H */
