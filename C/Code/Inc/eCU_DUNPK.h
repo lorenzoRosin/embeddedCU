@@ -81,22 +81,6 @@ e_eCU_DUNPK_RES eCU_DUNPK_InitCtx(t_eCU_DUNPK_Ctx* const p_ptCtx, uint8_t* p_puM
 e_eCU_DUNPK_RES eCU_DUNPK_IsInit(t_eCU_DUNPK_Ctx* const p_ptCtx, bool_t* p_pbIsInit);
 
 /**
- * @brief       Start to unpack a new frame given the dimension of raw payload it self. This function suppouse that
- *              data payload that need to be unpocked were already copied in memory.( see DUNPK_GetUPkDataLocat
- *              in order to know how get the data pointer )
- *
- * @param[in]   p_ptCtx         - Data Unpacker context
- * @param[in]   p_uFrameL       - lenght of the raw data present in the frame that we need to unpack
- *
- * @return      e_eCU_DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
- *		        e_eCU_DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
- *		        e_eCU_DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
- *		        e_eCU_DUNPK_RES_CORRUPTCTX - In case of a corrupted context
- *              e_eCU_DUNPK_RES_OK         - Operation ended correctly
- */
-e_eCU_DUNPK_RES eCU_DUNPK_StartNewFrame(t_eCU_DUNPK_Ctx* const p_ptCtx, const uint32_t p_uFrameL);
-
-/**
  * @brief       Retrive the pointer of the buffer that the user can use to insert data payload that need to be unpacked
  *
  * @param[in]   p_ptCtx       - Data Unpacker context
@@ -112,6 +96,21 @@ e_eCU_DUNPK_RES eCU_DUNPK_StartNewFrame(t_eCU_DUNPK_Ctx* const p_ptCtx, const ui
 e_eCU_DUNPK_RES eCU_DUNPK_GetUPkDataLocat(t_eCU_DUNPK_Ctx* const p_ptCtx, uint8_t** p_ppuData,
                                           uint32_t* const p_puMaxDataL);
 
+/**
+ * @brief       Start to unpack a new frame given the dimension of raw payload it self. This function suppouse that
+ *              data payload that need to be unpocked were already copied in memory.( see eCU_DUNPK_GetUPkDataLocat
+ *              in order to know how get the data pointer )
+ *
+ * @param[in]   p_ptCtx         - Data Unpacker context
+ * @param[in]   p_uFrameL       - lenght of the raw data present in the frame that we need to unpack
+ *
+ * @return      e_eCU_DUNPK_RES_BADPOINTER - In case of bad pointer passed to the function
+ *		        e_eCU_DUNPK_RES_BADPARAM   - In case of an invalid parameter passed to the function
+ *		        e_eCU_DUNPK_RES_NOINITLIB  - Need to init the data unpacker before taking some action
+ *		        e_eCU_DUNPK_RES_CORRUPTCTX - In case of a corrupted context
+ *              e_eCU_DUNPK_RES_OK         - Operation ended correctly
+ */
+e_eCU_DUNPK_RES eCU_DUNPK_StartNewFrame(t_eCU_DUNPK_Ctx* const p_ptCtx, const uint32_t p_uFrameL);
 
 /**
  * @brief       Reset data unpacker status and restart from start un packing. This will not delete or start a new

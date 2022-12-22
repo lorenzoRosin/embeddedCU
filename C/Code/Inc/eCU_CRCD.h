@@ -78,6 +78,20 @@ e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb 
                                 t_eCU_CRCD_CrcCtx* const p_ptFctx);
 
 /**
+ * @brief       Initialize the CRC32 digester context using a selected p_uUseed
+ *
+ * @param[in]   p_ptCtx     - Crc digester context
+ * @param[in]   p_uUseed    - Base Seed
+ * @param[in]   p_fCrc      - Pointer to a CRC 32 p_uUseed callback function, that will be used to calculate the CRC32
+ * @param[in]   p_ptFctx    - Custom context passed to the callback function p_fCrc
+ *
+ * @return      e_eCU_CRCD_RES_BADPOINTER     - In case of bad pointer passed to the function
+ *              e_eCU_CRCD_RES_OK             - Crc digester initialized successfully
+ */
+e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, const uint32_t p_uUseed, f_eCU_CRCD_CrcCb p_fCrc,
+                                    t_eCU_CRCD_CrcCtx* const p_ptFctx);
+
+/**
  * @brief       Check if the lib is initialized
  *
  * @param[in]   p_ptCtx         - Crc digester context
@@ -87,20 +101,6 @@ e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb 
  *              e_eCU_CRCD_RES_OK            - Operation ended correctly
  */
 e_eCU_CRCD_RES eCU_CRCD_IsInit(t_eCU_CRCD_Ctx* const p_ptCtx, bool_t* p_pbIsInit);
-
-/**
- * @brief       Initialize the CRC32 digester context using a selected p_uUseed
- *
- * @param[in]   p_ptCtx     - Crc digester context
- * @param[in]   p_uUseed     - Base Seed
- * @param[in]   p_fCrc      - Pointer to a CRC 32 p_uUseed callback function, that will be used to calculate the CRC32
- * @param[in]   p_ptFctx    - Custom context passed to the callback function p_fCrc
- *
- * @return      e_eCU_CRCD_RES_BADPOINTER     - In case of bad pointer passed to the function
- *              e_eCU_CRCD_RES_OK             - Crc digester initialized successfully
- */
-e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, const uint32_t p_uUseed, f_eCU_CRCD_CrcCb p_fCrc,
-                                    t_eCU_CRCD_CrcCtx* const p_ptFctx);
 
 /**
  * @brief       Restart the digester and disharge all old value

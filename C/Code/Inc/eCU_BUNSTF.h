@@ -150,7 +150,7 @@ e_eCU_BUNSTF_RES eCU_BUNSTF_IsAFullFrameUnstuff(const t_eCU_BUNSTF_Ctx* p_ptCtx,
 
 /**
  * @brief       Check if the current received data compose a bad frame. If a bad frame is detected we can only
- *              call BUNSTF_StartNewFrame before parsing new data.
+ *              call eCU_BUNSTF_NewFrame before parsing new data.
  *
  * @param[in]   p_ptCtx            - Byte unStuffer context
  * @param[out]  p_pbIsFrameBad     - Pointer to a bool_t variable where we will store if the frame is bad formed
@@ -185,15 +185,15 @@ e_eCU_BUNSTF_RES eCU_BUNSTF_IsFrameBad(const t_eCU_BUNSTF_Ctx* p_ptCtx, bool_t* 
  *                                              init.
  *		        e_eCU_BUNSTF_RES_FRAMEENDED   - Frame ended, restart context in order to parse a new frame. Every other
  *                                              call to this function will not have effect until we call
- *                                              BUNSTF_StartNewFrame. In this situation bear in mind that some data
+ *                                              eCU_BUNSTF_NewFrame. In this situation bear in mind that some data
  *                                              could be left out the parsing, and so we need to reparse that data after
- *                                              calling BUNSTF_StartNewFrame.
+ *                                              calling eCU_BUNSTF_NewFrame.
  *              e_eCU_BUNSTF_RES_BADFRAME     - Found an error while parsing, the frame passed is invalid.
  *                                              Restart context in order to parse a new frame. Every other call
  *                                              to this function will not have effect until we call
- *                                              BUNSTF_StartNewFrame. In this situation bear in mind that some data
+ *                                              eCU_BUNSTF_NewFrame. In this situation bear in mind that some data
  *                                              could be left out the parsing, and so we need to reparse that data after
- *                                              calling BUNSTF_StartNewFrame.
+ *                                              calling eCU_BUNSTF_NewFrame.
  *              e_eCU_BUNSTF_RES_FRAMERESTART - During frame receiving another start of frame is received. In this
  *                                              situation clear old data and restart the frame, witouth the need to call
  *                                              any other function. In this situation bear in mind that some data could

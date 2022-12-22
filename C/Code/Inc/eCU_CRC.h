@@ -47,7 +47,7 @@ typedef enum
  * GLOBAL PROTOTYPES
  **********************************************************************************************************************/
 /**
- * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using as p_uSeed the default value of 0xFFFFFFFFu
+ * @brief       Calculate the CRC 32 (CRC-32/MPEG-2) of a passed buffer using as seed the default value of 0xFFFFFFFFu
  *
  * @param[in]   p_puData      - Pointer to the data buffer used to calculate CRC 32
  * @param[in]   p_uDataL      - How many byte will be used to calculate the CRC 32

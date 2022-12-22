@@ -51,25 +51,6 @@ e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb 
 	return l_eRes;
 }
 
-e_eCU_CRCD_RES eCU_CRCD_IsInit(t_eCU_CRCD_Ctx* const p_ptCtx, bool_t* p_pbIsInit)
-{
-	/* Local variable */
-	e_eCU_CRCD_RES l_eRes;
-
-	/* Check pointer validity */
-	if( ( NULL == p_ptCtx ) || ( NULL == p_pbIsInit ) )
-	{
-		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
-	}
-	else
-	{
-        *p_pbIsInit = p_ptCtx->bIsInit;
-        l_eRes = e_eCU_CRCD_RES_OK;
-	}
-
-	return l_eRes;
-}
-
 e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, const uint32_t p_uUseed, f_eCU_CRCD_CrcCb p_fCrc,
                                     t_eCU_CRCD_CrcCtx* const p_ptFctx)
 {
@@ -93,6 +74,25 @@ e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, const uint32_
 
 		l_eRes = e_eCU_CRCD_RES_OK;
     }
+
+	return l_eRes;
+}
+
+e_eCU_CRCD_RES eCU_CRCD_IsInit(t_eCU_CRCD_Ctx* const p_ptCtx, bool_t* p_pbIsInit)
+{
+	/* Local variable */
+	e_eCU_CRCD_RES l_eRes;
+
+	/* Check pointer validity */
+	if( ( NULL == p_ptCtx ) || ( NULL == p_pbIsInit ) )
+	{
+		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
+	}
+	else
+	{
+        *p_pbIsInit = p_ptCtx->bIsInit;
+        l_eRes = e_eCU_CRCD_RES_OK;
+	}
 
 	return l_eRes;
 }

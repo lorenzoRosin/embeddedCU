@@ -77,6 +77,44 @@ e_eCU_DUNPK_RES eCU_DUNPK_IsInit(t_eCU_DUNPK_Ctx* const p_ptCtx, bool_t* p_pbIsI
 	return l_eRes;
 }
 
+e_eCU_DUNPK_RES eCU_DUNPK_GetUPkDataLocat(t_eCU_DUNPK_Ctx* const p_ptCtx, uint8_t** p_ppuData,
+                                          uint32_t* const p_puMaxDataL)
+{
+	/* Local variable */
+	e_eCU_DUNPK_RES l_eRes;
+
+	/* Check pointer validity */
+	if( ( NULL == p_ptCtx ) || ( NULL == p_ppuData ) || ( NULL == p_puMaxDataL ) )
+	{
+		l_eRes = e_eCU_DUNPK_RES_BADPOINTER;
+	}
+	else
+	{
+		/* Check Init */
+		if( false == p_ptCtx->bIsInit )
+		{
+			l_eRes = e_eCU_DUNPK_RES_NOINITLIB;
+		}
+		else
+		{
+            /* Check internal status validity */
+            if( false == eCU_DUNPK_IsStatusStillCoherent(p_ptCtx) )
+            {
+                l_eRes = e_eCU_DUNPK_RES_CORRUPTCTX;
+            }
+            else
+            {
+                /* return data */
+                *p_ppuData = p_ptCtx->puMemUPK;
+                *p_puMaxDataL = p_ptCtx->uMemUPKL;
+                l_eRes = e_eCU_DUNPK_RES_OK;
+            }
+		}
+	}
+
+	return l_eRes;
+}
+
 e_eCU_DUNPK_RES eCU_DUNPK_StartNewFrame(t_eCU_DUNPK_Ctx* const p_ptCtx, const uint32_t p_uFrameL)
 {
 	/* Local variable */
@@ -115,44 +153,6 @@ e_eCU_DUNPK_RES eCU_DUNPK_StartNewFrame(t_eCU_DUNPK_Ctx* const p_ptCtx, const ui
                     p_ptCtx->uMemUPKCtr = 0u;
                     l_eRes = e_eCU_DUNPK_RES_OK;
                 }
-            }
-		}
-	}
-
-	return l_eRes;
-}
-
-e_eCU_DUNPK_RES eCU_DUNPK_GetUPkDataLocat(t_eCU_DUNPK_Ctx* const p_ptCtx, uint8_t** p_ppuData,
-                                          uint32_t* const p_puMaxDataL)
-{
-	/* Local variable */
-	e_eCU_DUNPK_RES l_eRes;
-
-	/* Check pointer validity */
-	if( ( NULL == p_ptCtx ) || ( NULL == p_ppuData ) || ( NULL == p_puMaxDataL ) )
-	{
-		l_eRes = e_eCU_DUNPK_RES_BADPOINTER;
-	}
-	else
-	{
-		/* Check Init */
-		if( false == p_ptCtx->bIsInit )
-		{
-			l_eRes = e_eCU_DUNPK_RES_NOINITLIB;
-		}
-		else
-		{
-            /* Check internal status validity */
-            if( false == eCU_DUNPK_IsStatusStillCoherent(p_ptCtx) )
-            {
-                l_eRes = e_eCU_DUNPK_RES_CORRUPTCTX;
-            }
-            else
-            {
-                /* return data */
-                *p_ppuData = p_ptCtx->puMemUPK;
-                *p_puMaxDataL = p_ptCtx->uMemUPKL;
-                l_eRes = e_eCU_DUNPK_RES_OK;
             }
 		}
 	}

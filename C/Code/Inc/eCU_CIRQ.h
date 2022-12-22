@@ -58,7 +58,7 @@ typedef struct
  *
  * @param[in]   p_ptCtx   - Circular queue context
  * @param[in]   p_puBuff  - Pointer to a memory buffer that we will use to manage the circular queue
- * @param[in]   p_uBuffL    - Dimension in byte of the memory buffer
+ * @param[in]   p_uBuffL  - Dimension in byte of the memory buffer
  *
  * @return      e_eCU_CIRQ_RES_BADPOINTER   - In case of bad pointer passed to the function
  *              e_eCU_CIRQ_RES_BADPARAM     - In case of bad parameter passed to the function
