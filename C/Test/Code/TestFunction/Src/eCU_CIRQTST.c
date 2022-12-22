@@ -24,15 +24,15 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void eCU_TEST_circularqueueBadPointer(void);
-static void eCU_TEST_circularqueueBadInit(void);
-static void eCU_TEST_circularqueueBadParamEntr(void);
-static void eCU_TEST_circularqueueCorruptedContext(void);
-static void eCU_TEST_circularqueueEmptyMem(void);
-static void eCU_TEST_circularqueueFullMem(void);
-static void eCU_TEST_circularqueueGeneric(void);
-static void eCU_TEST_circularqueueCycle1(void);
-static void eCU_TEST_circularqueueCycle2(void);
+static void eCU_CIRQTST_BadPointer(void);
+static void eCU_CIRQTST_BadInit(void);
+static void eCU_CIRQTST_BadParamEntr(void);
+static void eCU_CIRQTST_CorruptedContext(void);
+static void eCU_CIRQTST_EmptyMem(void);
+static void eCU_CIRQTST_FullMem(void);
+static void eCU_CIRQTST_Generic(void);
+static void eCU_CIRQTST_Cycle1(void);
+static void eCU_CIRQTST_Cycle2(void);
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
@@ -41,15 +41,15 @@ void eCU_CIRQTST_ExeTest(void)
 {
 	(void)printf("\n\nCIRCULAR QUEUE TEST START \n\n");
 
-    eCU_TEST_circularqueueBadPointer();
-    eCU_TEST_circularqueueBadInit();
-    eCU_TEST_circularqueueBadParamEntr();
-    eCU_TEST_circularqueueCorruptedContext();
-    eCU_TEST_circularqueueEmptyMem();
-    eCU_TEST_circularqueueFullMem();
-    eCU_TEST_circularqueueGeneric();
-    eCU_TEST_circularqueueCycle1();
-    eCU_TEST_circularqueueCycle2();
+    eCU_CIRQTST_BadPointer();
+    eCU_CIRQTST_BadInit();
+    eCU_CIRQTST_BadParamEntr();
+    eCU_CIRQTST_CorruptedContext();
+    eCU_CIRQTST_EmptyMem();
+    eCU_CIRQTST_FullMem();
+    eCU_CIRQTST_Generic();
+    eCU_CIRQTST_Cycle1();
+    eCU_CIRQTST_Cycle2();
 
     (void)printf("\n\nCIRCULAR QUEUE TEST END \n\n");
 }
@@ -61,7 +61,7 @@ void eCU_CIRQTST_ExeTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-static void eCU_TEST_circularqueueBadPointer(void)
+static void eCU_CIRQTST_BadPointer(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -72,141 +72,141 @@ static void eCU_TEST_circularqueueBadPointer(void)
     /* Function */
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_InitCtx(NULL, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 1  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_InitCtx(&l_ctx, NULL, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 2  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 2  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_Reset(NULL) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 3  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 3  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 3  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_GetFreeSapce(NULL, &l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 4  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 4  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 4  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_GetFreeSapce(&l_ctx, NULL) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 5  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 5  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_GetOccupiedSapce(NULL, &l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 6  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 6  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_GetOccupiedSapce(&l_ctx, NULL) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 7  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 7  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 7  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_InsertData(NULL, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 8  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 8  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 8  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_InsertData(&l_ctx, NULL, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 9  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 9  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 9  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_RetriveData(NULL, l_badPointerMempool, l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 10 -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 10 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 10 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 10 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_RetriveData(&l_ctx, NULL, l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 11 -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 11 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 11 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_PeekData(NULL, l_badPointerMempool, l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 12 -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 12 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 12 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_PeekData(&l_ctx, NULL, l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 13 -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 13 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 13 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 13 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_IsInit( NULL, &l_isInit ) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 14 -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 14 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 14 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 14 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPOINTER == eCU_CIRQ_IsInit( &l_ctx, NULL ) )
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 15 -- OK \n");
+        (void)printf("eCU_CIRQTST_BadPointer 15 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadPointer 15 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadPointer 15 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_circularqueueBadInit(void)
+static void eCU_CIRQTST_BadInit(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -220,11 +220,11 @@ static void eCU_TEST_circularqueueBadInit(void)
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadInit 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 1  -- FAIL \n");
     }
 
     /* Init variable */
@@ -232,76 +232,76 @@ static void eCU_TEST_circularqueueBadInit(void)
 
     if( e_eCU_CIRQ_RES_NOINITLIB == eCU_CIRQ_Reset(&l_ctx) )
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 2  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadInit 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 2  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_NOINITLIB == eCU_CIRQ_GetFreeSapce(&l_ctx, &l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 3  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadInit 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 3  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 3  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_NOINITLIB == eCU_CIRQ_GetOccupiedSapce(&l_ctx, &l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 4  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadInit 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 4  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 4  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_NOINITLIB == eCU_CIRQ_InsertData(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 5  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadInit 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 5  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_NOINITLIB == eCU_CIRQ_RetriveData(&l_ctx, l_badPointerMempool, l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 6  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadInit 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 6  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_NOINITLIB == eCU_CIRQ_PeekData(&l_ctx, l_badPointerMempool, l_varTemp) )
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 7  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadInit 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 7  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 7  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_IsInit( &l_ctx, &l_isInit ) )
     {
         if( false == l_isInit )
         {
-            (void)printf("eCU_TEST_circularqueueBadInit 8  -- OK \n");
+            (void)printf("eCU_CIRQTST_BadInit 8  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueBadInit 8  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_BadInit 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadInit 8  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadInit 8  -- FAIL \n");
     }
 }
 
-static void eCU_TEST_circularqueueBadParamEntr(void)
+static void eCU_CIRQTST_BadParamEntr(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -314,68 +314,68 @@ static void eCU_TEST_circularqueueBadParamEntr(void)
     /* Function */
     if( e_eCU_CIRQ_RES_BADPARAM == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, 0u) )
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 1  -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 2  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 2  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPARAM == eCU_CIRQ_InsertData(&l_ctx, l_badPointerMempool, 0u) )
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 3  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 3  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 3  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPARAM == eCU_CIRQ_RetriveData(&l_ctx, l_badPointerMempool, 0u) )
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 4  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 4  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 4  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_BADPARAM == eCU_CIRQ_PeekData(&l_ctx, l_badPointerMempool, 0u) )
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 5  -- OK \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 5  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_IsInit( &l_ctx, &l_isInit ) )
     {
         if( true == l_isInit )
         {
-            (void)printf("eCU_TEST_circularqueueBadParamEntr 6  -- OK \n");
+            (void)printf("eCU_CIRQTST_BadParamEntr 6  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueBadParamEntr 6  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_BadParamEntr 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueBadParamEntr 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_BadParamEntr 6  -- FAIL \n");
     }
 }
 
-static void eCU_TEST_circularqueueCorruptedContext(void)
+static void eCU_CIRQTST_CorruptedContext(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -388,11 +388,11 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 1  -- FAIL \n");
     }
 
     /* Init variable */
@@ -400,11 +400,11 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_Reset(&l_ctx) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 2  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 2  -- FAIL \n");
     }
 
 
@@ -414,22 +414,22 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 3  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 3  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 3  -- FAIL \n");
     }
 
     l_ctx.puBuff = NULL;
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_Reset(&l_ctx) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 4  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 4  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 4  -- FAIL \n");
     }
 
 
@@ -439,22 +439,22 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 5  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 5  -- FAIL \n");
     }
 
     l_ctx.uBuffFreeIdx = sizeof(l_badPointerMempool) +1u;
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_Reset(&l_ctx) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 6  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 6  -- FAIL \n");
     }
 
     /* Init variable */
@@ -463,32 +463,32 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 5  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 5  -- FAIL \n");
     }
 
     l_ctx.uBuffUsedL = sizeof(l_badPointerMempool) +1u;
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_Reset(&l_ctx) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 6  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 6  -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 7  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 7  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 7  -- FAIL \n");
     }
 
     /* Init variable */
@@ -496,21 +496,21 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_GetFreeSapce(&l_ctx, &l_val) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 8  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 8  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 8  -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 9  -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 9  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 9  -- FAIL \n");
     }
 
     /* Init variable */
@@ -518,21 +518,21 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_GetOccupiedSapce(&l_ctx, &l_val) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 10 -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 10 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 10 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 10 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 11 -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 11 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 11 -- FAIL \n");
     }
 
     /* Init variable */
@@ -540,21 +540,21 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_InsertData(&l_ctx, l_badPointerMempool, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 12 -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 12 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 12 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 13 -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 13 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 13 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 13 -- FAIL \n");
     }
 
     /* Init variable */
@@ -562,22 +562,22 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_RetriveData(&l_ctx, l_badPointerMempool, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 14 -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 14 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 14 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 14 -- FAIL \n");
     }
 
 
     /* Function */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 15 -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 15 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 15 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 15 -- FAIL \n");
     }
 
     /* Init variable */
@@ -585,16 +585,16 @@ static void eCU_TEST_circularqueueCorruptedContext(void)
 
     if( e_eCU_CIRQ_RES_CORRUPTCTX == eCU_CIRQ_PeekData(&l_ctx, l_badPointerMempool, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 16 -- OK \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 16 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCorruptedContext 16 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_CorruptedContext 16 -- FAIL \n");
     }
 
 }
 
-static void eCU_TEST_circularqueueEmptyMem(void)
+static void eCU_CIRQTST_EmptyMem(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -607,160 +607,160 @@ static void eCU_TEST_circularqueueEmptyMem(void)
     /* Easy one  */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 1  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, sizeof(la_retriveData)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 2  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 2  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, sizeof(la_retriveData)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 3  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 3  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 3  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 4  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 4  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 4  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 5  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 5  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 6  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 6  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool) ) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 7  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 7  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 7  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 8  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 8  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 8  -- FAIL \n");
     }
 
     /* most complete one */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool) ) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 9  -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 9  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 9  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, sizeof(la_retriveData)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 10 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 10 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 10 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 10 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 11 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 11 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 11 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 12 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 12 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 12 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, 2u ) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 13 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 13 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 13 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 13 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, 3u ) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 14 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 14 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 14 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 14 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 15 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 15 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 15 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 15 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 16 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 16 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 16 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 16 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 17 -- OK \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 17 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueEmptyMem 17 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_EmptyMem 17 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_circularqueueFullMem(void)
+static void eCU_CIRQTST_FullMem(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -773,96 +773,96 @@ static void eCU_TEST_circularqueueFullMem(void)
     /* Easy one  */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, l_badPointerMempool, sizeof(l_badPointerMempool)) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 1  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_FULL == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, sizeof(la_retriveData)) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 2  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 2  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_FULL == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool) +1u ) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 3  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 3  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 3  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, sizeof(l_badPointerMempool) ) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 4  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 4  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 4  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_FULL == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, 1u ) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 5  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 5  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, 1u) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 6  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 6  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_FULL == eCU_CIRQ_InsertData(&l_ctx, la_retriveData, 2u ) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 7  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 7  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 7  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, 4u) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 8  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 8  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 8  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_EMPTY == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, 5u) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 9  -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 9  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 9  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, 4u) )
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 10 -- OK \n");
+        (void)printf("eCU_CIRQTST_FullMem 10 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueFullMem 10 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_FullMem 10 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_circularqueueGeneric(void)
+static void eCU_CIRQTST_Generic(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -877,125 +877,125 @@ static void eCU_TEST_circularqueueGeneric(void)
     /* Easy one  */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, la_pointerMempool, sizeof(la_pointerMempool) ) )
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_Generic 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 1  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_GetFreeSapce(&l_ctx, &l_varTemp) )
     {
         if( 10u == l_varTemp )
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 2  -- OK \n");
+            (void)printf("eCU_CIRQTST_Generic 2  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 2  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 2  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 2  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_GetOccupiedSapce(&l_ctx, &l_varTemp) )
     {
         if( 0u == l_varTemp )
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 3  -- OK \n");
+            (void)printf("eCU_CIRQTST_Generic 3  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 3  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 3  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 3  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_insertData, sizeof(la_insertData) ) )
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 4  -- OK \n");
+        (void)printf("eCU_CIRQTST_Generic 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 4  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 4  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_GetFreeSapce(&l_ctx, &l_varTemp) )
     {
         if( 0u == l_varTemp )
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 5  -- OK \n");
+            (void)printf("eCU_CIRQTST_Generic 5  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 5  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 5  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 5  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_GetOccupiedSapce(&l_ctx, &l_varTemp) )
     {
         if( 10u == l_varTemp )
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 6  -- OK \n");
+            (void)printf("eCU_CIRQTST_Generic 6  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 6  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 6  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 6  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_PeekData(&l_ctx, la_retriveData, sizeof(la_retriveData)) )
     {
         if( 0 == memcmp(la_insertData, la_retriveData, sizeof(la_retriveData) ) )
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 7  -- OK \n");
+            (void)printf("eCU_CIRQTST_Generic 7  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 7  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 7  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 7  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, 7u ) )
     {
         if( 0 == memcmp(la_insertData, la_retriveData, 7u ) )
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 8  -- OK \n");
+            (void)printf("eCU_CIRQTST_Generic 8  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 8  -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 8  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 8  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_insertData, 2u ) )
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 9  -- OK \n");
+        (void)printf("eCU_CIRQTST_Generic 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 9  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 9  -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, 5u ) )
@@ -1004,75 +1004,75 @@ static void eCU_TEST_circularqueueGeneric(void)
         {
             if( 0 == memcmp(&la_insertData[0], &la_retriveData[3u], 2u ) )
             {
-                (void)printf("eCU_TEST_circularqueueGeneric 10 -- OK \n");
+                (void)printf("eCU_CIRQTST_Generic 10 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_circularqueueGeneric 10 -- FAIL \n");
+                (void)printf("eCU_CIRQTST_Generic 10 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 10 -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 10 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 10 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_Reset(&l_ctx) )
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 11 -- OK \n");
+        (void)printf("eCU_CIRQTST_Generic 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 11 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 11 -- FAIL \n");
     }
 
     /* Easy one  */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, la_pointerMempool, sizeof(la_pointerMempool) ) )
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 12 -- OK \n");
+        (void)printf("eCU_CIRQTST_Generic 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 12 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 12 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_insertData, sizeof(la_insertData) ) )
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 13 -- OK \n");
+        (void)printf("eCU_CIRQTST_Generic 13 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 13 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 13 -- FAIL \n");
     }
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_RetriveData(&l_ctx, la_retriveData, 5u ) )
     {
         if( 0 == memcmp(la_insertData, la_retriveData, 5u ) )
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 14 -- OK \n");
+            (void)printf("eCU_CIRQTST_Generic 14 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 14 -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 14 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 14 -- FAIL \n");
     }
 
 
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InsertData(&l_ctx, la_insertData, 5u ) )
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 15 -- OK \n");
+        (void)printf("eCU_CIRQTST_Generic 15 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 15 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 15 -- FAIL \n");
     }
 
 
@@ -1082,26 +1082,26 @@ static void eCU_TEST_circularqueueGeneric(void)
         {
             if( 0 == memcmp(la_insertData, &la_retriveData[5], 5u ) )
             {
-                (void)printf("eCU_TEST_circularqueueGeneric 16 -- OK \n");
+                (void)printf("eCU_CIRQTST_Generic 16 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_circularqueueGeneric 16 -- FAIL \n");
+                (void)printf("eCU_CIRQTST_Generic 16 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_circularqueueGeneric 16 -- FAIL \n");
+            (void)printf("eCU_CIRQTST_Generic 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueGeneric 16 -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Generic 16 -- FAIL \n");
     }
 
 }
 
-static void eCU_TEST_circularqueueCycle1(void)
+static void eCU_CIRQTST_Cycle1(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;
@@ -1117,11 +1117,11 @@ static void eCU_TEST_circularqueueCycle1(void)
     /* Test */
     if( e_eCU_CIRQ_RES_OK == eCU_CIRQ_InitCtx(&l_ctx, la_pointerMempool, sizeof(la_pointerMempool) ) )
     {
-        (void)printf("eCU_TEST_circularqueueCycle1 1  -- OK \n");
+        (void)printf("eCU_CIRQTST_Cycle1 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCycle1 1  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Cycle1 1  -- FAIL \n");
     }
 
     for(uint32_t i = 0u; ( ( i <= 1000u ) && ( true == l_testOk ) ); i++)
@@ -1158,15 +1158,15 @@ static void eCU_TEST_circularqueueCycle1(void)
 
     if( true == l_testOk )
     {
-        (void)printf("eCU_TEST_circularqueueCycle1 2  -- OK \n");
+        (void)printf("eCU_CIRQTST_Cycle1 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_circularqueueCycle1 2  -- FAIL \n");
+        (void)printf("eCU_CIRQTST_Cycle1 2  -- FAIL \n");
     }
 }
 
-static void eCU_TEST_circularqueueCycle2(void)
+static void eCU_CIRQTST_Cycle2(void)
 {
     /* Local variable */
     t_eCU_CIRQ_Ctx l_ctx;

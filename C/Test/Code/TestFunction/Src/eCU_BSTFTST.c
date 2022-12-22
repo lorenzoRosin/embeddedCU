@@ -24,17 +24,17 @@
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION DECLARATION
  **********************************************************************************************************************/
-static void eCU_TEST_byteStuffBadPointer(void);
-static void eCU_TEST_byteStuffBadInit(void);
-static void eCU_TEST_byteStuffBadIniFrame(void);
-static void eCU_TEST_byteStuffBadParamEntr(void);
-static void eCU_TEST_byteStuffCorrupterContext(void);
-static void eCU_TEST_byteStuffOutOfMem(void);
-static void eCU_TEST_byteStuffStartRestart(void);
-static void eCU_TEST_byteStuffGetRemainings(void);
-static void eCU_TEST_byteStuffGeneral(void);
-static void eCU_TEST_byteStuffGeneralAnother(void);
-static void eCU_TEST_byteStuffCorrecteness(void);
+static void eCU_BSTFTST_BadPointer(void);
+static void eCU_BSTFTST_BadInit(void);
+static void eCU_BSTFTST_BadInitFrame(void);
+static void eCU_BSTFTST_BadParamEntr(void);
+static void eCU_BSTFTST_CorrupterContext(void);
+static void eCU_BSTFTST_OutOfMem(void);
+static void eCU_BSTFTST_StartRestart(void);
+static void eCU_BSTFTST_GetRemainings(void);
+static void eCU_BSTFTST_General(void);
+static void eCU_BSTFTST_GeneralAnother(void);
+static void eCU_BSTFTST_Correcteness(void);
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
@@ -43,17 +43,17 @@ void eCU_BSTFTST_ExeTest(void)
 {
 	(void)printf("\n\nBYTE STUFFER TEST START \n\n");
 
-    eCU_TEST_byteStuffBadPointer();
-    eCU_TEST_byteStuffBadInit();
-    eCU_TEST_byteStuffBadIniFrame();
-    eCU_TEST_byteStuffBadParamEntr();
-    eCU_TEST_byteStuffCorrupterContext();
-    eCU_TEST_byteStuffOutOfMem();
-    eCU_TEST_byteStuffStartRestart();
-    eCU_TEST_byteStuffGetRemainings();
-    eCU_TEST_byteStuffGeneral();
-    eCU_TEST_byteStuffGeneralAnother();
-    eCU_TEST_byteStuffCorrecteness();
+    eCU_BSTFTST_BadPointer();
+    eCU_BSTFTST_BadInit();
+    eCU_BSTFTST_BadInitFrame();
+    eCU_BSTFTST_BadParamEntr();
+    eCU_BSTFTST_CorrupterContext();
+    eCU_BSTFTST_OutOfMem();
+    eCU_BSTFTST_StartRestart();
+    eCU_BSTFTST_GetRemainings();
+    eCU_BSTFTST_General();
+    eCU_BSTFTST_GeneralAnother();
+    eCU_BSTFTST_Correcteness();
 
     (void)printf("\n\nBYTE STUFFER TEST END \n\n");
 }
@@ -65,7 +65,7 @@ void eCU_BSTFTST_ExeTest(void)
 /***********************************************************************************************************************
  *   PRIVATE FUNCTION
  **********************************************************************************************************************/
-static void eCU_TEST_byteStuffBadPointer(void)
+static void eCU_BSTFTST_BadPointer(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -78,132 +78,132 @@ static void eCU_TEST_byteStuffBadPointer(void)
     /* Function */
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_InitCtx(NULL, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_InitCtx(&l_ctx, NULL, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_NewFrame(NULL, 2u) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 3  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetWherePutData(NULL, &lp_aPointer, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 4  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetWherePutData(&l_ctx, NULL, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 5  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 5  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, NULL) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 6  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 6  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_RestartFrame(NULL) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 7  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 7  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetRemByteToGet(NULL, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 8  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 8  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 8  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetRemByteToGet(&l_ctx, NULL) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 9  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 9  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetStufChunk(NULL, la_memArea, sizeof(la_memArea), &l_varTemp32 ) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 10 -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 10 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 10 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 10 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetStufChunk(&l_ctx, NULL, sizeof(la_memArea), &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 11 -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 11 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_GetStufChunk(&l_ctx, la_memArea, sizeof(la_memArea), NULL) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 12 -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 12 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_IsInit( NULL, &l_isInit ) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 13 -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 13 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 13 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 13 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPOINTER == eCU_BSTF_IsInit( &l_ctx, NULL ) )
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 14 -- OK \n");
+        (void)printf("eCU_BSTFTST_BadPointer 14 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadPointer 14 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadPointer 14 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffBadInit(void)
+static void eCU_BSTFTST_BadInit(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -218,68 +218,68 @@ static void eCU_TEST_byteStuffBadInit(void)
     /* Function */
     if( e_eCU_BSTF_RES_NOINITLIB == eCU_BSTF_NewFrame(&l_ctx, 2u) )
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInit 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInit 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITLIB == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInit 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInit 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITLIB == eCU_BSTF_RestartFrame(&l_ctx) )
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 3  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInit 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInit 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITLIB == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 4  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInit 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInit 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITLIB == eCU_BSTF_GetStufChunk(&l_ctx, la_memArea, sizeof(la_memArea), &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 5  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInit 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInit 5  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_IsInit( &l_ctx, &l_isInit ) )
     {
         if( false == l_isInit )
         {
-            (void)printf("eCU_TEST_byteStuffBadInit 6  -- OK \n");
+            (void)printf("eCU_BSTFTST_BadInit 6  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffBadInit 6  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_BadInit 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadInit 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInit 6  -- FAIL \n");
     }
 
 }
 
-static void eCU_TEST_byteStuffBadIniFrame(void)
+static void eCU_BSTFTST_BadInitFrame(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -294,76 +294,76 @@ static void eCU_TEST_byteStuffBadIniFrame(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITFRAME == eCU_BSTF_RestartFrame(&l_ctx) )
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITFRAME == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 3  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITFRAME == eCU_BSTF_GetStufChunk(&l_ctx, la_memArea, sizeof(la_memArea), &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 4  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, 2u) )
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 5  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 5  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_RestartFrame(&l_ctx) )
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 6  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 6  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_IsInit( &l_ctx, &l_isInit ) )
     {
         if( true == l_isInit )
         {
-            (void)printf("eCU_TEST_byteStuffBadIniFrame 7  -- OK \n");
+            (void)printf("eCU_BSTFTST_BadInitFrame 7  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffBadIniFrame 7  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_BadInitFrame 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadIniFrame 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadInitFrame 7  -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffBadParamEntr(void)
+static void eCU_BSTFTST_BadParamEntr(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -377,60 +377,60 @@ static void eCU_TEST_byteStuffBadParamEntr(void)
     /* Function */
     if( e_eCU_BSTF_RES_BADPARAM == eCU_BSTF_InitCtx(&l_ctx, la_memArea, 0u) )
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPARAM == eCU_BSTF_NewFrame(&l_ctx, 0u) )
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 3  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPARAM == eCU_BSTF_NewFrame(&l_ctx, (sizeof(la_memArea) +1u) ) )
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 4  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 5  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 5  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_BADPARAM == eCU_BSTF_GetStufChunk(&l_ctx, la_memArea, 0u, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 6  -- OK \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffBadParamEntr 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_BadParamEntr 6  -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffCorrupterContext(void)
+static void eCU_BSTFTST_CorrupterContext(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -444,177 +444,177 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 1  -- FAIL \n");
     }
 
     l_ctx.uBuffL = 0u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 2  -- FAIL \n");
     }
 
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 3  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 3  -- FAIL \n");
     }
 
     l_ctx.puBuff = NULL;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 4  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 4  -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 5  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 5  -- FAIL \n");
     }
 
     l_ctx.uFrameL = 2u;
     l_ctx.uFrameCtr = l_ctx.uFrameL + 1u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 6  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 6  -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 7  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 7  -- FAIL \n");
     }
 
     l_ctx.uFrameL = l_ctx.uBuffL + 1u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 8  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 8  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 8  -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 9  -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 9  -- FAIL \n");
     }
 
     l_ctx.uFrameL = 2u;
     l_ctx.uFrameCtr = 1u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 10 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 10 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 10 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 10 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 11 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 11 -- FAIL \n");
     }
 
     l_ctx.uFrameCtr = 0u;
     l_ctx.eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 12 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 12 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 13 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 13 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 13 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 13 -- FAIL \n");
     }
 
     l_ctx.uFrameCtr = 0u;
     l_ctx.eSM = e_eCU_BSTFPRV_SM_NEEDEOF;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 14 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 14 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 14 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 14 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 15 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 15 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 15 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 15 -- FAIL \n");
     }
 
     l_ctx.uFrameCtr = 0u;
     l_ctx.eSM = e_eCU_BSTFPRV_SM_STUFFEND;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 16 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 16 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 16 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 16 -- FAIL \n");
     }
 
      /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 17 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 17 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 17 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 17 -- FAIL \n");
     }
 
     l_ctx.eSM = e_eCU_BSTFPRV_SM_STUFFEND;
@@ -623,30 +623,30 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
     l_ctx.uBuffL = 3u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 18 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 18 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 18 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 18 -- FAIL \n");
     }
 
      /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 19 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 19 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 19 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 19 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 20 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 20 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 20 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 20 -- FAIL \n");
     }
 
     l_ctx.eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
@@ -654,99 +654,99 @@ static void eCU_TEST_byteStuffCorrupterContext(void)
     la_memArea[l_ctx.uFrameCtr - 1u] = 0xFFu;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_NewFrame(&l_ctx, 4u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 21 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 21 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 21 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 21 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 22 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 22 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 22 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 22 -- FAIL \n");
     }
 
     l_ctx.uBuffL = 0u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointerP, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 23 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 23 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 23 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 23 -- FAIL \n");
     }
 
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 24 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 24 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 24 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 24 -- FAIL \n");
     }
 
     l_ctx.uBuffL = 0u;
     l_ctx.uFrameL = 1u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_RestartFrame(&l_ctx) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 25 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 25 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 25 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 25 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 26 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 26 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 26 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 26 -- FAIL \n");
     }
 
     l_ctx.uBuffL = 0u;
     l_ctx.uFrameL = 1u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 27 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 27 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 27 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 27 -- FAIL \n");
     }
 
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 28 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 28 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 28 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 28 -- FAIL \n");
     }
 
     l_ctx.uBuffL = 0u;
     l_ctx.uFrameL = 1u;
     if( e_eCU_BSTF_RES_CORRUPTCTX == eCU_BSTF_GetStufChunk(&l_ctx, la_memArea, 1u, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 29 -- OK \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 29 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrupterContext 29 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_CorrupterContext 29 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffOutOfMem(void)
+static void eCU_BSTFTST_OutOfMem(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -766,20 +766,20 @@ static void eCU_TEST_byteStuffOutOfMem(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITFRAME == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -788,46 +788,46 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- OK \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 3  -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 3  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 4  -- OK \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
         if( 10u == l_reman )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 5  -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 5  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 5  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 5  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -836,69 +836,69 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- OK \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 6  -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 6  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 6  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 7  -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 7  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 7  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 7  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[1], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 8  -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 8  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 8  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 8  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 8  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
         if( 8u == l_reman )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 9  -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 9  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 9  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 9  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -907,85 +907,85 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- OK \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 10 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 10 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 10 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 10 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[2], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 11 -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 11 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 11 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 11 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[3], 7u, &l_varTemp32) )
     {
         if( 7u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 12 -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 12 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 12 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 12 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[10], 1u, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 13 -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 13 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 13 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 13 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 13 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
         if( 0u == l_reman )
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 14 -- OK \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 14 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 14 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 14 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 14 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -994,25 +994,25 @@ static void eCU_TEST_byteStuffOutOfMem(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- OK \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 15 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_OutOfMem 15 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_OutOfMem 15 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffOutOfMem 15 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_OutOfMem 15 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffStartRestart(void)
+static void eCU_BSTFTST_StartRestart(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -1032,20 +1032,20 @@ static void eCU_TEST_byteStuffStartRestart(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_StartRestart 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_NOINITFRAME == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_StartRestart 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -1054,46 +1054,46 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 3  -- OK \n");
+                (void)printf("eCU_BSTFTST_StartRestart 3  -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 3  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_StartRestart 3  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 3  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 4  -- OK \n");
+        (void)printf("eCU_BSTFTST_StartRestart 4  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
         if( 10u == l_reman )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 5  -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 5  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 5  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 5  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 5  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -1102,62 +1102,62 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 6  -- OK \n");
+                (void)printf("eCU_BSTFTST_StartRestart 6  -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 6  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_StartRestart 6  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 6  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 6  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 7  -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 7  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 7  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 7  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_RestartFrame(&l_ctx) )
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 8  -- OK \n");
+        (void)printf("eCU_BSTFTST_StartRestart 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 8  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 8  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
         if( 10u == l_reman )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 9  -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 9  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 9  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 9  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -1166,69 +1166,69 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 10 -- OK \n");
+                (void)printf("eCU_BSTFTST_StartRestart 10 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 10 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_StartRestart 10 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 10 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 10 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 10 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 11 -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 11 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 11 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 11 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[1], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 12 -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 12 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 12 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 12 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
         if( 8u == l_reman )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 13 -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 13 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 13 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 13 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 13 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -1237,85 +1237,85 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 14 -- OK \n");
+                (void)printf("eCU_BSTFTST_StartRestart 14 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 14 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_StartRestart 14 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 14 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 14 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 14 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[2], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 15 -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 15 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 15 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 15 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 15 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 15 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[3], 7u, &l_varTemp32) )
     {
         if( 7u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 16 -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 16 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 16 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 16 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 16 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[10], 1u, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 17 -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 17 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 17 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 17 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 17 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 17 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_reman) )
     {
         if( 0u == l_reman )
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 18 -- OK \n");
+            (void)printf("eCU_BSTFTST_StartRestart 18 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 18 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 18 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 18 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 18 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
@@ -1324,25 +1324,25 @@ static void eCU_TEST_byteStuffStartRestart(void)
         {
             if( sizeof(la_memArea) == l_varTemp32 )
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 19 -- OK \n");
+                (void)printf("eCU_BSTFTST_StartRestart 19 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffStartRestart 19 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_StartRestart 19 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffStartRestart 19 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_StartRestart 19 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffStartRestart 19 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_StartRestart 19 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffGetRemainings(void)
+static void eCU_BSTFTST_GetRemainings(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -1361,31 +1361,31 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 10u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 3  -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 3  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 3  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 3  -- FAIL \n");
         }
     }
 
@@ -1393,27 +1393,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 4  -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 4  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 4  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 9u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 5  -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 5  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 5  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 5  -- FAIL \n");
         }
     }
 
@@ -1421,43 +1421,43 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 6  -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 6  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 6  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 6  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 6  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[2], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 7  -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 7  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 7  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 7  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 7u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 8  -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 8  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 8  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 8  -- FAIL \n");
         }
     }
 
@@ -1465,27 +1465,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 7u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 9  -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 9  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 9  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 9  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 10 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 10 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 10 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 10 -- FAIL \n");
         }
     }
 
@@ -1493,36 +1493,36 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( ( sizeof(la_memArea) == l_varTemp32 ) && ( la_memArea == lp_aPointer))
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 11 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 11 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 11 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 11 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_RestartFrame(&l_ctx) )
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 12 -- OK \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 12 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 10u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 13 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 13 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 3 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 3 -- FAIL \n");
         }
     }
 
@@ -1530,27 +1530,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 14 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 14 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 14 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 14 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 14 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 9u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 15 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 15 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 15 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 15 -- FAIL \n");
         }
     }
 
@@ -1558,43 +1558,43 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 16 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 16 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 16 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 16 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 16 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[2], 1u, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 17 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 17 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 17 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 17 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 17 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 17 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 7u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 18 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 18 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 18 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 18 -- FAIL \n");
         }
     }
 
@@ -1602,27 +1602,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 6u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 19 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 19 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 19 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 19 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 19 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 19 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 20 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 20 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 20 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 20 -- FAIL \n");
         }
     }
 
@@ -1630,27 +1630,27 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 21 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 21 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 21 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 21 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 21 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 21 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 22 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 22 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 22 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 22 -- FAIL \n");
         }
     }
 
@@ -1658,41 +1658,41 @@ static void eCU_TEST_byteStuffGetRemainings(void)
     {
         if( ( sizeof(la_memArea) == l_varTemp32 ) && ( la_memArea == lp_aPointer))
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 23 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 23 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 23 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 23 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 23 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 23 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, 1u) )
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 24 -- OK \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 24 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGetRemainings 24 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GetRemainings 24 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 4u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 25 -- OK \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 25 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGetRemainings 25 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GetRemainings 25 -- FAIL \n");
         }
     }
 }
 
-static void eCU_TEST_byteStuffGeneral(void)
+static void eCU_BSTFTST_General(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -1726,20 +1726,20 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_General 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_General 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 2  -- FAIL \n");
     }
 
     l_varTemp32 = 0u;
@@ -1763,27 +1763,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 3  -- OK \n");
+        (void)printf("eCU_BSTFTST_General 3  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 3  -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 4  -- OK \n");
+            (void)printf("eCU_BSTFTST_General 4  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 4  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 4  -- FAIL \n");
     }
 
     /* Init variable */
@@ -1796,11 +1796,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 5  -- OK \n");
+        (void)printf("eCU_BSTFTST_General 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 5  -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -1818,27 +1818,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 6  -- OK \n");
+        (void)printf("eCU_BSTFTST_General 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 6  -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 7  -- OK \n");
+            (void)printf("eCU_BSTFTST_General 7  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 7  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 7  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 7  -- FAIL \n");
     }
 
     /* Init variable */
@@ -1851,11 +1851,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 8  -- OK \n");
+        (void)printf("eCU_BSTFTST_General 8  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 8  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 8  -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -1873,27 +1873,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 9  -- OK \n");
+        (void)printf("eCU_BSTFTST_General 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 9  -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 10 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 10 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 10 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 10 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 10 -- FAIL \n");
     }
 
 
@@ -1907,11 +1907,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 11 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 11 -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -1929,27 +1929,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 12 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 12 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 12 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 13 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 13 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 13 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 13 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 13 -- FAIL \n");
     }
 
 
@@ -1964,11 +1964,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 14 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 14 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 14 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 14 -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -1986,27 +1986,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 15 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 15 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 15 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 15 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 16 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 16 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 16 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 16 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 16 -- FAIL \n");
     }
 
 
@@ -2020,11 +2020,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 17 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 17 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 17 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 17 -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -2042,27 +2042,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 18 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 18 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 18 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 18 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 19 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 19 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 19 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 19 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 19 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 19 -- FAIL \n");
     }
 
 
@@ -2077,11 +2077,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 20 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 20 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 20 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 20 -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -2099,27 +2099,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 21 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 21 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 21 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 21 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 22 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 22 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 22 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 22 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 22 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 22 -- FAIL \n");
     }
 
 
@@ -2135,11 +2135,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 23 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 23 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 23 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 23 -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -2157,27 +2157,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 24 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 24 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 24 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 24 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 25 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 25 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 25 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 25 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 25 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 25 -- FAIL \n");
     }
 
 
@@ -2191,11 +2191,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 26 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 26 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 26 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 26 -- FAIL \n");
     }
 
     l_result = e_eCU_BSTF_RES_OK;
@@ -2213,27 +2213,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_FRAMEENDED == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 27 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 27 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 27 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 27 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 28 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 28 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 28 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 28 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 28 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 28 -- FAIL \n");
     }
 
 
@@ -2248,11 +2248,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 29 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 29 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 29 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 29 -- FAIL \n");
     }
 
     l_varTemp32 = 0u;
@@ -2264,16 +2264,16 @@ static void eCU_TEST_byteStuffGeneral(void)
     {
         if( 9u == l_remaining )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 30 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 30 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 30 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 30 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 30 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 30 -- FAIL \n");
     }
 
 
@@ -2291,27 +2291,27 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_OK == l_result )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 31 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 31 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 31 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 31 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 32 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 32 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 32 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 32 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 32 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 32 -- FAIL \n");
     }
 
     /* Init variable */
@@ -2324,11 +2324,11 @@ static void eCU_TEST_byteStuffGeneral(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 33 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 33 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 33 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 33 -- FAIL \n");
     }
 
     l_varTemp32 = 0u;
@@ -2338,57 +2338,57 @@ static void eCU_TEST_byteStuffGeneral(void)
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[l_counter], 2u, &l_varTemp32) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 34 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 34 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 34 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 34 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_remaining) )
     {
         if( 7u == l_remaining )
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 35 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 35 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 35 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 35 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 35 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 35 -- FAIL \n");
     }
 
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, 1u) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 36 -- OK \n");
+        (void)printf("eCU_BSTFTST_General 36 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 36 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 36 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetWherePutData(&l_ctx, &lp_aPointer, &l_varTemp32) )
     {
         if( ( sizeof(la_memArea) == l_varTemp32 ) && ( la_memArea == lp_aPointer))
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 37 -- OK \n");
+            (void)printf("eCU_BSTFTST_General 37 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneral 37 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_General 37 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneral 37 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_General 37 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffGeneralAnother(void)
+static void eCU_BSTFTST_GeneralAnother(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -2420,36 +2420,36 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 9u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 3  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[l_counter], 1u, &l_varTemp32) )
@@ -2461,26 +2461,26 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
             {
                 if( 8u == l_varTemp32 )
                 {
-                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- OK \n");
+                    (void)printf("eCU_BSTFTST_GeneralAnother 4  -- OK \n");
                 }
                 else
                 {
-                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+                    (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
                 }
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[l_counter], 7u, &l_varTemp32) )
@@ -2492,26 +2492,26 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
             {
                 if( 1u == l_varTemp32 )
                 {
-                    (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- OK \n");
+                    (void)printf("eCU_BSTFTST_GeneralAnother 3  -- OK \n");
                 }
                 else
                 {
-                    (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
+                    (void)printf("eCU_BSTFTST_GeneralAnother 3  -- FAIL \n");
                 }
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 3  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 3  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[l_counter], 7u, &l_varTemp32) )
@@ -2523,42 +2523,42 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
             {
                 if( 0u == l_varTemp32 )
                 {
-                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- OK \n");
+                    (void)printf("eCU_BSTFTST_GeneralAnother 4  -- OK \n");
                 }
                 else
                 {
-                    (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+                    (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
                 }
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 4  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 4  -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, l_counter) )
     {
         if( sizeof(la_memAreaExpected) == l_counter )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 5  -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 5  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother   -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother   -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 5  -- FAIL \n");
     }
 
     /* Init variable */
@@ -2569,36 +2569,36 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 6  -- OK \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 6  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, 1u) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 7  -- OK \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 7  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 4u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 8  -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 8  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 8  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 8  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 8  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
@@ -2607,37 +2607,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_SOF == la_memAreaFinalChunk[0u] )
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- OK \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 9  -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 9  -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 9  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 9  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 3u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 10 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 10 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 10 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 10 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 10 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 10 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
@@ -2646,37 +2646,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_ESC == la_memAreaFinalChunk[0u] )
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- OK \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 11 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 11 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 11 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 11 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 2u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 12 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 12 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 12 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 12 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
@@ -2685,37 +2685,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ((uint8_t)~ECU_SOF) == la_memAreaFinalChunk[0u] )
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- OK \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 13 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 13 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 13 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 13 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 13 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 14 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 14 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 14 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 14 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 14 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 14 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
@@ -2724,53 +2724,53 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_EOF == la_memAreaFinalChunk[0u] )
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- OK \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 15 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 15 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 15 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 15 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 15 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 16 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 16 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 16 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 16 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 16 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 16 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 17 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 17 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 17 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 17 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 17 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 17 -- FAIL \n");
     }
 
     /* Init variable */
@@ -2781,36 +2781,36 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 18 -- OK \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 18 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 18 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 18 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, 1u) )
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 19 -- OK \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 19 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 19 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 19 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 3u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 20 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 20 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 20 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 20 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 20 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 20 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
@@ -2819,37 +2819,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_SOF == la_memAreaFinalChunk[0u] )
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- OK \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 21 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 21 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 21 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 21 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 21 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 2u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 22 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 22 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 22 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 22 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 22 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 22 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
@@ -2858,37 +2858,37 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( 0x12u == la_memAreaFinalChunk[0u] )
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- OK \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 23 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 23 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 23 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 23 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 23 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 24 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 24 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 24 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 24 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 24 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 24 -- FAIL \n");
     }
 
 
@@ -2898,57 +2898,57 @@ static void eCU_TEST_byteStuffGeneralAnother(void)
         {
             if( ECU_EOF == la_memAreaFinalChunk[0u] )
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- OK \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 25 -- OK \n");
             }
             else
             {
-                (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- FAIL \n");
+                (void)printf("eCU_BSTFTST_GeneralAnother 25 -- FAIL \n");
             }
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 25 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 25 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 25 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_GetRemByteToGet(&l_ctx, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 26 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 26 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 26 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 26 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 26 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 26 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0u], 1u, &l_varTemp32) )
     {
         if( 0u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 27 -- OK \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 27 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffGeneralAnother 27 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_GeneralAnother 27 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffGeneralAnother 27 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_GeneralAnother 27 -- FAIL \n");
     }
 }
 
-static void eCU_TEST_byteStuffCorrecteness(void)
+static void eCU_BSTFTST_Correcteness(void)
 {
     /* Local variable */
     t_eCU_BSTF_Ctx l_ctx;
@@ -2978,45 +2978,45 @@ static void eCU_TEST_byteStuffCorrecteness(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 1  -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 1  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 1  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 1  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 2  -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 2  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 2  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 2  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0], sizeof(la_memAreaFinalChunk), &l_varTemp32) )
     {
         if( 9u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffCorrecteness 3  -- OK \n");
+            (void)printf("eCU_BSTFTST_Correcteness 3  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffCorrecteness 3  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_Correcteness 3  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 3  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 3  -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, 9u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 5  -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 5  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 5  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 5  -- FAIL \n");
     }
 
     /* Init variable */
@@ -3037,45 +3037,45 @@ static void eCU_TEST_byteStuffCorrecteness(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 6  -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 6  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 6  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 6  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 7  -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 7  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 7  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 7  -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0], sizeof(la_memAreaFinalChunk), &l_varTemp32) )
     {
         if( 6u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffCorrecteness 8  -- OK \n");
+            (void)printf("eCU_BSTFTST_Correcteness 8  -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffCorrecteness 8  -- FAIL \n");
+            (void)printf("eCU_BSTFTST_Correcteness 8  -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 8  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 8  -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, 6u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 9  -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 9  -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 9  -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 9  -- FAIL \n");
     }
 
     /* Init variable */
@@ -3097,45 +3097,45 @@ static void eCU_TEST_byteStuffCorrecteness(void)
     /* Function */
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_InitCtx(&l_ctx, la_memArea, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 10 -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 10 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 10 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 10 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_OK == eCU_BSTF_NewFrame(&l_ctx, sizeof(la_memArea)) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 11 -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 11 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 11 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 11 -- FAIL \n");
     }
 
     if( e_eCU_BSTF_RES_FRAMEENDED == eCU_BSTF_GetStufChunk(&l_ctx, &la_memAreaFinalChunk[0], sizeof(la_memAreaFinalChunk), &l_varTemp32) )
     {
         if( 7u == l_varTemp32 )
         {
-            (void)printf("eCU_TEST_byteStuffCorrecteness 12 -- OK \n");
+            (void)printf("eCU_BSTFTST_Correcteness 12 -- OK \n");
         }
         else
         {
-            (void)printf("eCU_TEST_byteStuffCorrecteness 12 -- FAIL \n");
+            (void)printf("eCU_BSTFTST_Correcteness 12 -- FAIL \n");
         }
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 12 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 12 -- FAIL \n");
     }
 
     if( 0 == memcmp(la_memAreaExpected, la_memAreaFinalChunk, 7u) )
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 13 -- OK \n");
+        (void)printf("eCU_BSTFTST_Correcteness 13 -- OK \n");
     }
     else
     {
-        (void)printf("eCU_TEST_byteStuffCorrecteness 13 -- FAIL \n");
+        (void)printf("eCU_BSTFTST_Correcteness 13 -- FAIL \n");
     }
 
 
