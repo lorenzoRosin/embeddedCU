@@ -17,196 +17,197 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t eCU_CRCD_isStatusStillCoherent(const t_eCU_CRCD_Ctx* p_ctx);
+static bool_t eCU_CRCD_IsStatusStillCoherent(const t_eCU_CRCD_Ctx* p_ptCtx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ctx, f_eCU_CRCD_CrcCb fCrc, t_eCU_CRCD_CrcCtx* const p_clbCtx)
+e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb p_fCrc, 
+                                t_eCU_CRCD_CrcCtx* const p_ptFctx)
 {
 	/* Local variable */
-	e_eCU_CRCD_RES l_result;
+	e_eCU_CRCD_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx) || ( NULL ==  fCrc) || ( NULL ==  p_clbCtx) )
+	if( ( NULL == p_ptCtx) || ( NULL ==  p_fCrc) || ( NULL ==  p_ptFctx) )
 	{
-		l_result = e_eCU_CRCD_RES_BADPOINTER;
+		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
 	}
 	else
 	{
         /* Init context */
-		p_ctx->bIsInit = true;
-		p_ctx->uBaseSeed = eCU_CRC_BASE_SEED;
-		p_ctx->uDigestedTimes = 0u;
-		p_ctx->uLastDigVal = 0u;
-		p_ctx->fCrc = fCrc;
-        p_ctx->ptCrcCtx = p_clbCtx;
+		p_ptCtx->bIsInit = true;
+		p_ptCtx->uBaseSeed = eCU_CRC_BASE_SEED;
+		p_ptCtx->uDigestedTimes = 0u;
+		p_ptCtx->uLastDigVal = 0u;
+		p_ptCtx->p_fCrc = p_fCrc;
+        p_ptCtx->ptCrcCtx = p_ptFctx;
 
-		l_result = e_eCU_CRCD_RES_OK;
+		l_eRes = e_eCU_CRCD_RES_OK;
     }
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_CRCD_RES eCU_CRCD_IsInit(t_eCU_CRCD_Ctx* const p_ctx, bool_t* p_isInit)
+e_eCU_CRCD_RES eCU_CRCD_IsInit(t_eCU_CRCD_Ctx* const p_ptCtx, bool_t* p_pbIsInit)
 {
 	/* Local variable */
-	e_eCU_CRCD_RES l_result;
+	e_eCU_CRCD_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == p_isInit ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_pbIsInit ) )
 	{
-		l_result = e_eCU_CRCD_RES_BADPOINTER;
+		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
 	}
 	else
 	{
-        *p_isInit = p_ctx->bIsInit;
-        l_result = e_eCU_CRCD_RES_OK;
+        *p_pbIsInit = p_ptCtx->bIsInit;
+        l_eRes = e_eCU_CRCD_RES_OK;
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ctx, const uint32_t seed, f_eCU_CRCD_CrcCb fCrc,
-                                    t_eCU_CRCD_CrcCtx* const p_clbCtx)
+e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, const uint32_t p_uUseed, f_eCU_CRCD_CrcCb p_fCrc,
+                                    t_eCU_CRCD_CrcCtx* const p_ptFctx)
 {
 	/* Local variable */
-	e_eCU_CRCD_RES l_result;
+	e_eCU_CRCD_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx) || ( NULL ==  fCrc) || ( NULL ==  p_clbCtx))
+	if( ( NULL == p_ptCtx) || ( NULL ==  p_fCrc) || ( NULL ==  p_ptFctx))
 	{
-		l_result = e_eCU_CRCD_RES_BADPOINTER;
+		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
 	}
 	else
 	{
         /* Init context */
-		p_ctx->bIsInit = true;
-		p_ctx->uBaseSeed = seed;
-		p_ctx->uDigestedTimes = 0u;
-		p_ctx->uLastDigVal = 0u;
-		p_ctx->fCrc = fCrc;
-        p_ctx->ptCrcCtx = p_clbCtx;
+		p_ptCtx->bIsInit = true;
+		p_ptCtx->uBaseSeed = p_uUseed;
+		p_ptCtx->uDigestedTimes = 0u;
+		p_ptCtx->uLastDigVal = 0u;
+		p_ptCtx->p_fCrc = p_fCrc;
+        p_ptCtx->ptCrcCtx = p_ptFctx;
 
-		l_result = e_eCU_CRCD_RES_OK;
+		l_eRes = e_eCU_CRCD_RES_OK;
     }
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_CRCD_RES eCU_CRCD_Restart(t_eCU_CRCD_Ctx* const p_ctx)
+e_eCU_CRCD_RES eCU_CRCD_Restart(t_eCU_CRCD_Ctx* const p_ptCtx)
 {
 	/* Local variable */
-	e_eCU_CRCD_RES l_result;
+	e_eCU_CRCD_RES l_eRes;
 
 	/* Check pointer validity */
-	if( NULL == p_ctx )
+	if( NULL == p_ptCtx )
 	{
-		l_result = e_eCU_CRCD_RES_BADPOINTER;
+		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_CRCD_RES_NOINITLIB;
+			l_eRes = e_eCU_CRCD_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_CRCD_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_CRCD_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_CRCD_RES_CORRUPTCTX;
+                l_eRes = e_eCU_CRCD_RES_CORRUPTCTX;
             }
             else
             {
                 /* Init context */
-                p_ctx->uDigestedTimes = 0u;
-                p_ctx->uLastDigVal = 0u;
+                p_ptCtx->uDigestedTimes = 0u;
+                p_ptCtx->uLastDigVal = 0u;
 
-                l_result = e_eCU_CRCD_RES_OK;
+                l_eRes = e_eCU_CRCD_RES_OK;
             }
         }
     }
 
-    return l_result;
+    return l_eRes;
 }
 
-e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ctx, const uint8_t* p_data, const uint32_t dataLen)
+e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ptCtx, const uint8_t* p_puData, const uint32_t p_uDataL)
 {
 	/* Local variable */
-	e_eCU_CRCD_RES l_result;
-    uint32_t l_cR32;
-    bool_t l_cRes;
+	e_eCU_CRCD_RES l_eRes;
+    uint32_t l_uC32;
+    bool_t l_bRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == p_data ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_puData ) )
 	{
-		l_result = e_eCU_CRCD_RES_BADPOINTER;
+		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_CRCD_RES_NOINITLIB;
+			l_eRes = e_eCU_CRCD_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_CRCD_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_CRCD_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_CRCD_RES_CORRUPTCTX;
+                l_eRes = e_eCU_CRCD_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity */
-                if( dataLen <= 0u )
+                if( p_uDataL <= 0u )
                 {
-                    l_result = e_eCU_CRCD_RES_BADPARAM;
+                    l_eRes = e_eCU_CRCD_RES_BADPARAM;
                 }
                 else
                 {
                     /* Check if we have memory for this */
-                    if( p_ctx->uDigestedTimes >= MAX_UINT32VAL )
+                    if( p_ptCtx->uDigestedTimes >= MAX_UINT32VAL )
                     {
-                        l_result = e_eCU_CRCD_RES_TOOMANYDIGEST;
+                        l_eRes = e_eCU_CRCD_RES_TOOMANYDIGEST;
                     }
                     else
                     {
                         /* First time? */
-                        if( 0u >= p_ctx->uDigestedTimes )
+                        if( 0u >= p_ptCtx->uDigestedTimes )
                         {
-                            /* Use base seed for the first time */
-                            l_cRes = (*(p_ctx->fCrc))( p_ctx->ptCrcCtx, p_ctx->uBaseSeed, p_data, dataLen, &l_cR32 );
+                            /* Use base p_uUseed for the first time */
+                            l_bRes = (*(p_ptCtx->p_fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uBaseSeed, p_puData, p_uDataL, &l_uC32 );
 
-                            if( true == l_cRes )
+                            if( true == l_bRes )
                             {
-                                p_ctx->uDigestedTimes++;
-                                p_ctx->uLastDigVal = l_cR32;
-								l_result = e_eCU_CRCD_RES_OK;
+                                p_ptCtx->uDigestedTimes++;
+                                p_ptCtx->uLastDigVal = l_uC32;
+								l_eRes = e_eCU_CRCD_RES_OK;
                             }
 							else
 							{
-								l_result = e_eCU_CRCD_RES_CLBCKREPORTERROR;
+								l_eRes = e_eCU_CRCD_RES_CLBCKREPORTERROR;
 							}
                         }
                         else
                         {
-                            /* Continue calc using old digested value for seed */
-                            l_cRes = (*(p_ctx->fCrc))( p_ctx->ptCrcCtx, p_ctx->uLastDigVal, p_data, dataLen, &l_cR32 );
+                            /* Continue calc using old digested value for p_uUseed */
+                            l_bRes = (*(p_ptCtx->p_fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uLastDigVal, p_puData, p_uDataL, &l_uC32 );
 
-                            if( true == l_cRes )
+                            if( true == l_bRes )
                             {
-                                p_ctx->uDigestedTimes++;
-                                p_ctx->uLastDigVal = l_cR32;
-								l_result = e_eCU_CRCD_RES_OK;
+                                p_ptCtx->uDigestedTimes++;
+                                p_ptCtx->uLastDigVal = l_uC32;
+								l_eRes = e_eCU_CRCD_RES_OK;
                             }
 							else
 							{
-								l_result = e_eCU_CRCD_RES_CLBCKREPORTERROR;
+								l_eRes = e_eCU_CRCD_RES_CLBCKREPORTERROR;
 							}
                         }
                     }
@@ -215,57 +216,57 @@ e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ctx, const uint8_t* p_dat
 		}
     }
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_CRCD_RES eCU_CRCD_GetDigestVal(t_eCU_CRCD_Ctx* const p_ctx, uint32_t* const p_crcCalc)
+e_eCU_CRCD_RES eCU_CRCD_GetDigestVal(t_eCU_CRCD_Ctx* const p_ptCtx, uint32_t* const p_puCrcCalc)
 {
 	/* Local variable */
-	e_eCU_CRCD_RES l_result;
+	e_eCU_CRCD_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == p_crcCalc ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_puCrcCalc ) )
 	{
-		l_result = e_eCU_CRCD_RES_BADPOINTER;
+		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_CRCD_RES_NOINITLIB;
+			l_eRes = e_eCU_CRCD_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_CRCD_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_CRCD_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_CRCD_RES_CORRUPTCTX;
+                l_eRes = e_eCU_CRCD_RES_CORRUPTCTX;
             }
 			else
 			{
                 /* Check data validity */
-                if( p_ctx->uDigestedTimes <= 0u )
+                if( p_ptCtx->uDigestedTimes <= 0u )
                 {
                     /* Cannot retrive undigested value */
-                    l_result = e_eCU_CRCD_RES_NODIGESTDONE;
+                    l_eRes = e_eCU_CRCD_RES_NODIGESTDONE;
                 }
                 else
                 {
                     /* Return digested value */
-                    *p_crcCalc = p_ctx->uLastDigVal;
+                    *p_puCrcCalc = p_ptCtx->uLastDigVal;
 
                     /* Restart */
-                    p_ctx->uDigestedTimes = 0u;
-                    p_ctx->uLastDigVal = 0u;
+                    p_ptCtx->uDigestedTimes = 0u;
+                    p_ptCtx->uLastDigVal = 0u;
 
-                    l_result = e_eCU_CRCD_RES_OK;
+                    l_eRes = e_eCU_CRCD_RES_OK;
                 }
 			}
 		}
     }
 
-	return l_result;
+	return l_eRes;
 }
 
 
@@ -273,19 +274,19 @@ e_eCU_CRCD_RES eCU_CRCD_GetDigestVal(t_eCU_CRCD_Ctx* const p_ctx, uint32_t* cons
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-static bool_t eCU_CRCD_isStatusStillCoherent(const t_eCU_CRCD_Ctx* p_ctx)
+static bool_t eCU_CRCD_IsStatusStillCoherent(const t_eCU_CRCD_Ctx* p_ptCtx)
 {
-    bool_t l_result;
+    bool_t l_eRes;
 
 	/* Check context validity */
-	if( ( NULL == p_ctx->fCrc ) || ( NULL == p_ctx->ptCrcCtx ) )
+	if( ( NULL == p_ptCtx->p_fCrc ) || ( NULL == p_ptCtx->ptCrcCtx ) )
 	{
-		l_result = false;
+		l_eRes = false;
 	}
 	else
 	{
-        l_result = true;
+        l_eRes = true;
 	}
 
-    return l_result;
+    return l_eRes;
 }

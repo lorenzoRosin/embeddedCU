@@ -58,7 +58,7 @@ void eCU_TEST_dataUnPack(void)
 static void eCU_TEST_dataUnPackBadPointer(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[5u];
     uint8_t* lp_tempPo;
     uint64_t l_varTemp64;
@@ -68,7 +68,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
     bool_t l_isInit;
 
     /* Function */
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_InitCtx(NULL, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_InitCtx(NULL, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 1  -- OK \n");
     }
@@ -77,7 +77,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 1  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_InitCtx(&l_ctx, NULL, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_InitCtx(&l_ctx, NULL, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 2  -- OK \n");
     }
@@ -86,7 +86,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 2  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_StartNewFrame(NULL, 3u) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_StartNewFrame(NULL, 3u) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 3  -- OK \n");
     }
@@ -95,7 +95,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_GetUPkDataLocat( NULL, &lp_tempPo, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_GetUPkDataLocat( NULL, &lp_tempPo, &l_varTemp32) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 4  -- OK \n");
     }
@@ -104,7 +104,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_GetUPkDataLocat( &l_ctx, NULL, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_GetUPkDataLocat( &l_ctx, NULL, &l_varTemp32) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 5  -- OK \n");
     }
@@ -113,7 +113,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_GetUPkDataLocat( &l_ctx, &lp_tempPo, NULL) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_GetUPkDataLocat( &l_ctx, &lp_tempPo, NULL) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 6  -- OK \n");
     }
@@ -122,7 +122,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_RestartCurrentUnpack( NULL ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_RestartCurrentUnpack( NULL ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 7  -- OK \n");
     }
@@ -131,7 +131,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_GetRemToPop( NULL, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_GetRemToPop( NULL, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 8  -- OK \n");
     }
@@ -140,7 +140,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 8  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_GetRemToPop( &l_ctx, NULL ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_GetRemToPop( &l_ctx, NULL ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 9  -- OK \n");
     }
@@ -149,7 +149,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 9  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopArray( NULL, la_badPointerMempool, sizeof(la_badPointerMempool) ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopArray( NULL, la_badPointerMempool, sizeof(la_badPointerMempool) ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 10 -- OK \n");
     }
@@ -158,7 +158,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopArray( &l_ctx, NULL, sizeof(la_badPointerMempool) ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopArray( &l_ctx, NULL, sizeof(la_badPointerMempool) ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 11 -- OK \n");
     }
@@ -167,7 +167,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 11 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU8( NULL, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU8( NULL, &l_varTemp8 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 12 -- OK \n");
     }
@@ -176,7 +176,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 12 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU8( &l_ctx, NULL ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU8( &l_ctx, NULL ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 13 -- OK \n");
     }
@@ -185,7 +185,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 13 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU16( NULL, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU16( NULL, &l_varTemp16 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 14 -- OK \n");
     }
@@ -194,7 +194,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 14 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU16( &l_ctx, NULL ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU16( &l_ctx, NULL ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 15 -- OK \n");
     }
@@ -203,7 +203,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 15 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU32( NULL, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU32( NULL, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 16 -- OK \n");
     }
@@ -212,7 +212,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 16 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU32( &l_ctx, NULL ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU32( &l_ctx, NULL ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 17 -- OK \n");
     }
@@ -221,7 +221,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 17 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU64( NULL, &l_varTemp64 ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU64( NULL, &l_varTemp64 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 18 -- OK \n");
     }
@@ -230,7 +230,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 18 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU64( &l_ctx, NULL ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_PopU64( &l_ctx, NULL ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 19 -- OK \n");
     }
@@ -239,7 +239,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 19 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_IsInit( NULL, &l_isInit ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_IsInit( NULL, &l_isInit ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 20 -- OK \n");
     }
@@ -248,7 +248,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
         (void)printf("eCU_TEST_dataUnPackBadPointer 20 -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPOINTER == eCU_DUNPK_IsInit( &l_ctx, NULL ) )
+    if( e_eCU_DUNPK_RES_BADPOINTER == eCU_DUNPK_IsInit( &l_ctx, NULL ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadPointer 21 -- OK \n");
     }
@@ -261,7 +261,7 @@ static void eCU_TEST_dataUnPackBadPointer(void)
 static void eCU_TEST_dataUnPackBadInit(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[5u];
     uint8_t* lp_tempPo;
     uint64_t l_varTemp64;
@@ -387,7 +387,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
 static void eCU_TEST_dataUnPackBadInitSession(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[5u];
     uint64_t l_varTemp64;
     uint32_t l_varTemp32;
@@ -491,7 +491,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
 static void eCU_TEST_dataUnPackBadParamEntr(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[5u];
 
     /* Init variable */
@@ -557,7 +557,7 @@ static void eCU_TEST_dataUnPackBadParamEntr(void)
 static void eCU_TEST_dataUnPackCorruptContext(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[5u];
     uint8_t* lp_tempPo;
     uint32_t l_varTemp;
@@ -879,7 +879,7 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
 static void eCU_TEST_dataUnPackOutOfMem(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[9u];
     uint8_t  la_pushPool[5u];
     uint64_t l_varTemp64;
@@ -1267,7 +1267,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
 static void eCU_TEST_dataUnPackEndianLe(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[20u];
     uint8_t  la_pushPool[20u];
     uint32_t l_remtoPop;
@@ -1467,7 +1467,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
 static void eCU_TEST_dataUnPackEndianBe(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[20u];
     uint8_t  la_pushPool[20u];
     uint32_t l_remtoPop;
@@ -1667,7 +1667,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
 static void eCU_TEST_dataUnPackCycle(void)
 {
     /* Local variable */
-    s_eCU_DUNPK_Ctx l_ctx;
+    t_eCU_DUNPK_Ctx l_ctx;
     uint8_t  la_badPointerMempool[20u];
     uint16_t l_varTemp16;
     uint32_t l_remtoPop;

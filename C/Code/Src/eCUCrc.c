@@ -17,15 +17,16 @@
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CRC_RES eCU_CRC_32(const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
+e_eCU_CRC_RES eCU_CRC_32(const uint8_t* p_puData, const uint32_t p_uDataL, uint32_t* const p_puCrc)
 {
-	return eCU_CRC_32Seed(eCU_CRC_BASE_SEED, p_data, dataL, p_crc);
+	return eCU_CRC_32Seed(eCU_CRC_BASE_SEED, p_puData, p_uDataL, p_puCrc);
 }
 
-e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const uint32_t dataL, uint32_t* const p_crc)
+e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t p_uSeed, const uint8_t* p_puData, const uint32_t p_uDataL, 
+                             uint32_t* const p_puCrc)
 {
     /* lookup table */
-    static const uint32_t lp_crctable[256u] = {
+    static const uint32_t l_auCrctable[256u] = {
     0x00000000u, 0x04c11db7u, 0x09823b6eu, 0x0d4326d9u, 0x130476dcu, 0x17c56b6bu,
     0x1a864db2u, 0x1e475005u, 0x2608edb8u, 0x22c9f00fu, 0x2f8ad6d6u, 0x2b4bcb61u,
     0x350c9b64u, 0x31cd86d3u, 0x3c8ea00au, 0x384fbdbdu, 0x4c11db70u, 0x48d0c6c7u,
@@ -72,43 +73,43 @@ e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t seed, const uint8_t* p_data, const u
     };
 
 	/* Local variable */
-	e_eCU_CRC_RES l_result;
-	uint32_t l_len;
-    uint32_t l_lenStart;
-	uint32_t l_seedCalc;
-	uint32_t l_indexCalc;
-	uint32_t l_middleShift;
+	e_eCU_CRC_RES l_eRes;
+	uint32_t l_uLen;
+    uint32_t l_uLenStart;
+	uint32_t l_uSeedCalc;
+	uint32_t l_uIndexCalc;
+	uint32_t l_uMiddleShift;
 
 	/* Check pointer validity */
-	if( ( NULL == p_data) || ( NULL == p_crc) )
+	if( ( NULL == p_puData) || ( NULL == p_puCrc) )
 	{
-		l_result = e_eCU_CRC_RES_BADPOINTER;
+		l_eRes = e_eCU_CRC_RES_BADPOINTER;
 	}
 	else
 	{
 		/* init variable */
-		l_len = dataL;
-        l_lenStart = dataL;
-		l_seedCalc = seed;
+		l_uLen = p_uDataL;
+        l_uLenStart = p_uDataL;
+		l_uSeedCalc = p_uSeed;
 
 		/* Execute CRC calc */
-		while ( l_len > 0u )
+		while ( l_uLen > 0u )
 		{
 			/* Decrement l_ counter */
-			l_len--;
+			l_uLen--;
 
 			/* Calc crc table index */
-			l_middleShift = ( l_seedCalc >> 24u );
-			l_indexCalc = ( l_middleShift ) ^ ( p_data[l_lenStart - (l_len + 1u) ] );
+			l_uMiddleShift = ( l_uSeedCalc >> 24u );
+			l_uIndexCalc = ( l_uMiddleShift ) ^ ( p_puData[l_uLenStart - (l_uLen + 1u) ] );
 
 			/* Calc new crc */
-			l_middleShift = ( l_seedCalc << 8u );
-			l_seedCalc = lp_crctable[l_indexCalc] ^ ( l_middleShift );
+			l_uMiddleShift = ( l_uSeedCalc << 8u );
+			l_uSeedCalc = l_auCrctable[l_uIndexCalc] ^ ( l_uMiddleShift );
 		}
 
-		l_result = e_eCU_CRC_RES_OK;
-		*p_crc = l_seedCalc;
+		l_eRes = e_eCU_CRC_RES_OK;
+		*p_puCrc = l_uSeedCalc;
 	}
 
-	return l_result;
+	return l_eRes;
 }

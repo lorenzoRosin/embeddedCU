@@ -17,423 +17,423 @@
 /***********************************************************************************************************************
  *  PRIVATE STATIC FUNCTION DECLARATION
  **********************************************************************************************************************/
-static bool_t eCU_BSTF_isStatusStillCoherent(const t_eCU_BSTF_Ctx* p_ctx);
+static bool_t eCU_BSTF_IsStatusStillCoherent(const t_eCU_BSTF_Ctx* p_ptCtx);
 
 
 
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_BSTF_Res eCU_BSTF_InitCtx(t_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_memArea, const uint32_t memAreaSize)
+e_eCU_BSTF_RES eCU_BSTF_InitCtx(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_puBuff, const uint32_t p_uBuffL)
 {
 	/* Local variable */
-	e_eCU_BSTF_Res l_result;
+	e_eCU_BSTF_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == p_memArea ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_puBuff ) )
 	{
-		l_result = e_eCU_BSTF_RES_BADPOINTER;
+		l_eRes = e_eCU_BSTF_RES_BADPOINTER;
 	}
 	else
 	{
         /* Check data validity */
-        if( memAreaSize <= 0u )
+        if( p_uBuffL <= 0u )
         {
-            l_result = e_eCU_BSTF_RES_BADPARAM;
+            l_eRes = e_eCU_BSTF_RES_BADPARAM;
         }
         else
         {
             /* Initialize internal status */
-            p_ctx->bIsInit = true;
-            p_ctx->puBuff = p_memArea;
-            p_ctx->uBuffL = memAreaSize;
-            p_ctx->uFrameL = 0u;
-            p_ctx->uFrameCtr = 0u;
-            p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDSOF;
+            p_ptCtx->bIsInit = true;
+            p_ptCtx->puBuff = p_puBuff;
+            p_ptCtx->uBuffL = p_uBuffL;
+            p_ptCtx->uFrameL = 0u;
+            p_ptCtx->uFrameCtr = 0u;
+            p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDSOF;
 
-            l_result = e_eCU_BSTF_RES_OK;
+            l_eRes = e_eCU_BSTF_RES_OK;
         }
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_IsInit(t_eCU_BSTF_Ctx* const p_ctx, bool_t* p_isInit)
+e_eCU_BSTF_RES eCU_BSTF_IsInit(t_eCU_BSTF_Ctx* const p_ptCtx, bool_t* p_pbIsInit)
 {
 	/* Local variable */
-	e_eCU_BSTF_Res l_result;
+	e_eCU_BSTF_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == p_isInit ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_pbIsInit ) )
 	{
-		l_result = e_eCU_BSTF_RES_BADPOINTER;
+		l_eRes = e_eCU_BSTF_RES_BADPOINTER;
 	}
 	else
 	{
-        *p_isInit = p_ctx->bIsInit;
-        l_result = e_eCU_BSTF_RES_OK;
+        *p_pbIsInit = p_ptCtx->bIsInit;
+        l_eRes = e_eCU_BSTF_RES_OK;
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_GetWherePutData(t_eCU_BSTF_Ctx* const p_ctx, uint8_t** pp_data, uint32_t* const p_maxDataSize)
+e_eCU_BSTF_RES eCU_BSTF_GetWherePutData(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t** p_ppuData, uint32_t* const p_puMaxL)
 {
 	/* Local variable */
-	e_eCU_BSTF_Res l_result;
+	e_eCU_BSTF_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == pp_data ) || ( NULL == p_maxDataSize ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_ppuData ) || ( NULL == p_puMaxL ) )
 	{
-		l_result = e_eCU_BSTF_RES_BADPOINTER;
+		l_eRes = e_eCU_BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_BSTF_RES_NOINITLIB;
+			l_eRes = e_eCU_BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_BSTF_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_BSTF_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_BSTF_RES_CORRUPTCTX;
+                l_eRes = e_eCU_BSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* return data */
-                *pp_data = p_ctx->puBuff;
-                *p_maxDataSize = p_ctx->uBuffL;
-                l_result = e_eCU_BSTF_RES_OK;
+                *p_ppuData = p_ptCtx->puBuff;
+                *p_puMaxL = p_ptCtx->uBuffL;
+                l_eRes = e_eCU_BSTF_RES_OK;
             }
 		}
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_NewFrame(t_eCU_BSTF_Ctx* const p_ctx, const uint32_t frameLen)
+e_eCU_BSTF_RES eCU_BSTF_NewFrame(t_eCU_BSTF_Ctx* const p_ptCtx, const uint32_t p_uFrameL)
 {
 	/* Local variable */
-	e_eCU_BSTF_Res l_result;
+	e_eCU_BSTF_RES l_eRes;
 
 	/* Check pointer validity */
-	if( NULL == p_ctx )
+	if( NULL == p_ptCtx )
 	{
-		l_result = e_eCU_BSTF_RES_BADPOINTER;
+		l_eRes = e_eCU_BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_BSTF_RES_NOINITLIB;
+			l_eRes = e_eCU_BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_BSTF_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_BSTF_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_BSTF_RES_CORRUPTCTX;
+                l_eRes = e_eCU_BSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check param validity */
-                if( ( frameLen <= 0u ) || ( frameLen > p_ctx->uBuffL ) )
+                if( ( p_uFrameL <= 0u ) || ( p_uFrameL > p_ptCtx->uBuffL ) )
                 {
-                    l_result = e_eCU_BSTF_RES_BADPARAM;
+                    l_eRes = e_eCU_BSTF_RES_BADPARAM;
                 }
                 else
                 {
                     /* Update data */
-                    p_ctx->uFrameL = frameLen;
-                    p_ctx->uFrameCtr = 0u;
-                    p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDSOF;
+                    p_ptCtx->uFrameL = p_uFrameL;
+                    p_ptCtx->uFrameCtr = 0u;
+                    p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDSOF;
 
-                    l_result = e_eCU_BSTF_RES_OK;
+                    l_eRes = e_eCU_BSTF_RES_OK;
                 }
             }
 		}
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_RestartFrame(t_eCU_BSTF_Ctx* const p_ctx)
+e_eCU_BSTF_RES eCU_BSTF_RestartFrame(t_eCU_BSTF_Ctx* const p_ptCtx)
 {
 	/* Local variable */
-	e_eCU_BSTF_Res l_result;
+	e_eCU_BSTF_RES l_eRes;
 
 	/* Check pointer validity */
-	if( NULL == p_ctx )
+	if( NULL == p_ptCtx )
 	{
-		l_result = e_eCU_BSTF_RES_BADPOINTER;
+		l_eRes = e_eCU_BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_BSTF_RES_NOINITLIB;
+			l_eRes = e_eCU_BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_BSTF_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_BSTF_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_BSTF_RES_CORRUPTCTX;
+                l_eRes = e_eCU_BSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* Param */
-                if( p_ctx->uFrameL <= 0u )
+                if( p_ptCtx->uFrameL <= 0u )
                 {
-                    l_result = e_eCU_BSTF_RES_NOINITFRAME;
+                    l_eRes = e_eCU_BSTF_RES_NOINITFRAME;
                 }
                 else
                 {
                     /* Update index */
-                    p_ctx->uFrameCtr = 0u;
-                    p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDSOF;
+                    p_ptCtx->uFrameCtr = 0u;
+                    p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDSOF;
 
-                    l_result = e_eCU_BSTF_RES_OK;
+                    l_eRes = e_eCU_BSTF_RES_OK;
                 }
             }
 		}
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_GetRemByteToGet(t_eCU_BSTF_Ctx* const p_ctx, uint32_t* const p_retrivedLen)
+e_eCU_BSTF_RES eCU_BSTF_GetRemByteToGet(t_eCU_BSTF_Ctx* const p_ptCtx, uint32_t* const p_puGettedL)
 {
 	/* Local variable */
-	e_eCU_BSTF_Res l_result;
-    uint32_t l_calLen;
-	uint32_t l_indx;
+	e_eCU_BSTF_RES l_eRes;
+    uint32_t l_uCalLen;
+	uint32_t l_uIndx;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == p_retrivedLen ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_puGettedL ) )
 	{
-		l_result = e_eCU_BSTF_RES_BADPOINTER;
+		l_eRes = e_eCU_BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_BSTF_RES_NOINITLIB;
+			l_eRes = e_eCU_BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_BSTF_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_BSTF_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_BSTF_RES_CORRUPTCTX;
+                l_eRes = e_eCU_BSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check param */
-                if( p_ctx->uFrameL <= 0u )
+                if( p_ptCtx->uFrameL <= 0u )
                 {
-                    l_result = e_eCU_BSTF_RES_NOINITFRAME;
+                    l_eRes = e_eCU_BSTF_RES_NOINITFRAME;
                 }
                 else
                 {
                     /* Analyze the current state of the state machine */
-                    if( e_eCU_BSTFPRV_SM_NEEDSOF == p_ctx->eSM )
+                    if( e_eCU_BSTFPRV_SM_NEEDSOF == p_ptCtx->eSM )
                     {
                         /* SOF + Data + EOF */
-                        l_calLen = 2u;
+                        l_uCalLen = 2u;
                     }
-                    else if( e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA == p_ctx->eSM )
+                    else if( e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA == p_ptCtx->eSM )
                     {
                         /* If a precedent byte of the payload was an SOF, EOF or ESC character, this means that the
                         * ESC char is already inserted in the unstuffed data, but that we need to add the negation of
                         * the payload + the EOF */
-                        l_calLen = 2u;
+                        l_uCalLen = 2u;
                     }
-                    else if( e_eCU_BSTFPRV_SM_STUFFEND == p_ctx->eSM )
+                    else if( e_eCU_BSTFPRV_SM_STUFFEND == p_ptCtx->eSM )
                     {
                         /* Stuffend ended, no data to wait */
-                        l_calLen = 0u;
+                        l_uCalLen = 0u;
                     }
                     else
                     {
                         /* data + EOF. With the current state machine is not possible to have a single call that
                          * leave the system in the state: e_eCU_BSTFPRV_SM_NEEDEOF */
-                        l_calLen = 1u;
+                        l_uCalLen = 1u;
                     }
 
                     /* Calculate the remaining byte from the current counter of course */
-					l_indx = p_ctx->uFrameCtr;
-                    while( ( l_indx < p_ctx->uFrameL ) && ( l_calLen < 0xFFFFFFFFu ) )
+					l_uIndx = p_ptCtx->uFrameCtr;
+                    while( ( l_uIndx < p_ptCtx->uFrameL ) && ( l_uCalLen < 0xFFFFFFFFu ) )
                     {
-                        if( ECU_SOF == p_ctx->puBuff[l_indx] )
+                        if( ECU_SOF == p_ptCtx->puBuff[l_uIndx] )
                         {
 							/* Try to avoid overflow. Resonable limit for HW */
-							if( l_calLen <= 0xFFFFFFFDu )
+							if( l_uCalLen <= 0xFFFFFFFDu )
 							{
 								/* Stuff with escape */
-								l_calLen += 2u;
+								l_uCalLen += 2u;
 							}
 							else
 							{
-								l_calLen = 0xFFFFFFFFu;
+								l_uCalLen = 0xFFFFFFFFu;
 							}
                         }
-                        else if( ECU_EOF == p_ctx->puBuff[l_indx] )
+                        else if( ECU_EOF == p_ptCtx->puBuff[l_uIndx] )
                         {
 							/* Try to avoid overflow. Resonable limit for HW */
-							if( l_calLen <= 0xFFFFFFFDu )
+							if( l_uCalLen <= 0xFFFFFFFDu )
 							{
 								/* Stuff with escape */
-								l_calLen += 2u;
+								l_uCalLen += 2u;
 							}
 							else
 							{
-								l_calLen = 0xFFFFFFFFu;
+								l_uCalLen = 0xFFFFFFFFu;
 							}
                         }
-                        else if( ECU_ESC == p_ctx->puBuff[l_indx] )
+                        else if( ECU_ESC == p_ptCtx->puBuff[l_uIndx] )
                         {
 							/* Try to avoid overflow. Resonable limit for HW */
-							if( l_calLen <= 0xFFFFFFFDu )
+							if( l_uCalLen <= 0xFFFFFFFDu )
 							{
 								/* Stuff with escape */
-								l_calLen += 2u;
+								l_uCalLen += 2u;
 							}
 							else
 							{
-								l_calLen = 0xFFFFFFFFu;
+								l_uCalLen = 0xFFFFFFFFu;
 							}
                         }
                         else
                         {
                             /* Stuff with escape */
-                            l_calLen += 1u;
+                            l_uCalLen += 1u;
                         }
 
-						l_indx++;
+						l_uIndx++;
                     }
 
                     /* Copy calc value */
-                    *p_retrivedLen = l_calLen;
+                    *p_puGettedL = l_uCalLen;
 
-                    l_result = e_eCU_BSTF_RES_OK;
+                    l_eRes = e_eCU_BSTF_RES_OK;
                 }
             }
 		}
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
-e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stuffedDest, const uint32_t maxDestLen,
-                                     uint32_t* const p_filledLen)
+e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_puStuffedBuf, const uint32_t p_uMaxBufL,
+                                     uint32_t* const p_puGettedL)
 {
 	/* Local variable */
-	e_eCU_BSTF_Res l_result;
-    uint32_t l_nFillByte;
+	e_eCU_BSTF_RES l_eRes;
+    uint32_t l_uNFillByte;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ctx ) || ( NULL == p_stuffedDest ) || ( NULL == p_filledLen ) )
+	if( ( NULL == p_ptCtx ) || ( NULL == p_puStuffedBuf ) || ( NULL == p_puGettedL ) )
 	{
-		l_result = e_eCU_BSTF_RES_BADPOINTER;
+		l_eRes = e_eCU_BSTF_RES_BADPOINTER;
 	}
 	else
 	{
 		/* Check Init */
-		if( false == p_ctx->bIsInit )
+		if( false == p_ptCtx->bIsInit )
 		{
-			l_result = e_eCU_BSTF_RES_NOINITLIB;
+			l_eRes = e_eCU_BSTF_RES_NOINITLIB;
 		}
 		else
 		{
             /* Check internal status validity */
-            if( false == eCU_BSTF_isStatusStillCoherent(p_ctx) )
+            if( false == eCU_BSTF_IsStatusStillCoherent(p_ptCtx) )
             {
-                l_result = e_eCU_BSTF_RES_CORRUPTCTX;
+                l_eRes = e_eCU_BSTF_RES_CORRUPTCTX;
             }
             else
             {
                 /* Check param */
-                if( p_ctx->uFrameL <= 0u )
+                if( p_ptCtx->uFrameL <= 0u )
                 {
-                    l_result = e_eCU_BSTF_RES_NOINITFRAME;
+                    l_eRes = e_eCU_BSTF_RES_NOINITFRAME;
                 }
                 else
                 {
                     /* Check param */
-                    if( maxDestLen <= 0u )
+                    if( p_uMaxBufL <= 0u )
                     {
-                        l_result = e_eCU_BSTF_RES_BADPARAM;
+                        l_eRes = e_eCU_BSTF_RES_BADPARAM;
                     }
                     else
                     {
                         /* Init counter */
-                        l_nFillByte = 0u;
-						l_result = e_eCU_BSTF_RES_OK;
+                        l_uNFillByte = 0u;
+						l_eRes = e_eCU_BSTF_RES_OK;
 
                         /* Execute parsing cycle */
-                        while( ( l_nFillByte < maxDestLen ) &&
-						       ( e_eCU_BSTFPRV_SM_STUFFEND != p_ctx->eSM ) &&
-							   ( e_eCU_BSTF_RES_OK == l_result ) )
+                        while( ( l_uNFillByte < p_uMaxBufL ) &&
+						       ( e_eCU_BSTFPRV_SM_STUFFEND != p_ptCtx->eSM ) &&
+							   ( e_eCU_BSTF_RES_OK == l_eRes ) )
                         {
-                            switch( p_ctx->eSM )
+                            switch( p_ptCtx->eSM )
                             {
                                 case e_eCU_BSTFPRV_SM_NEEDSOF :
                                 {
                                     /* Start of frame */
-                                    p_stuffedDest[l_nFillByte] = ECU_SOF;
-                                    l_nFillByte++;
-                                    p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDRAWDATA;
+                                    p_puStuffedBuf[l_uNFillByte] = ECU_SOF;
+                                    l_uNFillByte++;
+                                    p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDRAWDATA;
 
                                     break;
                                 }
 
                                 case e_eCU_BSTFPRV_SM_NEEDRAWDATA :
                                 {
-                                    if( p_ctx->uFrameCtr >= p_ctx->uFrameL )
+                                    if( p_ptCtx->uFrameCtr >= p_ptCtx->uFrameL )
                                     {
                                         /* End of frame needed */
-                                        p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDEOF;
+                                        p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDEOF;
                                     }
                                     else
                                     {
                                         /* Parse data from the frame now */
-                                        if( ECU_SOF == p_ctx->puBuff[p_ctx->uFrameCtr] )
+                                        if( ECU_SOF == p_ptCtx->puBuff[p_ptCtx->uFrameCtr] )
                                         {
                                             /* Stuff with escape */
-                                            p_stuffedDest[l_nFillByte] = ECU_ESC;
-                                            p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
-                                            l_nFillByte++;
-                                            p_ctx->uFrameCtr++;
+                                            p_puStuffedBuf[l_uNFillByte] = ECU_ESC;
+                                            p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
+                                            l_uNFillByte++;
+                                            p_ptCtx->uFrameCtr++;
                                         }
-                                        else if( ECU_EOF == p_ctx->puBuff[p_ctx->uFrameCtr] )
+                                        else if( ECU_EOF == p_ptCtx->puBuff[p_ptCtx->uFrameCtr] )
                                         {
                                             /* Stuff with escape */
-                                            p_stuffedDest[l_nFillByte] = ECU_ESC;
-                                            p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
-                                            l_nFillByte++;
-                                            p_ctx->uFrameCtr++;
+                                            p_puStuffedBuf[l_uNFillByte] = ECU_ESC;
+                                            p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
+                                            l_uNFillByte++;
+                                            p_ptCtx->uFrameCtr++;
                                         }
-                                        else if( ECU_ESC == p_ctx->puBuff[p_ctx->uFrameCtr] )
+                                        else if( ECU_ESC == p_ptCtx->puBuff[p_ptCtx->uFrameCtr] )
                                         {
                                             /* Stuff with escape */
-                                            p_stuffedDest[l_nFillByte] = ECU_ESC;
-                                            p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
-                                            l_nFillByte++;
-                                            p_ctx->uFrameCtr++;
+                                            p_puStuffedBuf[l_uNFillByte] = ECU_ESC;
+                                            p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
+                                            l_uNFillByte++;
+                                            p_ptCtx->uFrameCtr++;
                                         }
                                         else
                                         {
                                             /* Can insert data and continue parsing other raw data */
-                                            p_stuffedDest[l_nFillByte] = p_ctx->puBuff[p_ctx->uFrameCtr];
-                                            l_nFillByte++;
-                                            p_ctx->uFrameCtr++;
+                                            p_puStuffedBuf[l_uNFillByte] = p_ptCtx->puBuff[p_ptCtx->uFrameCtr];
+                                            l_uNFillByte++;
+                                            p_ptCtx->uFrameCtr++;
                                         }
                                     }
 
@@ -443,11 +443,11 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stu
                                 case e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA :
                                 {
                                     /* Something from an old iteration  */
-                                    p_stuffedDest[l_nFillByte] = ( (uint8_t) ~( p_ctx->puBuff[p_ctx->uFrameCtr - 1u] ) );
-                                    l_nFillByte++;
+                                    p_puStuffedBuf[l_uNFillByte] = ( (uint8_t) ~( p_ptCtx->puBuff[p_ptCtx->uFrameCtr - 1u] ) );
+                                    l_uNFillByte++;
 
                                     /* After this we can continue parsing raw data */
-                                    p_ctx->eSM = e_eCU_BSTFPRV_SM_NEEDRAWDATA;
+                                    p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDRAWDATA;
 
                                     break;
                                 }
@@ -455,9 +455,9 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stu
                                 case e_eCU_BSTFPRV_SM_NEEDEOF :
                                 {
                                     /* End of frame */
-                                    p_stuffedDest[l_nFillByte] = ECU_EOF;
-                                    p_ctx->eSM = e_eCU_BSTFPRV_SM_STUFFEND;
-                                    l_nFillByte++;
+                                    p_puStuffedBuf[l_uNFillByte] = ECU_EOF;
+                                    p_ptCtx->eSM = e_eCU_BSTFPRV_SM_STUFFEND;
+                                    l_uNFillByte++;
 
                                     break;
                                 }
@@ -465,22 +465,22 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stu
                                default:
                                {
                                    /* Impossible end here, and if so something horrible happened (memory corruption) */
-									l_result = e_eCU_BSTF_RES_CORRUPTCTX;
+									l_eRes = e_eCU_BSTF_RES_CORRUPTCTX;
                                    break;
                                }
                             }
                         }
 
 						/* Save counter */
-						*p_filledLen = l_nFillByte;
+						*p_puGettedL = l_uNFillByte;
 
-						if( e_eCU_BSTF_RES_OK == l_result )
+						if( e_eCU_BSTF_RES_OK == l_eRes )
 						{
-							/* l_result? */
-							if( e_eCU_BSTFPRV_SM_STUFFEND == p_ctx->eSM )
+							/* l_eRes? */
+							if( e_eCU_BSTFPRV_SM_STUFFEND == p_ptCtx->eSM )
 							{
 								/* Nothing more */
-								l_result = e_eCU_BSTF_RES_FRAMEENDED;
+								l_eRes = e_eCU_BSTF_RES_FRAMEENDED;
 							}
 						}
                     }
@@ -489,7 +489,7 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stu
 		}
 	}
 
-	return l_result;
+	return l_eRes;
 }
 
 
@@ -497,63 +497,63 @@ e_eCU_BSTF_Res eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ctx, uint8_t* p_stu
 /***********************************************************************************************************************
  *  PRIVATE FUNCTION
  **********************************************************************************************************************/
-static bool_t eCU_BSTF_isStatusStillCoherent(const t_eCU_BSTF_Ctx* p_ctx)
+static bool_t eCU_BSTF_IsStatusStillCoherent(const t_eCU_BSTF_Ctx* p_ptCtx)
 {
-    bool_t l_result;
-    uint8_t l_preceByte;
+    bool_t l_eRes;
+    uint8_t l_uPreceByte;
 
 	/* Check basic context validity */
-	if( ( p_ctx->uBuffL <= 0u ) || ( NULL == p_ctx->puBuff ) )
+	if( ( p_ptCtx->uBuffL <= 0u ) || ( NULL == p_ptCtx->puBuff ) )
 	{
-		l_result = false;
+		l_eRes = false;
 	}
 	else
 	{
         /* Check context limit validity */
-        if( ( p_ctx->uFrameL > p_ctx->uBuffL ) || ( p_ctx->uFrameCtr > p_ctx->uFrameL ) )
+        if( ( p_ptCtx->uFrameL > p_ptCtx->uBuffL ) || ( p_ptCtx->uFrameCtr > p_ptCtx->uFrameL ) )
         {
-            l_result = false;
+            l_eRes = false;
         }
         else
         {
             /* Check data coherence on SOF */
-            if( ( e_eCU_BSTFPRV_SM_NEEDSOF  == p_ctx->eSM ) && ( 0u != p_ctx->uFrameCtr ) )
+            if( ( e_eCU_BSTFPRV_SM_NEEDSOF  == p_ptCtx->eSM ) && ( 0u != p_ptCtx->uFrameCtr ) )
             {
-                l_result = false;
+                l_eRes = false;
             }
             else
             {
                 /* Check data coherence on SOF */
-                if( ( 0u == p_ctx->uFrameCtr ) && ( e_eCU_BSTFPRV_SM_NEEDSOF != p_ctx->eSM ) &&
-                    ( e_eCU_BSTFPRV_SM_NEEDRAWDATA != p_ctx->eSM ) )
+                if( ( 0u == p_ptCtx->uFrameCtr ) && ( e_eCU_BSTFPRV_SM_NEEDSOF != p_ptCtx->eSM ) &&
+                    ( e_eCU_BSTFPRV_SM_NEEDRAWDATA != p_ptCtx->eSM ) )
                 {
-                    l_result = false;
+                    l_eRes = false;
                 }
                 else
                 {
                     /* Check data coherence on EOF */
-                    if( ( e_eCU_BSTFPRV_SM_STUFFEND == p_ctx->eSM ) && ( p_ctx->uFrameCtr != p_ctx->uFrameL ) )
+                    if( ( e_eCU_BSTFPRV_SM_STUFFEND == p_ptCtx->eSM ) && ( p_ptCtx->uFrameCtr != p_ptCtx->uFrameL ) )
                     {
-                        l_result = false;
+                        l_eRes = false;
                     }
                     else
                     {
                         /* Check data coherence on precedent data */
-                        if( e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA == p_ctx->eSM )
+                        if( e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA == p_ptCtx->eSM )
                         {
-                            l_preceByte = p_ctx->puBuff[p_ctx->uFrameCtr - 1u];
-                            if( ( ECU_ESC != l_preceByte ) && ( ECU_EOF != l_preceByte ) && ( ECU_SOF != l_preceByte ) )
+                            l_uPreceByte = p_ptCtx->puBuff[p_ptCtx->uFrameCtr - 1u];
+                            if( ( ECU_ESC != l_uPreceByte ) && ( ECU_EOF != l_uPreceByte ) && ( ECU_SOF != l_uPreceByte ) )
                             {
-                                l_result = false;
+                                l_eRes = false;
                             }
                             else
                             {
-                                l_result = true;
+                                l_eRes = true;
                             }
                         }
                         else
                         {
-                            l_result = true;
+                            l_eRes = true;
                         }
                     }
                 }
@@ -561,5 +561,5 @@ static bool_t eCU_BSTF_isStatusStillCoherent(const t_eCU_BSTF_Ctx* p_ctx)
         }
 	}
 
-    return l_result;
+    return l_eRes;
 }

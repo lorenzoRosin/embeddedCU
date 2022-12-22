@@ -47,7 +47,7 @@ static void eCU_TEST_dataPackUnPackLE(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx l_ctxPack;
-    s_eCU_DUNPK_Ctx l_ctxUnPack;
+    t_eCU_DUNPK_Ctx l_ctxUnPack;
     uint8_t  la_dataPackPool[20u];
     uint8_t  la_supportArray[5u];
     uint32_t l_supportbuffget;
@@ -270,7 +270,7 @@ static void eCU_TEST_dataPackUnPackBE(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx l_ctxPack;
-    s_eCU_DUNPK_Ctx l_ctxUnPack;
+    t_eCU_DUNPK_Ctx l_ctxUnPack;
     uint8_t  la_dataPackPool[20u];
     uint8_t  la_supportArray[5u];
     uint32_t l_supportbuffget;
@@ -484,7 +484,7 @@ static void eCU_TEST_dataPackUnPackGeneral(void)
 {
     /* Local variable */
     s_eCU_DPK_Ctx l_ctxPack;
-    s_eCU_DUNPK_Ctx l_ctxUnPack;
+    t_eCU_DUNPK_Ctx l_ctxUnPack;
     uint8_t  la_dataPackPool[20u];
     uint16_t l_var16;
 

@@ -28,7 +28,7 @@ extern "C" {
 /***********************************************************************************************************************
  *      DEFINES
  **********************************************************************************************************************/
-#define ECU_CRC_BASE_SEED                                                                    ( (uint32_t ) 0xFFFFFFFFu )
+#define eCU_CRC_BASE_SEED                                                                    ( (uint32_t ) 0xFFFFFFFFu )
 
 
 
@@ -70,7 +70,7 @@ e_eCU_CRC_RES eCU_CRC_32(const uint8_t* p_puData, const uint32_t p_uDataL, uint3
  * @return      e_eCU_CRC_RES_BADPOINTER      - In case of bad pointer passed to the function
  *              e_eCU_CRC_RES_OK              - Crc 32 calculated successfully
  */
-e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t p_uSeed, const uint8_t* p_puData, const uint32_t p_uDataL, 
+e_eCU_CRC_RES eCU_CRC_32Seed(const uint32_t p_uSeed, const uint8_t* p_puData, const uint32_t p_uDataL,
                              uint32_t* const p_puCrc);
 
 
