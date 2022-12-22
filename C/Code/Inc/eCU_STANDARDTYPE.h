@@ -1,5 +1,5 @@
 /**
- * @file       eCUStandardType.h
+ * @file       eCU_STANDARDTYPE.h
  *
  * @brief      Ecu standard type header
  *

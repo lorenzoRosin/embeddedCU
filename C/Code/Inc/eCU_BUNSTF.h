@@ -1,5 +1,5 @@
 /**
- * @file       eCUByteUnStuffer.h
+ * @file       eCU_BUNSTF.h
  *
  * @brief      Byte unstuffer utils
  *
@@ -21,8 +21,8 @@ extern "C" {
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUType.h"
-#include "eCUByteUnStuffer_prv.h"
+#include "eCU_TYPE.h"
+#include "eCU_BUNSTFPRV.h"
 
 
 

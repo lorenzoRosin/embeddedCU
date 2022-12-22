@@ -1,14 +1,14 @@
 /**
- * @file       eCUByteUnStuffer_prv.h
+ * @file       eCU_BSTFPRV.h
  *
- * @brief      Byte Unstuffer utils private definition
+ * @brief      Byte stuffer utils private definition
  *
  * @author     Lorenzo Rosin
  *
  **********************************************************************************************************************/
 
-#ifndef ECUBYTEUNSTUFFER_PRV_H
-#define ECUBYTEUNSTUFFER_PRV_H
+#ifndef ECUBYTESTUFFER_PRV_H
+#define ECUBYTESTUFFER_PRV_H
 
 
 
@@ -23,12 +23,12 @@ extern "C" {
  **********************************************************************************************************************/
 typedef enum
 {
-    e_eCU_BUNSTFPRV_SM_NEEDSOF = 0,
-    e_eCU_BUNSTFPRV_SM_NEEDRAWDATA,
-    e_eCU_BUNSTFPRV_SM_NEEDNEGATEDATA,
-    e_eCU_BUNSTFPRV_SM_UNSTUFFEND,
-    e_eCU_BUNSTFPRV_SM_UNSTUFFFAIL
-}e_eCU_BUNSTFPRV_SM;
+    e_eCU_BSTFPRV_SM_NEEDSOF = 0,
+    e_eCU_BSTFPRV_SM_NEEDRAWDATA,
+    e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA,
+	e_eCU_BSTFPRV_SM_NEEDEOF,
+    e_eCU_BSTFPRV_SM_STUFFEND
+}e_eCU_BSTFPRV_SM;
 
 
 
@@ -38,4 +38,4 @@ typedef enum
 
 
 
-#endif /* ECUBYTEUNSTUFFER_PRV_H */
+#endif /* ECUBYTESTUFFER_PRV_H */

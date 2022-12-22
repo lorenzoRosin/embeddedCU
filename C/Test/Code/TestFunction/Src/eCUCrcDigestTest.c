@@ -11,7 +11,7 @@
  *      INCLUDES
  **********************************************************************************************************************/
 #include "eCUCrcDigestTest.h"
-#include "eCUCrc.h"
+#include "eCU_CRC.h"
 #include <stdio.h>
 
 
