@@ -24,7 +24,7 @@ static bool_t eCU_CRCD_IsStatusStillCoherent(const t_eCU_CRCD_Ctx* p_ptCtx);
 /***********************************************************************************************************************
  *   GLOBAL FUNCTIONS
  **********************************************************************************************************************/
-e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb p_fCrc, 
+e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb p_fCrc,
                                 t_eCU_CRCD_CrcCtx* const p_ptFctx)
 {
 	/* Local variable */
@@ -42,7 +42,7 @@ e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb 
 		p_ptCtx->uBaseSeed = eCU_CRC_BASE_SEED;
 		p_ptCtx->uDigestedTimes = 0u;
 		p_ptCtx->uLastDigVal = 0u;
-		p_ptCtx->p_fCrc = p_fCrc;
+		p_ptCtx->fCrc = p_fCrc;
         p_ptCtx->ptCrcCtx = p_ptFctx;
 
 		l_eRes = e_eCU_CRCD_RES_OK;
@@ -88,7 +88,7 @@ e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, const uint32_
 		p_ptCtx->uBaseSeed = p_uUseed;
 		p_ptCtx->uDigestedTimes = 0u;
 		p_ptCtx->uLastDigVal = 0u;
-		p_ptCtx->p_fCrc = p_fCrc;
+		p_ptCtx->fCrc = p_fCrc;
         p_ptCtx->ptCrcCtx = p_ptFctx;
 
 		l_eRes = e_eCU_CRCD_RES_OK;
@@ -181,7 +181,7 @@ e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ptCtx, const uint8_t* p_p
                         if( 0u >= p_ptCtx->uDigestedTimes )
                         {
                             /* Use base p_uUseed for the first time */
-                            l_bRes = (*(p_ptCtx->p_fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uBaseSeed, p_puData, p_uDataL, &l_uC32 );
+                            l_bRes = (*(p_ptCtx->fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uBaseSeed, p_puData, p_uDataL, &l_uC32 );
 
                             if( true == l_bRes )
                             {
@@ -197,7 +197,7 @@ e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ptCtx, const uint8_t* p_p
                         else
                         {
                             /* Continue calc using old digested value for p_uUseed */
-                            l_bRes = (*(p_ptCtx->p_fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uLastDigVal, p_puData, p_uDataL, &l_uC32 );
+                            l_bRes = (*(p_ptCtx->fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uLastDigVal, p_puData, p_uDataL, &l_uC32 );
 
                             if( true == l_bRes )
                             {
@@ -279,7 +279,7 @@ static bool_t eCU_CRCD_IsStatusStillCoherent(const t_eCU_CRCD_Ctx* p_ptCtx)
     bool_t l_eRes;
 
 	/* Check context validity */
-	if( ( NULL == p_ptCtx->p_fCrc ) || ( NULL == p_ptCtx->ptCrcCtx ) )
+	if( ( NULL == p_ptCtx->fCrc ) || ( NULL == p_ptCtx->ptCrcCtx ) )
 	{
 		l_eRes = false;
 	}

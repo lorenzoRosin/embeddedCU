@@ -271,10 +271,10 @@ static void eCU_TEST_dataUnPackBadInit(void)
     bool_t l_isInit;
 
     /* Init variable */
-    l_ctx.isInit = true;
+    l_ctx.bIsInit = true;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 1  -- OK \n");
     }
@@ -284,9 +284,9 @@ static void eCU_TEST_dataUnPackBadInit(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_StartNewFrame( &l_ctx, 1u ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_StartNewFrame( &l_ctx, 1u ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 2  -- OK \n");
     }
@@ -295,7 +295,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 2  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_GetUPkDataLocat( &l_ctx, &lp_tempPo, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_GetUPkDataLocat( &l_ctx, &lp_tempPo, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 3  -- OK \n");
     }
@@ -304,7 +304,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 4  -- OK \n");
     }
@@ -313,7 +313,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_GetRemToPop( &l_ctx, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_GetRemToPop( &l_ctx, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 5  -- OK \n");
     }
@@ -322,7 +322,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_PopArray( &l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool) ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_PopArray( &l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool) ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 6  -- OK \n");
     }
@@ -331,7 +331,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 7  -- OK \n");
     }
@@ -340,7 +340,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 8  -- OK \n");
     }
@@ -349,7 +349,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 8  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 9  -- OK \n");
     }
@@ -358,7 +358,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 9  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
+    if( e_eCU_DUNPK_RES_NOINITLIB == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInit 10 -- OK \n");
     }
@@ -367,7 +367,7 @@ static void eCU_TEST_dataUnPackBadInit(void)
         (void)printf("eCU_TEST_dataUnPackBadInit 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_IsInit( &l_ctx, &l_isInit ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_IsInit( &l_ctx, &l_isInit ) )
     {
         if( false == l_isInit )
         {
@@ -396,10 +396,10 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
     bool_t l_isInit;
 
     /* Init variable */
-    l_ctx.isInit = true;
+    l_ctx.bIsInit = true;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 1  -- OK \n");
     }
@@ -408,7 +408,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 1  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITFRAME == eCU_DUNPK_RestartCurrentUnpack( &l_ctx  ) )
+    if( e_eCU_DUNPK_RES_NOINITFRAME == eCU_DUNPK_RestartCurrentUnpack( &l_ctx  ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 2  -- OK \n");
     }
@@ -417,7 +417,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 2  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITFRAME == eCU_DUNPK_GetRemToPop( &l_ctx, &l_varTemp32  ) )
+    if( e_eCU_DUNPK_RES_NOINITFRAME == eCU_DUNPK_GetRemToPop( &l_ctx, &l_varTemp32  ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 3  -- OK \n");
     }
@@ -426,7 +426,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopArray( &l_ctx, la_badPointerMempool, 2u  ) )
+    if( e_eCU_DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopArray( &l_ctx, la_badPointerMempool, 2u  ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 4  -- OK \n");
     }
@@ -435,7 +435,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8  ) )
+    if( e_eCU_DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8  ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 5  -- OK \n");
     }
@@ -444,7 +444,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16  ) )
+    if( e_eCU_DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16  ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 6  -- OK \n");
     }
@@ -453,7 +453,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32  ) )
+    if( e_eCU_DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32  ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 7  -- OK \n");
     }
@@ -462,7 +462,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64  ) )
+    if( e_eCU_DUNPK_RES_NOINITFRAME == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64  ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadInitSession 8  -- OK \n");
     }
@@ -471,7 +471,7 @@ static void eCU_TEST_dataUnPackBadInitSession(void)
         (void)printf("eCU_TEST_dataUnPackBadInitSession 8  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_IsInit( &l_ctx, &l_isInit ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_IsInit( &l_ctx, &l_isInit ) )
     {
         if( true == l_isInit )
         {
@@ -495,11 +495,11 @@ static void eCU_TEST_dataUnPackBadParamEntr(void)
     uint8_t  la_badPointerMempool[5u];
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
     (void)memset(la_badPointerMempool, 0, sizeof(la_badPointerMempool));
 
     /* Function */
-    if( DUNPK_RES_BADPARAM == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, 0u, true) )
+    if( e_eCU_DUNPK_RES_BADPARAM == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, 0u, true) )
     {
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 1  -- OK \n");
     }
@@ -508,7 +508,7 @@ static void eCU_TEST_dataUnPackBadParamEntr(void)
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 1  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 2  -- OK \n");
     }
@@ -517,7 +517,7 @@ static void eCU_TEST_dataUnPackBadParamEntr(void)
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 2  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPARAM == eCU_DUNPK_StartNewFrame( &l_ctx, 0u ) )
+    if( e_eCU_DUNPK_RES_BADPARAM == eCU_DUNPK_StartNewFrame( &l_ctx, 0u ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 3  -- OK \n");
     }
@@ -526,7 +526,7 @@ static void eCU_TEST_dataUnPackBadParamEntr(void)
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPARAM == eCU_DUNPK_StartNewFrame( &l_ctx, ( sizeof(la_badPointerMempool) + 1u ) ) )
+    if( e_eCU_DUNPK_RES_BADPARAM == eCU_DUNPK_StartNewFrame( &l_ctx, ( sizeof(la_badPointerMempool) + 1u ) ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 4  -- OK \n");
     }
@@ -535,7 +535,7 @@ static void eCU_TEST_dataUnPackBadParamEntr(void)
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame( &l_ctx, 2u ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame( &l_ctx, 2u ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 5  -- OK \n");
     }
@@ -544,7 +544,7 @@ static void eCU_TEST_dataUnPackBadParamEntr(void)
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_BADPARAM == eCU_DUNPK_PopArray( &l_ctx, la_badPointerMempool, 0u ) )
+    if( e_eCU_DUNPK_RES_BADPARAM == eCU_DUNPK_PopArray( &l_ctx, la_badPointerMempool, 0u ) )
     {
         (void)printf("eCU_TEST_dataUnPackBadParamEntr 6  -- OK \n");
     }
@@ -567,10 +567,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     uint64_t l_varTemp64;
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 1  -- OK \n");
     }
@@ -580,9 +580,9 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 2  -- OK \n");
     }
@@ -592,10 +592,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 3  -- OK \n");
     }
@@ -605,9 +605,9 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.p_memUPKA = NULL;
+    l_ctx.puMemUPK = NULL;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 4  -- OK \n");
     }
@@ -617,10 +617,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 5  -- OK \n");
     }
@@ -630,9 +630,9 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = l_ctx.memUPKASize + 1u;
+    l_ctx.uMemUPKFrameL = l_ctx.uMemUPKL + 1u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 6  -- OK \n");
     }
@@ -642,10 +642,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 7  -- OK \n");
     }
@@ -655,10 +655,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = l_ctx.memUPKASize - 2u;
-    l_ctx.memUPKACntr = l_ctx.memUPKAFrameSize + 1u;
+    l_ctx.uMemUPKFrameL = l_ctx.uMemUPKL - 2u;
+    l_ctx.uMemUPKCtr = l_ctx.uMemUPKFrameL + 1u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 8  -- OK \n");
     }
@@ -668,10 +668,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 9  -- OK \n");
     }
@@ -681,10 +681,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_GetUPkDataLocat( &l_ctx, &lp_tempPo, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_GetUPkDataLocat( &l_ctx, &lp_tempPo, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 10 -- OK \n");
     }
@@ -694,10 +694,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 11 -- OK \n");
     }
@@ -707,10 +707,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_RestartCurrentUnpack(&l_ctx) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_RestartCurrentUnpack(&l_ctx) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 12 -- OK \n");
     }
@@ -720,10 +720,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 13 -- OK \n");
     }
@@ -733,10 +733,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 14 -- OK \n");
     }
@@ -746,10 +746,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 15 -- OK \n");
     }
@@ -759,10 +759,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopArray(&l_ctx, la_badPointerMempool, 1u) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopArray(&l_ctx, la_badPointerMempool, 1u) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 16 -- OK \n");
     }
@@ -772,10 +772,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 17 -- OK \n");
     }
@@ -785,10 +785,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU8(&l_ctx, &l_varTemp8) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU8(&l_ctx, &l_varTemp8) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 18 -- OK \n");
     }
@@ -798,10 +798,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 19 -- OK \n");
     }
@@ -811,10 +811,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU16(&l_ctx, &l_varTemp16) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU16(&l_ctx, &l_varTemp16) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 20 -- OK \n");
     }
@@ -824,10 +824,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 21 -- OK \n");
     }
@@ -837,10 +837,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU32(&l_ctx, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU32(&l_ctx, &l_varTemp32) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 22 -- OK \n");
     }
@@ -850,10 +850,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 23 -- OK \n");
     }
@@ -863,10 +863,10 @@ static void eCU_TEST_dataUnPackCorruptContext(void)
     }
 
     /* Init variable */
-    l_ctx.memUPKAFrameSize = 1u;
-    l_ctx.memUPKASize = 0u;
+    l_ctx.uMemUPKFrameL = 1u;
+    l_ctx.uMemUPKL = 0u;
 
-    if( DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU64(&l_ctx, &l_varTemp64) )
+    if( e_eCU_DUNPK_RES_CORRUPTCTX == eCU_DUNPK_PopU64(&l_ctx, &l_varTemp64) )
     {
         (void)printf("eCU_TEST_dataUnPackCorruptContext 24 -- OK \n");
     }
@@ -889,11 +889,11 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     uint8_t* lp_tempPo;
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
     (void)memset(la_badPointerMempool, 0, sizeof(la_badPointerMempool));
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 1  -- OK \n");
     }
@@ -902,7 +902,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 1  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 9u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 9u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 2  -- OK \n");
     }
@@ -911,7 +911,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 2  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
     {
         if( ( la_badPointerMempool == lp_tempPo ) && ( sizeof(la_badPointerMempool) == l_varTemp32 ) )
         {
@@ -927,7 +927,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
     {
         if( sizeof(la_badPointerMempool) == l_varTemp32 )
         {
@@ -943,7 +943,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 5  -- OK \n");
     }
@@ -952,7 +952,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 5  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
     {
         if( ( la_badPointerMempool == lp_tempPo ) && ( sizeof(la_badPointerMempool) == l_varTemp32 ) )
         {
@@ -968,7 +968,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
     {
         if( 1u == l_varTemp32 )
         {
@@ -984,7 +984,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 8  -- OK \n");
     }
@@ -994,7 +994,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 7u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 7u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 9  -- OK \n");
     }
@@ -1003,7 +1003,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 9  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
     {
         if( ( la_badPointerMempool == lp_tempPo ) && ( sizeof(la_badPointerMempool) == l_varTemp32 ) )
         {
@@ -1019,7 +1019,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
     {
         if( 7u == l_varTemp32 )
         {
@@ -1035,7 +1035,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 11 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 12 -- OK \n");
     }
@@ -1044,7 +1044,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 12 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_varTemp32) )
     {
         if( ( la_badPointerMempool == lp_tempPo ) && ( sizeof(la_badPointerMempool) == l_varTemp32 ) )
         {
@@ -1060,7 +1060,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 13 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_varTemp32) )
     {
         if( 7u == l_varTemp32 )
         {
@@ -1077,7 +1077,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 5u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 5u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 15 -- OK \n");
     }
@@ -1086,7 +1086,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 15 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 16 -- OK \n");
     }
@@ -1095,7 +1095,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 16 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 17 -- OK \n");
     }
@@ -1105,7 +1105,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 3u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 3u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 18 -- OK \n");
     }
@@ -1114,7 +1114,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 18 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 19 -- OK \n");
     }
@@ -1124,7 +1124,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 3u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 3u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 20 -- OK \n");
     }
@@ -1133,7 +1133,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 20 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 21 -- OK \n");
     }
@@ -1142,7 +1142,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 21 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 22 -- OK \n");
     }
@@ -1152,7 +1152,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 23 -- OK \n");
     }
@@ -1161,7 +1161,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 23 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 24 -- OK \n");
     }
@@ -1171,7 +1171,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 25 -- OK \n");
     }
@@ -1180,7 +1180,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 25 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 26 -- OK \n");
     }
@@ -1189,7 +1189,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 26 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 27 -- OK \n");
     }
@@ -1199,7 +1199,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 6u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 6u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 28 -- OK \n");
     }
@@ -1208,7 +1208,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 28 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 5u ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 5u ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 29 -- OK \n");
     }
@@ -1217,7 +1217,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 29 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 5u ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 5u ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 30 -- OK \n");
     }
@@ -1226,7 +1226,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 30 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 31 -- OK \n");
     }
@@ -1235,7 +1235,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 31 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 32 -- OK \n");
     }
@@ -1245,7 +1245,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 33 -- OK \n");
     }
@@ -1254,7 +1254,7 @@ static void eCU_TEST_dataUnPackOutOfMem(void)
         (void)printf("eCU_TEST_dataUnPackOutOfMem 33 -- FAIL \n");
     }
 
-    if( DUNPK_RES_NODATA == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 2u ) )
+    if( e_eCU_DUNPK_RES_NODATA == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 2u ) )
     {
         (void)printf("eCU_TEST_dataUnPackOutOfMem 34 -- OK \n");
     }
@@ -1278,11 +1278,11 @@ static void eCU_TEST_dataUnPackEndianLe(void)
     uint8_t  l_varTemp8;
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
     (void)memset(la_badPointerMempool, 0, sizeof(la_badPointerMempool));
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianLe 1  -- OK \n");
     }
@@ -1292,7 +1292,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
     }
 
     la_badPointerMempool[0u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 1u) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianLe 2  -- OK \n");
     }
@@ -1302,7 +1302,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
     }
 
     la_badPointerMempool[0u] = 0xF1u;
-    if( DUNPK_RES_OK == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 1u ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 1u ) )
     {
         if( 0xF1u == la_pushPool[0u] )
         {
@@ -1319,7 +1319,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
     }
 
     la_badPointerMempool[0u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx  ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx  ) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianLe 4  -- OK \n");
     }
@@ -1328,7 +1328,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
         (void)printf("eCU_TEST_dataUnPackEndianLe 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
     {
         if( 0x12u == l_varTemp8 )
         {
@@ -1346,7 +1346,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
 
     la_badPointerMempool[0u] = 0x34u;
     la_badPointerMempool[1u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 4u) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianLe 6  -- OK \n");
     }
@@ -1355,7 +1355,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
         (void)printf("eCU_TEST_dataUnPackEndianLe 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         if( 0x1234u == l_varTemp16 )
         {
@@ -1375,7 +1375,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
     la_badPointerMempool[1u] = 0x56u;
     la_badPointerMempool[2u] = 0x34u;
     la_badPointerMempool[3u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianLe 8  -- OK \n");
     }
@@ -1384,7 +1384,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
         (void)printf("eCU_TEST_dataUnPackEndianLe 8  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
     {
         if( 0x12345678u == l_varTemp32 )
         {
@@ -1408,7 +1408,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
     la_badPointerMempool[5u] = 0x56u;
     la_badPointerMempool[6u] = 0x34u;
     la_badPointerMempool[7u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 8u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 8u) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianLe 10 -- OK \n");
     }
@@ -1417,11 +1417,11 @@ static void eCU_TEST_dataUnPackEndianLe(void)
         (void)printf("eCU_TEST_dataUnPackEndianLe 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_remtoPop) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_remtoPop) )
     {
         if( 0x08u == l_remtoPop )
         {
-            if( DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_remtoPop) )
+            if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_remtoPop) )
             {
                 if( ( sizeof(la_badPointerMempool) == l_remtoPop ) && ( la_badPointerMempool == lp_tempPo ) )
                 {
@@ -1447,7 +1447,7 @@ static void eCU_TEST_dataUnPackEndianLe(void)
         (void)printf("eCU_TEST_dataUnPackEndianLe 11 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
     {
         if( 0x123456789ABCDEF0UL == l_varTemp64 )
         {
@@ -1478,10 +1478,10 @@ static void eCU_TEST_dataUnPackEndianBe(void)
     uint8_t  l_varTemp8;
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), false) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), false) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianBe 1  -- OK \n");
     }
@@ -1491,7 +1491,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
     }
 
     la_badPointerMempool[0u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 20u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 20u) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianBe 2  -- OK \n");
     }
@@ -1501,7 +1501,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
     }
 
     la_badPointerMempool[0u] = 0xF1u;
-    if( DUNPK_RES_OK == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 1u ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopArray( &l_ctx, la_pushPool, 1u ) )
     {
         if( 0xF1u == la_pushPool[0u] )
         {
@@ -1518,7 +1518,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
     }
 
     la_badPointerMempool[0u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianBe 4  -- OK \n");
     }
@@ -1527,7 +1527,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
         (void)printf("eCU_TEST_dataUnPackEndianBe 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU8( &l_ctx, &l_varTemp8 ) )
     {
         if( 0x12u == l_varTemp8 )
         {
@@ -1545,7 +1545,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
 
     la_badPointerMempool[0u] = 0x12u;
     la_badPointerMempool[1u] = 0x34u;
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianBe 6  -- OK \n");
     }
@@ -1554,7 +1554,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
         (void)printf("eCU_TEST_dataUnPackEndianBe 6  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         if( 0x1234u == l_varTemp16 )
         {
@@ -1574,7 +1574,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
     la_badPointerMempool[1u] = 0x34u;
     la_badPointerMempool[2u] = 0x56u;
     la_badPointerMempool[3u] = 0x78u;
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianBe 8  -- OK \n");
     }
@@ -1583,7 +1583,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
         (void)printf("eCU_TEST_dataUnPackEndianBe 8  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU32( &l_ctx, &l_varTemp32 ) )
     {
         if( 0x12345678u == l_varTemp32 )
         {
@@ -1608,7 +1608,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
     la_badPointerMempool[6u] = 0xDEu;
     la_badPointerMempool[7u] = 0xF0u;
 
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackEndianBe 10 -- OK \n");
     }
@@ -1617,11 +1617,11 @@ static void eCU_TEST_dataUnPackEndianBe(void)
         (void)printf("eCU_TEST_dataUnPackEndianBe 10 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_remtoPop) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_remtoPop) )
     {
         if( 0x14u == l_remtoPop )
         {
-            if( DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_remtoPop) )
+            if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_remtoPop) )
             {
                 if( ( 0x14u == l_remtoPop ) && ( la_badPointerMempool == lp_tempPo ) )
                 {
@@ -1647,7 +1647,7 @@ static void eCU_TEST_dataUnPackEndianBe(void)
         (void)printf("eCU_TEST_dataUnPackEndianBe 11 -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU64( &l_ctx, &l_varTemp64 ) )
     {
         if( 0x123456789ABCDEF0UL == l_varTemp64 )
         {
@@ -1674,10 +1674,10 @@ static void eCU_TEST_dataUnPackCycle(void)
     uint8_t* lp_tempPo;
 
     /* Init variable */
-    l_ctx.isInit = false;
+    l_ctx.bIsInit = false;
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_InitCtx(&l_ctx, la_badPointerMempool, sizeof(la_badPointerMempool), true) )
     {
         (void)printf("eCU_TEST_dataUnPackCycle 1  -- OK \n");
     }
@@ -1686,7 +1686,7 @@ static void eCU_TEST_dataUnPackCycle(void)
         (void)printf("eCU_TEST_dataUnPackCycle 1  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 20u) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_StartNewFrame(&l_ctx, 20u) )
     {
         (void)printf("eCU_TEST_dataUnPackCycle 2  -- OK \n");
     }
@@ -1699,7 +1699,7 @@ static void eCU_TEST_dataUnPackCycle(void)
     la_badPointerMempool[1u] = 0x56u;
     la_badPointerMempool[2u] = 0x34u;
     la_badPointerMempool[3u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackCycle 3  -- OK \n");
     }
@@ -1708,15 +1708,15 @@ static void eCU_TEST_dataUnPackCycle(void)
         (void)printf("eCU_TEST_dataUnPackCycle 3  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         if( 0x5678u == l_varTemp16 )
         {
-            if( DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_remtoPop) )
+            if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetRemToPop(&l_ctx, &l_remtoPop) )
             {
                 if( 0x12u == l_remtoPop )
                 {
-                    if( DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_remtoPop) )
+                    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_GetUPkDataLocat(&l_ctx, &lp_tempPo, &l_remtoPop) )
                     {
                         if( ( sizeof(la_badPointerMempool) == l_remtoPop ) && ( la_badPointerMempool == lp_tempPo ) )
                         {
@@ -1752,7 +1752,7 @@ static void eCU_TEST_dataUnPackCycle(void)
         (void)printf("eCU_TEST_dataUnPackCycle 4  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         if( 0x1234u == l_varTemp16 )
         {
@@ -1769,7 +1769,7 @@ static void eCU_TEST_dataUnPackCycle(void)
     }
 
     /* Function */
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackCycle 6  -- OK \n");
     }
@@ -1782,7 +1782,7 @@ static void eCU_TEST_dataUnPackCycle(void)
     la_badPointerMempool[1u] = 0x56u;
     la_badPointerMempool[2u] = 0x34u;
     la_badPointerMempool[3u] = 0x12u;
-    if( DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_RestartCurrentUnpack( &l_ctx ) )
     {
         (void)printf("eCU_TEST_dataUnPackCycle 7  -- OK \n");
     }
@@ -1791,7 +1791,7 @@ static void eCU_TEST_dataUnPackCycle(void)
         (void)printf("eCU_TEST_dataUnPackCycle 7  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         if( 0x5678u == l_varTemp16 )
         {
@@ -1807,7 +1807,7 @@ static void eCU_TEST_dataUnPackCycle(void)
         (void)printf("eCU_TEST_dataUnPackCycle 8  -- FAIL \n");
     }
 
-    if( DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
+    if( e_eCU_DUNPK_RES_OK == eCU_DUNPK_PopU16( &l_ctx, &l_varTemp16 ) )
     {
         if( 0x1234u == l_varTemp16 )
         {

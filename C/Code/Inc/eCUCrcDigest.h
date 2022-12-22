@@ -55,7 +55,7 @@ typedef struct
     uint32_t uBaseSeed;
 	uint32_t uDigestedTimes;
     uint32_t uLastDigVal;
-    f_eCU_CRCD_CrcCb p_fCrc;
+    f_eCU_CRCD_CrcCb fCrc;
     t_eCU_CRCD_CrcCtx* ptCrcCtx;
 }t_eCU_CRCD_Ctx;
 
@@ -74,7 +74,7 @@ typedef struct
  * @return      e_eCU_CRCD_RES_BADPOINTER     - In case of bad pointer passed to the function
  *              e_eCU_CRCD_RES_OK             - Crc digester initialized successfully
  */
-e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb p_fCrc, 
+e_eCU_CRCD_RES eCU_CRCD_InitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, f_eCU_CRCD_CrcCb p_fCrc,
                                 t_eCU_CRCD_CrcCtx* const p_ptFctx);
 
 /**
