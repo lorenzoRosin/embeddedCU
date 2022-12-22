@@ -58,7 +58,7 @@ e_eCU_CRCD_RES eCU_CRCD_SeedInitCtx(t_eCU_CRCD_Ctx* const p_ptCtx, const uint32_
 	e_eCU_CRCD_RES l_eRes;
 
 	/* Check pointer validity */
-	if( ( NULL == p_ptCtx) || ( NULL ==  p_fCrc) || ( NULL ==  p_ptFctx))
+	if( ( NULL == p_ptCtx) || ( NULL ==  p_fCrc) || ( NULL ==  p_ptFctx) )
 	{
 		l_eRes = e_eCU_CRCD_RES_BADPOINTER;
 	}
@@ -141,6 +141,7 @@ e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ptCtx, const uint8_t* p_p
 	e_eCU_CRCD_RES l_eRes;
     uint32_t l_uC32;
     bool_t l_bRes;
+    f_eCU_CRCD_CrcCb l_fCb;
 
 	/* Check pointer validity */
 	if( ( NULL == p_ptCtx ) || ( NULL == p_puData ) )
@@ -181,7 +182,8 @@ e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ptCtx, const uint8_t* p_p
                         if( 0u >= p_ptCtx->uDigestedTimes )
                         {
                             /* Use base p_uUseed for the first time */
-                            l_bRes = (*(p_ptCtx->fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uBaseSeed, p_puData, p_uDataL, &l_uC32 );
+                            l_fCb = p_ptCtx->fCrc;
+                            l_bRes = (*(l_fCb))( p_ptCtx->ptCrcCtx, p_ptCtx->uBaseSeed, p_puData, p_uDataL, &l_uC32 );
 
                             if( true == l_bRes )
                             {
@@ -197,7 +199,8 @@ e_eCU_CRCD_RES eCU_CRCD_Digest(t_eCU_CRCD_Ctx* const p_ptCtx, const uint8_t* p_p
                         else
                         {
                             /* Continue calc using old digested value for p_uUseed */
-                            l_bRes = (*(p_ptCtx->fCrc))( p_ptCtx->ptCrcCtx, p_ptCtx->uLastDigVal, p_puData, p_uDataL, &l_uC32 );
+                            l_fCb = p_ptCtx->fCrc;
+                            l_bRes = (*(l_fCb))( p_ptCtx->ptCrcCtx, p_ptCtx->uLastDigVal, p_puData, p_uDataL, &l_uC32 );
 
                             if( true == l_bRes )
                             {

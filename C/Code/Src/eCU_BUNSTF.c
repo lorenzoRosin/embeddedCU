@@ -310,8 +310,6 @@ e_eCU_BUNSTF_RES eCU_BUNSTF_IsFrameBad(const t_eCU_BUNSTF_Ctx* p_ptCtx, bool_t* 
 	return l_eRes;
 }
 
-
-
 e_eCU_BUNSTF_RES eCU_BUNSTF_InsStufChunk(t_eCU_BUNSTF_Ctx* const p_ptCtx, const uint8_t* p_puStuffBuf,
                                          const uint32_t p_uStuffBufL, uint32_t* const p_puConsumedBufL)
 {

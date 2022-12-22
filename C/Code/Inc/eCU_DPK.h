@@ -137,7 +137,7 @@ e_eCU_DPK_RES eCU_DPK_PushArray(t_eCU_DPK_Ctx* const p_ptCtx, uint8_t* p_puData,
  * @brief       Push one byte in data packer
  *
  * @param[in]   p_ptCtx         - Data packer context
- * @param[in]   p_uDataToPush   - Data to push in data packer
+ * @param[in]   p_uData         - Data to push in data packer
  *
  * @return      e_eCU_DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        e_eCU_DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
@@ -145,13 +145,13 @@ e_eCU_DPK_RES eCU_DPK_PushArray(t_eCU_DPK_Ctx* const p_ptCtx, uint8_t* p_puData,
  *              e_eCU_DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              e_eCU_DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_DPK_RES eCU_DPK_PushU8(t_eCU_DPK_Ctx* const p_ptCtx, const uint8_t p_uDataToPush);
+e_eCU_DPK_RES eCU_DPK_PushU8(t_eCU_DPK_Ctx* const p_ptCtx, const uint8_t p_uData);
 
 /**
  * @brief       Push 2 byte in data packer
  *
  * @param[in]   p_ptCtx           - Data packer context
- * @param[in]   p_uDataToPush     - Data to push in data packer
+ * @param[in]   p_uData           - Data to push in data packer
  *
  * @return      e_eCU_DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        e_eCU_DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
@@ -159,13 +159,13 @@ e_eCU_DPK_RES eCU_DPK_PushU8(t_eCU_DPK_Ctx* const p_ptCtx, const uint8_t p_uData
  *              e_eCU_DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              e_eCU_DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_DPK_RES eCU_DPK_PushU16(t_eCU_DPK_Ctx* const p_ptCtx, const uint16_t p_uDataToPush);
+e_eCU_DPK_RES eCU_DPK_PushU16(t_eCU_DPK_Ctx* const p_ptCtx, const uint16_t p_uData);
 
 /**
  * @brief       Push 4 byte in data packer
  *
  * @param[in]   p_ptCtx           - Data packer context
- * @param[in]   p_uDataToPush     - Data to push in data packer
+ * @param[in]   p_uData           - Data to push in data packer
  *
  * @return      e_eCU_DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        e_eCU_DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
@@ -173,13 +173,13 @@ e_eCU_DPK_RES eCU_DPK_PushU16(t_eCU_DPK_Ctx* const p_ptCtx, const uint16_t p_uDa
  *              e_eCU_DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              e_eCU_DPK_RES_OK           - Operation ended correctly
  */
-e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uDataToPush);
+e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uData);
 
 /**
  * @brief       Push 8 byte in data packer
  *
  * @param[in]   p_ptCtx           - Data packer context
- * @param[in]   p_uDataToPush     - Data to push in data packer
+ * @param[in]   p_uData           - Data to push in data packer
  *
  * @return      e_eCU_DPK_RES_BADPOINTER   - In case of bad pointer passed to the function
  *		        e_eCU_DPK_RES_NOINITLIB    - Need to init the data packer before taking some action
@@ -187,7 +187,7 @@ e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uDa
  *              e_eCU_DPK_RES_OUTOFMEM     - Not enought memory to push other data
  *              e_eCU_DPK_RES_OK           - Operation ended correctly
  */
- e_eCU_DPK_RES eCU_DPK_PushU64(t_eCU_DPK_Ctx* const p_ptCtx, const uint64_t p_uDataToPush);
+ e_eCU_DPK_RES eCU_DPK_PushU64(t_eCU_DPK_Ctx* const p_ptCtx, const uint64_t p_uData);
 
 
 

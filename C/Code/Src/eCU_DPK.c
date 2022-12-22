@@ -239,7 +239,7 @@ e_eCU_DPK_RES eCU_DPK_PushArray(t_eCU_DPK_Ctx* const p_ptCtx, uint8_t* p_puData,
 	return l_eRes;
 }
 
-e_eCU_DPK_RES eCU_DPK_PushU8(t_eCU_DPK_Ctx* const p_ptCtx, const uint8_t p_uDataToPush)
+e_eCU_DPK_RES eCU_DPK_PushU8(t_eCU_DPK_Ctx* const p_ptCtx, const uint8_t p_uData)
 {
 	/* Local variable */
 	e_eCU_DPK_RES l_eRes;
@@ -274,7 +274,7 @@ e_eCU_DPK_RES eCU_DPK_PushU8(t_eCU_DPK_Ctx* const p_ptCtx, const uint8_t p_uData
                 else
                 {
                     /* Copy data */
-                    p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = p_uDataToPush;
+                    p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = p_uData;
 
                     /* Update index */
                     p_ptCtx->uMemPKCtr++;
@@ -288,7 +288,7 @@ e_eCU_DPK_RES eCU_DPK_PushU8(t_eCU_DPK_Ctx* const p_ptCtx, const uint8_t p_uData
 	return l_eRes;
 }
 
-e_eCU_DPK_RES eCU_DPK_PushU16(t_eCU_DPK_Ctx* const p_ptCtx, const uint16_t p_uDataToPush)
+e_eCU_DPK_RES eCU_DPK_PushU16(t_eCU_DPK_Ctx* const p_ptCtx, const uint16_t p_uData)
 {
 	/* Local variable */
 	e_eCU_DPK_RES l_eRes;
@@ -325,17 +325,17 @@ e_eCU_DPK_RES eCU_DPK_PushU16(t_eCU_DPK_Ctx* const p_ptCtx, const uint16_t p_uDa
                     if( true == p_ptCtx->bIsLE)
                     {
                         /* Copy data Little endian */
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush        ) & 0x00FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData        ) & 0x00FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 8u  ) & 0x00FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 8u  ) & 0x00FFu );
                         p_ptCtx->uMemPKCtr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 8u  ) & 0x00FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 8u  ) & 0x00FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush        ) & 0x00FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData        ) & 0x00FFu );
                         p_ptCtx->uMemPKCtr++;
                     }
 
@@ -348,7 +348,7 @@ e_eCU_DPK_RES eCU_DPK_PushU16(t_eCU_DPK_Ctx* const p_ptCtx, const uint16_t p_uDa
 	return l_eRes;
 }
 
-e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uDataToPush)
+e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uData)
 {
 	/* Local variable */
 	e_eCU_DPK_RES l_eRes;
@@ -385,25 +385,25 @@ e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uDa
                     if( true == p_ptCtx->bIsLE)
                     {
                         /* Copy data Little endian */
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush        ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData        ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 8u  ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 8u  ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 16u ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 16u ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 24u ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 24u ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 24u ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 24u ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 16u ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 16u ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 8u  ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 8u  ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush        ) & 0x000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData        ) & 0x000000FFu );
                         p_ptCtx->uMemPKCtr++;
                     }
 
@@ -416,7 +416,7 @@ e_eCU_DPK_RES eCU_DPK_PushU32(t_eCU_DPK_Ctx* const p_ptCtx, const uint32_t p_uDa
 	return l_eRes;
 }
 
-e_eCU_DPK_RES eCU_DPK_PushU64(t_eCU_DPK_Ctx* const p_ptCtx, const uint64_t p_uDataToPush)
+e_eCU_DPK_RES eCU_DPK_PushU64(t_eCU_DPK_Ctx* const p_ptCtx, const uint64_t p_uData)
 {
 	/* Local variable */
 	e_eCU_DPK_RES l_eRes;
@@ -453,41 +453,41 @@ e_eCU_DPK_RES eCU_DPK_PushU64(t_eCU_DPK_Ctx* const p_ptCtx, const uint64_t p_uDa
                     if( true == p_ptCtx->bIsLE)
                     {
                         /* Copy data Little endian */
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush        ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData        ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 8u  ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 8u  ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 16u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 16u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 24u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 24u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 32u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 32u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 40u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 40u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 48u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 48u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 56u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 56u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
                     }
                     else
                     {
                         /* Copy data big endian */
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 56u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 56u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 48u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 48u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 40u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 40u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 32u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 32u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 24u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 24u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 16u ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 16u ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush >> 8u  ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData >> 8u  ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
-                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uDataToPush        ) & 0x00000000000000FFu );
+                        p_ptCtx->puMemPK[p_ptCtx->uMemPKCtr] = (uint8_t) ( ( p_uData        ) & 0x00000000000000FFu );
                         p_ptCtx->uMemPKCtr++;
                     }
 

@@ -336,7 +336,8 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
 {
 	/* Local variable */
 	e_eCU_BSTF_RES l_eRes;
-    uint32_t l_uNFillByte;
+    uint32_t l_uNFillB;
+    uint8_t l_uPrecB;
 
 	/* Check pointer validity */
 	if( ( NULL == p_ptCtx ) || ( NULL == p_puStuffedBuf ) || ( NULL == p_puGettedL ) )
@@ -374,11 +375,11 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
                     else
                     {
                         /* Init counter */
-                        l_uNFillByte = 0u;
+                        l_uNFillB = 0u;
 						l_eRes = e_eCU_BSTF_RES_OK;
 
                         /* Execute parsing cycle */
-                        while( ( l_uNFillByte < p_uMaxBufL ) &&
+                        while( ( l_uNFillB < p_uMaxBufL ) &&
 						       ( e_eCU_BSTFPRV_SM_STUFFEND != p_ptCtx->eSM ) &&
 							   ( e_eCU_BSTF_RES_OK == l_eRes ) )
                         {
@@ -387,8 +388,8 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
                                 case e_eCU_BSTFPRV_SM_NEEDSOF :
                                 {
                                     /* Start of frame */
-                                    p_puStuffedBuf[l_uNFillByte] = ECU_SOF;
-                                    l_uNFillByte++;
+                                    p_puStuffedBuf[l_uNFillB] = ECU_SOF;
+                                    l_uNFillB++;
                                     p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDRAWDATA;
 
                                     break;
@@ -407,32 +408,32 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
                                         if( ECU_SOF == p_ptCtx->puBuff[p_ptCtx->uFrameCtr] )
                                         {
                                             /* Stuff with escape */
-                                            p_puStuffedBuf[l_uNFillByte] = ECU_ESC;
+                                            p_puStuffedBuf[l_uNFillB] = ECU_ESC;
                                             p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
-                                            l_uNFillByte++;
+                                            l_uNFillB++;
                                             p_ptCtx->uFrameCtr++;
                                         }
                                         else if( ECU_EOF == p_ptCtx->puBuff[p_ptCtx->uFrameCtr] )
                                         {
                                             /* Stuff with escape */
-                                            p_puStuffedBuf[l_uNFillByte] = ECU_ESC;
+                                            p_puStuffedBuf[l_uNFillB] = ECU_ESC;
                                             p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
-                                            l_uNFillByte++;
+                                            l_uNFillB++;
                                             p_ptCtx->uFrameCtr++;
                                         }
                                         else if( ECU_ESC == p_ptCtx->puBuff[p_ptCtx->uFrameCtr] )
                                         {
                                             /* Stuff with escape */
-                                            p_puStuffedBuf[l_uNFillByte] = ECU_ESC;
+                                            p_puStuffedBuf[l_uNFillB] = ECU_ESC;
                                             p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA;
-                                            l_uNFillByte++;
+                                            l_uNFillB++;
                                             p_ptCtx->uFrameCtr++;
                                         }
                                         else
                                         {
                                             /* Can insert data and continue parsing other raw data */
-                                            p_puStuffedBuf[l_uNFillByte] = p_ptCtx->puBuff[p_ptCtx->uFrameCtr];
-                                            l_uNFillByte++;
+                                            p_puStuffedBuf[l_uNFillB] = p_ptCtx->puBuff[p_ptCtx->uFrameCtr];
+                                            l_uNFillB++;
                                             p_ptCtx->uFrameCtr++;
                                         }
                                     }
@@ -443,8 +444,9 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
                                 case e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA :
                                 {
                                     /* Something from an old iteration  */
-                                    p_puStuffedBuf[l_uNFillByte] = ( (uint8_t) ~( p_ptCtx->puBuff[p_ptCtx->uFrameCtr - 1u] ) );
-                                    l_uNFillByte++;
+                                    l_uPrecB = p_ptCtx->puBuff[p_ptCtx->uFrameCtr - 1u];
+                                    p_puStuffedBuf[l_uNFillB] = ( (uint8_t) ~( l_uPrecB ) );
+                                    l_uNFillB++;
 
                                     /* After this we can continue parsing raw data */
                                     p_ptCtx->eSM = e_eCU_BSTFPRV_SM_NEEDRAWDATA;
@@ -455,9 +457,9 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
                                 case e_eCU_BSTFPRV_SM_NEEDEOF :
                                 {
                                     /* End of frame */
-                                    p_puStuffedBuf[l_uNFillByte] = ECU_EOF;
+                                    p_puStuffedBuf[l_uNFillB] = ECU_EOF;
                                     p_ptCtx->eSM = e_eCU_BSTFPRV_SM_STUFFEND;
-                                    l_uNFillByte++;
+                                    l_uNFillB++;
 
                                     break;
                                 }
@@ -472,7 +474,7 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
                         }
 
 						/* Save counter */
-						*p_puGettedL = l_uNFillByte;
+						*p_puGettedL = l_uNFillB;
 
 						if( e_eCU_BSTF_RES_OK == l_eRes )
 						{
@@ -500,7 +502,7 @@ e_eCU_BSTF_RES eCU_BSTF_GetStufChunk(t_eCU_BSTF_Ctx* const p_ptCtx, uint8_t* p_p
 static bool_t eCU_BSTF_IsStatusStillCoherent(const t_eCU_BSTF_Ctx* p_ptCtx)
 {
     bool_t l_eRes;
-    uint8_t l_uPreceByte;
+    uint8_t l_uPrecB;
 
 	/* Check basic context validity */
 	if( ( p_ptCtx->uBuffL <= 0u ) || ( NULL == p_ptCtx->puBuff ) )
@@ -541,8 +543,8 @@ static bool_t eCU_BSTF_IsStatusStillCoherent(const t_eCU_BSTF_Ctx* p_ptCtx)
                         /* Check data coherence on precedent data */
                         if( e_eCU_BSTFPRV_SM_NEEDNEGATEPRECDATA == p_ptCtx->eSM )
                         {
-                            l_uPreceByte = p_ptCtx->puBuff[p_ptCtx->uFrameCtr - 1u];
-                            if( ( ECU_ESC != l_uPreceByte ) && ( ECU_EOF != l_uPreceByte ) && ( ECU_SOF != l_uPreceByte ) )
+                            l_uPrecB = p_ptCtx->puBuff[p_ptCtx->uFrameCtr - 1u];
+                            if( ( ECU_ESC != l_uPrecB ) && ( ECU_EOF != l_uPrecB ) && ( ECU_SOF != l_uPrecB ) )
                             {
                                 l_eRes = false;
                             }
