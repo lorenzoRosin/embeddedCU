@@ -1,5 +1,5 @@
 /**
- * @file       eCUByteUnStufferTest.c
+ * @file       eCU_BUSTFTST.c
  *
  * @brief      Byte unstuffer test
  *
@@ -10,7 +10,7 @@
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUByteUnStufferTest.h"
+#include "eCU_BUSTFTST.h"
 #include "eCU_BSTF.h"
 #include "eCU_BUNSTF.h"
 #include <stdio.h>

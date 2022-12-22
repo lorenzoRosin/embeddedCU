@@ -1,5 +1,5 @@
 /**
- * @file       eCUCircularQueueTest.c
+ * @file       eCU_CIRQTST.c
  *
  * @brief      Circular queue test
  *
@@ -10,7 +10,7 @@
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUCircularQueueTest.h"
+#include "eCU_CIRQTST.h"
 #include "eCU_CIRQ.h"
 #include <stdio.h>
 

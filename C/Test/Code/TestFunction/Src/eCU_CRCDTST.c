@@ -1,5 +1,5 @@
 /**
- * @file       eCUCrcDigestTest.c
+ * @file       eCU_CRCDTST.c
  *
  * @brief      CRC digest test
  *
@@ -10,7 +10,7 @@
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUCrcDigestTest.h"
+#include "eCU_CRCDTST.h"
 #include "eCU_CRCD.h"
 #include "eCU_CRC.h"
 #include <stdio.h>

@@ -1,5 +1,5 @@
 /**
- * @file       eCUByteStufferTest.c
+ * @file       eCU_BSTFTST.c
  *
  * @brief      Byte stuffer test
  *
@@ -10,7 +10,7 @@
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUByteStufferTest.h"
+#include "eCU_BSTFTST.h"
 #include "eCU_BSTF.h"
 #include <stdio.h>
 

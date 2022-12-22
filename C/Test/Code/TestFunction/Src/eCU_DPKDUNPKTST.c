@@ -1,5 +1,5 @@
 /**
- * @file       eCUDataPackUnPackTest.c
+ * @file       eCU_DPKDUNPKTST.c
  *
  * @brief      Data pack and unpack test
  *
@@ -10,7 +10,7 @@
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUDataPackUnPackTest.h"
+#include "eCU_DPKDUNPKTST.h"
 #include "eCU_DPK.h"
 #include "eCU_DUNPK.h"
 #include <stdio.h>

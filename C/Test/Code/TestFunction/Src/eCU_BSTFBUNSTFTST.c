@@ -1,5 +1,5 @@
 /**
- * @file       eCUDataStuffUnStuffTest.c
+ * @file       eCU_BSTFBUNSTFTST.c
  *
  * @brief      Data stuffer and unstuffer test
  *
@@ -10,7 +10,7 @@
 /***********************************************************************************************************************
  *      INCLUDES
  **********************************************************************************************************************/
-#include "eCUDataStuffUnStuffTest.h"
+#include "eCU_BSTFBUNSTFTST.h"
 #include "eCU_BSTF.h"
 #include "eCU_BUNSTF.h"
 #include <stdio.h>
