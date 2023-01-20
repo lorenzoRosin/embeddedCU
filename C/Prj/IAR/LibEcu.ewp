@@ -347,8 +347,15 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state>$PROJ_DIR$\..\..\..\Code\Inc</state>
-                    <state>$PROJ_DIR$\..\..\..\Code\Src</state>
+					<state>$PROJ_DIR$\..\..\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\ByteStuffing\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\Crc\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\Crc\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\DataPacking\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\DataPacking\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\Queue\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\Queue\Src</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1080,61 +1087,61 @@
     <group>
         <name>Inc</name>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_BSTF.h</name>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTF.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_BSTFPRV.h</name>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTFPRV.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_BUNSTF.h</name>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BUNSTF.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_BUNSTFPRV.h</name>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BUNSTFPRV.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_CIRQ.h</name>
+            <name>$PROJ_DIR$\..\..\Src\Queue\Inc\eCU_CIRQ.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_CRC.h</name>
+            <name>$PROJ_DIR$\..\..\Src\Crc\Inc\eCU_CRC.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_CRCD.h</name>
+            <name>$PROJ_DIR$\..\..\Src\Crc\Inc\eCU_CRCD.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_DPK.h</name>
+            <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DPK.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_DUNPK.h</name>
+            <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DUNPK.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_STANDARDTYPE.h</name>
+            <name>$PROJ_DIR$\..\..\Src\eCU_STANDARDTYPE.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Inc\eCU_TYPE.h</name>
+            <name>$PROJ_DIR$\..\..\Src\eCU_TYPE.h</name>
         </file>
     </group>
     <group>
         <name>Src</name>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Src\eCU_BSTF.c</name>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BSTF.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Src\eCU_BUNSTF.c</name>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BUNSTF.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Src\eCU_CIRQ.c</name>
+            <name>$PROJ_DIR$\..\..\Src\Queue\Src\eCU_CIRQ.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Src\eCU_CRC.c</name>
+            <name>$PROJ_DIR$\..\..\Src\Crc\Src\eCU_CRC.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Src\eCU_CRCD.c</name>
+            <name>$PROJ_DIR$\..\..\Src\Crc\Src\eCU_CRCD.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Src\eCU_DPK.c</name>
+            <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DPK.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\Code\Src\eCU_DUNPK.c</name>
+            <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DUNPK.c</name>
         </file>
     </group>
 </project>
