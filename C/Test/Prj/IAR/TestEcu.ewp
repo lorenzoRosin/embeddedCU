@@ -347,24 +347,23 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-					<state>$PROJ_DIR$\..\..\..\Src</state>
-					<state>$PROJ_DIR$\..\..\..\Src\ByteStuffing\Inc</state>
-					<state>$PROJ_DIR$\..\..\..\Src\ByteStuffing\Src</state>
-					<state>$PROJ_DIR$\..\..\..\Src\Crc\Inc</state>
-					<state>$PROJ_DIR$\..\..\..\Src\Crc\Src</state>					
-					<state>$PROJ_DIR$\..\..\..\Src\DataPacking\Inc</state>
-					<state>$PROJ_DIR$\..\..\..\Src\DataPacking\Src</state>					
-					<state>$PROJ_DIR$\..\..\..\Src\Queue\Inc</state>
-					<state>$PROJ_DIR$\..\..\..\Src\Queue\Src</state>					
-					<state>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc</state>
-					<state>$PROJ_DIR$\..\..\Src\ByteStuffing\Src</state>
-					<state>$PROJ_DIR$\..\..\Src\Crc\Inc</state>
-					<state>$PROJ_DIR$\..\..\Src\Crc\Src</state>					
-					<state>$PROJ_DIR$\..\..\Src\DataPacking\Inc</state>
-					<state>$PROJ_DIR$\..\..\Src\DataPacking\Src</state>					
-					<state>$PROJ_DIR$\..\..\Src\Queue\Inc</state>
-					<state>$PROJ_DIR$\..\..\Src\Queue\Src</state>
-                    
+                    <state>$PROJ_DIR$\..\..\..\Src</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\ByteStuffing\Inc</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\ByteStuffing\Src</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\Crc\Inc</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\Crc\Src</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\DataPacking\Inc</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\DataPacking\Src</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\Queue\Inc</state>
+                    <state>$PROJ_DIR$\..\..\..\Src\Queue\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\ByteStuffing\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\Crc\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\Crc\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\DataPacking\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\DataPacking\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src\Queue\Inc</state>
+                    <state>$PROJ_DIR$\..\..\Src\Queue\Src</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -822,7 +821,7 @@
                 </option>
                 <option>
                     <name>IlinkAdditionalLibs</name>
-                    <state>$PROJ_DIR$\..\LibEcu\Library\Exe\LibEcu.a
+                    <state>$PROJ_DIR$\..\..\..\Prj\IAR\Library\Exe\LibEcu.a
 </state>
                 </option>
                 <option>
@@ -1098,6 +1097,9 @@
     <group>
         <name>Inc</name>
         <file>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTFBUNSTFTST.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTFTST.h</name>
         </file>
         <file>
@@ -1113,13 +1115,10 @@
             <name>$PROJ_DIR$\..\..\Src\Crc\Inc\eCU_CRCTST.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DPKTST.h</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DPKDUNPKTST.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTFBUNSTFTST.h</name>
+            <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DPKTST.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DUNPKTST.h</name>
@@ -1127,6 +1126,9 @@
     </group>
     <group>
         <name>Src</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BSTFBUNSTFTST.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BSTFTST.c</name>
         </file>
@@ -1143,13 +1145,10 @@
             <name>$PROJ_DIR$\..\..\Src\Crc\Src\eCU_CRCTST.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DPKTST.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DPKDUNPKTST.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BSTFBUNSTFTST.c</name>
+            <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DPKTST.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DUNPKTST.c</name>
