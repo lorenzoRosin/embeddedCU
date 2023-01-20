@@ -347,7 +347,7 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-					<state>$PROJ_DIR$\..\..\Src</state>
+                    <state>$PROJ_DIR$\..\..\Src</state>
                     <state>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc</state>
                     <state>$PROJ_DIR$\..\..\Src\ByteStuffing\Src</state>
                     <state>$PROJ_DIR$\..\..\Src\Crc\Inc</state>
@@ -1074,7 +1074,7 @@
                 </option>
                 <option>
                     <name>IarchiveOutput</name>
-                    <state>C:\Project\embeddedCU\C\Test\Project\LibEcu\Library\Exe\LibEcu.a</state>
+                    <state>C:\Project\eCU\C\Prj\IAR\Library\Exe\LibEcu.a</state>
                 </option>
             </data>
         </settings>
@@ -1085,63 +1085,93 @@
         </settings>
     </configuration>
     <group>
-        <name>Inc</name>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTF.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTFPRV.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BUNSTF.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BUNSTFPRV.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\Queue\Inc\eCU_CIRQ.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\Crc\Inc\eCU_CRC.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\Crc\Inc\eCU_CRCD.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DPK.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DUNPK.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\eCU_STANDARDTYPE.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\eCU_TYPE.h</name>
-        </file>
+        <name>ByteStuffing</name>
+        <group>
+            <name>Inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTF.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BSTFPRV.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BUNSTF.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Inc\eCU_BUNSTFPRV.h</name>
+            </file>
+        </group>
+        <group>
+            <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BSTF.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BUNSTF.c</name>
+            </file>
+        </group>
     </group>
     <group>
-        <name>Src</name>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BSTF.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\ByteStuffing\Src\eCU_BUNSTF.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\Queue\Src\eCU_CIRQ.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\Crc\Src\eCU_CRC.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\Crc\Src\eCU_CRCD.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DPK.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DUNPK.c</name>
-        </file>
+        <name>Crc</name>
+        <group>
+            <name>Inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\Crc\Inc\eCU_CRC.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\Crc\Inc\eCU_CRCD.h</name>
+            </file>
+        </group>
+        <group>
+            <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\Crc\Src\eCU_CRC.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\Crc\Src\eCU_CRCD.c</name>
+            </file>
+        </group>
     </group>
+    <group>
+        <name>DataPacking</name>
+        <group>
+            <name>Inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DPK.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\DataPacking\Inc\eCU_DUNPK.h</name>
+            </file>
+        </group>
+        <group>
+            <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DPK.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\DataPacking\Src\eCU_DUNPK.c</name>
+            </file>
+        </group>
+    </group>
+    <group>
+        <name>Queue</name>
+        <group>
+            <name>Inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\Queue\Inc\eCU_CIRQ.h</name>
+            </file>
+        </group>
+        <group>
+            <name>Src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\Src\Queue\Src\eCU_CIRQ.c</name>
+            </file>
+        </group>
+    </group>
+    <file>
+        <name>$PROJ_DIR$\..\..\Src\eCU_STANDARDTYPE.h</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\..\Src\eCU_TYPE.h</name>
+    </file>
 </project>
